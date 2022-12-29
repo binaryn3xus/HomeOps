@@ -1,5 +1,4 @@
 terraform {
-
   required_providers {
     cloudflare = {
       source  = "cloudflare/cloudflare"
@@ -90,4 +89,17 @@ resource "cloudflare_record" "root" {
   proxied = true
   type    = "CNAME"
   ttl     = 1
+}
+
+resource "cloudflare_filter" "countries" {
+  zone_id     = lookup(data.cloudflare_zones.domain.zones[0], "id")
+  description = "Expression to block all countries except US, CA"
+  expression  = "(ip.geoip.country ne \"US\" and ip.geoip.country ne \"CA\")"
+}
+
+resource "cloudflare_firewall_rule" "countries" {
+  zone_id     = lookup(data.cloudflare_zones.domain.zones[0], "id")
+  description = "Firewall rule to block all countries except US and CA"
+  filter_id   = cloudflare_filter.countries.id
+  action      = "block"
 }
