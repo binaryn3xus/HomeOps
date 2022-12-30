@@ -119,7 +119,7 @@ My home IP can change at any given time and in order to keep my WAN IP address u
 Big shout out to all the authors and contributors to the projects that we are using in this repository.
 
 Community member [onedr0p](https://github.com/onedr0p/) for initially creating this amazing template and providing me with additional help.
-Community member [snoopy82481](https://github.com//home_cluster) for support in some of these projects within this repo.
+Community member [snoopy82481](https://github.com/snoopy82481/) for support in some of these projects within this repo.
 
 ---
 
