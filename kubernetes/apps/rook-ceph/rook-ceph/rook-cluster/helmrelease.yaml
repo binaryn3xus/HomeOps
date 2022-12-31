@@ -56,13 +56,13 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
-          - name: "fleetcom-node4-f392c51d"
+          - name: "fleetcom-node4"
             devices:
               - name: "nvme0n1"
-          - name: "fleetcom-node5-c7219a8e"
+          - name: "fleetcom-node5"
             devices:
               - name: "nvme0n1"
-          - name: "fleetcom-node6-14a8beb2"
+          - name: "fleetcom-node6"
             devices:
               - name: "nvme0n1"
     # cephBlockPoolsVolumeSnapshotClass:
