@@ -46,7 +46,7 @@ spec:
         enabled: true
         ingressClassName: "nginx"
         hosts:
-          - host: &host "audiobooks.${SECRET_PUBLIC_DOMAIN}"
+          - host: &host "audiobooks.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix

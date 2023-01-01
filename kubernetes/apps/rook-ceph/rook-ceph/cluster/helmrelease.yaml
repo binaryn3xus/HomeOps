@@ -37,7 +37,7 @@ spec:
           hajimari.io/appName: "Rook"
           hajimari.io/icon: mdi:chess-rook
         host:
-          name: &host rook.unscfleet.com
+          name: &host "rook.${SECRET_DOMAIN}"
           path: /
         tls:
           - hosts:
