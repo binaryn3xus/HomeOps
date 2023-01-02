@@ -42,6 +42,10 @@ spec:
       main:
         enabled: true
         ingressClassName: "nginx"
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-staging
+          external-dns.alpha.kubernetes.io/target: "audiobooks.${SECRET_DOMAIN}"
+          hajimari.io/icon: mdi:podcast
         hosts:
           - host: &host "audiobooks.${SECRET_DOMAIN}"
             paths:
@@ -50,6 +54,7 @@ spec:
         tls:
           - hosts:
               - *host
+            secretName: audiobookshelf-tls
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
