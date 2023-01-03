@@ -1,8 +1,9 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: sonarr
+  name: &app sonarr
   namespace: default
 spec:
   interval: 15m
@@ -33,9 +34,9 @@ spec:
       tag: 3.0.9.1549@sha256:cd2f0ed265c35baa3b4b1ed1fb0612231f24930d5b1c0165a176fe4fe4f6b126
     env:
       TZ: "${TIMEZONE}"
-      RADARR__INSTANCE_NAME: Sonarr
-      RADARR__PORT: &port 80
-      RADARR__LOG_LEVEL: info
+      SONARR__INSTANCE_NAME: Sonarr
+      SONARR__PORT: &port 80
+      SONARR__LOG_LEVEL: info
     service:
       main:
         ports:
