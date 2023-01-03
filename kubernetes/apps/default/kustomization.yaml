@@ -15,3 +15,4 @@ resources:
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
   - ./theme-park/ks.yaml
+  - ./uptimekuma/ks.yaml
