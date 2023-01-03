@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./audiobookshelf/ks.yaml
+  - ./bazarr/ks.yaml
   - ./echo-server/ks.yaml
   - ./hajimari/ks.yaml
