@@ -45,7 +45,7 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-production
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns.home.arpa/enabled: "true"
-          hajimari.io/icon: mdi:subtitles-outline
+          hajimari.io/icon: mdi:headphones
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
             sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.devbu.io/css/base/lidarr/space-gray.css"></head>';
@@ -81,7 +81,6 @@ spec:
         server: ${HOME_NAS_IP}
         path: /volume1/Media/
         mountPath: /media
-        readOnly: true
     resources:
       requests:
         cpu: 10m
