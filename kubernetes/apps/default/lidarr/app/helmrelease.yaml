@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: bazarr
+  name: lidarr
   namespace: default
 spec:
   interval: 15m
@@ -25,15 +25,18 @@ spec:
     controller:
       type: statefulset
     image:
-      repository: ghcr.io/onedr0p/bazarr
-      tag: 1.1.4@sha256:4f2361f0a92528ddcfa8831dc0625c1e2f67ddf1675f09b816c4c86618019a5b
+      repository: ghcr.io/onedr0p/lidarr
+      tag: 1.1.1.2762@sha256:bdc206db6d9684e854662910a1b3548af17c468eba3a8e6066503554d8988eb2
     env:
       TZ: "${TIMEZONE}"
+      LIDARR__INSTANCE_NAME: Lidarr
+      LIDARR__PORT: &port 80
+      LIDARR__LOG_LEVEL: info
     service:
       main:
         ports:
           http:
-            port: 6767
+            port: *port
     ingress:
       main:
         enabled: true
@@ -45,17 +48,17 @@ spec:
           hajimari.io/icon: mdi:subtitles-outline
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
-            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.devbu.io/css/base/bazarr/space-gray.css"></head>';
+            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.devbu.io/css/base/lidarr/space-gray.css"></head>';
             sub_filter_once on;
         hosts:
-          - host: &host "bazarr.${SECRET_DOMAIN}"
+          - host: &host "lidarr.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
               - *host
-            secretName: bazarr-tls
+            secretName: lidarr-tls
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
@@ -79,13 +82,9 @@ spec:
         path: /volume1/Media/
         mountPath: /media
         readOnly: true
-      cache:
-        enabled: true
-        mountPath: /.npm
-        type: emptyDir
     resources:
       requests:
-        cpu: 100m
-        memory: 100Mi
+        cpu: 10m
+        memory: 250Mi
       limits:
-        memory: 500Mi
+        memory: 2000Mi
