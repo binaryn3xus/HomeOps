@@ -14,6 +14,16 @@ kubectl get pods --all-namespaces --field-selector 'status.phase==Failed' -o jso
 kubectl scale deployment -n <namespace> --replicas 0 --all
 ```
 
+## Check flux-system KS
+```cli
+k get ks -A
+```
+
+## Check Flux HR
+```cli
+k get hr -A
+```
+
 ---
 
 ## SOPS
