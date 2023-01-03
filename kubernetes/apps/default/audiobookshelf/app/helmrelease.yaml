@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.2.0
+      version: 1.2.1
       sourceRef:
         kind: HelmRepository
-        name: bjw-s-charts
+        name: bjw-s
         namespace: flux-system
   install:
     createNamespace: true
@@ -21,9 +21,6 @@ spec:
   upgrade:
     remediation:
       retries: 5
-  dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
   values:
     controller:
       type: statefulset
@@ -45,14 +42,20 @@ spec:
       main:
         enabled: true
         ingressClassName: "nginx"
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns.home.arpa/enabled: "true"
+          hajimari.io/icon: mdi:podcast
         hosts:
-          - host: &host "audiobooks.${SECRET_PUBLIC_DOMAIN}"
+          - host: &host "audiobooks.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
               - *host
+            secretName: audiobookshelf-tls
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
