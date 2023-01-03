@@ -26,7 +26,7 @@ spec:
       type: statefulset
     image:
       repository: ghcr.io/onedr0p/bazarr
-      tag: 1.1.3
+      tag: 1.1.4@sha256:4f2361f0a92528ddcfa8831dc0625c1e2f67ddf1675f09b816c4c86618019a5b
     env:
       TZ: "${TIMEZONE}"
     service:
@@ -42,7 +42,7 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-production
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns.home.arpa/enabled: "true"
-          hajimari.io/icon: mdi:podcast
+          hajimari.io/icon: mdi:subtitles-outline
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
             sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.devbu.io/css/base/bazarr/nord.css"></head>';
