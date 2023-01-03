@@ -7,3 +7,4 @@ resources:
   - ./bazarr/ks.yaml
   - ./echo-server/ks.yaml
   - ./hajimari/ks.yaml
+  - ./lidarr/ks.yaml
