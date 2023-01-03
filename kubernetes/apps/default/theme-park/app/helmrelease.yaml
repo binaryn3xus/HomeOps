@@ -48,7 +48,7 @@ spec:
           external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "false"
         hosts:
-          - host: &host "tautulli.${SECRET_DOMAIN}"
+          - host: &host "theme-park.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
