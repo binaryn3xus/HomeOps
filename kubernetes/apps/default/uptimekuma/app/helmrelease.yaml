@@ -28,7 +28,7 @@ spec:
     keepHistory: false
   values:
     controller:
-      replicas: 3
+      replicas: 1
       strategy: RollingUpdate
     image:
       repository: docker.io/louislam/uptime-kuma
