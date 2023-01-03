@@ -32,7 +32,7 @@ spec:
       strategy: RollingUpdate
     image:
       repository: docker.io/louislam/uptime-kuma
-      tag: 1.19.2
+      tag: 1.19.3
     env:
       TZ: "${TIMEZONE}"
     service:
