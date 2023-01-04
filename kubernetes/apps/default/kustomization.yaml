@@ -8,6 +8,7 @@ resources:
   - ./echo-server/ks.yaml
   - ./hajimari/ks.yaml
   - ./lidarr/ks.yaml
+  - ./minio/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
