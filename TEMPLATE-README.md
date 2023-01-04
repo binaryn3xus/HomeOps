@@ -500,7 +500,7 @@ The benefits of a public repository include:
       apiVersion: source.toolkit.fluxcd.io/v1beta2
       kind: GitRepository
       metadata:
-        name: home-kubernetes
+        name: home-ops-kubernetes
         namespace: flux-system
       spec:
         interval: 10m
