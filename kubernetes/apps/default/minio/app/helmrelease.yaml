@@ -85,6 +85,7 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
           hajimari.io/icon: mdi:pail
         hosts:
           - host: &console-host "{{ .Release.Name }}.${SECRET_DOMAIN}"
@@ -96,10 +97,12 @@ spec:
         tls:
           - hosts:
               - *console-host
+            secretName: minio-main-tls
       s3:
         enabled: true
         ingressClassName: nginx
         annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
           external-dns.home.arpa/enabled: "true"
           nginx.ingress.kubernetes.io/proxy-connect-timeout: "180"
           nginx.ingress.kubernetes.io/proxy-body-size: 1024m
@@ -117,13 +120,12 @@ spec:
         tls:
           - hosts:
               - *api-host
+            secretName: minio-s3-tls
     podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
+      runAsUser: 1024
+      runAsGroup: 100
+      fsGroup: 100
       fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 100
     persistence:
       config:
         enabled: true
