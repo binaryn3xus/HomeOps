@@ -59,6 +59,14 @@ spec:
           - hosts:
               - *host
             secretName: uptime-kuma-tls
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /app/data
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        storageClass: ceph-block
+        labels:
+          snapshot.home.arpa/enabled: "true"
     resources:
       requests:
         cpu: 20m
