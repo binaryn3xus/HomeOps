@@ -28,6 +28,7 @@ spec:
     keepHistory: false
   values:
     controller:
+      type: statefulset
       replicas: 1
       strategy: RollingUpdate
     image:
