@@ -24,6 +24,11 @@ k get ks -A
 k get hr -A
 ```
 
+## Check all backups (volsync)
+```
+kubectl get replicationsources -A
+```
+
 ---
 
 ## SOPS

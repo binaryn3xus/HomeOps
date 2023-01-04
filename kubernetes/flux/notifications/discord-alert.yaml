@@ -15,5 +15,5 @@ spec:
     - kind: Kustomization
       name: '*'
   exclusionList:
-    #- "^Dependencies.*"
+    - "^Dependencies.*"
     - "^Namespace/flux-system configured.*"
