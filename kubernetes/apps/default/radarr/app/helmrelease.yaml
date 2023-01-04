@@ -26,7 +26,7 @@ spec:
       type: statefulset
     image:
       repository: ghcr.io/onedr0p/radarr
-      tag: 4.2.4.6635
+      tag: 4.3.2.6857
     env:
       TZ: "${TIMEZONE}"
       RADARR__INSTANCE_NAME: Radarr
@@ -49,7 +49,7 @@ spec:
           hajimari.io/icon: mdi:filmstrip
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
-            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.devbu.io/css/base/radarr/space-gray.css"></head>';
+            sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.unscfleet.com/css/base/radarr/space-gray.css"></head>';
             sub_filter_once on;
         hosts:
           - host: &host "radarr.${SECRET_DOMAIN}"
