@@ -29,6 +29,8 @@ spec:
           tag: v3.32.0@sha256:70e2b9fe66941d6de31419c3207b525293f2e6a92a3788869bb337a17e0e5ec8
 
         env:
+          - name: VPN_SERVICE_PROVIDER
+            value: mullvad
           - name: VPN_TYPE
             value: wireguard
           - name: VPN_INTERFACE
@@ -37,36 +39,36 @@ spec:
             value: "off"
           - name: DOT
             value: "off"
-          - name: VPN_SERVICE_PROVIDER
-            valueFrom:
-              secretKeyRef:
-                name: vpnconfig
-                key: VPN_SERVICE_PROVIDER
+
           - name: WIREGUARD_PRIVATE_KEY
             valueFrom:
               secretKeyRef:
                 name: vpnconfig
                 key: WIREGUARD_PRIVATE_KEY
-          - name: WIREGUARD_ADDRESSES
-            valueFrom:
-              secretKeyRef:
-                name: vpnconfig
-                key: WIREGUARD_ADDRESSES
-          - name: SERVER_CITIES
-            valueFrom:
-              secretKeyRef:
-                name: vpnconfig
-                key: SERVER_CITIES
-          - name: SERVER_COUNTRIES
-            valueFrom:
-              secretKeyRef:
-                name: vpnconfig
-                key: SERVER_COUNTRIES
-          - name: SERVER_HOSTNAMES
-            valueFrom:
-              secretKeyRef:
-                name: vpnconfig
-                key: SERVER_HOSTNAMES
+
+          # - name: WIREGUARD_ADDRESSES
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: vpnconfig
+          #       key: WIREGUARD_ADDRESSES
+
+          # - name: SERVER_CITIES
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: vpnconfig
+          #       key: SERVER_CITIES
+
+          # - name: SERVER_COUNTRIES
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: vpnconfig
+          #       key: SERVER_COUNTRIES
+
+          # - name: SERVER_HOSTNAMES
+          #   valueFrom:
+          #     secretKeyRef:
+          #       name: vpnconfig
+          #       key: SERVER_HOSTNAMES
 
         securityContext:
           capabilities:
