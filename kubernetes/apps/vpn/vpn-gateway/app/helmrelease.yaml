@@ -46,11 +46,11 @@ spec:
                 name: vpnconfig
                 key: WIREGUARD_PRIVATE_KEY
 
-          # - name: WIREGUARD_ADDRESSES
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: vpnconfig
-          #       key: WIREGUARD_ADDRESSES
+          - name: WIREGUARD_ADDRESSES
+            valueFrom:
+              secretKeyRef:
+                name: vpnconfig
+                key: WIREGUARD_ADDRESSES
 
           # - name: SERVER_CITIES
           #   valueFrom:
