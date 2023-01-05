@@ -6,4 +6,4 @@ namespace: downloads
 resources:
   - ./helmrelease.yaml
   - ./backups
-  - ./cronjobs
+  - ./cronjob
