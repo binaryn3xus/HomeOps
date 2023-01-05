@@ -4,7 +4,7 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
   name: qbittorrent
-  namespace: default
+  namespace: downloads
 spec:
   sourcePVC: config-qbittorrent-0
   trigger:
