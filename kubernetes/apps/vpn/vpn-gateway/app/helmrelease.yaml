@@ -22,7 +22,6 @@ spec:
 
     additionalContainers:
       gluetun:
-        type: gluetun
         image:
           repository: docker.io/qmcgaw/gluetun
           tag: v3.32.0@sha256:70e2b9fe66941d6de31419c3207b525293f2e6a92a3788869bb337a17e0e5ec8
@@ -67,7 +66,7 @@ spec:
       VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_TRAFFIC_PORT: "51820"
       VPN_LOCAL_CIDRS: "10.0.0.0/8 192.168.0.0/16 172.16.0.0/12"
-      NOT_ROUTED_TO_GATEWAY_CIDRS: "10.0.0.0/8 192.168.0.0/16 172.16.0.0/12"
+      NOT_ROUTED_TO_GATEWAY_CIDRS: "10.0.0.0/8 192.168.0.0/16"
 
     publicPorts:
       - hostname: qbittorrent
