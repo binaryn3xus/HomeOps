@@ -51,7 +51,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: vpnconfig
-                key: WIREGUARD_PRIVATE_KEY
+                key: WIREGUARD_ADDRESSES
           - name: SERVER_CITIES
             valueFrom:
               secretKeyRef:
