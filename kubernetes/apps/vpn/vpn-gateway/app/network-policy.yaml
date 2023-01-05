@@ -1,6 +1,6 @@
 ---
-apiVersion: cilium.io/v2
-kind: CiliumNetworkPolicy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
 metadata:
   name: downloads-gateway-pod-gateway
   namespace: vpn
@@ -8,16 +8,15 @@ metadata:
     app.kubernetes.io/instance: vpn-gateway
     app.kubernetes.io/name: pod-gateway
 spec:
-  endpointSelector:
-    matchLabels:
-      app.kubernetes.io/instance: vpn-gateway
-      app.kubernetes.io/name: pod-gateway
+  podSelector: {}
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 10.0.0.0/8
   egress:
-    - toCIDR:
-        - 0.0.0.0/0
-      toPorts:
-        - ports:
-            - port: "51820"
-              protocol: UDP
-    - toEntities:
-        - cluster
+  - to:
+    - ipBlock:
+        cidr: 10.0.0.0/8
+  policyTypes:
+    - Ingress
+    - Egress
