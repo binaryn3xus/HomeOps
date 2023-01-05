@@ -94,7 +94,7 @@ spec:
         enabled: true
         type: nfs
         server: ${HOME_NAS_IP}
-        path: /Kubernetes/Downloaders/qbittorrent
+        path: /volume1/Kubernetes/Downloaders/qbittorrent
         mountPath: /downloads
       media:
         enabled: true
