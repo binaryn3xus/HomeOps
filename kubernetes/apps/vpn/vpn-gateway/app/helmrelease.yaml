@@ -1,5 +1,4 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -38,7 +37,7 @@ spec:
     addons:
       vpn:
         enabled: true
-        type: gluetun
+        type: wireguard
         image:
           # TODO: Replace with ghcr.io/qdm12/gluetun when a versioned tag is available
           repository: docker.io/qmcgaw/gluetun
@@ -57,6 +56,22 @@ spec:
         envFrom:
           - secretRef:
               name: vpnconfig
+        networkPolicy:
+          enabled: true
+          egress:
+            # Allow only VPN traffic to Internet
+            - to:
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+              ports:
+              # VPN traffic (default OpenVPN)
+              - port: 51820
+                protocol: UDP
+            # Allow any traffic within k8s
+            - to:
+              - ipBlock:
+                  # Cluster IPs (default k3s)
+                  cidr: 10.0.0.0/8
         securityContext:
           capabilities:
             add: ["NET_ADMIN"]
