@@ -20,9 +20,8 @@ spec:
       repository: ghcr.io/angelnu/pod-gateway
       tag: v1.8.1@sha256:690b6365728fe9012ad4cdfca38334992664596513dca187d1b93d2025205776
 
-    addons:
-      vpn:
-        enabled: true
+    additionalContainers:
+      gluetun:
         type: gluetun
         image:
           repository: docker.io/qmcgaw/gluetun
@@ -39,42 +38,15 @@ spec:
             value: "off"
           - name: DOT
             value: "off"
-
-          - name: WIREGUARD_PRIVATE_KEY
-            valueFrom:
-              secretKeyRef:
-                name: vpnconfig
-                key: WIREGUARD_PRIVATE_KEY
-
-          - name: WIREGUARD_ADDRESSES
-            valueFrom:
-              secretKeyRef:
-                name: vpnconfig
-                key: WIREGUARD_ADDRESSES
-
-          # - name: SERVER_CITIES
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: vpnconfig
-          #       key: SERVER_CITIES
-
-          # - name: SERVER_COUNTRIES
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: vpnconfig
-          #       key: SERVER_COUNTRIES
-
-          # - name: SERVER_HOSTNAMES
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: vpnconfig
-          #       key: SERVER_HOSTNAMES
+        envFrom:
+          - secretRef:
+              name: vpnconfig
 
         securityContext:
           capabilities:
             add:
               - NET_ADMIN
-
+    addons:
       netshoot:
         enabled: true
 
