@@ -1,0 +1,11 @@
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: external-transmission
+  namespace: external-services
+subsets:
+  - addresses:
+      - ip: 10.0.0.20
+    ports:
+      - port: 9091

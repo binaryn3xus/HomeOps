@@ -1,0 +1,11 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+ name: external-transmission
+spec:
+ type: ClusterIP
+ ports:
+  - name: http
+    port: 9091
+    targetPort: 9091
