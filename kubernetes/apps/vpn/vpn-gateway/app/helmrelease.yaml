@@ -10,36 +10,23 @@ spec:
     spec:
       chart: pod-gateway
       version: 6.0.0
-      interval: 30m
       sourceRef:
         kind: HelmRepository
         name: angelnu
         namespace: flux-system
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+      interval: 15m
   values:
-    controller:
-      annotations:
-        reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/angelnu/pod-gateway
       tag: v1.8.1@sha256:690b6365728fe9012ad4cdfca38334992664596513dca187d1b93d2025205776
+
     DNS: 172.16.1.1
+
     addons:
       vpn:
         enabled: true
-        type: wireguard
+        type: gluetun
         image:
-          # TODO: Replace with ghcr.io/qdm12/gluetun when a versioned tag is available
           repository: docker.io/qmcgaw/gluetun
           tag: v3.32.0@sha256:70e2b9fe66941d6de31419c3207b525293f2e6a92a3788869bb337a17e0e5ec8
         env:
@@ -53,47 +40,64 @@ spec:
             value: "off"
           - name: DOT
             value: "off"
+          # - name:  WIREGUARD_PRIVATE_KEY
+          #   value: set in secret
+          # - name:  WIREGUARD_ADDRESSES
+          #   value: set in secret
+          # - name:  SERVER_COUNTRIES
+          #   value: set in secret
+
         envFrom:
           - secretRef:
-              name: vpnconfig
+              name: downloads-gateway-vpnconfig
+        securityContext:
+          capabilities:
+            add:
+              - NET_ADMIN
+
         networkPolicy:
           enabled: true
           egress:
-            # Allow only VPN traffic to Internet
             - to:
-              - ipBlock:
-                  cidr: 0.0.0.0/0
+                - ipBlock:
+                    cidr: 0.0.0.0/0
               ports:
-              # VPN traffic (default OpenVPN)
-              - port: 51820
-                protocol: UDP
-            # Allow any traffic within k8s
+                # VPN traffic
+                - port: 51820
+                  protocol: UDP
             - to:
-              - ipBlock:
-                  # Cluster IPs (default k3s)
-                  cidr: 10.0.0.0/8
-        securityContext:
-          capabilities:
-            add: ["NET_ADMIN"]
+                - ipBlock:
+                    cidr: 10.0.0.0/8
+
       netshoot:
         enabled: true
+
+    podAnnotations:
+      configmap.reloader.stakater.com/reload: downloads-gateway-pod-gateway
+      secret.reloader.stakater.com/reload: downloads-gateway-vpnconfig
+
     publicPorts:
-      - IP: 10
-        hostname: qbittorrent
+      - hostname: qb #hostname assigned to the pod
+        IP: 10 # must be an integer between 2 and VXLAN_GATEWAY_FIRST_DYNAMIC_IP (20 by default)
         ports:
-          - port: 56202
-            type: udp
-          - port: 56202
-            type: tcp
-    routed_namespaces: ["downloads"]
+          - type: udp
+            port: 58849
+          - type: tcp
+            port: 58849
+
+    routed_namespaces:
+      - downloads
+
     settings:
-      NOT_ROUTED_TO_GATEWAY_CIDRS: 10.0.0.0/8 172.22.0.0/12
-      VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_INTERFACE: wg0
-      VPN_LOCAL_CIDRS: 10.0.0.0/8 172.22.0.0/12
-      VPN_TRAFFIC_PORT: "51820"
       VXLAN_ID: 43
       VXLAN_IP_NETWORK: 172.16.1
+      VXLAN_GATEWAY_FIRST_DYNAMIC_IP: 20
+      VPN_BLOCK_OTHER_TRAFFIC: true
+      VPN_TRAFFIC_PORT: "51820"
+      VPN_LOCAL_CIDRS: 10.0.0.0/8 172.22.0.0/12
+      NOT_ROUTED_TO_GATEWAY_CIDRS: 10.0.0.0/8 172.22.0.0/12
+
     webhook:
       gatewayAnnotation: setGateway
       gatewayDefault: false
