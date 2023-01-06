@@ -29,7 +29,7 @@ spec:
       tag: latest
     env:
       TZ: "${TIMEZONE}"
-      VPN_ENABLED: "no"
+      VPN_ENABLED: "yes"
       VPN_TYPE: "wireguard"
       LAN_NETWORK: "192.168.0.0/24,10.0.0.0/24"
     service:
