@@ -31,6 +31,8 @@ spec:
       TZ: "${TIMEZONE}"
       VPN_ENABLED: "yes"
       VPN_TYPE: "wireguard"
+      PUID: "1024"
+      PGID: "100"
       LAN_NETWORK: "192.168.0.0/24,10.0.0.0/24"
     service:
       main:
@@ -55,9 +57,9 @@ spec:
               - *host
             secretName: qbittorrent-tls
     podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+      runAsUser: 1024
+      runAsGroup: 100
+      fsGroup: 100
       fsGroupChangePolicy: "OnRootMismatch"
     volumeClaimTemplates:
       - name: config
