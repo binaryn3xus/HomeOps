@@ -25,7 +25,7 @@ spec:
                 - "/bin/bash"
                 - -c
               args:
-                - "envsubst < /config/recyclarr.yml > /shared/recyclarr.yml"
+                - "envsubst < /config/recyclarr.yaml > /shared/recyclarr.yaml"
               volumeMounts:
                 - name: config
                   mountPath: /config
@@ -40,8 +40,8 @@ spec:
                 - sonarr
               volumeMounts:
                 - name: shared
-                  mountPath: /config/recyclarr.yml
-                  subPath: recyclarr.yml
+                  mountPath: /config/recyclarr.yaml
+                  subPath: recyclarr.yaml
                   readOnly: true
             - name: radarrs
               image: ghcr.io/recyclarr/recyclarr:4.1.2
@@ -51,8 +51,8 @@ spec:
                 - radarr
               volumeMounts:
                 - name: shared
-                  mountPath: /config/recyclarr.yml
-                  subPath: recyclarr.yml
+                  mountPath: /config/recyclarr.yaml
+                  subPath: recyclarr.yaml
                   readOnly: true
           volumes:
             - name: config
