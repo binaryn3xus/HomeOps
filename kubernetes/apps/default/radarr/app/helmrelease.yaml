@@ -33,6 +33,7 @@ spec:
       RADARR__PORT: &port 80
       RADARR__APPLICATION_URL: "https://{{ .Release.Name }}.${SECRET_PUBLIC_DOMAIN}"
       RADARR__LOG_LEVEL: info
+      RADARR__API_KEY: "${RADARR__API_KEY}"
     service:
       main:
         ports:
