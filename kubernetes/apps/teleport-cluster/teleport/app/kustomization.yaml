@@ -6,7 +6,7 @@ resources:
   - certificate.yaml
   - helmrelease.yaml
   - config-pvc.yaml
-  - secret.sops.yaml
+  - secrets.sops.yaml
   - ingress.yaml
 commonLabels:
   app.kubernetes.io/name: teleport
