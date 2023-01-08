@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: teleport-cluster
 resources:
   - certificate.yaml
-  - helm-release.yaml
+  - helmrelease.yaml
   - config-pvc.yaml
   - secret.sops.yaml
   - ingress.yaml
