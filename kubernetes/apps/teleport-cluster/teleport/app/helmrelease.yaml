@@ -17,7 +17,7 @@ spec:
         namespace: flux-system
 
   values:
-    #clusterName: teleport.${SECRET_DOMAIN}
+    clusterName: teleport.${SECRET_DOMAIN}
     #kubeClusterName: cluster-0
 
     authentication:
