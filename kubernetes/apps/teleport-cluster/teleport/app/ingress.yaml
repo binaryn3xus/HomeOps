@@ -27,3 +27,4 @@ spec:
   tls:
     - hosts:
         - teleport.${SECRET_DOMAIN}
+      secretName: teleport-tls

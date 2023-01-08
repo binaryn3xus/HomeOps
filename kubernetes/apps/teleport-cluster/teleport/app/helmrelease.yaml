@@ -24,7 +24,7 @@ spec:
       type: github
 
     tls:
-      existingSecretName: teleport.tls
+      existingSecretName: teleport-tls
 
     # annotations:
     #   service:
