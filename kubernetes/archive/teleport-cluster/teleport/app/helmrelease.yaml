@@ -36,4 +36,4 @@ spec:
 
     service:
       spec:
-        loadBalancerIP: ${METALLB_TELEPORT_ADDR}
+        loadBalancerIP: ${SVC_TELEPORT_ADDR}
