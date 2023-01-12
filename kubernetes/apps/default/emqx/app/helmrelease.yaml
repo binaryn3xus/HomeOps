@@ -58,7 +58,7 @@ spec:
       enabled: false
     persistence:
       enabled: true
-      storageClassName: minio-nfs
+      storageClassName: ceph-block
       size: 100Mi
     affinity:
       podAntiAffinity:
