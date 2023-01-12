@@ -6,6 +6,7 @@ resources:
   - ./backube.yaml
   - ./bitnami.yaml
   - ./bjw-s.yaml
+  - ./emqx.yaml
   - ./external-dns.yaml
   - ./hajimari.yaml
   - ./ingress-nginx.yaml
