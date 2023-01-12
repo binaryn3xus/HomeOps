@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: teleport-cluster
-      version: 11.2.0
+      version: 11.2.1
       interval: 30m
       sourceRef:
         kind: HelmRepository
@@ -36,4 +36,4 @@ spec:
 
     service:
       spec:
-        loadBalancerIP: ${METALLB_TELEPORT_ADDR}
+        loadBalancerIP: ${SVC_TELEPORT_ADDR}
