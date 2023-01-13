@@ -36,8 +36,8 @@ spec:
     service:
       main:
         type: LoadBalancer
-        externalIPs: ["${SVC_PLEX_ADDR}"]
-        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: "${METALLB_PLEX_ADDR}"
         ports:
           http:
             port: 32400
