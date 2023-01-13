@@ -36,8 +36,8 @@ spec:
       EMQX_AUTH__MNESIA__PASSWORD_HASH: plain
     service:
       type: LoadBalancer
-      externalIPs: ["${SVC_EMQX_ADDR}"]
-      externalTrafficPolicy: Local
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: "${SVC_EMQX_ADDR}"
     ingress:
       dashboard:
         enabled: true

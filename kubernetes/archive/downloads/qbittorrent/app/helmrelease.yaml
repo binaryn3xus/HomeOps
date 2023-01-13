@@ -48,7 +48,8 @@ spec:
       bittorrent:
         enabled: true
         type: LoadBalancer
-        externalIPs: ["${SVC_QBITTORRENT_ADDR}"]
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: "${SVC_EMQX_ADDR}"
         ports:
           bittorrent:
             enabled: true
