@@ -25,10 +25,12 @@ spec:
     controller:
       type: statefulset
     image:
-      repository: docker.io/nodered/node-red
+      repository: nodered/node-red
       tag: 3.0.2
     env:
       TZ: "${TIMEZONE}"
+      NODE_RED_ENABLE_PROJECTS: "true"
+      NODE_RED_ENABLE_SAFE_MODE: "false"
     service:
       main:
         ports:
@@ -54,6 +56,9 @@ spec:
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
+      fsGroup: 1000
+      supplementalGroups:
+        - 1000
     volumeClaimTemplates:
       - name: data
         mountPath: /data
@@ -64,7 +69,8 @@ spec:
           snapshot.home.arpa/enabled: "true"
     resources:
       requests:
-        cpu: 500m
-        memory: 2000Mi
+        cpu: 50m
+        memory: 200M
       limits:
-        memory: 3000Mi
+        cpu: 50m
+        memory: 200M
