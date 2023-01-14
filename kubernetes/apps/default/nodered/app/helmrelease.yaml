@@ -51,6 +51,9 @@ spec:
           - hosts:
               - *host
             secretName: nodered-tls
+    podSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
     volumeClaimTemplates:
       - name: data
         mountPath: /data
