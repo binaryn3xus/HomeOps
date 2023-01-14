@@ -26,7 +26,7 @@ spec:
       type: statefulset
     image:
       repository: docker.io/nodered/node-red
-      tag: sha256:bb0fc3d02485100dbf26506a252ee53df1cacaba409ad6c03a131c69c5bf74c4
+      tag: 3.0.2@sha256:f4f26e15fd258dac0267d441f715a41a5404535f5ac16a246753a60e6f3246bc
     env:
       TZ: "${TIMEZONE}"
     service:
