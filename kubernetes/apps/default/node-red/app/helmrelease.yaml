@@ -58,8 +58,6 @@ spec:
       runAsGroup: 1000
       fsGroup: 1000
       fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 1000
     volumeClaimTemplates:
       - name: data
         mountPath: /data
@@ -70,8 +68,8 @@ spec:
           snapshot.home.arpa/enabled: "true"
     resources:
       requests:
-        cpu: 100m
-        memory: 200M
-      limits:
         cpu: 200m
-        memory: 300M
+        memory: 500M
+      limits:
+        cpu: 300m
+        memory: 1000M
