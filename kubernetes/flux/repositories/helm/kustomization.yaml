@@ -13,6 +13,7 @@ resources:
   - ./jetstack.yaml
   - ./k8s-gateway.yaml
   - ./metallb.yaml
+  - ./node-feature-discovery.yaml
   - ./metrics-server.yaml
   - ./piraeus.yaml
   - ./prometheus-community.yaml
