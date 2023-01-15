@@ -84,3 +84,11 @@ spec:
       kind: Secret
       name: emqx-secret
       valuesKey: user_1_password
+    - targetPath: emqxConfig.EMQX_AUTH__USER__2__USERNAME
+      kind: Secret
+      name: emqx-secret
+      valuesKey: user_2_username
+    - targetPath: emqxConfig.EMQX_AUTH__USER__2__PASSWORD
+      kind: Secret
+      name: emqx-secret
+      valuesKey: user_2_password
