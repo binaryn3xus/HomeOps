@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: nodered
+  name: &app node-red
   namespace: default
 spec:
   interval: 15m
@@ -29,6 +29,9 @@ spec:
       tag: 3.0.2
     env:
       TZ: "${TIMEZONE}"
+      FLOWS: flows.json
+      NODE_RED_ENABLE_PROJECTS: "true"
+      NODE_RED_ENABLE_SAFE_MODE: "false"
     service:
       main:
         ports:
@@ -43,17 +46,19 @@ spec:
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           hajimari.io/icon: mdi:application-variable
         hosts:
-          - host: &host "nodered.${SECRET_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
               - *host
-            secretName: nodered-tls
+            secretName: node-red-tls
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
+      fsGroup: 1000
+      fsGroupChangePolicy: "OnRootMismatch"
     volumeClaimTemplates:
       - name: data
         mountPath: /data
@@ -64,7 +69,8 @@ spec:
           snapshot.home.arpa/enabled: "true"
     resources:
       requests:
-        cpu: 500m
-        memory: 2000Mi
+        cpu: 200m
+        memory: 500M
       limits:
-        memory: 3000Mi
+        cpu: 300m
+        memory: 1000M
