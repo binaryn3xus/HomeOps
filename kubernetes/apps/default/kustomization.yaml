@@ -8,6 +8,7 @@ resources:
   - ./echo-server/ks.yaml
   - ./emqx/ks.yaml
   - ./hajimari/ks.yaml
+  - ./home-assistant/ks.yaml
   - ./lidarr/ks.yaml
   - ./minio/ks.yaml
   - ./node-red/ks.yaml
