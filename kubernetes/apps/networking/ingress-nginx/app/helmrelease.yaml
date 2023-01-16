@@ -26,6 +26,8 @@ spec:
     - name: cert-manager
       namespace: cert-manager
   values:
+    tcp:
+      "1883": "default/emqx:1883"
     controller:
       replicaCount: 2
       extraEnvs:

@@ -50,9 +50,11 @@ spec:
         pathType: Prefix
         hosts:
           - &host emqx.${SECRET_DOMAIN}
+          - &host2 mqtt.${SECRET_DOMAIN}
         tls:
           - hosts:
               - *host
+              - *host2
             secretName: emqx-tls
     metrics:
       enabled: false
