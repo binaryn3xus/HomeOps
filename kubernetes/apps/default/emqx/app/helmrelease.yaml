@@ -27,6 +27,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    tcp:
+      "1883": "default/emqx:1883"
     image:
       repository: public.ecr.aws/emqx/emqx
     replicaCount: 3
