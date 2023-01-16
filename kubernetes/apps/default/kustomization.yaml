@@ -22,3 +22,4 @@ resources:
   - ./tautulli/ks.yaml
   - ./theme-park/ks.yaml
   - ./uptimekuma/ks.yaml
+  - ./zwave-js-ui/ks.yaml
