@@ -24,7 +24,7 @@ spec:
   values:
     hajimari:
       title: Apps
-      darkTheme: espresso
+      darkTheme: chalk
       alwaysTargetBlank: true
       showGreeting: false
       showAppGroups: false
