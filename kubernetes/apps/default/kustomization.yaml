@@ -19,6 +19,7 @@ resources:
   - ./recyclarr/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./sonarr/ks.yaml
+  - ./tasmobackup/ks.yaml
   - ./tautulli/ks.yaml
   - ./theme-park/ks.yaml
   - ./uptimekuma/ks.yaml
