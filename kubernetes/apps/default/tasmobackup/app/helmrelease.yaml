@@ -41,6 +41,8 @@ spec:
         enabled: true
         ingressClassName: "nginx"
         annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           hajimari.io/icon: mdi:backup-restore
         hosts:
           - host: &host "tasmobackup.${SECRET_DOMAIN}"
@@ -67,9 +69,9 @@ spec:
         enabled: true
         type: nfs
         server: ${HOME_NAS_IP}
-        path: /Kubernetes/Tasmobackup/
+        path: /volume1/Kubernetes/Tasmobackup
         mountPath: /var/www/html/data/backups
-        readOnly: true
+        readOnly: false
     resources:
       requests:
         cpu: 100m
