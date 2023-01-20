@@ -4,14 +4,14 @@ version: "3"
 vars:
   PROJECT_DIR:
     sh: "git rev-parse --show-toplevel"
-  KUBERNETES_DIR: "{{.PROJECT_DIR}}/kubernetes"
-  ANSIBLE_DIR: "{{.PROJECT_DIR}}/ansible"
-  TERRAFORM_DIR: "{{.PROJECT_DIR}}/terraform"
+  KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
+  ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
+  TERRAFORM_DIR: "{{.ROOT_DIR}}/terraform"
 
 dotenv: [".config.env"]
 
 env:
-  KUBECONFIG: "{{.PROJECT_DIR}}/kubeconfig"
+  KUBECONFIG: "{{.ROOT_DIR}}/kubeconfig"
 
 includes:
   ansible: .taskfiles/AnsibleTasks.yml
@@ -19,6 +19,7 @@ includes:
   precommit: .taskfiles/PrecommitTasks.yml
   terraform: .taskfiles/TerraformTasks.yml
   sops: .taskfiles/SopsTasks.yml
+  volsync: .taskfiles/VolSync/Tasks.yml
 
 tasks:
 
@@ -62,3 +63,7 @@ tasks:
     desc: Configure repository from env settings
     cmds:
       - ./configure
+
+  default:
+    silent: true
+    cmds: ["task -l"]
