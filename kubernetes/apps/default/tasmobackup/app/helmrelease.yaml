@@ -71,7 +71,7 @@ spec:
         server: ${HOME_NAS_IP}
         path: /volume1/Kubernetes/Tasmobackup
         mountPath: /var/www/html/data/backups
-        readOnly: true
+        readOnly: false
     resources:
       requests:
         cpu: 100m
