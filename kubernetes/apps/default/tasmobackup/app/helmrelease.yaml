@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: tasmobackup
+  name: &app tasmobackup
   namespace: default
 spec:
   interval: 15m
@@ -42,7 +42,6 @@ spec:
         ingressClassName: "nginx"
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
-          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           hajimari.io/icon: mdi:backup-restore
         hosts:
           - host: &host "tasmobackup.${SECRET_DOMAIN}"
