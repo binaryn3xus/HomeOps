@@ -64,14 +64,6 @@ spec:
         storageClass: ceph-block
         labels:
           snapshot.home.arpa/enabled: "true"
-    persistence:
-      backups:
-        enabled: true
-        type: nfs
-        server: ${HOME_NAS_IP}
-        path: /volume1/Kubernetes/Tasmobackup
-        mountPath: /var/www/html/data/backups
-        readOnly: false
     resources:
       requests:
         cpu: 100m
