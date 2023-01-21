@@ -52,9 +52,6 @@ spec:
           - hosts:
               - *host
             secretName: tasmobackup-tls
-    podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
     volumeClaimTemplates:
       - name: data
         mountPath: /var/www/html/data
