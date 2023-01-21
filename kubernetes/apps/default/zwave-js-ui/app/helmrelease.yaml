@@ -66,17 +66,16 @@ spec:
         ingressClassName: nginx
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
-          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           hajimari.io/icon: mdi:z-wave
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: &host "zwave-js-ui.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
               - *host
-            secret: "{{ .Release.Name }}-tls"
+            secret: "zwave-js-ui-tls"
     securityContext:
       privileged: true
     volumeClaimTemplates:
