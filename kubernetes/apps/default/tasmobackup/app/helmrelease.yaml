@@ -26,7 +26,7 @@ spec:
       type: statefulset
     image:
       repository: docker.io/danmed/tasmobackupv1
-      tag: 1.05
+      tag: 1.05.00
     env:
       TZ: "${TIMEZONE}"
       DBTYPE: "sqlite"
