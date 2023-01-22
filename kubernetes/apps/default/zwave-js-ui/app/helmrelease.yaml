@@ -75,7 +75,7 @@ spec:
         tls:
           - hosts:
               - *host
-            secret: "zwave-js-ui-tls"
+            secret: zwave-js-ui-tls
     securityContext:
       privileged: true
     volumeClaimTemplates:
