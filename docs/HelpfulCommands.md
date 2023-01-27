@@ -29,6 +29,15 @@ k get hr -A
 kubectl get replicationsources -A
 ```
 
+## Expand PVC Storage Size for StatefulSets
+```
+flux suspend hr <thing>
+kubectl delete sts <thing> --cascade=false
+kubectl patch pvc thing -p '{"spec": {"resources": {"requests": {"storage": "50Gi"}}}}'
+# commit and push changes to HR with new size, wait for reconcile
+flux resume hr <thing>
+```
+
 ---
 
 ## SOPS
