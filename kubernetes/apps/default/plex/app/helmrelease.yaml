@@ -72,7 +72,7 @@ spec:
       - name: config
         mountPath: /config
         accessMode: ReadWriteOnce
-        size: 30Gi
+        size: 15Gi
         storageClass: ceph-block
         labels:
           snapshot.home.arpa/enabled: "true"
