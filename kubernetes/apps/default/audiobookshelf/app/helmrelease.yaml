@@ -78,7 +78,6 @@ spec:
         server: ${HOME_NAS_IP}
         path: /volume1/Media/
         mountPath: /media
-        readOnly: true
       cache:
         enabled: true
         mountPath: /.npm
