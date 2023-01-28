@@ -3,7 +3,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: msrewardfarmer-117
+  name: msrewardfarmer-001
   namespace: default
 spec:
   schedule: "0 4-22/4 * * *"  # runs at minute 0 past every 4th hour from 4 through 22.
@@ -23,7 +23,7 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: msrewardfarmer-117
+  name: msrewardfarmer-002
   namespace: default
 spec:
   schedule: "0 4-22/4 * * *"  # runs at minute 0 past every 4th hour from 4 through 22.
@@ -43,7 +43,7 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: msrewardfarmer-117
+  name: msrewardfarmer-003
   namespace: default
 spec:
   schedule: "0 4-22/4 * * *"  # runs at minute 0 past every 4th hour from 4 through 22.
@@ -63,7 +63,7 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: msrewardfarmer-117
+  name: msrewardfarmer-004
   namespace: default
 spec:
   schedule: "0 4-22/4 * * *"  # runs at minute 0 past every 4th hour from 4 through 22.
@@ -83,7 +83,7 @@ spec:
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: msrewardfarmer-117
+  name: msrewardfarmer-005
   namespace: default
 spec:
   schedule: "0 4-22/4 * * *"  # runs at minute 0 past every 4th hour from 4 through 22.
