@@ -1,0 +1,100 @@
+---
+# 001
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: msrewardfarmer-117
+  namespace: default
+spec:
+  schedule: "0 4-22/4 * * *"  # runs at minute 0 past every 4th hour from 4 through 22.
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: msrewardfarmer
+              image: ghcr.io/joshuagarrison27/msrewardfarmer:0.2.7
+              envFrom:
+                - secretRef:
+                    name: msfarmer-secrets-001
+          restartPolicy: OnFailure
+---
+#002
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: msrewardfarmer-117
+  namespace: default
+spec:
+  schedule: "0 4-22/4 * * *"  # runs at minute 0 past every 4th hour from 4 through 22.
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: msrewardfarmer
+              image: ghcr.io/joshuagarrison27/msrewardfarmer:0.2.7
+              envFrom:
+                - secretRef:
+                    name: msfarmer-secrets-002
+          restartPolicy: OnFailure
+---
+#003
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: msrewardfarmer-117
+  namespace: default
+spec:
+  schedule: "0 4-22/4 * * *"  # runs at minute 0 past every 4th hour from 4 through 22.
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: msrewardfarmer
+              image: ghcr.io/joshuagarrison27/msrewardfarmer:0.2.7
+              envFrom:
+                - secretRef:
+                    name: msfarmer-secrets-003
+          restartPolicy: OnFailure
+---
+#004
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: msrewardfarmer-117
+  namespace: default
+spec:
+  schedule: "0 4-22/4 * * *"  # runs at minute 0 past every 4th hour from 4 through 22.
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: msrewardfarmer
+              image: ghcr.io/joshuagarrison27/msrewardfarmer:0.2.7
+              envFrom:
+                - secretRef:
+                    name: msfarmer-secrets-004
+          restartPolicy: OnFailure
+---
+#005
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: msrewardfarmer-117
+  namespace: default
+spec:
+  schedule: "0 4-22/4 * * *"  # runs at minute 0 past every 4th hour from 4 through 22.
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: msrewardfarmer
+              image: ghcr.io/joshuagarrison27/msrewardfarmer:0.2.7
+              envFrom:
+                - secretRef:
+                    name: msfarmer-secrets-005
+          restartPolicy: OnFailure
