@@ -2,8 +2,8 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: config-teleport
-  namespace: default
+  name: teleport-cluster-config-pvc
+  namespace: teleport-cluster
 spec:
   accessModes:
     - ReadWriteOnce
