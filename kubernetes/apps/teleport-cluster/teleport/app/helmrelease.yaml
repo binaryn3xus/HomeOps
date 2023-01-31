@@ -18,7 +18,7 @@ spec:
 
   values:
     clusterName: teleport.${SECRET_DOMAIN}
-    #kubeClusterName: cluster-0
+    kubeClusterName: HomeOpsCluster
 
     authentication:
       type: github
