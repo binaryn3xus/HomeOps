@@ -29,8 +29,6 @@ spec:
       tag: 1.0.20210914
     env:
       TZ: "${TIMEZONE}"
-      PUID: 1000
-      PGID: 1000
       SERVERURL: &host "wg.${SECRET_DOMAIN}"
       SERVERPORT: 51820
       PEERS: 1
@@ -67,7 +65,7 @@ spec:
               - *host
             secretName: wireguard-tls
     podSecurityContext:
-      runAsUser: 1000
+      runAsUser: 911
       runAsGroup: 1000
     volumeClaimTemplates:
       - name: config
