@@ -33,14 +33,13 @@ spec:
       SERVERPORT: 51820
       PEERS: 1
       PEERDNS: "auto"
-      INTERNAL_SUBNET: "10.13.13.0"
       ALLOWEDIPS: "0.0.0.0/0"
     envFrom:
       - secretRef:
           name: wireguard-secret
     securityContext:
       capabilities:
-        add: ["NET_ADMIN", "SYS_MODULE"]
+        add: ["NET_ADMIN"]
       sysctls:
         net.ipv4.conf.all.src_valid_mark: 1
     service:
