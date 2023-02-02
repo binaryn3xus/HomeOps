@@ -64,9 +64,6 @@ spec:
           - hosts:
               - *host
             secretName: wireguard-tls
-    podSecurityContext:
-      runAsUser: 911
-      runAsGroup: 1000
     volumeClaimTemplates:
       - name: config
         mountPath: /config
