@@ -35,6 +35,9 @@ spec:
       PEERDNS: "auto"
       INTERNAL_SUBNET: "10.13.13.0"
       ALLOWEDIPS: "0.0.0.0/0"
+    envFrom:
+      - secretRef:
+          name: wireguard-secret
     securityContext:
       capabilities:
         add: ["NET_ADMIN", "SYS_MODULE"]
@@ -44,8 +47,11 @@ spec:
       main:
         ports:
           http:
+            enabled: false
+          vpn:
+            enabled: true
             port: 51820
-            targetPort: 51820
+            protocol: UDP
     ingress:
       main:
         enabled: true
