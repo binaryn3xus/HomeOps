@@ -105,7 +105,7 @@ My home IP can change at any given time and in order to keep my WAN IP address u
 
 | Node            | Model                    | RAM       | OS Disk Size | Data Disk Size | Operating System    | Purpose                  | Rack Location    |
 | --------------- | ------------------------ | --------- | ------------ | -------------- | ------------------- | ------------------------ | ---------------- |
-| FleetCom Node 1 | Lenovo ThinkCentre M93   | 16 GB     | 500GB (SSD)  | -              | Ubuntu Server 22.04 | Kubernetes Control Plane |   16U (Left)     |
+| FleetCom Node 1 | Lenovo ThinkCentre M93   | 16 GB     | 500GB (HDD)  | -              | Ubuntu Server 22.04 | Kubernetes Control Plane |   16U (Left)     |
 | FleetCom Node 2 | Lenovo ThinkCentre M93   | 16 GB     | 500GB (SSD)  | -              | Ubuntu Server 22.04 | Kubernetes Control Plane |   16U (Right)    |
 | FleetCom Node 3 | Dell Optiplex 7050 Micro | 16 GB     | 500GB (NVMe) | 1TB (SSD)      | Ubuntu Server 22.04 | Kubernetes Worker        |   14U (Left)     |
 | FleetCom Node 4 | HP ProDesk 600 G3 Mini   | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu Server 22.04 | Kubernetes Worker        |   15U (Right)    |
