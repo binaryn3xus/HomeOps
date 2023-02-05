@@ -12,7 +12,7 @@ spec:
     destinationPVC: "${claim}"
     copyMethod: Direct
     storageClassName: ceph-block
-    previous: 2
+    previous: 3
     # IMPORTANT NOTE:
     #   On bootstrap set `restoreAsOf` to the time the old cluster was destroyed.
     #   This will essentially prevent volsync from trying to restore a backup
