@@ -83,6 +83,12 @@ spec:
         server: ${HOME_NAS_IP}
         path: /volume1/Media/
         mountPath: /media
+      downloads:
+        enabled: true
+        type: nfs
+        server: ${HOME_NAS_IP}
+        path: /volume1/Media/Downloaders/sabnzbd
+        mountPath: /downloads
     resources:
       requests:
         cpu: 10m
