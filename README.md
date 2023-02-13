@@ -111,6 +111,7 @@ My home IP can change at any given time and in order to keep my WAN IP address u
 | FleetCom Node 4 | HP ProDesk 600 G3 Mini   | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu Server 22.04 | Kubernetes Worker        |   15U (Right)    |
 | FleetCom Node 5 | HP ProDesk 600 G3 Mini   | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu Server 22.04 | Kubernetes Control Plane |   15U (Left)     |
 | FleetCom Node 6 | Dell Optiplex 3060 Micro | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu Server 22.04 | Kubernetes Worker        |   14U (Right)    |
+| FleetCom Node 7 | Dell Optiplex 7050 Micro | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu Server 22.04 | Not Added to Cluster Yet |   13U (Left)    |
 
 ---
 

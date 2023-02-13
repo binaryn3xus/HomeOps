@@ -78,4 +78,32 @@ Example for getting the ID Path for a device with nvme in the name:
 ls -la /dev/disk/by-id/* | grep nvme
 ```
 
+### Format a drive
+
+Format to ext4
+
+```cli
+sudo mkfs -t ext4 /dev/nvme0n1
+```
+
+Format to FAT32
+
+```cli
+sudo mkfs -t vfat /dev/nvme0n1
+```
+
+Format to NTFS
+
+```cli
+sudo mkfs -t ntfs /dev/nvme0n1
+```
+
 ---
+
+## SSH
+
+### Copy SSH Key to Host
+
+```cli
+ssh-copy-id -i ~/.ssh/id_rsa joshua@IP_ADDRESS
+```
