@@ -61,6 +61,9 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
+          - name: fleetcom-node3
+            devices:
+              - name: "/dev/disk/by-id/ata-SanDisk_SSD_PLUS_1000GB_224002803991"
           - name: fleetcom-node4
             devices:
               - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_1TB_S64ANJ0RA66136P"

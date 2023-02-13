@@ -58,9 +58,21 @@ sops --decrypt --age $(cat $SOPS_AGE_KEY_FILE |grep -oP "public key: \K(.*)") --
 
 ## Hardware
 
+### List Disks on Linux with filesystems
+
+```cli
+lsblk -f
+```
+
 ### How to get device UUID path
 
-Example for getting the UUID Path for a device with nvme in the name:
+Example for getting the ID Path for all devices
+
+```cli
+ls -la /dev/disk/by-id/*
+```
+
+Example for getting the ID Path for a device with nvme in the name:
 
 ```cli
 ls -la /dev/disk/by-id/* | grep nvme
