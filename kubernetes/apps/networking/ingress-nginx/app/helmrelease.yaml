@@ -28,6 +28,7 @@ spec:
   values:
     tcp:
       "1883": "default/emqx:1883"
+      "3024": "teleport-cluster/teleport-cluster:3024"
     controller:
       replicaCount: 2
       extraEnvs:
