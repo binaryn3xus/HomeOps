@@ -11,7 +11,6 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "https"
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-
 spec:
   rules:
     - host: teleport.${SECRET_DOMAIN}

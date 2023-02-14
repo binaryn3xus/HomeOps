@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app teleport
+  name: &app teleport-cluster
   namespace: teleport-cluster
 spec:
   interval: 30m
@@ -25,10 +25,6 @@ spec:
 
     tls:
       existingSecretName: teleport-tls
-
-    # annotations:
-    #   service:
-    #     coredns.io/hostname: teleport.${SECRET_DOMAIN}
 
     persistence:
       enabled: true
