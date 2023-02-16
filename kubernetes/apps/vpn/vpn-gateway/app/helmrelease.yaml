@@ -23,6 +23,8 @@ spec:
     DNS: 172.16.1.1
 
     addons:
+      netshoot:
+        enabled: true
       vpn:
         enabled: true
         type: gluetun
@@ -30,16 +32,18 @@ spec:
           repository: docker.io/qmcgaw/gluetun
           tag: v3.32.0@sha256:70e2b9fe66941d6de31419c3207b525293f2e6a92a3788869bb337a17e0e5ec8
         env:
-          - name: VPN_SERVICE_PROVIDER
-            value: mullvad
           - name: VPN_TYPE
             value: wireguard
+          - name: VPN_SERVICE_PROVIDER
+            value: mullvad
           - name: VPN_INTERFACE
-            value: wg0
+            value: &if wg0
           - name: FIREWALL
             value: "off"
           - name: DOT
             value: "off"
+          - name: FIREWALL_VPN_INPUT_PORTS
+            value: &port 51820
           # - name:  WIREGUARD_PRIVATE_KEY
           #   value: set in secret
           # - name:  WIREGUARD_ADDRESSES
@@ -63,14 +67,11 @@ spec:
                     cidr: 0.0.0.0/0
               ports:
                 # VPN traffic
-                - port: 51820
+                - port: *port
                   protocol: UDP
             - to:
                 - ipBlock:
                     cidr: 10.0.0.0/8
-
-      netshoot:
-        enabled: true
 
     podAnnotations:
       configmap.reloader.stakater.com/reload: downloads-gateway-pod-gateway
@@ -89,7 +90,7 @@ spec:
       - downloads
 
     settings:
-      VPN_INTERFACE: wg0
+      VPN_INTERFACE: *if
       VXLAN_ID: 43
       VXLAN_IP_NETWORK: 172.16.1
       VXLAN_GATEWAY_FIRST_DYNAMIC_IP: 20
