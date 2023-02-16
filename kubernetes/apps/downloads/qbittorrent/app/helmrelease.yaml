@@ -49,7 +49,7 @@ spec:
         enabled: true
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/loadBalancerIPs: "${SVC_EMQX_ADDR}"
+          metallb.universe.tf/loadBalancerIPs: "${SVC_QBITTORRENT_ADDR}"
         ports:
           bittorrent:
             enabled: true
