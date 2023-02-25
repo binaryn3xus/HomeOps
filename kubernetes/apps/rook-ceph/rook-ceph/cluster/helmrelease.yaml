@@ -79,6 +79,9 @@ spec:
           - name: fleetcom-node8
             devices:
               - name: "/dev/disk/by-id/nvme-SPCC_M.2_PCIe_SSD_YT20230100813"
+          - name: fleetcom-node9
+            devices:
+              - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_1TB_S64ANS0W102840Y"
     cephBlockPools:
       - name: ceph-blockpool
         spec:
