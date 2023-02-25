@@ -113,6 +113,7 @@ My home IP can change at any given time and in order to keep my WAN IP address u
 | FleetCom Node 6 | Dell Optiplex 3060 Micro | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu Server 22.04.x | Kubernetes Worker        |   14U (Right)    |
 | FleetCom Node 7 | Dell Optiplex 7050 Micro | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu Server 22.04.x | Kubernetes Control Plane |   13U (Left)     |
 | FleetCom Node 8 | Dell Optiplex 7050 Micro | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu Server 22.04.x | Kubernetes Control Plane |   13U (Right)    |
+| FleetCom Node 9 | Skull Canyon NUC6i7KYK   | 16 GB     | 500GB (NVMe)  | 1TB (NVMe)    | Ubuntu Server 22.04.x | Kubernetes Control Plane |   17U (Left)    |
 
 ---
 
