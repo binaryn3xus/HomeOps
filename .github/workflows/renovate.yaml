@@ -17,13 +17,14 @@ on:
   push:
     branches: ["main"]
     paths:
-      - ".github/renovate.json5"
-      - ".github/renovate/**.json5"
+      - .github/renovate-bot.json5
+      - .github/renovate.json5
+      - .github/renovate/**.json5
 
 env:
   LOG_LEVEL: debug
   RENOVATE_DRY_RUN: false
-  RENOVATE_CONFIG_FILE: .github/renovate.json5
+  RENOVATE_CONFIG_FILE: .github/renovate-bot.json5
 
 jobs:
   renovate:
@@ -46,7 +47,7 @@ jobs:
           echo "LOG_LEVEL=${{ github.event.inputs.logLevel || env.LOG_LEVEL }}" >> "${GITHUB_ENV}"
 
       - name: Renovate
-        uses: renovatebot/github-action@d219f8fea2d2665a25fd4d0f39b6a18e31ac8fa2 # v34.143.1
+        uses: renovatebot/github-action@3cae5833b4ae40ae8e4b9921c5c1a32adeda490b # v34.152.4
         with:
           configurationFile: "${{ env.RENOVATE_CONFIG_FILE }}"
           token: "${{ steps.generate-token.outputs.token }}"
