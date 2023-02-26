@@ -61,11 +61,13 @@
       "matchPackagePatterns": ["minio"]
     },
     {
-      "description": "Flux Manifests",
-      "matchPackageNames": ["flux-manifests"],
-      "matchDatasources": ["docker"],
+      "matchPackagePatterns": ["^oci://ghcr\\.io/fluxcd/flux-manifests:v(.+)$"],
+      "major": true,
+      "minor": true,
+      "autodiscover": false,
       "versioning": "regex:^v(.+)$",
-      "matchPackagePatterns": ["flux-manifests"]
+      "rangeStrategy": "widen",
+      "depTypeList": ["oci"]
     }
   ]
 }
