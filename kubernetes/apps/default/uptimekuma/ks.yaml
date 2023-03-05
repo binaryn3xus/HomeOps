@@ -8,6 +8,9 @@ metadata:
   labels:
     substitution.flux.home.arpa/enabled: "true"
 spec:
+  dependsOn:
+    - name: cluster-apps-rook-ceph-cluster
+    - name: cluster-apps-volsync
   path: ./kubernetes/apps/default/uptimekuma/app
   prune: true
   sourceRef:

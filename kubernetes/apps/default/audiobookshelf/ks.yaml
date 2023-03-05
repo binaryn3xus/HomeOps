@@ -9,7 +9,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
-      namespace: flux-system
+    - name: cluster-apps-volsync
   path: ./kubernetes/apps/default/audiobookshelf/app
   prune: true
   sourceRef:

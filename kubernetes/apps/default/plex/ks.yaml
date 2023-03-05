@@ -9,9 +9,8 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
-      namespace: flux-system
+    - name: cluster-apps-volsync
     - name: cluster-apps-intel-device-plugin-gpu
-      namespace: flux-system
   path: ./kubernetes/apps/default/plex/app
   prune: true
   sourceRef:

@@ -8,9 +8,9 @@ metadata:
     substitution.flux.home.arpa/enabled: "true"
 spec:
   dependsOn:
-    - name: cluster-apps-emqx
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-volsync
+    - name: cluster-apps-emqx
   path: ./kubernetes/apps/default/node-red/app
   prune: true
   sourceRef:
