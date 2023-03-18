@@ -16,3 +16,6 @@ data:
   SVC_EMQX_ADDR: "10.0.30.36"
   SVC_HOME_ASSISTANT_ADDR: "10.0.30.37"
   HOME_NAS_IP: "10.0.30.4"
+  LINK_SYNOLOGY_UI: "http://10.0.30.4/"
+  LINK_MARK_SYNOLOGY: "https://thejollyroger.quickconnect.to/"
+  LINK_MICHAEL_GITTEA: "https://gitea.torquasmvo.com/johndoe86x/"
