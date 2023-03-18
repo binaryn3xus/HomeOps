@@ -29,13 +29,18 @@ spec:
       showGreeting: false
       showAppGroups: false
       showAppStatus: false
-      showBookmarkGroups: false
-      showGlobalBookmarks: false
+      showBookmarkGroups: true
+      showGlobalBookmarks: true
       showAppUrls: false
       defaultEnable: true
       namespaceSelector:
         matchNames:
           - default
+      globalBookmarks:
+        - group: Tech
+          bookmarks:
+            - name: DotNetEvolved
+              url: 'https://dotnetevolved.com/'
     ingress:
       main:
         enabled: true
