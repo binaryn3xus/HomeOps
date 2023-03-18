@@ -29,13 +29,24 @@ spec:
       showGreeting: false
       showAppGroups: false
       showAppStatus: false
-      showBookmarkGroups: false
-      showGlobalBookmarks: false
+      showBookmarkGroups: true
+      showGlobalBookmarks: true
       showAppUrls: false
       defaultEnable: true
       namespaceSelector:
         matchNames:
           - default
+      globalBookmarks:
+        - group: Tech
+          bookmarks:
+            - name: DotNetEvolved
+              url: 'https://dotnetevolved.com/'
+            - name: 'My Synology'
+              url: ${LINK_SYNOLOGY_UI}
+            - name: 'Marks Synology'
+              url: ${LINK_MARK_SYNOLOGY}
+            - name: 'Michaels GitTea'
+              url: ${LINK_MICHAEL_GITTEA}
     ingress:
       main:
         enabled: true
