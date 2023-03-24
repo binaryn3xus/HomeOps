@@ -66,6 +66,18 @@ spec:
             add:
               - NET_ADMIN
 
+        networkPolicy:
+          enabled: true
+          egress:
+            - to:
+                - ipBlock:
+                    cidr: 0.0.0.0/0
+              ports:
+                - port: 51820
+                  protocol: UDP
+            - to:
+                - namespaceSelector: {}
+
       netshoot:
         enabled: true
 
