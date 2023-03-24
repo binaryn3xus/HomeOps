@@ -9,7 +9,7 @@ spec:
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-volsync
-  path: ./kubernetes/apps/downloads/qbittorrent/app
+  path: ./kubernetes/apps/downloaders/qbittorrent/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -18,11 +18,11 @@ spec:
     - apiVersion: batch/v1
       kind: CronJob
       name: qbittorrent-tag-tracker-errors
-      namespace: downloads
+      namespace: downloaders
     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
       name: qbittorrent
-      namespace: downloads
+      namespace: downloaders
   interval: 30m
   retryInterval: 1m
   timeout: 3m
