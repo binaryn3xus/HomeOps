@@ -52,7 +52,6 @@ sonarr:
           - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
           - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
           - 06d66ab109d4d2eddb2794d21526d140 # Retags
-          - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
         quality_profiles:
           - name: HD-720p/1080p
             reset_unmatched_scores: true
@@ -115,7 +114,6 @@ radarr:
           - b8cd450cbfa689c0259a01d9e29ba3d6 # 3D -10000
           - 7357cf5161efbf8c4d5d0c30b4815ee2 # Obfuscated
           - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 # No-RlsGroup removed do avoid multiple downloads
-          - dc98083864ea246d05a42df0d05f81cc # x265 (720/1080p)
         quality_profiles:
           - name: HD-1080p
             reset_unmatched_scores: true
