@@ -5,3 +5,4 @@ metadata:
   name: downloaders
   labels:
     kustomize.toolkit.fluxcd.io/prune: disabled
+    vpn-routed-gateway: "true"
