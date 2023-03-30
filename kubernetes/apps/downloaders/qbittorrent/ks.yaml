@@ -7,8 +7,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: pod-gateway
-      namespace: networking
+    - name: cluster-apps-pod-gateway
   path: ./kubernetes/apps/default/qbittorrent/app
   prune: true
   sourceRef:
