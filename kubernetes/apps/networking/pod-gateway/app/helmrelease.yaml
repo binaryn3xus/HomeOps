@@ -59,6 +59,8 @@ spec:
             value: debug
           - name: UPDATER_PERIOD
             value: "24h"
+          - name: OPENVPN_IPV6
+            value: "on"
         envFrom:
           - secretRef:
               name: pod-gateway-secret
