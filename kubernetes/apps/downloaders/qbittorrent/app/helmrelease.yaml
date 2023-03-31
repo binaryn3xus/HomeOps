@@ -50,12 +50,12 @@ spec:
         type: LoadBalancer
         annotations:
           metallb.universe.tf/loadBalancerIPs: "${SVC_QBITTORRENT_VPN_ADDR}"
-          ports:
-            bittorrent:
-              enabled: true
-              port: ${VPN_FORWARDED_PORT}
-              protocol: TCP
-              targetPort: ${VPN_FORWARDED_PORT}
+        ports:
+          bittorrent:
+            enabled: true
+            port: ${VPN_FORWARDED_PORT}
+            protocol: TCP
+            targetPort: ${VPN_FORWARDED_PORT}
         externalTrafficPolicy: Local
     ingress:
       main:
