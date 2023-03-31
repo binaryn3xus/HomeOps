@@ -78,9 +78,9 @@ spec:
       - IP: 10
         hostname: qbittorrent-vpn
         ports:
-          - port: ${VPN_FORWARDED_PORT}
+          - port: ${VPN_FORWARDED_PORT_1}
             type: udp
-          - port: ${VPN_FORWARDED_PORT}
+          - port: ${VPN_FORWARDED_PORT_1}
             type: tcp
     routed_namespaces: ["downloaders"]
     settings:
