@@ -8,7 +8,7 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-pod-gateway
-  path: ./kubernetes/apps/default/qbittorrent/app
+  path: ./kubernetes/apps/downloaders/qbittorrent/app
   prune: true
   sourceRef:
     kind: GitRepository
