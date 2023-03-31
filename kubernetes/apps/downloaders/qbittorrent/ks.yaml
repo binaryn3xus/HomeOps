@@ -8,6 +8,8 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-pod-gateway
+    - name: cluster-apps-rook-ceph-cluster
+    - name: cluster-apps-volsync
   path: ./kubernetes/apps/downloaders/qbittorrent/app
   prune: true
   sourceRef:
