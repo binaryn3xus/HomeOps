@@ -39,7 +39,7 @@ spec:
     env:
       TZ: "${TIMEZONE}"
       QBITTORRENT__PORT: &port 80
-      QBITTORRENT__BT_PORT: &port-bt 51820
+      QBITTORRENT__BT_PORT: &port-bt 8080
     service:
       main:
         ports:
@@ -49,13 +49,13 @@ spec:
         enabled: true
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/loadBalancerIPs: "${SVC_QBITTORRENT_ADDR}"
-        ports:
-          bittorrent:
-            enabled: true
-            port: *port-bt
-            protocol: TCP
-            targetPort: *port-bt
+          metallb.universe.tf/loadBalancerIPs: "${SVC_QBITTORRENT_VPN_ADDR}"
+          ports:
+            bittorrent:
+              enabled: true
+              port: ${VPN_FORWARDED_PORT}
+              protocol: TCP
+              targetPort: ${VPN_FORWARDED_PORT}
         externalTrafficPolicy: Local
     ingress:
       main:
@@ -78,7 +78,7 @@ spec:
         tls:
           - hosts:
               - *host
-            secretName: qbittorrent-tls
+            secretName: qbittorrent-vpn-tls
     podSecurityContext:
       runAsUser: 568
       runAsGroup: 568
