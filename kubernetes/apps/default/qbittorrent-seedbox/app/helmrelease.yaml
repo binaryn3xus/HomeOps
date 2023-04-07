@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: qbittorrent
+  name: qbittorrent-seedbox
   namespace: default
 spec:
   interval: 15m
@@ -99,7 +99,7 @@ spec:
         enabled: true
         type: nfs
         server: ${HOME_NAS_IP}
-        path: /volume1/Media/Downloaders/qbittorrent
+        path: /volume1/Media/Downloaders/seedbox
         mountPath: /downloads
       media:
         enabled: true

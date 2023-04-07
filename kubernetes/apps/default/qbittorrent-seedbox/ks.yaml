@@ -9,7 +9,7 @@ spec:
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-volsync
-  path: ./kubernetes/apps/default/qbittorrent/app
+  path: ./kubernetes/apps/default/qbittorrent-seedbox/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -17,11 +17,11 @@ spec:
   healthChecks:
     - apiVersion: batch/v1
       kind: CronJob
-      name: qbittorrent-tag-tracker-errors
+      name: qbittorrent-seedbox-tag-tracker-errors
       namespace: default
     - apiVersion: helm.toolkit.fluxcd.io/v2beta1
       kind: HelmRelease
-      name: qbittorrent
+      name: qbittorrent-seedbox
       namespace: default
   interval: 30m
   retryInterval: 1m

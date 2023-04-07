@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: qbittorrent-tag-tracker-errors
+  name: qbittorrent-seedbox-tag-tracker-errors
   namespace: default
 spec:
   interval: 15m
@@ -39,7 +39,7 @@ spec:
       repository: ghcr.io/onedr0p/qbittorrent-scripts
       tag: v1.0.3@sha256:96232a288c6d3a84f63b09ed49c6a2a01f48ffcc2bd17ee353583bf2f9495099
       env:
-        QB_HOST: http://qbittorrent:80
+        QB_HOST: http://qbittorrent-seedbox:80
         QB_TAG: "Tracker Errors"
       args: ["/app/tag-tracker-errors.py"]
     service:
