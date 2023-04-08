@@ -99,7 +99,7 @@ spec:
         enabled: true
         type: nfs
         server: ${HOME_NAS_IP}
-        path: /volume1/Media/Downloaders/qbittorrent
+        path: /volume1/Media/Downloads/
         mountPath: /downloads
       media:
         enabled: true

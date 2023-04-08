@@ -90,7 +90,7 @@ spec:
         enabled: true
         type: nfs
         server: ${HOME_NAS_IP}
-        path: /volume1/Media/Downloaders/sabnzbd
+        path: /volume1/Media/Downloads/
         mountPath: /downloads
       media:
         enabled: true
