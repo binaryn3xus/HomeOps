@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/ocirepository_v1beta2.json
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
@@ -8,9 +9,10 @@ spec:
   interval: 10m
   url: oci://ghcr.io/fluxcd/flux-manifests
   ref:
-    tag: v0.41.2
+    tag: v2.0.0-rc.1
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: flux
