@@ -43,7 +43,7 @@ spec:
         image:
           # TODO: Replace with ghcr.io/qdm12/gluetun when a versioned tag is available
           repository: docker.io/qmcgaw/gluetun
-          tag: v3.32.0@sha256:bb2915294ed4d3d5ef29e1423f4ff751f861a871dd64ef3e662dc4c2279a34b3
+          tag: v3.33.0@sha256:b5e8048b58c88e32ae307d0f0a0dea5605b9f17390350ef2422da2a4782cf3c6
         env:
           - name: VPN_TYPE
             value: wireguard
