@@ -37,7 +37,7 @@ spec:
         spec:
           containers:
             - name: msrewardfarmer
-              image: ghcr.io/joshuagarrison27/msrewardfarmer:0.2.9
+              image: ghcr.io/joshuagarrison27/msrewardfarmer:0.3.0
               envFrom:
                 - secretRef:
                     name: msfarmer-secrets-002
