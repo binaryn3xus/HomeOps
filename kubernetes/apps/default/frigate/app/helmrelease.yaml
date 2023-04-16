@@ -104,7 +104,9 @@ spec:
         readOnly: true
       media:
         enabled: true
-        existingClaim: frigate-nfs
+        type: nfs
+        server: ${HOME_NAS_IP}
+        path: /volume1/Media/Frigate
         mountPath: /media
       cache:
         enabled: true
