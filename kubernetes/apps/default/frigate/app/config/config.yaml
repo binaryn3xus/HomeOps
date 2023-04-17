@@ -64,8 +64,8 @@ cameras:
         - path: rtsp://localhost:8554/frigate_leoroom_hq
           roles: ["record"]
     detect:
-      width: 960
-      height: 720
+      width: 2034
+      height: 1296
       fps: 10
     objects:
       filters:
