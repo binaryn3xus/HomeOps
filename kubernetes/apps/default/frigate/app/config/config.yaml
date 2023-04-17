@@ -52,11 +52,11 @@ objects:
 
 go2rtc:
   streams:
-    frigate_leoroom_hq: rtsp://frigatetest:temppass!@10.0.20.31:554/cam/realmonitor?channel=1&subtype=0
-    frigate_leoroom_lq: rtsp://frigatetest:temppass!@10.0.20.31:554/cam/realmonitor?channel=1&subtype=1
+    frigate_leoroom_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.31:554/cam/realmonitor?channel=1&subtype=0
+    frigate_leoroom_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.31:554/cam/realmonitor?channel=1&subtype=1
 
 cameras:
-  frigate_porch:
+  leo_room:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_leoroom_lq
