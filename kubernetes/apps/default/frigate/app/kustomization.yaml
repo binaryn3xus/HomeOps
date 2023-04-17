@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: default
 resources:
   - ./helmrelease.yaml
+  - ./secrets.sops.yaml
   #- ./backups
 configMapGenerator:
   - name: frigate-configmap
