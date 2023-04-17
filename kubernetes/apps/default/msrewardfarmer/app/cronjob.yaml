@@ -16,6 +16,13 @@ spec:
           containers:
             - name: msrewardfarmer
               image: ghcr.io/joshuagarrison27/msrewardfarmer:0.3.1
+              env:
+                - name: TZ
+                  value: America/New_York
+                - name: SEARCH_SOURCE
+                  value: LOCAL
+                - name: SEARCH_PADDING
+                  value: '5'
               envFrom:
                 - secretRef:
                     name: msfarmer-secrets-001
@@ -38,6 +45,13 @@ spec:
           containers:
             - name: msrewardfarmer
               image: ghcr.io/joshuagarrison27/msrewardfarmer:0.3.1
+              env:
+                - name: TZ
+                  value: America/New_York
+                - name: SEARCH_SOURCE
+                  value: LOCAL
+                - name: SEARCH_PADDING
+                  value: '5'
               envFrom:
                 - secretRef:
                     name: msfarmer-secrets-002
@@ -60,6 +74,13 @@ spec:
           containers:
             - name: msrewardfarmer
               image: ghcr.io/joshuagarrison27/msrewardfarmer:0.3.1
+              env:
+                - name: TZ
+                  value: America/New_York
+                - name: SEARCH_SOURCE
+                  value: LOCAL
+                - name: SEARCH_PADDING
+                  value: '5'
               envFrom:
                 - secretRef:
                     name: msfarmer-secrets-003
@@ -82,6 +103,13 @@ spec:
           containers:
             - name: msrewardfarmer
               image: ghcr.io/joshuagarrison27/msrewardfarmer:0.3.1
+              env:
+                - name: TZ
+                  value: America/New_York
+                - name: SEARCH_SOURCE
+                  value: LOCAL
+                - name: SEARCH_PADDING
+                  value: '5'
               envFrom:
                 - secretRef:
                     name: msfarmer-secrets-004
@@ -104,6 +132,13 @@ spec:
           containers:
             - name: msrewardfarmer
               image: ghcr.io/joshuagarrison27/msrewardfarmer:0.3.1
+              env:
+                - name: TZ
+                  value: America/New_York
+                - name: SEARCH_SOURCE
+                  value: LOCAL
+                - name: SEARCH_PADDING
+                  value: '5'
               envFrom:
                 - secretRef:
                     name: msfarmer-secrets-005
