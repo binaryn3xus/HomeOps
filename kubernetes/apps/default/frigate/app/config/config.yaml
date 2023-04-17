@@ -15,13 +15,13 @@ database:
   path: /data/frigate.db
 
 detectors:
-  coral:
-    type: edgetpu
-    device: usb
+  cpu1:
+    type: cpu
+    num_threads: 3
 
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]
-  hwaccel_args: ["-hwaccel", "vaapi", "-hwaccel_device", "/dev/dri/renderD128", "-hwaccel_output_format", "yuv420p"]
+  hwaccel_args: preset-vaapi
   output_args:
     record: preset-record-ubiquiti
 
@@ -52,20 +52,20 @@ objects:
 
 go2rtc:
   streams:
-    frigate_leoroom_hq: rtsp://{CAMERA_USERNAME}@{CAMERA_PASSWORD}:554/cam/realmonitor?channel=1&subtype=0
-    frigate_leoroom_lq: rtsp://{CAMERA_USERNAME}@{CAMERA_PASSWORD}:554/cam/realmonitor?channel=1&subtype=1
+    frigate_leoroom_hq: rtsp://frigatetest:temppass!@10.0.20.31:554/cam/realmonitor?channel=1&subtype=0
+    frigate_leoroom_lq: rtsp://frigatetest:temppass!@10.0.20.31:554/cam/realmonitor?channel=1&subtype=1
 
 cameras:
   frigate_porch:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_porch_lq
+        - path: rtsp://localhost:8554/frigate_leoroom_lq
           roles: ["detect"]
-        - path: rtsp://localhost:8554/frigate_porch_hq
+        - path: rtsp://localhost:8554/frigate_leoroom_hq
           roles: ["record"]
     detect:
-      width: 960
-      height: 720
+      width: 2034
+      height: 1296
       fps: 10
     objects:
       filters:
