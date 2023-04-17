@@ -52,8 +52,8 @@ objects:
 
 go2rtc:
   streams:
-    frigate_leoroom_hq: rtsp://{CAMERA_USERNAME}@{CAMERA_PASSWORD}:554/cam/realmonitor?channel=1&subtype=0
-    frigate_leoroom_lq: rtsp://{CAMERA_USERNAME}@{CAMERA_PASSWORD}:554/cam/realmonitor?channel=1&subtype=1
+    frigate_leoroom_hq: rtsp://frigatetest:temppass!@10.0.20.31:554/cam/realmonitor?channel=1&subtype=0
+    frigate_leoroom_lq: rtsp://frigatetest:temppass!@10.0.20.31:554/cam/realmonitor?channel=1&subtype=1
 
 cameras:
   frigate_porch:
