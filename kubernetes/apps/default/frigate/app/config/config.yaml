@@ -59,9 +59,9 @@ cameras:
   frigate_porch:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_porch_lq
+        - path: rtsp://localhost:8554/frigate_leoroom_lq
           roles: ["detect"]
-        - path: rtsp://localhost:8554/frigate_porch_hq
+        - path: rtsp://localhost:8554/frigate_leoroom_hq
           roles: ["record"]
     detect:
       width: 960
