@@ -30,12 +30,12 @@ snapshots:
   timestamp: false
   bounding_box: true
   retain:
-    default: 2
+    default: 7
 
 record:
   enabled: true
   retain:
-    days: 2
+    days: 14
     mode: all
   events:
     retain:
@@ -76,7 +76,9 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_livingroom_lq
+          roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_livingroom_hq
+          roles: ["record"]
     detect:
       width: 2034
       height: 1296
@@ -94,7 +96,9 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_leoroom_lq
+          roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_leoroom_hq
+          roles: ["record"]
     detect:
       width: 2034
       height: 1296
@@ -104,7 +108,9 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_garage_lq
+          roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_garage_hq
+          roles: ["record"]
     detect:
       width: 1280
       height: 960
@@ -114,7 +120,9 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_frontporch_lq
+          roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_frontporch_hq
+          roles: ["record"]
     detect:
       width: 2034
       height: 1296
@@ -124,7 +132,9 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_backpatio_lq
+          roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_backpatio_hq
+          roles: ["record"]
     detect:
       width: 2034
       height: 1296
@@ -134,7 +144,9 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_backyard_hq
+          roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_backyard_hq
+          roles: ["record"]
     detect:
       width: 2034
       height: 1296
@@ -144,7 +156,9 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_eastside_lq
+          roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_eastside_hq
+          roles: ["record"]
     detect:
       width: 2034
       height: 1296
@@ -154,7 +168,9 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_driveway_lq
+          roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_driveway_hq
+          roles: ["record"]
     detect:
       width: 2034
       height: 1296
@@ -164,7 +180,9 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_office_lq
+          roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_office_hq
+          roles: ["record"]
     detect:
       width: 2034
       height: 1296
