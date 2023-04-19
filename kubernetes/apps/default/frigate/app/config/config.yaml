@@ -73,6 +73,8 @@ go2rtc:
 
 cameras:
   Living_Room:
+    birdseye:
+      enabled: false
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_livingroom_lq
@@ -93,6 +95,8 @@ cameras:
           default: 3
 
   Leo_Room:
+    birdseye:
+      mode: objects
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_leoroom_lq
@@ -105,6 +109,8 @@ cameras:
       fps: 10
 
   Garage:
+    birdseye:
+      mode: objects
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_garage_lq
@@ -117,6 +123,8 @@ cameras:
       fps: 5
 
   Front_Porch:
+    birdseye:
+      mode: objects
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_frontporch_lq
@@ -129,6 +137,8 @@ cameras:
       fps: 10
 
   Back_Patio:
+    birdseye:
+      mode: objects
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_backpatio_lq
@@ -141,6 +151,8 @@ cameras:
       fps: 10
 
   Back_Yard:
+    birdseye:
+      mode: objects
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_backyard_hq
@@ -153,6 +165,8 @@ cameras:
       fps: 10
 
   East_Side:
+    birdseye:
+      mode: objects
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_eastside_lq
@@ -165,6 +179,8 @@ cameras:
       fps: 10
 
   Driveway:
+    birdseye:
+      mode: objects
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_driveway_lq
@@ -177,6 +193,8 @@ cameras:
       fps: 10
 
   Office:
+    birdseye:
+      enabled: false
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_office_lq
