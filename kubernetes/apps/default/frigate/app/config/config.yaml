@@ -14,6 +14,11 @@ mqtt:
 database:
   path: /data/frigate.db
 
+# Include all cameras by default in Birdseye view
+birdseye:
+  enabled: True
+  mode: continuous
+
 detectors:
   cpu1:
     type: cpu
@@ -72,45 +77,50 @@ go2rtc:
     frigate_office_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=1
 
 cameras:
-  Living_Room:
+
+  Office:
     birdseye:
+      enabled: false
+    record:
       enabled: false
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_livingroom_lq
+        - path: rtsp://localhost:8554/frigate_office_hq
           roles: ["detect"]
-        - path: rtsp://localhost:8554/frigate_livingroom_hq
-          roles: ["record"]
     detect:
       width: 2034
       height: 1296
       fps: 10
+
+  Living_Room:
+    birdseye:
+      enabled: false
     record:
-      enabled: true
-      events:
-        objects:
-          - person
-          - cat
-        retain:
-          default: 3
+      enabled: false
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_livingroom_hq
+          roles: ["detect"]
+    detect:
+      width: 2034
+      height: 1296
+      fps: 10
 
   Leo_Room:
     birdseye:
-      mode: objects
+      enabled: false
+    record:
+      enabled: false
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_leoroom_lq
-          roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_leoroom_hq
-          roles: ["record"]
+          roles: ["detect"]
     detect:
       width: 2034
       height: 1296
       fps: 10
 
   Garage:
-    birdseye:
-      mode: objects
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_garage_lq
@@ -123,8 +133,6 @@ cameras:
       fps: 5
 
   Front_Porch:
-    birdseye:
-      mode: objects
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_frontporch_lq
@@ -135,10 +143,10 @@ cameras:
       width: 2034
       height: 1296
       fps: 10
+    motion:
+      mask: ["2034,1296,2034,0,1782,0,1667,359,847,230,305,435,244,583,0,887,0,1296"]
 
   Back_Patio:
-    birdseye:
-      mode: objects
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_backpatio_lq
@@ -149,10 +157,10 @@ cameras:
       width: 2034
       height: 1296
       fps: 10
+    motion:
+      mask: ["2034,1296,2034,241,1804,342,1643,284,1366,166,796,126,0,0,0,1296"]
 
   Back_Yard:
-    birdseye:
-      mode: objects
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_backyard_hq
@@ -163,10 +171,10 @@ cameras:
       width: 2034
       height: 1296
       fps: 10
+    motion:
+      mask: ["2034,1296,2013,774,1860,452,1387,0,23,0,0,1296"]
 
   East_Side:
-    birdseye:
-      mode: objects
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_eastside_lq
@@ -177,10 +185,10 @@ cameras:
       width: 2034
       height: 1296
       fps: 10
+    motion:
+      mask: ["2034,1296,2034,521,484,360,433,129,0,0,0,1296"]
 
   Driveway:
-    birdseye:
-      mode: objects
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_driveway_lq
@@ -191,17 +199,5 @@ cameras:
       width: 2034
       height: 1296
       fps: 10
-
-  Office:
-    birdseye:
-      enabled: false
-    ffmpeg:
-      inputs:
-        - path: rtsp://localhost:8554/frigate_office_lq
-          roles: ["detect"]
-        - path: rtsp://localhost:8554/frigate_office_hq
-          roles: ["record"]
-    detect:
-      width: 2034
-      height: 1296
-      fps: 10
+    motion:
+      mask: ["1861,1296,1210,377,847,382,428,338,0,530,0,1296"]
