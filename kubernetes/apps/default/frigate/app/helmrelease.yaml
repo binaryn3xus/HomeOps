@@ -32,16 +32,6 @@ spec:
     env:
       TZ: America/New_York
       LIBVA_DRIVER_NAME: i965
-      # FRIGATE_MQTT_USERNAME:
-      #   valueFrom:
-      #     secretKeyRef:
-      #       name: mosquitto-secret
-      #       key: username
-      # FRIGATE_MQTT_PASSWORD:
-      #   valueFrom:
-      #     secretKeyRef:
-      #       name: mosquitto-secret
-      #       key: password
     envFrom:
       - secretRef:
           name: frigate-secret
@@ -120,7 +110,7 @@ spec:
         mountPath: /dev/bus/usb
     nodeSelector:
       #node-role.kubernetes.io/worker: "true"
-      #google.feature.node.kubernetes.io/coral: "true"
+      google.feature.node.kubernetes.io/coral: "true"
       intel.feature.node.kubernetes.io/gpu: "true"
     affinity:
       podAntiAffinity:

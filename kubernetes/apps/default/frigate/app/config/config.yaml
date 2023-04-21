@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://frigate.devbu.io/api/config/schema
+# yaml-language-server: $schema=https://frigate.devbu.io/api/config/schema.json
 logger:
   default: info
   # logs:
@@ -14,21 +14,21 @@ mqtt:
 database:
   path: /data/frigate.db
 
+detectors:
+  coral:
+    type: edgetpu
+    device: usb
+
 # Include all cameras by default in Birdseye view
 birdseye:
   enabled: True
   mode: continuous
 
-detectors:
-  cpu1:
-    type: cpu
-    num_threads: 3
-
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]
-  hwaccel_args: preset-vaapi
+  hwaccel_args: ["-hwaccel", "vaapi", "-hwaccel_device", "/dev/dri/renderD128", "-hwaccel_output_format", "yuv420p"]
   output_args:
-    record: preset-record-ubiquiti
+    record: preset-record-generic-audio-aac
 
 snapshots:
   enabled: true
