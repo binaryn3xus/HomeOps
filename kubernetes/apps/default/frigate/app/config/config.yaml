@@ -108,6 +108,10 @@ cameras:
       width: 2034
       height: 1296
       fps: 10
+    snapshots:
+      enabled: true
+      retain:
+        default: 10
     # Detect something wild to hopefully never trigger
     objects:
       track: ["giraffe"]
