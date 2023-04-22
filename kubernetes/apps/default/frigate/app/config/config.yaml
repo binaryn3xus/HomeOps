@@ -6,7 +6,7 @@ logger:
   #   frigate.record: debug
 
 mqtt:
-  host: mqtt.default.svc.cluster.local
+  host: emqx.default.svc.cluster.local
   topic_prefix: frigate
   user: "{FRIGATE_MQTT_USERNAME}"
   password: "{FRIGATE_MQTT_PASSWORD}"
@@ -94,7 +94,6 @@ cameras:
     # Detect something wild to hopefully never trigger
     objects:
       track: ["giraffe"]
-
 
   Living_Room:
     birdseye:
