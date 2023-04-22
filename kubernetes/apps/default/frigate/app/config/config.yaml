@@ -91,6 +91,10 @@ cameras:
       width: 2034
       height: 1296
       fps: 10
+    # Detect something wild to hopefully never trigger
+    objects:
+      track: ["giraffe"]
+
 
   Living_Room:
     birdseye:
@@ -105,6 +109,9 @@ cameras:
       width: 2034
       height: 1296
       fps: 10
+    # Detect something wild to hopefully never trigger
+    objects:
+      track: ["giraffe"]
 
   Leo_Room:
     birdseye:
@@ -119,6 +126,9 @@ cameras:
       width: 2034
       height: 1296
       fps: 10
+    # Detect something wild to hopefully never trigger
+    objects:
+      track: ["giraffe"]
 
   Garage:
     ffmpeg:
