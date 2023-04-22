@@ -125,9 +125,9 @@ cameras:
       width: 2034
       height: 1296
       fps: 10
-    # Detect something wild to hopefully never trigger
+    # Detect cat for litter box training
     objects:
-      track: ["giraffe"]
+      track: ["cat"]
 
   Garage:
     ffmpeg:
