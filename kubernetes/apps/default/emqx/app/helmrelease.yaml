@@ -75,6 +75,7 @@ spec:
                     values: ["emqx"]
               topologyKey: kubernetes.io/hostname
   valuesFrom:
+    # Some of the users/passwords that are included in the Helm Release do not show up in the dashboard. Be aware of this. However, they should still work.
     - targetPath: emqxConfig.EMQX_DASHBOARD__DEFAULT_PASSWORD
       kind: Secret
       name: emqx-secret
