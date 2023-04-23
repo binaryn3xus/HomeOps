@@ -119,8 +119,8 @@ cameras:
   Leo_Room:
     birdseye:
       enabled: false
-    record:
-      enabled: false
+    # record:
+    #   enabled: false
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_leoroom_hq
