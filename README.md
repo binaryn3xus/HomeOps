@@ -10,7 +10,7 @@ _... managed with Flux, SOPS and GitHub Actions_ 🤖
 
 <div align="center">
 
-[![Kubernetes](https://img.shields.io/badge/v1.26.2-blue?style=for-the-badge&logo=kubernetes&logoColor=white)](https://k3s.io/)
+[![Kubernetes](https://img.shields.io/badge/v1.26.4-blue?style=for-the-badge&logo=kubernetes&logoColor=white)](https://k3s.io/)
 
 [![Plex](https://img.shields.io/uptimerobot/status/m792627751-0264dfd72c060e8b390e6398?label=Plex&style=for-the-badge)](https://plex.tv)
 
