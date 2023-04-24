@@ -2,15 +2,24 @@
 name: "Release"
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: "0 0 1 * *" # First of the month
+    # Run every Monday at 12:00am
+    - cron: '0 0 * * 1'
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Publish Latest Release
-        uses: ivangabriele/publish-latest-release@df1a4afd8aea9d1f0ba5ebeb89452aeac7bca0a9 # renovate: tag=v3
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Create Release
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tag=v$(date +'%Y.%-m.1')
+          echo "Creating release $tag"
+          gh release create "$tag" \
+              --repo="$GITHUB_REPOSITORY" \
+              --title="${GITHUB_REPOSITORY#*/} ${tag#v}" \
+              --generate-notes
