@@ -69,7 +69,7 @@ spec:
         labels:
           snapshot.home.arpa/enabled: "true"
     persistence:
-      media:
+      films:
         enabled: true
         type: nfs
         server: ${HOME_NAS_IP}
@@ -80,7 +80,7 @@ spec:
         type: emptyDir
     resources:
       requests:
-        cpu: 100m
-        memory: 2000Mi
+        cpu: 20m
+        memory: 200Mi
       limits:
-        memory: 10000Mi
+        memory: 5000Mi
