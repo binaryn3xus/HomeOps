@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: plex-utills
+  name: dizquetv
   namespace: default
 spec:
   interval: 15m
@@ -30,15 +30,15 @@ spec:
     controller:
       type: statefulset
     image:
-      repository: docker.io/jkirkcaldy/plex-utills
-      tag: 23.02.02
+      repository: docker.io/vexorian/dizquetv
+      tag: 1.4.5
     env:
       TZ: "${TIMEZONE}"
     service:
       main:
         ports:
           http:
-            port: 5000
+            port: 8000
     ingress:
       main:
         enabled: true
@@ -47,14 +47,14 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-production
           hajimari.io/icon: mdi:tools
         hosts:
-          - host: &host "plex-utills.${SECRET_DOMAIN}"
+          - host: &host "dizquetv.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
               - *host
-            secretName: plex-utills-tls
+            secretName: dizquetv-tls
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
@@ -62,22 +62,12 @@ spec:
       fsGroupChangePolicy: "OnRootMismatch"
     volumeClaimTemplates:
       - name: config
-        mountPath: /config
+        mountPath: /home/node/app/.dizquetv
         accessMode: ReadWriteOnce
         size: 2Gi
         storageClass: ceph-block
         labels:
           snapshot.home.arpa/enabled: "true"
-    persistence:
-      films:
-        enabled: true
-        type: nfs
-        server: ${HOME_NAS_IP}
-        path: /volume1/Media/Movies
-        mountPath: /films
-      logs:
-        enabled: true
-        type: emptyDir
     resources:
       requests:
         cpu: 20m
