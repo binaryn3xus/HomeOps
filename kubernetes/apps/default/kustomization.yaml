@@ -15,6 +15,7 @@ resources:
   - ./node-red/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml
+  - ./plex-utills/ks.yaml
   - ./prowlarr/ks.yaml
   - ./qbittorrent-seedbox/ks.yaml
   - ./radarr/ks.yaml
