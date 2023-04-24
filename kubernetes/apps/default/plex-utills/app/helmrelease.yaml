@@ -75,8 +75,8 @@ spec:
         type: nfs
         server: ${HOME_NAS_IP}
         path: /volume1/Media/Movies
-        mountPath: /movies
-      transcode:
+        mountPath: /films
+      logs:
         enabled: true
         type: emptyDir
     resources:
