@@ -75,63 +75,11 @@ go2rtc:
     frigate_driveway_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.37:554/cam/realmonitor?channel=1&subtype=1
     frigate_office_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=0
     frigate_office_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=1
+    frigate_unifi_doorbell_hq: rtspx://10.0.10.8:7441/w4UzOd0saveEXQqN
+    frigate_unifi_doorbell_mq: rtspx://10.0.10.8:7441/dMjvqI54GZceSviO
+    frigate_unifi_doorbell_package: rtspx://10.0.10.8:7441/CSc5p7GY9hUIiI1X
 
 cameras:
-
-  Office:
-    birdseye:
-      enabled: false
-    record:
-      enabled: false
-    ffmpeg:
-      inputs:
-        - path: rtsp://localhost:8554/frigate_office_hq
-          roles: ["detect"]
-    detect:
-      width: 2034
-      height: 1296
-      fps: 10
-    # Detect something wild to hopefully never trigger
-    objects:
-      track: ["giraffe"]
-
-  Living_Room:
-    birdseye:
-      enabled: false
-    record:
-      enabled: false
-    ffmpeg:
-      inputs:
-        - path: rtsp://localhost:8554/frigate_livingroom_hq
-          roles: ["detect"]
-    detect:
-      width: 2034
-      height: 1296
-      fps: 10
-    snapshots:
-      enabled: true
-      retain:
-        default: 10
-    # Detect something wild to hopefully never trigger
-    objects:
-      track: ["giraffe"]
-
-  Leo_Room:
-    birdseye:
-      enabled: false
-    # record:
-    #   enabled: false
-    ffmpeg:
-      inputs:
-        - path: rtsp://localhost:8554/frigate_leoroom_hq
-          roles: ["detect"]
-    detect:
-      width: 2034
-      height: 1296
-      fps: 10
-    # Detect cat for litter box training
-    objects:
-      track: ["cat"]
 
   Garage:
     ffmpeg:
@@ -214,3 +162,87 @@ cameras:
       fps: 10
     motion:
       mask: ["553,330,1241,377,1813,1296,2034,1296,2034,0,600,0,0,0,0,489"]
+
+  Office:
+    birdseye:
+      enabled: false
+    record:
+      enabled: false
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_office_hq
+          roles: ["detect"]
+    detect:
+      width: 2034
+      height: 1296
+      fps: 10
+    # Detect something wild to hopefully never trigger
+    objects:
+      track: ["giraffe"]
+
+  Living_Room:
+    birdseye:
+      enabled: false
+    record:
+      enabled: false
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_livingroom_hq
+          roles: ["detect"]
+    detect:
+      width: 2034
+      height: 1296
+      fps: 10
+    snapshots:
+      enabled: true
+      retain:
+        default: 10
+    # Detect something wild to hopefully never trigger
+    objects:
+      track: ["giraffe"]
+
+  Leo_Room:
+    birdseye:
+      enabled: false
+    # record:
+    #   enabled: false
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_leoroom_hq
+          roles: ["detect"]
+    detect:
+      width: 2034
+      height: 1296
+      fps: 10
+    # Detect cat for litter box training
+    objects:
+      track: ["cat"]
+
+  Unifi_Doorbell:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_unifi_doorbell_mq
+          roles: ["detect"]
+        - path: rtsp://localhost:8554/frigate_unifi_doorbell_hq
+          roles: ["record"]
+    detect:
+      width: 960
+      height: 720
+      fps: 10
+    motion:
+      mask: ["0,0,773,0,778,442,420,426,0,450"]
+    objects:
+      track: ["person"]
+
+  Unifi_Doorbell_Package:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_unifi_doorbell_package
+          roles: ["detect"]
+    detect:
+      width: 1600
+      height: 1200
+      fps: 10
+    # Detect something wild to hopefully never trigger
+    objects:
+      track: ["giraffe"]

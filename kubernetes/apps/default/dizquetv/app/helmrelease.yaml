@@ -31,7 +31,7 @@ spec:
       type: statefulset
     image:
       repository: docker.io/vexorian/dizquetv
-      tag: 1.4.5
+      tag: 1.5.0
     env:
       TZ: "${TIMEZONE}"
     service:
