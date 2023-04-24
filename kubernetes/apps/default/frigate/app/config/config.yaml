@@ -75,6 +75,9 @@ go2rtc:
     frigate_driveway_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.37:554/cam/realmonitor?channel=1&subtype=1
     frigate_office_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=0
     frigate_office_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=1
+    frigate_unifi_doorbell_hq: rtsp://10.0.10.8:7441/w4UzOd0saveEXQqN
+    frigate_unifi_doorbell_lq: rtsp://10.0.10.8:7441/ykTgiAyMqHd6E9gG
+    frigate_unifi_doorbell_package: rtsp://10.0.10.8:7441/CSc5p7GY9hUIiI1X
 
 cameras:
 
@@ -214,3 +217,31 @@ cameras:
       fps: 10
     motion:
       mask: ["553,330,1241,377,1813,1296,2034,1296,2034,0,600,0,0,0,0,489"]
+
+  Unifi_Doorbell:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_unifi_doorbell_lq
+          roles: ["detect"]
+        - path: rtsp://localhost:8554/frigate_unifi_doorbell_hq
+          roles: ["record"]
+    detect:
+      width: 480
+      height: 360
+      fps: 10
+    # Detect something wild to hopefully never trigger
+    objects:
+      track: ["giraffe"]
+
+  Unifi_Doorbell_Package:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_unifi_doorbell_package
+          roles: ["detect"]
+    detect:
+      width: 1600
+      height: 1200
+      fps: 10
+    # Detect something wild to hopefully never trigger
+    objects:
+      track: ["giraffe"]
