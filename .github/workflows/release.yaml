@@ -22,5 +22,5 @@ jobs:
           echo "Creating release $tag"
           gh release create "$tag" \
               --repo="$GITHUB_REPOSITORY" \
-              --title="${GITHUB_REPOSITORY#*/} ${tag#v}" \
+              --title="v${tag#v}" \
               --generate-notes
