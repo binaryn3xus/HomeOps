@@ -229,6 +229,8 @@ cameras:
       width: 960
       height: 720
       fps: 10
+    motion:
+      mask: ["0,0,773,0,778,442,420,426,0,450"]
     objects:
       track: ["person"]
 
