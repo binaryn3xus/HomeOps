@@ -23,6 +23,12 @@ spec:
                   value: LOCAL
                 - name: SEARCH_PADDING
                   value: '5'
+                - name: HEADLESS_MODE
+                  value: 'true'
+                - name: GEOLOCATION
+                  value: 'US'
+                - name: LANGUAGE
+                  value: 'en-US'
               envFrom:
                 - secretRef:
                     name: msfarmer-secrets-001
@@ -52,6 +58,12 @@ spec:
                   value: LOCAL
                 - name: SEARCH_PADDING
                   value: '5'
+                - name: HEADLESS_MODE
+                  value: 'true'
+                - name: GEOLOCATION
+                  value: 'US'
+                - name: LANGUAGE
+                  value: 'en-US'
               envFrom:
                 - secretRef:
                     name: msfarmer-secrets-002
@@ -81,6 +93,12 @@ spec:
                   value: LOCAL
                 - name: SEARCH_PADDING
                   value: '5'
+                - name: HEADLESS_MODE
+                  value: 'true'
+                - name: GEOLOCATION
+                  value: 'US'
+                - name: LANGUAGE
+                  value: 'en-US'
               envFrom:
                 - secretRef:
                     name: msfarmer-secrets-003
@@ -110,6 +128,12 @@ spec:
                   value: LOCAL
                 - name: SEARCH_PADDING
                   value: '5'
+                - name: HEADLESS_MODE
+                  value: 'true'
+                - name: GEOLOCATION
+                  value: 'US'
+                - name: LANGUAGE
+                  value: 'en-US'
               envFrom:
                 - secretRef:
                     name: msfarmer-secrets-004
@@ -139,6 +163,12 @@ spec:
                   value: LOCAL
                 - name: SEARCH_PADDING
                   value: '5'
+                - name: HEADLESS_MODE
+                  value: 'true'
+                - name: GEOLOCATION
+                  value: 'US'
+                - name: LANGUAGE
+                  value: 'en-US'
               envFrom:
                 - secretRef:
                     name: msfarmer-secrets-005
