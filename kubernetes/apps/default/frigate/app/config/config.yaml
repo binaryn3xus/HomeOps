@@ -214,9 +214,9 @@ cameras:
       width: 2034
       height: 1296
       fps: 10
-    # Detect cat for litter box training
+    # Detect something wild to hopefully never trigger
     objects:
-      track: ["cat"]
+      track: ["giraffe"]
 
   Unifi_Doorbell:
     ffmpeg:
