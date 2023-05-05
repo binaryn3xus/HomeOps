@@ -31,7 +31,7 @@ spec:
       type: statefulset
     image:
       repository: ghcr.io/onedr0p/sabnzbd
-      tag: 3.7.2@sha256:a6f2cdfe38c7a401d330018ee23fa3d8a26fb5eb9eec75f2921efabda9ad1f44
+      tag: 4.0.1@sha256:35c0eabdfad1f7309e3d57af53053ff8e8ecbcf70005c7efb84bd5d1f35dd542
     env:
       TZ: "${TIMEZONE}"
       SABNZBD__PORT: &port 80
