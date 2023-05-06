@@ -10,7 +10,7 @@ _... managed with Flux, SOPS and GitHub Actions_ 🤖
 
 <div align="center">
 
-[![Kubernetes](https://img.shields.io/badge/v1.26.4-blue?style=for-the-badge&logo=kubernetes&logoColor=white)](https://k3s.io/)
+[![Kubernetes](https://img.shields.io/badge/v1.27.1-blue?style=for-the-badge&logo=kubernetes&logoColor=white)](https://k3s.io/)
 
 [![Plex](https://img.shields.io/uptimerobot/status/m792627751-0264dfd72c060e8b390e6398?logo=plex&logoColor=white&color=brightgreeen&label=Plex&style=for-the-badge)](https://plex.tv)
 [![Home-Assistant](https://img.shields.io/uptimerobot/status/m792627687-253e54a4fb0305d78f746aef?logo=homeassistant&logoColor=white&color=brightgreeen&label=Home%20Assistant&style=for-the-badge)](https://www.home-assistant.io/)
@@ -125,7 +125,7 @@ Community member [snoopy82481](https://github.com/snoopy82481/) for support in s
 
 ## 📜 Changelog
 
-See _awful_ [commit history](https://github.com/JoshuaGarrison27/HomeOps/commits/main)
+See _awful_ [commit history](https://github.com/binaryn3xus/HomeOps/commits/main)
 
 ---
 
