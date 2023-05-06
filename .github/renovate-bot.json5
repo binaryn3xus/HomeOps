@@ -2,5 +2,5 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "username": "unsc-oni-ancilla[bot]",
   "gitAuthor": "UNSC-ONI-ANCILLA <121069198+UNSC-ONI-ANCILLA[bot]@users.noreply.github.com>",
-  "repositories": ["JoshuaGarrison27/HomeOps"]
+  "repositories": ["binaryn3xus/HomeOps"]
 }

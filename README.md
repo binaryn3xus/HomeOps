@@ -125,7 +125,7 @@ Community member [snoopy82481](https://github.com/snoopy82481/) for support in s
 
 ## 📜 Changelog
 
-See _awful_ [commit history](https://github.com/JoshuaGarrison27/HomeOps/commits/main)
+See _awful_ [commit history](https://github.com/binaryn3xus/HomeOps/commits/main)
 
 ---
 
