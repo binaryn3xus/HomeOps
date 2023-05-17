@@ -79,14 +79,12 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-production
           hajimari.io/icon: mdi:chart-areaspline
         hosts:
-          - host: &host "grafana.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
+          - &host "grafana.${SECRET_DOMAIN}"
+        paths: /
         tls:
-          - hosts:
+          - secretName: grafana-tls
+            hosts:
               - *host
-            secretName: grafana-tls
       admin:
         existingSecret: grafana-admin-credentials
         userKey: admin-user
