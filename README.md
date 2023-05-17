@@ -99,15 +99,15 @@ Over WAN, I have port forwarded ports `80` and `443` to the load balancer IP of 
 
 ## 🔧 Hardware
 
-| Node            | Model                          | RAM       | OS Disk Size | Data Disk Size | Operating System      | Purpose                  | Rack Location    |
-| --------------- | ------------------------------ | --------- | ------------ | -------------- | --------------------- | ------------------------ | ---------------- |
-| N/A             | HUNSN Micro Firewall Appliance | 8 GB      | 64GB (SSD)   |                | VyOS                  | Router                   |   18U (Right)
-| FleetCom Node 1 | Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu Server 22.04.x | Kubernetes Control Plane |   15U (Left)     |
-| FleetCom Node 2 | Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu Server 22.04.x | Kubernetes Control Plane |   15U (Right)    |
-| FleetCom Node 3 | Dell Optiplex 7050 Micro       | 16 GB     | 500GB (NVMe) | 1TB (SSD)      | Ubuntu Server 22.04.x | Kubernetes Worker        |   16U (Left)     |
-| FleetCom Node 4 | HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu Server 22.04.x | Kubernetes Worker        |   17U (Right)    |
-| FleetCom Node 5 | HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu Server 22.04.x | Kubernetes Control Plane |   17U (Left)     |
-| FleetCom Node 6 | Dell Optiplex 3060 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu Server 22.04.x | Kubernetes Worker        |   16U (Right)    |
+| Model                          | RAM       | OS Disk Size | Data Disk Size | Operating System  | Purpose                    | Rack Location    |
+| ------------------------------ | --------- | ------------ | -------------- | ----------------- | -------------------------- | ---------------- |
+| HUNSN Micro Firewall Appliance | 8 GB      | 64GB (SSD)   |                | VyOS              | Router                     |   18U (Right)    |
+| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu            | Node 1 (K8s Control Plane) |   15U (Left)     |
+| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu            | Node 2 (K8s Control Plane) |   15U (Right)    |
+| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (NVMe) | 1TB (SSD)      | Ubuntu            | Node 3 (K8s Worker)        |   16U (Left)     |
+| HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu            | Node 4 (K8s Worker)        |   17U (Right)    |
+| HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu            | Node 5 (K8s Control Plane) |   17U (Left)     |
+| Dell Optiplex 3060 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu            | Node 6 (K8s Worker)        |   16U (Right)    |
 
 ---
 
