@@ -45,7 +45,7 @@ spec:
         ingressClassName: nginx
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
-          hajimari.io/icon: mdi:tools
+          hajimari.io/icon: mdi:television-classic
         hosts:
           - host: &host "dizquetv.${SECRET_DOMAIN}"
             paths:
