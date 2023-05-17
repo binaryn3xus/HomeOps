@@ -70,6 +70,8 @@ spec:
       defaultDashboardsTimezone: utc
       serviceMonitor:
         enabled: true
+      service:
+        portName: http-web
       ingress:
         enabled: true
         ingressClassName: nginx
