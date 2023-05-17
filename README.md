@@ -87,17 +87,13 @@ Over WAN, I have port forwarded ports `80` and `443` to the load balancer IP of 
 
 ### Internal DNS
 
-[coredns](https://github.com/coredns/coredns) is deployed on my `Opnsense` router and all DNS queries for **my** domains are forwarded to [k8s_gateway](https://github.com/ori-edge/k8s_gateway) that is running in my cluster. With this setup `k8s_gateway` has direct access to my clusters ingresses and services and serves DNS for them in my internal network.
+[coredns](https://github.com/coredns/coredns) is deployed on my `VyOS` router and all DNS queries for **my** domains are forwarded to [k8s_gateway](https://github.com/ori-edge/k8s_gateway) that is running in my cluster. With this setup `k8s_gateway` has direct access to my clusters ingresses and services and serves DNS for them in my internal network.
 
 ### External DNS
 
 [external-dns](https://github.com/kubernetes-sigs/external-dns) is deployed in my cluster and configure to sync DNS records to [Cloudflare](https://www.cloudflare.com/). The only ingresses `external-dns` looks at to gather DNS records to put in `Cloudflare` are ones that I explicitly set an annotation of `external-dns.home.arpa/enabled: "true"`
 
 🔸 _[Click here](./terraform/cloudflare) to see how else I manage Cloudflare with Terraform._
-
-### Dynamic DNS
-
-My home IP can change at any given time and in order to keep my WAN IP address up to date on Cloudflare. I have deployed a [CronJob](./kubernetes/apps/networking/cloudflare-ddns) in my cluster, this periodically checks and updates the `A` record `ipv4.domain.tld`.
 
 ---
 
