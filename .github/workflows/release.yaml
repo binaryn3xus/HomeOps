@@ -17,7 +17,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          tag=v$(date +'%Y.%-m.1')
+          week_of_month=$((($(date +%-d)-1)/7+1))
+          tag=v$(date +'%Y.%m')"."$week_of_month
           echo "Creating release $tag"
           gh release create "$tag" \
               --repo="$GITHUB_REPOSITORY" \
