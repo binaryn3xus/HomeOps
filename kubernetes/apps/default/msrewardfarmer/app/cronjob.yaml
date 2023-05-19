@@ -15,7 +15,7 @@ spec:
         spec:
           containers:
             - name: msrewardfarmer
-              image: ghcr.io/binaryn3xus/msrewardfarmer:2023.5.1
+              image: ghcr.io/binaryn3xus/msrewardfarmer:2023.5.2
               env:
                 - name: TZ
                   value: America/New_York
@@ -50,7 +50,7 @@ spec:
         spec:
           containers:
             - name: msrewardfarmer
-              image: ghcr.io/binaryn3xus/msrewardfarmer:2023.5.1
+              image: ghcr.io/binaryn3xus/msrewardfarmer:2023.5.2
               env:
                 - name: TZ
                   value: America/New_York
@@ -85,7 +85,7 @@ spec:
         spec:
           containers:
             - name: msrewardfarmer
-              image: ghcr.io/binaryn3xus/msrewardfarmer:2023.5.1
+              image: ghcr.io/binaryn3xus/msrewardfarmer:2023.5.2
               env:
                 - name: TZ
                   value: America/New_York
@@ -120,7 +120,7 @@ spec:
         spec:
           containers:
             - name: msrewardfarmer
-              image: ghcr.io/binaryn3xus/msrewardfarmer:2023.5.1
+              image: ghcr.io/binaryn3xus/msrewardfarmer:2023.5.2
               env:
                 - name: TZ
                   value: America/New_York
@@ -155,7 +155,7 @@ spec:
         spec:
           containers:
             - name: msrewardfarmer
-              image: ghcr.io/binaryn3xus/msrewardfarmer:2023.5.1
+              image: ghcr.io/binaryn3xus/msrewardfarmer:2023.5.2
               env:
                 - name: TZ
                   value: America/New_York
