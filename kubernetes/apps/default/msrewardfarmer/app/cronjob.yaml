@@ -15,7 +15,7 @@ spec:
         spec:
           containers:
             - name: msrewardfarmer
-              image: ghcr.io/binaryn3xus/msrewardfarmer:0.3.2
+              image: ghcr.io/binaryn3xus/msrewardfarmer:2023.5.3
               env:
                 - name: TZ
                   value: America/New_York
