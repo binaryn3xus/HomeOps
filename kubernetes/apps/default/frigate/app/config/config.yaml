@@ -178,7 +178,7 @@ cameras:
       fps: 10
     # Detect something wild to hopefully never trigger
     objects:
-      track: ["giraffe"]
+      track: ["person"]
 
   Living_Room:
     birdseye:
