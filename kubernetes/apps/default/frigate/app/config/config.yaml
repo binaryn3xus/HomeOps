@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://frigate.devbu.io/api/config/schema.json
+# yaml-language-server: $schema=https://frigate.unscfleet.com/api/config/schema.json
 logger:
   default: info
   # logs:
@@ -28,7 +28,7 @@ ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]
   hwaccel_args: ["-hwaccel", "vaapi", "-hwaccel_device", "/dev/dri/renderD128", "-hwaccel_output_format", "yuv420p"]
   output_args:
-    record: preset-record-generic-audio-copy
+    record: preset-record-generic
 
 snapshots:
   enabled: true
