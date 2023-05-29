@@ -16,7 +16,7 @@ spec:
           containers:
             - name: msrewardfarmer
               image: ghcr.io/binaryn3xus/msrewardfarmer:0.3.2
-
+              imagePullPolicy: IfNotPresent
               env:
                 - name: TZ
                   value: America/New_York
@@ -52,6 +52,7 @@ spec:
           containers:
             - name: msrewardfarmer
               image: ghcr.io/binaryn3xus/msrewardfarmer:0.3.2
+              imagePullPolicy: IfNotPresent
               env:
                 - name: TZ
                   value: America/New_York
@@ -87,6 +88,7 @@ spec:
           containers:
             - name: msrewardfarmer
               image: ghcr.io/binaryn3xus/msrewardfarmer:0.3.2
+              imagePullPolicy: IfNotPresent
               env:
                 - name: TZ
                   value: America/New_York
@@ -122,6 +124,7 @@ spec:
           containers:
             - name: msrewardfarmer
               image: ghcr.io/binaryn3xus/msrewardfarmer:0.3.2
+              imagePullPolicy: IfNotPresent
               env:
                 - name: TZ
                   value: America/New_York
@@ -157,6 +160,7 @@ spec:
           containers:
             - name: msrewardfarmer
               image: ghcr.io/binaryn3xus/msrewardfarmer:0.3.2
+              imagePullPolicy: IfNotPresent
               env:
                 - name: TZ
                   value: America/New_York
