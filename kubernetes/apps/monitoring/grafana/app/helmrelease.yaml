@@ -87,7 +87,6 @@ spec:
         - hosts:
             - *host
     persistence:
-      enabled: true
-      storageClassName: ceph-block
+      enabled: false
     testFramework:
       enabled: false

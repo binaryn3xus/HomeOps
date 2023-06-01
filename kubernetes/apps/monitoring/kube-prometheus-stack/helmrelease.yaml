@@ -32,7 +32,15 @@ spec:
   values:
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
-      enabled: false
+      enabled: true
+      config:
+        global:
+          resolve_timeout: 5m
+        receivers:
+          - name: discord
+            webhook_configs:
+              - url: "${SECRET_ALERTMANAGER_DISCORD_WEBHOOK}"
+                send_resolved: true
     grafana:
       enabled: false
       forceDeployDashboards: true
