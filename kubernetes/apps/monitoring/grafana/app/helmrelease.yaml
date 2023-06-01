@@ -88,6 +88,6 @@ spec:
             - *host
     persistence:
       enabled: true
-      storageClassName: ceph-block
+      storageClassName: local-path
     testFramework:
       enabled: false
