@@ -98,9 +98,6 @@ spec:
         server: ${HOME_NAS_IP}
         path: /volume1/Media/
         mountPath: /media
-      incomplete:
-        enabled: true
-        type: emptyDir
     resources:
       requests:
         cpu: 10m

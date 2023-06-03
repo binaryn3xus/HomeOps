@@ -8,6 +8,7 @@ resources:
   - ./bjw-s.yaml
   - ./emqx.yaml
   - ./external-dns.yaml
+  - ./grafana.yaml
   - ./hajimari.yaml
   - ./ingress-nginx.yaml
   - ./intel.yaml
