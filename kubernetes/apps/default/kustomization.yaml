@@ -7,3 +7,4 @@ resources:
   - ./echo-server/ks.yaml
   - ./hajimari/ks.yaml
   - ./minio/ks.yaml
+  - ./plex/ks.yaml
