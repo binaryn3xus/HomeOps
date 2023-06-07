@@ -1,0 +1,216 @@
+---
+# 001
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: msrewardfarmer-001
+  namespace: default
+spec:
+  schedule: "0 4-22/4 * * *"  # runs at minute 0 past every 4th hour from 4 through 22.
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: msrewardfarmer
+              image: ghcr.io/binaryn3xus/msrewardfarmer:0.3.3
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: TZ
+                  value: America/New_York
+                - name: SEARCH_SOURCE
+                  value: LOCAL
+                - name: SEARCH_PADDING
+                  value: '5'
+                - name: HEADLESS_MODE
+                  value: 'true'
+                - name: GEOLOCATION
+                  value: 'US'
+                - name: LANGUAGE
+                  value: 'en-US'
+              envFrom:
+                - secretRef:
+                    name: msfarmer-secrets-001
+          restartPolicy: OnFailure
+---
+#002
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: msrewardfarmer-002
+  namespace: default
+spec:
+  schedule: "0 4-22/4 * * *"  # runs at minute 0 past every 4th hour from 4 through 22.
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: msrewardfarmer
+              image: ghcr.io/binaryn3xus/msrewardfarmer:0.3.3
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: TZ
+                  value: America/New_York
+                - name: SEARCH_SOURCE
+                  value: LOCAL
+                - name: SEARCH_PADDING
+                  value: '5'
+                - name: HEADLESS_MODE
+                  value: 'true'
+                - name: GEOLOCATION
+                  value: 'US'
+                - name: LANGUAGE
+                  value: 'en-US'
+              envFrom:
+                - secretRef:
+                    name: msfarmer-secrets-002
+          restartPolicy: OnFailure
+---
+#003
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: msrewardfarmer-003
+  namespace: default
+spec:
+  schedule: "0 4-22/4 * * *"  # runs at minute 0 past every 4th hour from 4 through 22.
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: msrewardfarmer
+              image: ghcr.io/binaryn3xus/msrewardfarmer:0.3.3
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: TZ
+                  value: America/New_York
+                - name: SEARCH_SOURCE
+                  value: LOCAL
+                - name: SEARCH_PADDING
+                  value: '5'
+                - name: HEADLESS_MODE
+                  value: 'true'
+                - name: GEOLOCATION
+                  value: 'US'
+                - name: LANGUAGE
+                  value: 'en-US'
+              envFrom:
+                - secretRef:
+                    name: msfarmer-secrets-003
+          restartPolicy: OnFailure
+---
+#004
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: msrewardfarmer-004
+  namespace: default
+spec:
+  schedule: "0 4-22/4 * * *"  # runs at minute 0 past every 4th hour from 4 through 22.
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: msrewardfarmer
+              image: ghcr.io/binaryn3xus/msrewardfarmer:0.3.3
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: TZ
+                  value: America/New_York
+                - name: SEARCH_SOURCE
+                  value: LOCAL
+                - name: SEARCH_PADDING
+                  value: '5'
+                - name: HEADLESS_MODE
+                  value: 'true'
+                - name: GEOLOCATION
+                  value: 'US'
+                - name: LANGUAGE
+                  value: 'en-US'
+              envFrom:
+                - secretRef:
+                    name: msfarmer-secrets-004
+          restartPolicy: OnFailure
+---
+#005
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: msrewardfarmer-005
+  namespace: default
+spec:
+  schedule: "0 4-22/4 * * *"  # runs at minute 0 past every 4th hour from 4 through 22.
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: msrewardfarmer
+              image: ghcr.io/binaryn3xus/msrewardfarmer:0.3.3
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: TZ
+                  value: America/New_York
+                - name: SEARCH_SOURCE
+                  value: LOCAL
+                - name: SEARCH_PADDING
+                  value: '5'
+                - name: HEADLESS_MODE
+                  value: 'true'
+                - name: GEOLOCATION
+                  value: 'US'
+                - name: LANGUAGE
+                  value: 'en-US'
+              envFrom:
+                - secretRef:
+                    name: msfarmer-secrets-005
+          restartPolicy: OnFailure
+---
+#006
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: msrewardfarmer-006
+  namespace: default
+spec:
+  schedule: "0 4-22/4 * * *"  # runs at minute 0 past every 4th hour from 4 through 22.
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: msrewardfarmer
+              image: ghcr.io/binaryn3xus/msrewardfarmer:0.3.3
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: TZ
+                  value: America/New_York
+                - name: SEARCH_SOURCE
+                  value: LOCAL
+                - name: SEARCH_PADDING
+                  value: '5'
+                - name: HEADLESS_MODE
+                  value: 'true'
+                - name: GEOLOCATION
+                  value: 'US'
+                - name: LANGUAGE
+                  value: 'en-US'
+              envFrom:
+                - secretRef:
+                    name: msfarmer-secrets-006
+          restartPolicy: OnFailure
