@@ -4,7 +4,7 @@ name: "Link Check"
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 0 * * 0"
 
 jobs:
   link-check:
@@ -19,12 +19,6 @@ jobs:
         id: lychee
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-        with:
-          args: >
-            --verbose
-            --no-progress
-            --exclude-mail
-            './**/*.md'
 
       - name: Find Link Checker Issue
         id: link-checker-issue

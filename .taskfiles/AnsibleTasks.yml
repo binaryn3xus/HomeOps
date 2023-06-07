@@ -2,7 +2,8 @@
 version: "3"
 
 env:
-  ANSIBLE_CONFIG: "{{.PROJECT_DIR}}/ansible.cfg"
+  ANSIBLE_CONFIG: "{{.ROOT_DIR}}/ansible.cfg"
+  K8S_AUTH_KUBECONFIG: "{{.ROOT_DIR}}/kubeconfig"
 
 vars:
   ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/playbooks"
@@ -14,6 +15,7 @@ tasks:
     desc: Install / Upgrade Ansible galaxy deps
     dir: "{{.ANSIBLE_DIR}}"
     cmds:
+      - pip3 install --user --requirement requirements.txt
       - ansible-galaxy install -r requirements.yml --roles-path ~/.ansible/roles --force
       - ansible-galaxy collection install -r requirements.yml --collections-path ~/.ansible/collections --force
 
@@ -35,12 +37,11 @@ tasks:
     cmds:
       - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-installation.yml
 
-  copy-kubeconfig:
-    desc: Install Kubernetes on the nodes
+  upgrade:
+    desc: Upgrade Kubernetes on the nodes (currently this only upgrades kube-vip)
     dir: "{{.ANSIBLE_DIR}}"
     cmds:
-      - scp {{.ANSIBLE_DIR}}/../kubeconfig /mnt/c/Users/joshu/.kube/config
-      - scp {{.ANSIBLE_DIR}}/../kubeconfig ~/.kube/config
+      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-upgrade.yml
 
   nuke:
     desc: Uninstall Kubernetes on the nodes
@@ -48,7 +49,7 @@ tasks:
     interactive: true
     cmds:
       - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-nuke.yml
-      - task: reboot
+      - task: force-reboot
 
   nuke-rook-data:
     desc: Nuke all
@@ -69,19 +70,19 @@ tasks:
     cmds:
       - ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml --one-line -a 'uptime'
 
-  reboot:
+  rollout-reboot:
+    desc: Rollout a reboot across all the k8s nodes
+    dir: "{{.ANSIBLE_DIR}}"
+    cmds:
+      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-rollout-reboot.yml
+
+  force-reboot:
     desc: Reboot all the k8s nodes
     dir: "{{.ANSIBLE_DIR}}"
     cmds:
       - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-reboot.yml
 
-  upgrade-os:
-    desc: Update the OS of nodes
-    dir: "{{.ANSIBLE_DIR}}"
-    cmds:
-      - ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-os-upgrade.yml
-
-  poweroff:
+  force-poweroff:
     desc: Shutdown all the k8s nodes
     dir: "{{.ANSIBLE_DIR}}"
     cmds:

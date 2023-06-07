@@ -4,23 +4,13 @@ name: "Release"
 on:
   workflow_dispatch:
   schedule:
-    # Run every Monday at 12:00am
-    - cron: '0 0 * * 1'
+    - cron: "0 0 * * 0"
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
-      - name: Create Release
+      - name: Publish Latest Release
+        uses: ivangabriele/publish-latest-release@df1a4afd8aea9d1f0ba5ebeb89452aeac7bca0a9 # renovate: tag=v3
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          week_of_month=$((($(date +%-d)-1)/7+1))
-          tag=v$(date +'%Y.%m')"."$week_of_month
-          echo "Creating release $tag"
-          gh release create "$tag" \
-              --repo="$GITHUB_REPOSITORY" \
-              --title="v${tag#v}" \
-              --generate-notes
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

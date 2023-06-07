@@ -1,8 +1,8 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: home-ops-kubernetes
+  name: home-kubernetes
   namespace: flux-system
 spec:
   interval: 30m
@@ -27,7 +27,7 @@ spec:
   wait: false
   sourceRef:
     kind: GitRepository
-    name: home-ops-kubernetes
+    name: home-kubernetes
   decryption:
     provider: sops
     secretRef:

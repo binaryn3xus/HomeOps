@@ -4,7 +4,6 @@
         "**/ansible/**/*.yml": "ansible",
         "**/ansible/**/*.sops.yml": "yaml",
         "**/ansible/**/inventory/**/*.yml": "yaml",
-        "**/terraform/**/*.tf": "terraform",
         "**/kubernetes/**/*.sops.toml": "plaintext"
     },
     "yaml.schemas": {
@@ -17,5 +16,5 @@
     "editor.guides.highlightActiveBracketPair": true,
     "editor.hover.delay": 1500,
     "files.trimTrailingWhitespace": true,
-    "ansible.python.interpreterPath": "/home/linuxbrew/.linuxbrew/bin/python3.11",
+    "ansible.python.interpreterPath": "/usr/bin/python3",
 }

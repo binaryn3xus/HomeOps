@@ -1,5 +1,4 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -15,31 +14,26 @@ spec:
         kind: HelmRepository
         name: ingress-nginx
         namespace: flux-system
-      interval: 15m
+  maxHistory: 2
   install:
     createNamespace: true
     remediation:
       retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
       retries: 3
-  dependsOn:
-    - name: cert-manager
-      namespace: cert-manager
+  uninstall:
+    keepHistory: false
   values:
-    tcp:
-      "32400": "default/plex:32400"
-      "1883": "default/emqx:1883"
-      "3024": "teleport-cluster/teleport-cluster:3024"
     controller:
-      replicaCount: 2
       extraEnvs:
         - name: TZ
           value: "${TIMEZONE}"
       service:
         annotations:
-          metallb.universe.tf/loadBalancerIPs: |-
-            ${SVC_INGRESS_ADDR}
+          external-dns.alpha.kubernetes.io/hostname: "ingress.${SECRET_DOMAIN}"
+        loadBalancerIP: "${METALLB_INGRESS_ADDR}"
         externalTrafficPolicy: Local
       publishService:
         enabled: true
@@ -49,20 +43,21 @@ spec:
         client-header-timeout: 120
         client-body-buffer-size: "100M"
         client-body-timeout: 120
-        custom-http-errors: |-
-          401,403,404,500,501,502,503
         enable-brotli: "true"
-        forwarded-for-header: "CF-Connecting-IP"
         hsts-max-age: "31449600"
         keep-alive: 120
         keep-alive-requests: 10000
         proxy-body-size: "100M"
         ssl-protocols: "TLSv1.3 TLSv1.2"
-        use-forwarded-headers: "true"
       metrics:
-        enabled: false
-      podAnnotations:
-        configmap.reloader.stakater.com/reload: "cloudflare-networks"
+        enabled: true
+        serviceMonitor:
+          enabled: true
+          namespace: networking
+          namespaceSelector:
+            any: true
+      extraArgs:
+        default-ssl-certificate: "networking/${SECRET_DOMAIN/./-}-production-tls"
       resources:
         requests:
           cpu: 10m
@@ -70,20 +65,4 @@ spec:
         limits:
           memory: 500Mi
     defaultBackend:
-      enabled: true
-      image:
-        repository: ghcr.io/tarampampam/error-pages
-        tag: 2.24.0
-      replicaCount: 1
-      extraEnvs:
-        - name: TEMPLATE_NAME
-          value: lost-in-space
-        - name: SHOW_DETAILS
-          value: "false"
-  valuesFrom:
-    # Cloudflare Networks
-    # https://www.cloudflare.com/ips/
-    - targetPath: controller.config.proxy-real-ip-cidr
-      kind: ConfigMap
-      name: cloudflare-networks
-      valuesKey: cloudflare-networks.txt
+      enabled: false
