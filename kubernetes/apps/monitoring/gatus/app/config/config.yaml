@@ -23,7 +23,7 @@ connectivity:
 
 endpoints:
   - name: status
-    url: https://status.unscfleet.io
+    url: https://status.unscfleet.com
     interval: 1m
     client:
       dns-resolver: tcp://1.1.1.1:53
