@@ -26,6 +26,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    tcp:
+      "32400": "default/plex:32400"
+      "1883": "default/emqx:1883"
+      "3024": "teleport-cluster/teleport-cluster:3024"
     controller:
       extraEnvs:
         - name: TZ
