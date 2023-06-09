@@ -10,7 +10,7 @@ data:
   config.yaml: |
     endpoints:
       - name: audiobookshelf
-        url: https://audiobookshelf.unscfleet.com
+        url: https://audiobooks.unscfleet.com
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53
