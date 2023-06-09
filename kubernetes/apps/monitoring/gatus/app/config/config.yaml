@@ -2,8 +2,7 @@
 web:
   port: ${CUSTOM_WEB_PORT}
 storage:
-  type: sqlite
-  path: data.db
+  type: memory
 metrics: true
 debug: false
 ui:
