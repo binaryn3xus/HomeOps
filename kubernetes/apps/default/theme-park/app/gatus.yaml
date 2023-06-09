@@ -2,15 +2,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: home-assistant-gatus-ep
+  name: theme-park-gatus-ep
   namespace: default
   labels:
     gatus.io/enabled: "true"
 data:
   config.yaml: |
     endpoints:
-      - name: home-assistant
-        url: https://hass.unscfleet.com
+      - name: theme-park
+        url: https://theme-park.unscfleet.com
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53
