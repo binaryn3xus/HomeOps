@@ -10,7 +10,7 @@ data:
   config.yaml: |
     endpoints:
       - name: plex
-        url: https://plex.unscfleet.com/web/index.html
+        url: https://plex.unscfleet.com/grafana/api/health
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53

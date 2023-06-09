@@ -5,3 +5,4 @@ namespace: monitoring
 resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
+  - ./gatus.yaml
