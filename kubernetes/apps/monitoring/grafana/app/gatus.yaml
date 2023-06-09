@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: plex-gatus-ep
+  name: grafana-gatus-ep
   namespace: default
   labels:
     gatus.io/enabled: "true"
@@ -10,7 +10,7 @@ data:
   config.yaml: |
     endpoints:
       - name: plex
-        url: https://plex.unscfleet.com/grafana/api/health
+        url: https://grafana.unscfleet.com/api/health
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53
