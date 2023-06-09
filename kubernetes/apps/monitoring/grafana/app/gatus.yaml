@@ -9,11 +9,11 @@ metadata:
 data:
   config.yaml: |
     endpoints:
-      - name: plex
+      - name: grafana
         url: https://grafana.unscfleet.com/api/health
         interval: 1m
         client:
-          dns-resolver: tcp://1.1.1.1:53
+          dns-resolver: tcp://10.0.254.2:53
         conditions:
           - "[STATUS] == 200"
         alerts:
