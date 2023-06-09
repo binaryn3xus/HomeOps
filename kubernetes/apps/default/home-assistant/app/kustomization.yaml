@@ -6,5 +6,6 @@ namespace: default
 resources:
   - ./helmrelease.yaml
   - ./backups
+  - ./gatus.yaml
 patchesStrategicMerge:
   - ./patches/addons.yaml
