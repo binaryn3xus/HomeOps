@@ -10,7 +10,7 @@ _... managed with Flux, SOPS and GitHub Actions_ 🤖
 
 <div align="center">
 
-[![Kubernetes](https://img.shields.io/badge/v1.27.1-blue?style=for-the-badge&logo=kubernetes&logoColor=white)](https://k3s.io/)
+[![Kubernetes](https://img.shields.io/badge/v1.27.2-blue?style=for-the-badge&logo=kubernetes&logoColor=white)](https://k3s.io/)
 
 [![Plex](https://img.shields.io/uptimerobot/status/m792627751-0264dfd72c060e8b390e6398?logo=plex&logoColor=white&color=brightgreeen&label=Plex&style=for-the-badge)](https://plex.tv)
 [![Home-Assistant](https://img.shields.io/uptimerobot/status/m792627687-253e54a4fb0305d78f746aef?logo=homeassistant&logoColor=white&color=brightgreeen&label=Home%20Assistant&style=for-the-badge)](https://www.home-assistant.io/)
@@ -37,13 +37,14 @@ My cluster is [k3s](https://k3s.io/) provisioned overtop bare-metal Fedora Serve
 
 ### Core Components
 
-- [calico](https://github.com/projectcalico/calico): Internal Kubernetes networking plugin.
+- [cilium](https://cilium.io/): Internal Kubernetes networking plugin.
 - [cert-manager](https://cert-manager.io/docs/): Creates SSL certificates for services in my Kubernetes cluster.
 - [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically manages DNS records from my cluster in a cloud DNS provider.
 - [ingress-nginx](https://github.com/kubernetes/ingress-nginx/): Ingress controller to expose HTTP traffic to pods over DNS.
 - [rook](https://github.com/rook/rook): Distributed block storage for peristent storage.
 - [sops](https://toolkit.fluxcd.io/guides/mozilla-sops/): Managed secrets for Kubernetes, Ansible and Terraform which are commited to Git.
 - [tf-controller](https://github.com/weaveworks/tf-controller): Additional Flux component used to run Terraform from within a Kubernetes cluster.
+- [volsync](https://github.com/backube/volsync) and [snapscheduler](https://github.com/backube/snapscheduler): Backup and recovery of persistent volume claims.
 
 ### GitOps
 
