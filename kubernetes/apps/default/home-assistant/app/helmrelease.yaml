@@ -33,7 +33,7 @@ spec:
         reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/onedr0p/home-assistant
-      tag: 2023.6.1@sha256:ac05c39b46a06a42afe2ad2dc9c7265e50c5ea46e3ee42ce9480caa454456e2a
+      tag: 2023.6.2@sha256:7e6c79572f15dd5a9bd0d46f8cfe881b767ded32c0605eaf46ee1ff9843ccf9b
     env:
       TZ: "${TIMEZONE}"
     service:
