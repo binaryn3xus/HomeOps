@@ -86,6 +86,8 @@ spec:
     kubeControllerManager:
       enabled: true
       endpoints: &cp
+        - 10.0.30.11
+        - 10.0.30.12
         - 10.0.30.13
       serviceMonitor:
         metricRelabelings:
