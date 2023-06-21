@@ -29,6 +29,8 @@ spec:
     tcp:
       "32400": "default/plex:32400"
       "1883": "default/emqx:1883"
+      "3021": "teleport-cluster/teleport-cluster:3021"
+      "3023": "teleport-cluster/teleport-cluster:3023"
       "3024": "teleport-cluster/teleport-cluster:3024"
     controller:
       extraEnvs:
