@@ -23,6 +23,7 @@ spec:
 
     authentication:
       type: github
+      proxyListenerMode: multiplex
 
     tls:
       existingSecretName: teleport-tls
