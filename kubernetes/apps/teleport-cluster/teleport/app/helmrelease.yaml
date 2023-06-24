@@ -23,7 +23,16 @@ spec:
 
     authentication:
       type: github
-      proxyListenerMode: multiplex
+
+    proxyListenerMode: multiplex
+
+    proxy:
+      proxy_service:
+        enabled: true
+        kube_listen_addr: 0.0.0.0:3026
+        listen_addr: 0.0.0.0:3023
+        mysql_listen_addr: 0.0.0.0:3036
+        tunnel_listen_addr: 0.0.0.0:443
 
     tls:
       existingSecretName: teleport-tls
