@@ -7,6 +7,13 @@ sonarr:
     delete_old_custom_formats: true
     quality_definition:
       type: series
+    quality_profiles:
+      - name: HD-720p/1080p
+        reset_unmatched_scores: true
+      - name: HD-1080p
+        reset_unmatched_scores: true
+      - name: HD-720p
+        reset_unmatched_scores: true
     custom_formats:
       - trash_ids:
           # Streaming Services
@@ -52,13 +59,6 @@ sonarr:
           - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
           - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
           - 06d66ab109d4d2eddb2794d21526d140 # Retags
-        quality_profiles:
-          - name: HD-720p/1080p
-            reset_unmatched_scores: true
-          - name: HD-1080p
-            reset_unmatched_scores: true
-          - name: HD-720p
-            reset_unmatched_scores: true
 
 radarr:
   standard:
@@ -67,6 +67,11 @@ radarr:
     delete_old_custom_formats: true
     quality_definition:
       type: movie
+    quality_profiles:
+      - name: HD-1080p
+        reset_unmatched_scores: true
+      - name: HD-720p
+        reset_unmatched_scores: true
     custom_formats:
       - trash_ids:
           - ff5bc9e8ce91d46c997ca3ac6994d6f8 # UHD FraMeSToR (set to 0, 1 or 3200)
@@ -116,9 +121,7 @@ radarr:
           - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 # No-RlsGroup removed do avoid multiple downloads
         quality_profiles:
           - name: HD-1080p
-            reset_unmatched_scores: true
           - name: HD-720p
-            reset_unmatched_scores: true
       - trash_ids:
           - 4b900e171accbfb172729b63323ea8ca # Optional: Multi
           - 923b6abef9b17f937fab56cfcf89e1f1 # Optional: DV (WEBDL) without fallback to HDR, set to manual score 0 or -10000
