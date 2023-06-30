@@ -1,0 +1,30 @@
+---
+- hosts:
+    - master
+    - worker
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+  pre_tasks:
+    - name: Pausing for 5 seconds...
+      ansible.builtin.pause:
+        seconds: 5
+  tasks:
+    - name: Perform a dist-upgrade.
+      ansible.builtin.apt:
+        upgrade: dist
+        update_cache: yes
+
+    - name: Remove dependencies that are no longer required.
+      ansible.builtin.apt:
+        autoremove: yes
+
+    # - name: Check if a reboot is required.
+    #   ansible.builtin.stat:
+    #     path: /var/run/reboot-required
+    #     get_md5: no
+    #   register: reboot_required_file
+
+    # - name: Reboot the server (if required).
+    #   ansible.builtin.reboot:
+    #   when: reboot_required_file.stat.exists == true
