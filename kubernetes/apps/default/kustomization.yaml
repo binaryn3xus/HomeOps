@@ -12,7 +12,6 @@ resources:
   - ./home-assistant/ks.yaml
   - ./it-tools/ks.yaml
   - ./minio/ks.yaml
-  #- ./msrewardfarmer/ks.yaml
   - ./node-red/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml
