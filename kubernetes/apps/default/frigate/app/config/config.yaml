@@ -53,7 +53,8 @@ objects:
     person:
       min_area: 5000
       max_area: 100000
-      threshold: 0.7
+      min_score: 0.7
+      threshold: 0.75
 
 go2rtc:
   streams:
@@ -126,7 +127,7 @@ cameras:
       fps: 10
       stationary:
         interval: 0
-        threshold: 50
+        threshold: 30
     motion:
       mask: ["739,119,1349,135,1821,352,2034,345,2034,0,0,0"]
 
@@ -143,7 +144,7 @@ cameras:
       fps: 10
       stationary:
         interval: 0
-        threshold: 50
+        threshold: 30
     motion:
       mask: ["1962,460,2034,1296,2034,0,1460,0"]
 
