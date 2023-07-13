@@ -41,6 +41,17 @@ spec:
         matchNames:
           - default
           - monitoring
+      globalBookmarks:
+        - group: Tech
+          bookmarks:
+            - name: DotNetEvolved
+              icon: mdi:post-outline
+              url: 'https://dotnetevolved.com/'
+        - group: External Servers
+          bookmarks:
+            - name: Proxmox
+              icon: mdi:server-network
+              url: 'https://10.0.30.3:8006/'
     ingress:
       main:
         enabled: true
