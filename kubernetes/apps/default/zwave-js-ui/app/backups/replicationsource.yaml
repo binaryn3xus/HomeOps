@@ -8,7 +8,7 @@ metadata:
 spec:
   sourcePVC: config-zwave-js-ui-0
   trigger:
-    schedule: "0 7 * * *"
+    schedule: "0 4 * * *"
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 10
