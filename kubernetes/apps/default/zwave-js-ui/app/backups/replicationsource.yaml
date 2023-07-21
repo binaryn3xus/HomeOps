@@ -13,7 +13,7 @@ spec:
     copyMethod: Snapshot
     pruneIntervalDays: 10
     repository: zwave-js-ui-restic-secret
-    cacheCapacity: 2Gi
+    cacheCapacity: 5Gi
     volumeSnapshotClassName: csi-ceph-blockpool
     storageClassName: ceph-block
     retain:
