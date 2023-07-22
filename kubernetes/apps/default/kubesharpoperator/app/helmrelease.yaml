@@ -27,7 +27,7 @@ spec:
       type: statefulset
     image:
       repository: ghcr.io/binaryn3xus/kubesharpoperator
-      tag: 0.0.1@sha256:c34fca0dd07b21b42e1b8f0ef0e7687f36251c22e6199b22812735998523bd09
+      tag: latest
     env:
       TZ: "${TIMEZONE}"
     service:
