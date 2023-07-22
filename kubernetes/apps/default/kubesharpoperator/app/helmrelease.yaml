@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: advanceasync
+  name: kubesharpoperator
   namespace: default
 spec:
   interval: 15m
@@ -26,8 +26,8 @@ spec:
     controller:
       type: statefulset
     image:
-      repository: ghcr.io/binaryn3xus/advancedasync
-      tag: 0.0.2@sha256:2e4bc46936905099b7e63dcc48f3d4983b0e3b9d38dff38af10e27a6e05476a6
+      repository: ghcr.io/binaryn3xus/kubesharpoperator
+      tag: 0.0.1@sha256:c34fca0dd07b21b42e1b8f0ef0e7687f36251c22e6199b22812735998523bd09
     env:
       TZ: "${TIMEZONE}"
     service:
@@ -43,14 +43,14 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-production
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
         hosts:
-          - host: &host "advanceasync.${SECRET_DOMAIN}"
+          - host: &host "kubesharpoperator.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
               - *host
-            secretName: advanceasync-tls
+            secretName: kubesharpoperator-tls
     podSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
