@@ -3,7 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./namespace.yaml
-  - ./advancedasync/ks.yaml
+  #- ./advancedasync/ks.yaml
   - ./audiobookshelf/ks.yaml
   - ./bazarr/ks.yaml
   - ./echo-server/ks.yaml
