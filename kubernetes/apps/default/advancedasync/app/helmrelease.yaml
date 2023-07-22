@@ -27,7 +27,7 @@ spec:
       type: statefulset
     image:
       repository: ghcr.io/binaryn3xus/advancedasync
-      tag: 0.0.1@sha256:009a3cf8bb8f2069230cb86be2b1c6584b084e9393ef7b1cbe99d78d04cf8da8
+      tag: 0.0.2@sha256:2e4bc46936905099b7e63dcc48f3d4983b0e3b9d38dff38af10e27a6e05476a6
     env:
       TZ: "${TIMEZONE}"
     service:
