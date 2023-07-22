@@ -30,6 +30,9 @@ spec:
       tag: latest
     env:
       TZ: "${TIMEZONE}"
+    envFrom:
+      - secretRef:
+          name: kubesharpoperator-secret
     service:
       main:
         ports:
