@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: teleport-cluster
-      version: 13.2.3
+      version: 13.2.5
       interval: 30m
       sourceRef:
         kind: HelmRepository
