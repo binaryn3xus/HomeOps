@@ -64,7 +64,6 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
           hajimari.io/icon: mdi:cctv
         hosts:
           - host: &host "frigate.${SECRET_DOMAIN}"
