@@ -1,0 +1,25 @@
+---
+kubernetes:
+  children:
+    master:
+      hosts:
+        fleetcom-node1:
+          ansible_user: joshua
+          ansible_host: 10.0.30.11
+        fleetcom-node2:
+          ansible_user: joshua
+          ansible_host: 10.0.30.12
+        fleetcom-node3:
+          ansible_user: joshua
+          ansible_host: 10.0.30.13
+    worker:
+      hosts:
+        fleetcom-node4:
+          ansible_user: joshua
+          ansible_host: 10.0.30.14
+        fleetcom-node5:
+          ansible_user: joshua
+          ansible_host: 10.0.30.15
+        fleetcom-node6:
+          ansible_user: joshua
+          ansible_host: 10.0.30.16

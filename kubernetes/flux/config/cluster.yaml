@@ -8,7 +8,7 @@ spec:
   interval: 30m
   ref:
     branch: main
-  url: "https://github.com/binaryn3xus/HomeOps"
+  url: "https://github.com/binaryn3xus/HomeOps.git"
   ignore: |
     # exclude all
     /*
