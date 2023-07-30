@@ -5,3 +5,4 @@ resources:
   - ./namespace.yaml
   - ./hajimari/ks.yaml
   - ./minio/ks.yaml
+  - ./plex/ks.yaml
