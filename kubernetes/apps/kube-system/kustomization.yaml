@@ -4,9 +4,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./cilium/ks.yaml
-  - ./intel-device-plugin/ks.yaml
+  - ./coredns/ks.yaml
   - ./local-path-provisioner/ks.yaml
   - ./metrics-server/ks.yaml
-  - ./node-feature-discovery/ks.yaml
   - ./reloader/ks.yaml
-  - ./snapshot-controller/ks.yaml

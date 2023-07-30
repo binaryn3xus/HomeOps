@@ -5,7 +5,7 @@ metadata:
   name: ingress-nginx
   namespace: networking
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: ingress-nginx
@@ -25,14 +25,10 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: cloudflared
+      namespace: networking
   values:
-    tcp:
-      "32400": "default/plex:32400"
-      "1883": "default/emqx:1883"
-      "3021": "teleport-cluster/teleport-cluster:3021"
-      "3023": "teleport-cluster/teleport-cluster:3023"
-      "3024": "teleport-cluster/teleport-cluster:3024"
-      "3080": "teleport-cluster/teleport-cluster:3080"
     controller:
       extraEnvs:
         - name: TZ
@@ -40,8 +36,8 @@ spec:
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "ingress.${SECRET_DOMAIN}"
-        loadBalancerIP: "${METALLB_INGRESS_ADDR}"
-        externalTrafficPolicy: Local
+          io.cilium/lb-ipam-ips: "10.0.30.32"
+        externalTrafficPolicy: Cluster
       publishService:
         enabled: true
       ingressClassResource:
@@ -64,7 +60,7 @@ spec:
           namespaceSelector:
             any: true
       extraArgs:
-        default-ssl-certificate: "networking/${SECRET_DOMAIN/./-}-production-tls"
+        default-ssl-certificate: "networking/${SECRET_DOMAIN/./-}-staging-tls"
       resources:
         requests:
           cpu: 10m
