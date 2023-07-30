@@ -6,6 +6,7 @@ vars:
   BOOTSTRAP_DIR: "{{.ROOT_DIR}}/bootstrap"
   ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
   KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
+  ROOKCEPH_DIR: "{{.ROOT_DIR}}/.taskfiles/RookCeph"
 
 env:
   KUBECONFIG: "{{.ROOT_DIR}}/kubeconfig"
@@ -21,6 +22,7 @@ includes:
   ansible: .taskfiles/AnsibleTasks.yaml
   brew: .taskfiles/BrewTasks.yaml
   cluster: .taskfiles/ClusterTasks.yaml
+  rookceph: .taskfiles/RookCeph/Tasks.yml
   volsync: .taskfiles/VolSync/Tasks.yml
 
 tasks:
