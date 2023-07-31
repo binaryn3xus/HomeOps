@@ -37,7 +37,7 @@ spec:
       main:
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/loadBalancerIPs: "${SVC_PLEX_ADDR}"
+          io.cilium/lb-ipam-ips: "${SVC_PLEX_ADDR}"
         ports:
           http:
             port: 32400

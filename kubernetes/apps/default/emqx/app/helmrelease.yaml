@@ -38,7 +38,7 @@ spec:
       type: LoadBalancer
       externalTrafficPolicy: Local
       annotations:
-        metallb.universe.tf/loadBalancerIPs: "${SVC_EMQX_ADDR}"
+        io.cilium/lb-ipam-ips: "${SVC_EMQX_ADDR}"
     ingress:
       dashboard:
         enabled: true
