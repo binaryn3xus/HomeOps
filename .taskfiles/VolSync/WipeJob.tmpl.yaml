@@ -12,7 +12,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: wipe
-          image: ghcr.io/onedr0p/alpine:3.17.0@sha256:8e1eb13c3ca5c038f3bf22a5fe9e354867f97f98a78027c44b7c76fce81fa61d
+          image: ghcr.io/onedr0p/alpine:3.18.2@sha256:4b666f73ee079b4feac9527fae3b0e60b0e9883213758bdb28af852c9acb4efe
           command: ["/bin/bash", "-c", "cd /config; find . -delete"]
           volumeMounts:
             - name: config
