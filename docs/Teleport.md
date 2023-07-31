@@ -1,19 +1,19 @@
 # Teleport Notes
 
-## Cluster Commands 
+## Cluster Commands
 
-Most commands that start with `kubectl exec -i deployment/teleport-cluster-auth -n teleport-cluster -- ` are run from a terminal that has access to the Cluster using kubectl.
+Most commands that start with `kubectl exec -i deployment/teleport-auth -n teleport -- ` are run from a terminal that has access to the Cluster using kubectl.
 
 ### Check inventory
 
 ```bash
-kubectl exec -i deployment/teleport-cluster-auth -n teleport-cluster -- tctl inventory status --connected
+kubectl exec -i deployment/teleport-auth -n teleport -- tctl inventory status --connected
 ```
 
 ### List Server Nodes
 
 ```bash
-kubectl exec -i deployment/teleport-cluster-auth -n teleport-cluster -- tctl nodes ls
+kubectl exec -i deployment/teleport-auth -n teleport -- tctl nodes ls
 ```
 
 ### CLI on Nodes/Servers
