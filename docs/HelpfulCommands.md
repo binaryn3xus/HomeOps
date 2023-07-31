@@ -107,12 +107,3 @@ sudo mkfs -t ntfs /dev/nvme0n1
 ```cli
 ssh-copy-id -i ~/.ssh/id_rsa joshua@IP_ADDRESS
 ```
-
----
-
-## Stern
-
-Project Link: [stern](https://github.com/stern/stern)
-
-examples:
-- `stern -n kube-system coredns`
