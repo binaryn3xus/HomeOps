@@ -39,37 +39,8 @@ spec:
 
     persistence:
       enabled: true
-      existingClaimName: teleport-config-pvc
-      volumeSize: 10Gi
+      existingClaimName: teleport-cluster-config-pvc
 
     service:
-      type: LoadBalancer
       spec:
         loadBalancerIP: ${SVC_TELEPORT_ADDR}
-
-    annotations:
-      ingress:
-        cert-manager.io/cluster-issuer: letsencrypt-production
-        external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
-        nginx.ingress.kubernetes.io/backend-protocol: "https"
-        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-
-    ingress:
-      enabled: true
-      spec:
-        rules:
-          - host: teleport.${SECRET_DOMAIN}
-            http:
-              paths:
-                - path: /
-                  pathType: Prefix
-                  backend:
-                    service:
-                      name: teleport
-                      port:
-                        number: 443
-        tls:
-          - hosts:
-              - teleport.${SECRET_DOMAIN}
-            secretName: teleport-tls
