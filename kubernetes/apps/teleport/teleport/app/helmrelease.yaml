@@ -39,7 +39,7 @@ spec:
 
     persistence:
       enabled: true
-      existingClaimName: teleport-cluster-config-pvc
+      existingClaimName: teleport-config-pvc
 
     service:
       spec:
