@@ -24,6 +24,7 @@ includes:
   cluster: .taskfiles/ClusterTasks.yaml
   rookceph: .taskfiles/RookCeph/Tasks.yml
   volsync: .taskfiles/VolSync/Tasks.yml
+  external-secret: .taskfiles/ExternalSecretTasks.yml
 
 tasks:
 
