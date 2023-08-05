@@ -38,7 +38,7 @@ spec:
       PORT: &port 80
     envFrom:
       - secretRef:
-          name: overseerr-secret
+          name: overseerr-external-secret
     service:
       main:
         ports:
