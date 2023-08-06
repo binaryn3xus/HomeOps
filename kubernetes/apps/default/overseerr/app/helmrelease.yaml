@@ -36,9 +36,6 @@ spec:
       TZ: "${TIMEZONE}"
       LOG_LEVEL: "info"
       PORT: &port 80
-    envFrom:
-      - secretRef:
-          name: overseerr-external-secret
     service:
       main:
         ports:
