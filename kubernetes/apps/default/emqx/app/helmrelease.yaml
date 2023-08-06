@@ -77,29 +77,37 @@ spec:
     # Some of the users/passwords that are included in the Helm Release do not show up in the dashboard. Be aware of this. However, they should still work.
     - targetPath: emqxConfig.EMQX_DASHBOARD__DEFAULT_PASSWORD
       kind: Secret
-      name: emqx-secret
+      name: emqx-external-secret
       valuesKey: admin_password
     - targetPath: emqxConfig.EMQX_AUTH__USER__1__USERNAME
       kind: Secret
-      name: emqx-secret
+      name: emqx-external-secret
       valuesKey: user_1_username
     - targetPath: emqxConfig.EMQX_AUTH__USER__1__PASSWORD
       kind: Secret
-      name: emqx-secret
+      name: emqx-external-secret
       valuesKey: user_1_password
     - targetPath: emqxConfig.EMQX_AUTH__USER__2__USERNAME
       kind: Secret
-      name: emqx-secret
+      name: emqx-external-secret
       valuesKey: user_2_username
     - targetPath: emqxConfig.EMQX_AUTH__USER__2__PASSWORD
       kind: Secret
-      name: emqx-secret
+      name: emqx-external-secret
       valuesKey: user_2_password
     - targetPath: emqxConfig.EMQX_AUTH__USER__3__USERNAME
       kind: Secret
-      name: emqx-secret
+      name: emqx-external-secret
       valuesKey: user_3_username
     - targetPath: emqxConfig.EMQX_AUTH__USER__3__PASSWORD
       kind: Secret
-      name: emqx-secret
+      name: emqx-external-secret
       valuesKey: user_3_password
+    - targetPath: emqxConfig.EMQX_AUTH__USER__4__USERNAME
+      kind: Secret
+      name: emqx-external-secret
+      valuesKey: user_4_username
+    - targetPath: emqxConfig.EMQX_AUTH__USER__4__PASSWORD
+      kind: Secret
+      name: emqx-external-secret
+      valuesKey: user_4_password
