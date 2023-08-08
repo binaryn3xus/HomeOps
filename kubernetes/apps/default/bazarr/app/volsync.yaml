@@ -14,21 +14,21 @@ spec:
     template:
       type: Opaque
       data:
-        RESTIC_REPOSITORY: "{{ .restic-repository-base }}/bazarr"
-        RESTIC_PASSWORD: "{{ .restic-password }}"
-        AWS_ACCESS_KEY_ID: "{{ .aws-access-key-id }}"
-        AWS_SECRET_ACCESS_KEY: "{{ .aws-secret-access-key }}"
+        RESTIC_REPOSITORY: "{{ .ResticRepositoryBase }}/bazarr"
+        RESTIC_PASSWORD: "{{ .ResticPassword }}"
+        AWS_ACCESS_KEY_ID: "{{ .AWSAccessKeyId }}"
+        AWS_SECRET_ACCESS_KEY: "{{ .AWSSecretAccessKey }}"
   data:
-    - secretKey: restic-repository-base
+    - secretKey: ResticRepositoryBase
       remoteRef:
         key: Restic-Repository-Base
-    - secretKey: restic-password
+    - secretKey: ResticPassword
       remoteRef:
         key: Restic-Password
-    - secretKey: aws-access-key-id
+    - secretKey: AWSAccessKeyId
       remoteRef:
         key: AWS-Acess-Key-Id
-    - secretKey: aws-secret-access-key
+    - secretKey: AWSSecretAccessKey
       remoteRef:
         key: AWS-Secret-Access-Key
 ---
