@@ -1,0 +1,57 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: bazarr-restic
+  namespace: default
+spec:
+  secretStoreRef:
+    name: azure-store
+    kind: ClusterSecretStore
+  target:
+    deletionPolicy: Delete
+    creationPolicy: Owner
+    template:
+      type: Opaque
+      data:
+        RESTIC_REPOSITORY: "{{ .restic-repository-base }}/bazarr"
+        RESTIC_PASSWORD: "{{ .restic-password }}"
+        AWS_ACCESS_KEY_ID: "{{ .aws-access-key-id }}"
+        AWS_SECRET_ACCESS_KEY: "{{ .aws-secret-access-key }}"
+  data:
+    - secretKey: restic-repository-base
+      remoteRef:
+        key: Restic-Repository-Base
+    - secretKey: restic-password
+      remoteRef:
+        key: Restic-Password
+    - secretKey: aws-access-key-id
+      remoteRef:
+        key: AWS-Acess-Key-Id
+    - secretKey: aws-secret-access-key
+      remoteRef:
+        key: AWS-Secret-Access-Key
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: bazarr
+  namespace: default
+spec:
+  sourcePVC: config-bazarr-0
+  trigger:
+    schedule: "0 4 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 10
+    repository: bazarr-restic-secret
+    cacheCapacity: 5Gi
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: ceph-block
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    retain:
+      daily: 10
+      within: 3d
