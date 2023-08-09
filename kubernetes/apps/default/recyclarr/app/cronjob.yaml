@@ -15,7 +15,7 @@ spec:
           restartPolicy: OnFailure
           initContainers:
             - name: render-configs
-              image: ghcr.io/onedr0p/alpine:3.18.2
+              image: ghcr.io/onedr0p/alpine:3.18.3
               env:
                 - name: SONARR__API_KEY
                   value: ${SONARR__API_KEY}
@@ -33,7 +33,7 @@ spec:
                   mountPath: /shared
           containers:
             - name: sonarrs
-              image: ghcr.io/recyclarr/recyclarr:5.2.0
+              image: ghcr.io/recyclarr/recyclarr:5.2.1
               command:
                 - /app/recyclarr/recyclarr
               args:
@@ -44,7 +44,7 @@ spec:
                   subPath: recyclarr.yml
                   readOnly: true
             - name: radarrs
-              image: ghcr.io/recyclarr/recyclarr:5.2.0
+              image: ghcr.io/recyclarr/recyclarr:5.2.1
               command:
                 - /app/recyclarr/recyclarr
               args:
