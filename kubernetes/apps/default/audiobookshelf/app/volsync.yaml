@@ -1,0 +1,57 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: audiobookshelf-restic
+  namespace: default
+spec:
+  secretStoreRef:
+    name: azure-store
+    kind: ClusterSecretStore
+  target:
+    deletionPolicy: Delete
+    creationPolicy: Owner
+    template:
+      type: Opaque
+      data:
+        RESTIC_REPOSITORY: "{{ .ResticRepositoryBase }}/audiobookshelf"
+        RESTIC_PASSWORD: "{{ .ResticPassword }}"
+        AWS_ACCESS_KEY_ID: "{{ .AWSAccessKeyId }}"
+        AWS_SECRET_ACCESS_KEY: "{{ .AWSSecretAccessKey }}"
+  data:
+    - secretKey: ResticRepositoryBase
+      remoteRef:
+        key: Restic-Repository-Base
+    - secretKey: ResticPassword
+      remoteRef:
+        key: Restic-Password
+    - secretKey: AWSAccessKeyId
+      remoteRef:
+        key: AWS-Acess-Key-Id
+    - secretKey: AWSSecretAccessKey
+      remoteRef:
+        key: AWS-Secret-Access-Key
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: audiobookshelf
+  namespace: default
+spec:
+  sourcePVC: config-audiobookshelf-0
+  trigger:
+    schedule: "0 4 * * *"
+  restic:
+    copyMethod: Snapshot
+    pruneIntervalDays: 10
+    repository: audiobookshelf-restic
+    cacheCapacity: 5Gi
+    volumeSnapshotClassName: csi-ceph-blockpool
+    storageClassName: ceph-block
+    moverSecurityContext:
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
+    retain:
+      daily: 10
+      within: 3d

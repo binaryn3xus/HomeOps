@@ -32,7 +32,6 @@ spec:
       tag: 0.12.1
     env:
       TZ: America/New_York
-      #LIBVA_DRIVER_NAME: i965
     envFrom:
       - secretRef:
           name: frigate-secret
@@ -109,9 +108,7 @@ spec:
         hostPathType: Directory
         mountPath: /dev/bus/usb
     nodeSelector:
-      #node-role.kubernetes.io/worker: "true"
       google.feature.node.kubernetes.io/coral: "true"
-      #intel.feature.node.kubernetes.io/gpu: "true"
     affinity:
       podAntiAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
@@ -125,7 +122,5 @@ spec:
       requests:
         cpu: 10m
         memory: 1000Mi
-        #gpu.intel.com/i915: "1"
       limits:
         memory: 6000Mi
-        #gpu.intel.com/i915: "1"
