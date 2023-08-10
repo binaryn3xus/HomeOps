@@ -32,7 +32,7 @@ spec:
     tcp:
       "32400": "default/plex:32400"
       "1883": "default/emqx:1883"
-      "3021": "teleport/teleport:3021"
+      "3021": "teleport/teleport:3021" # was "teleport-cluster/teleport:3021"
       "3023": "teleport/teleport:3023"
       "3024": "teleport/teleport:3024"
       "3080": "teleport/teleport:3080"
