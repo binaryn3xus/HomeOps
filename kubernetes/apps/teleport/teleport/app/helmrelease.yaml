@@ -20,8 +20,6 @@ spec:
   values:
     clusterName: teleport.${SECRET_DOMAIN}
     kubeClusterName: HomeOpsCluster
-    proxy:
-      version: v2
 
     authentication:
       type: github
