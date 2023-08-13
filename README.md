@@ -21,7 +21,7 @@ _... managed with Flux, SOPS and GitHub Actions_ 🤖
 
 ## 📖 Overview
 
-This is a mono repository for my home infrastructure and Kubernetes cluster. I try to adhere to Infrastructure as Code (IaC) and GitOps practices using the tools like [Ansible](https://www.ansible.com/), [Terraform](https://www.terraform.io/), [Kubernetes](https://kubernetes.io/), [Flux](https://github.com/fluxcd/flux2), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions).
+This is a mono repository for my home infrastructure and Kubernetes cluster. I try to adhere to Infrastructure as Code (IaC) and GitOps practices using the tools like [Ansible](https://www.ansible.com/), [Kubernetes](https://kubernetes.io/), [Flux](https://github.com/fluxcd/flux2), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions).
 
 ---
 
@@ -67,12 +67,13 @@ This Git repository contains the following directories under [kubernetes](./kube
 
 While most of my infrastructure and workloads are selfhosted I do rely upon the cloud for certain key parts of my setup. This saves me from having to worry about two things. (1) Dealing with chicken/egg scenarios and (2) services I critically need whether my cluster is online or not.
 
-| Service                                      | Use                                                               | Cost          |
-|----------------------------------------------|-------------------------------------------------------------------|---------------|
-| [GitHub](https://github.com/)                | Hosting this repository and continuous integration/deployments    | Free          |
-| [Cloudflare](https://www.cloudflare.com/)    | Domain, DNS and proxy management                                  | Free          |
-| [UptimeRobot](https://uptimerobot.com/)      | Monitoring internet connectivity and external facing applications | Free          |
-|                                              |                                                                   | Total: Free   |
+| Service                                                                      | Use                                                               | Cost             |
+|------------------------------------------------------------------------------|-------------------------------------------------------------------|------------------|
+| [GitHub](https://github.com/)                                                | Hosting this repository and continuous integration/deployments    | Free             |
+| [Cloudflare](https://www.cloudflare.com/)                                    | Domain, DNS and proxy management                                  | Free             |
+| [UptimeRobot](https://uptimerobot.com/)                                      | Monitoring internet connectivity and external facing applications | Free             |
+| [Azure Key Vault](https://azure.microsoft.com/en-us/products/key-vault)      | Secrets with [External Secrets](https://external-secrets.io/)     | ~$0.20/mo        |
+|                                                                              |                                                                   | Total: ~$0.20/mo |
 
 ---
 
