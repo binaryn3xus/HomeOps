@@ -47,7 +47,7 @@ spec:
         annotations:
           hajimari.io/icon: mdi:lock-outline
         hosts:
-          - host: &host "remote.${SECRET_DOMAIN}"
+          - host: &host "wireguard-ui.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
