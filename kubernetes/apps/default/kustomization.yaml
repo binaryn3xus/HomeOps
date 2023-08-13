@@ -24,5 +24,4 @@ resources:
   - ./tasmobackup/ks.yaml
   - ./tautulli/ks.yaml
   - ./theme-park/ks.yaml
-  - ./wireguard-ui/ks.yaml
   - ./zwave-js-ui/ks.yaml
