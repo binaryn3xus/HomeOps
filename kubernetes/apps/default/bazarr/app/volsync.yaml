@@ -8,6 +8,7 @@ spec:
   secretStoreRef:
     name: azure-store
     kind: ClusterSecretStore
+  refreshInterval: "12h"
   target:
     deletionPolicy: Delete
     creationPolicy: Owner
