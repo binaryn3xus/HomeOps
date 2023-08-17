@@ -21,7 +21,7 @@ _... managed with Flux, SOPS and GitHub Actions_ 🤖
 
 ## 📖 Overview
 
-This is a mono repository for my home infrastructure and Kubernetes cluster. I try to adhere to Infrastructure as Code (IaC) and GitOps practices using the tools like [Ansible](https://www.ansible.com/), [Terraform](https://www.terraform.io/), [Kubernetes](https://kubernetes.io/), [Flux](https://github.com/fluxcd/flux2), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions).
+This is a mono repository for my home infrastructure and Kubernetes cluster. I try to adhere to Infrastructure as Code (IaC) and GitOps practices using the tools like [Ansible](https://www.ansible.com/), [Kubernetes](https://kubernetes.io/), [Flux](https://github.com/fluxcd/flux2), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions).
 
 ---
 
@@ -31,7 +31,7 @@ There is a template over at [onedr0p/flux-cluster-template](https://github.com/o
 
 ### Installation
 
-My cluster is [k3s](https://k3s.io/) provisioned overtop bare-metal Fedora Server using the [Ansible](https://www.ansible.com/) galaxy role [ansible-role-k3s](https://github.com/PyratLabs/ansible-role-k3s). This is a semi hyper-converged cluster, workloads and block storage are sharing the same available resources on my nodes while I have a separate server for (NFS) file storage.
+My cluster is [k3s](https://k3s.io/) provisioned overtop bare-metal Debian Servers using the [Ansible](https://www.ansible.com/) galaxy role [ansible-role-k3s](https://github.com/PyratLabs/ansible-role-k3s). This is a semi hyper-converged cluster, workloads and block storage are sharing the same available resources on my nodes while I have a separate server for (NFS) file storage.
 
 🔸 _[Click here](./ansible/) to see my Ansible playbooks and roles._
 
@@ -50,6 +50,8 @@ My cluster is [k3s](https://k3s.io/) provisioned overtop bare-metal Fedora Serve
 
 [Flux](https://github.com/fluxcd/flux2) watches my [kubernetes](./kubernetes/) folder (see Directories below) and makes the changes to my cluster based on the YAML manifests.
 
+The way Flux works for me here is it will recursively search the [kubernetes/apps](./kubernetes/apps) folder until it finds the most top level `kustomization.yaml` per directory and then apply all the resources listed in it. That aforementioned `kustomization.yaml` will generally only have a namespace resource and one or many Flux kustomizations. Those Flux kustomizations will generally have a `HelmRelease` or other resources related to the application underneath it which will be applied.
+
 [Renovate](https://github.com/renovatebot/renovate) watches my **entire** repository looking for dependency updates, when they are found a PR is automatically created. When some PRs are merged [Flux](https://github.com/fluxcd/flux2) applies the changes to my cluster.
 
 ### Directories
@@ -58,43 +60,44 @@ This Git repository contains the following directories under [kubernetes](./kube
 
 ```sh
 📁 kubernetes      # Kubernetes cluster defined as code
+├─📁 apps          # Apps deployed into my cluster grouped by namespace (see below)
 ├─📁 bootstrap     # Flux installation
-├─📁 flux          # Main Flux configuration of repository
-└─📁 apps          # Apps deployed into my cluster grouped by namespace (see below)
+└─📁 flux          # Main Flux configuration of repository
 ```
+
+### 📡 Networking
+
+| Name                  | CIDR              |
+|-----------------------|-------------------|
+| Server VLAN           | `10.0.30.0/24`    |
+| Kubernetes pods       | `10.42.0.0/16`    |
+| Kubernetes services   | `10.43.0.0/16`    |
 
 ## ☁️ Cloud Dependencies
 
 While most of my infrastructure and workloads are selfhosted I do rely upon the cloud for certain key parts of my setup. This saves me from having to worry about two things. (1) Dealing with chicken/egg scenarios and (2) services I critically need whether my cluster is online or not.
 
-| Service                                      | Use                                                               | Cost          |
-|----------------------------------------------|-------------------------------------------------------------------|---------------|
-| [GitHub](https://github.com/)                | Hosting this repository and continuous integration/deployments    | Free          |
-| [Cloudflare](https://www.cloudflare.com/)    | Domain, DNS and proxy management                                  | Free          |
-| [UptimeRobot](https://uptimerobot.com/)      | Monitoring internet connectivity and external facing applications | Free          |
-|                                              |                                                                   | Total: Free   |
+| Service                                                                      | Use                                                               | Cost             |
+|------------------------------------------------------------------------------|-------------------------------------------------------------------|------------------|
+| [GitHub](https://github.com/)                                                | Hosting this repository and continuous integration/deployments    | Free             |
+| [Cloudflare](https://www.cloudflare.com/)                                    | Domain, DNS and proxy management                                  | Free             |
+| [UptimeRobot](https://uptimerobot.com/)                                      | Monitoring internet connectivity and external facing applications | Free             |
+| [Azure Key Vault](https://azure.microsoft.com/en-us/products/key-vault)      | Secrets with [External Secrets](https://external-secrets.io/)     | ~$0.20/mo        |
+|                                                                              |                                                                   | Total: ~$0.20/mo |
 
 ---
 
 ## 🌐 DNS
 
-### Ingress Controller
+### Home DNS
 
-Over WAN, I have port forwarded ports `80` and `443` to the load balancer IP of my ingress controller that's running in my Kubernetes cluster.
+On my Vyos router I have CoreDNS deployed as a container. I have a split-dns setup so I can access certain pods on my network but not expose them to the public internet.
 
-[Cloudflare](https://www.cloudflare.com/) works as a proxy to hide my homes WAN IP and also as a firewall. When not on my home network, all the traffic coming into my ingress controller on port `80` and `443` comes from Cloudflare.
+You can see more about this setup in my VyOS repo: [VyosConfig](https://github.com/binaryn3xus/VyosConfig)
 
-🔸 _Cloudflare is also configured to GeoIP block all countries except a few I have whitelisted_
+### Public DNS
 
-### Internal DNS
-
-[coredns](https://github.com/coredns/coredns) is deployed on my `VyOS` router and all DNS queries for **my** domains are forwarded to [k8s_gateway](https://github.com/ori-edge/k8s_gateway) that is running in my cluster. With this setup `k8s_gateway` has direct access to my clusters ingresses and services and serves DNS for them in my internal network.
-
-### External DNS
-
-[external-dns](https://github.com/kubernetes-sigs/external-dns) is deployed in my cluster and configure to sync DNS records to [Cloudflare](https://www.cloudflare.com/). The only ingresses `external-dns` looks at to gather DNS records to put in `Cloudflare` are ones that I explicitly set an annotation of `external-dns.home.arpa/enabled: "true"`
-
-🔸 _[Click here](./terraform/cloudflare) to see how else I manage Cloudflare with Terraform._
+Outside the `external-dns` instance mentioned above another instance is deployed in my cluster and configure to sync DNS records to [Cloudflare](https://www.cloudflare.com/). The only ingresses this `external-dns` instance looks at to gather DNS records to put in `Cloudflare` are ones that have an ingress class name of `external` and an ingress annotation of `external-dns.alpha.kubernetes.io/target`.
 
 ---
 
@@ -114,10 +117,9 @@ Over WAN, I have port forwarded ports `80` and `443` to the load balancer IP of 
 
 ## 🤝 Gratitude and Thanks
 
-Big shout out to all the authors and contributors to the projects that we are using in this repository.
+Big shout out to all the authors and contributors to the [flux-cluster-template](https://github.com/onedr0p/flux-cluster-template) projects that we are using in this repository.
 
 Community member [onedr0p](https://github.com/onedr0p/) for initially creating this amazing template and providing me with additional help.
-Community member [snoopy82481](https://github.com/snoopy82481/) for support in some of these projects within this repo.
 
 ---
 
