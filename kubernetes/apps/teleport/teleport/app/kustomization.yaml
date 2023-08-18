@@ -5,7 +5,6 @@ namespace: teleport
 resources:
   - helmrelease.yaml
   - config-pvc.yaml
-  - secrets.sops.yaml
   - ingress.yaml
   - volsync.yaml
 commonLabels:
