@@ -10,3 +10,6 @@ kubeconfig
 *.key
 # Ansible
 .venv*
+# Brew
+Brewfile
+Brewfile.lock.json

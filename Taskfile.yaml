@@ -76,3 +76,32 @@ tasks:
       {{end}}
     preconditions:
       - kubectl -n {{.namespace}} get externalsecret {{.secret}}
+
+  backup-configs:
+    desc: Backup Configurations
+    cmds:
+      - mkdir -p ./backups/brew/
+      - brew bundle dump -f
+      - mv Brewfile ./backups/brew/Brewfile
+      - mkdir -p ./backups/k9s/
+      - cp ~/.config/k9s/config.yml ./backups/k9s/config.yml
+      - mkdir -p ./backups/fish/
+      - cp ~/.config/fish/config.fish ./backups/fish/config.fish
+      - cp ~/.config/fish/fish_plugins ./backups/fish/fish_plugins
+      - cp ~/.config/fish/fish_variables ./backups/fish/fish_variables
+      - echo -e "\033[33mKubeconfig will not be backed up for security reasons\033[0m"
+
+  restore-configs:
+    desc: Restore Configurations
+    cmds:
+      - cp ./backups/brew/Brewfile Brewfile
+      - brew bundle install
+      - rm Brewfile && rm Brewfile.lock.json
+      - mkdir -p ~/.config/k9s/
+      - cp ./backups/k9s/config.yml ~/.config/k9s/config.yml
+      - mkdir -p ~/.config/fish/
+      - cp ./backups/fish/config.fish ~/.config/fish/config.fish
+      - cp ./backups/fish/fish_plugins ~/.config/fish/fish_plugins
+      - cp ./backups/fish/fish_variables ~/.config/fish/fish_variables
+
+
