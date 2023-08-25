@@ -106,12 +106,12 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 | Model                          | RAM       | OS Disk Size | Data Disk Size | Operating System  | Purpose                    | Rack Location    |
 | ------------------------------ | --------- | ------------ | -------------- | ----------------- | -------------------------- | ---------------- |
 | HUNSN Micro Firewall Appliance | 8 GB      | 64GB (SSD)   |                | VyOS              | Router                     |   18U (Right)    |
-| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu            | Node 1 (K8s Control Plane) |   15U (Left)     |
-| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu            | Node 2 (K8s Control Plane) |   15U (Right)    |
-| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (NVMe) | 1TB (SSD)      | Ubuntu            | Node 3 (K8s Worker)        |   16U (Left)     |
-| HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu            | Node 4 (K8s Worker)        |   17U (Right)    |
-| HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu            | Node 5 (K8s Control Plane) |   17U (Left)     |
-| Dell Optiplex 3060 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Ubuntu            | Node 6 (K8s Worker)        |   16U (Right)    |
+| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Debian            | Node 1 (K8s Control Plane) |   15U (Left)     |
+| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Debian            | Node 2 (K8s Control Plane) |   15U (Right)    |
+| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (NVMe) | 1TB (SSD)      | Debian            | Node 3 (K8s Worker)        |   16U (Left)     |
+| HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Debian            | Node 4 (K8s Worker)        |   17U (Right)    |
+| HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Debian            | Node 5 (K8s Control Plane) |   17U (Left)     |
+| Dell Optiplex 3060 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Debian            | Node 6 (K8s Worker)        |   16U (Right)    |
 
 ---
 
