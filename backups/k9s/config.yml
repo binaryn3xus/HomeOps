@@ -27,9 +27,10 @@ k9s:
         - all
         - default
         - flux-system
+        - kube-system
         - monitoring
-        - rook-ceph
         - networking
+        - rook-ceph
         - teleport
         - volsync
       view:
