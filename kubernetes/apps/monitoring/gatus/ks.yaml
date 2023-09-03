@@ -5,6 +5,8 @@ metadata:
   name: cluster-apps-gatus
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cluster-apps-external-secrets-azure
   path: ./kubernetes/apps/monitoring/gatus/app
   prune: true
   sourceRef:
