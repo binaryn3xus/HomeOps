@@ -8,6 +8,7 @@ spec:
   dependsOn:
     - name: cluster-apps-minio
     - name: cluster-apps-snapshot-controller
+    - name: cluster-apps-external-secrets-azure
   path: ./kubernetes/apps/volsync/volsync/app
   prune: true
   sourceRef:

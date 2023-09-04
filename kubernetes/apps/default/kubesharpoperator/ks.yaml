@@ -5,6 +5,8 @@ metadata:
   name: cluster-apps-kubesharpoperator
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cluster-apps-external-secrets-azure
   path: ./kubernetes/apps/default/kubesharpoperator/app
   prune: true
   sourceRef:
