@@ -286,8 +286,8 @@ Lets get the required workstation tools installed and configured.
     ```sh
     kubectl get nodes -o wide
     # NAME           STATUS   ROLES                       AGE     VERSION
-    # k8s-0          Ready    control-plane,etcd,master   1h      v1.27.4+k3s1
-    # k8s-1          Ready    worker                      1h      v1.27.4+k3s1
+    # k8s-0          Ready    control-plane,etcd,master   1h      v1.28.1+k3s1
+    # k8s-1          Ready    worker                      1h      v1.28.1+k3s1
     ```
 
 5. The `kubeconfig` for interacting with your cluster should have been created in the root of your repository.
@@ -301,8 +301,8 @@ Lets get the required workstation tools installed and configured.
     ```sh
     flux check --pre
     # ► checking prerequisites
-    # ✔ kubectl 1.27.4 >=1.18.0-0
-    # ✔ Kubernetes 1.27.4+k3s1 >=1.16.0-0
+    # ✔ kubectl 1.28.1 >=1.18.0-0
+    # ✔ Kubernetes 1.28.1+k3s1 >=1.16.0-0
     # ✔ prerequisites checks passed
     ```
 
