@@ -27,7 +27,7 @@ spec:
       type: statefulset
     image:
       repository: ghcr.io/advplyr/audiobookshelf
-      tag: 2.4.1
+      tag: 2.4.2
     env:
       TZ: "${TIMEZONE}"
       AUDIOBOOKSHELF_UID: 568
