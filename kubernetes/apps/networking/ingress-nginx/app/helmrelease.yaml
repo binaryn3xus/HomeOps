@@ -71,7 +71,7 @@ spec:
         default-ssl-certificate: "networking/${SECRET_DOMAIN/./-}-production-tls"
       resources:
         requests:
-          cpu: 10m
+          cpu: 20m
           memory: 250Mi
         limits:
           memory: 500Mi
