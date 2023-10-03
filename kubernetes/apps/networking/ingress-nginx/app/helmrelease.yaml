@@ -32,10 +32,10 @@ spec:
     tcp:
       "32400": "default/plex:32400"
       "1883": "default/emqx:1883"
-      "3021": "default/teleport:3021"
-      "3023": "default/teleport:3023"
-      "3024": "default/teleport:3024"
-      "3080": "default/teleport:3080"
+      #"3021": "default/teleport:3021"
+      #"3023": "default/teleport:3023"
+      #"3024": "default/teleport:3024"
+      #"3080": "default/teleport:3080"
     controller:
       extraEnvs:
         - name: TZ
