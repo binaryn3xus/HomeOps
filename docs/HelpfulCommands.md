@@ -38,6 +38,13 @@ kubectl patch pvc thing -p '{"spec": {"resources": {"requests": {"storage": "50G
 flux resume hr <thing>
 ```
 
+## Force Reconcile
+
+```sh
+flux reconcile -n flux-system source git flux-cluster
+flux reconcile -n flux-system kustomization flux-cluster
+```
+
 ---
 
 ## SOPS
