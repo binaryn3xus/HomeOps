@@ -38,6 +38,7 @@ My cluster is [k3s](https://k3s.io/) provisioned overtop bare-metal Debian Serve
 ### Core Components
 
 - [cilium](https://cilium.io/): Internal Kubernetes networking plugin.
+- [cloudflared](https://github.com/cloudflare/cloudflared): Tunneling daemon that proxies traffic from the Cloudflare network to my cluster
 - [cert-manager](https://cert-manager.io/docs/): Creates SSL certificates for services in my Kubernetes cluster.
 - [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically manages DNS records from my cluster in a cloud DNS provider.
 - [ingress-nginx](https://github.com/kubernetes/ingress-nginx/): Ingress controller to expose HTTP traffic to pods over DNS.
