@@ -3,7 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: teleport-config-pvc
-  namespace: teleport
+  namespace: default
 spec:
   accessModes:
     - ReadWriteOnce
