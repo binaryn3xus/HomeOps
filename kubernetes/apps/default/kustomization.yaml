@@ -23,6 +23,5 @@ resources:
   - ./sonarr/ks.yaml
   - ./tasmobackup/ks.yaml
   - ./tautulli/ks.yaml
-  - ./teleport/ks.yaml
   - ./theme-park/ks.yaml
   - ./zwave-js-ui/ks.yaml
