@@ -25,5 +25,5 @@ resources:
   - ./prometheus-community.yaml
   - ./rook-ceph.yaml
   - ./stakater.yaml
-  #- ./teleport.yaml
+  - ./teleport.yaml
   - ./weave-gitops.yaml
