@@ -8,6 +8,7 @@ spec:
   dependsOn:
     - name: cluster-apps-rook-ceph-cluster
     - name: cluster-apps-external-secrets-azure
+    - name: cluster-apps-volsync
   path: ./kubernetes/apps/teleport/teleport/app
   prune: true
   sourceRef:
