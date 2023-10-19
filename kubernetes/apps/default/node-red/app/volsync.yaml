@@ -46,7 +46,7 @@ spec:
     copyMethod: Snapshot
     pruneIntervalDays: 10
     repository: node-red-restic
-    cacheCapacity: 5Gi
+    cacheCapacity: 10Gi
     volumeSnapshotClassName: csi-ceph-blockpool
     storageClassName: ceph-block
     moverSecurityContext:
