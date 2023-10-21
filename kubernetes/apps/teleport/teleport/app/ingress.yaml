@@ -19,6 +19,7 @@ spec:
             backend:
               service:
                 name: teleport
+                namespace: teleport
                 port:
                   number: 443
   tls:

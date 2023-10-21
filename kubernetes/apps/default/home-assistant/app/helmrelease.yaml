@@ -49,6 +49,7 @@ spec:
         enabled: true
         ingressClassName: nginx
         annotations:
+          kubernetes.io/ingress.class: nginx
           external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
           hajimari.io/icon: mdi:home-assistant
         hosts:
