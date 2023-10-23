@@ -27,12 +27,8 @@ spec:
 
     proxyListenerMode: multiplex
 
-    highAvailability:
-      certManager:
-        enabled: true
-        issuerName: letsencrypt-production
-        issuerKind: ClusterIssuer
-        issuerGroup: cert-manager.io
+    tls:
+      existingSecretName: teleport-tls
 
     persistence:
       enabled: true
