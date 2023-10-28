@@ -18,7 +18,7 @@ spec:
   accessModes: ["ReadWriteMany"]
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: ${HOME_NAS_IP}
+    server: "10.0.30.4"
     path: /volume1/Media/
   mountOptions:
     - nfsvers=4.1
