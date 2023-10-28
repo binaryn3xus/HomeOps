@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
+  - ./downloads-pvc.yaml
   - ./media-pvc.yaml
   # Flux-Kustomizations
   - ./audiobookshelf/ks.yaml
