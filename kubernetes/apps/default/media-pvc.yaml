@@ -21,7 +21,7 @@ spec:
     server: ${HOME_NAS_IP}
     path: /volume1/Media/Downloads/
   mountOptions:
-    - nfsvers=4.2
+    - nfsvers=4.1
     - nconnect=8
     - hard
     - noatime
