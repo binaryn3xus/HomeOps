@@ -113,8 +113,4 @@ spec:
       media:
         existingClaim: media
       downloads:
-        enabled: true
-        type: nfs
-        server: ${HOME_NAS_IP}
-        path: /volume1/Media/Downloads/
-        mountPath: /downloads
+        existingClaim: downloads
