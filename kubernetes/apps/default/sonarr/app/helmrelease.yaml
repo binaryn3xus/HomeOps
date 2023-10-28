@@ -3,21 +3,20 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app sonarr
+  name: sonarr
   namespace: default
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 3
+  maxHistory: 2
   install:
-    createNamespace: true
     remediation:
       retries: 3
   upgrade:
@@ -32,17 +31,50 @@ spec:
     - name: volsync
       namespace: volsync
   values:
-    controller:
-      type: statefulset
-    image:
-      repository: ghcr.io/onedr0p/sonarr-develop
-      tag: 4.0.0.700@sha256:9ae40655d519479d4d70a8d67f929142a0fc2d10df0b75a0947ee3a6c8da7f53
-    env:
-      TZ: "${TIMEZONE}"
-      SONARR__INSTANCE_NAME: Sonarr
-      SONARR__PORT: &port 80
-      SONARR__LOG_LEVEL: info
-      SONARR__API_KEY: "${SONARR__API_KEY}"
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/onedr0p/sonarr-develop
+              tag: 4.0.0.703@sha256:7f97e4783153bedc1c70568beb2bf925826fc92a4461d61ba58e8eda1649b49f
+            env:
+              TZ: "${TIMEZONE}"
+              SONARR__INSTANCE_NAME: Sonarr
+              SONARR__PORT: &port 80
+              SONARR__LOG_LEVEL: info
+              SONARR__API_KEY: "${SONARR__API_KEY}"
+              SONARR__THEME: dark
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /ping
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 10m
+                memory: 500Mi
+              limits:
+                memory: 2500Mi
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups: [10000]
     service:
       main:
         ports:
@@ -51,7 +83,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        className: internal
         annotations:
           external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
           hajimari.io/icon: mdi:television
@@ -63,42 +95,18 @@ spec:
           - host: &host "sonarr.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
-            secretName: sonarr-tls
-    podSecurityContext:
-      runAsUser: 568
-      runAsGroup: 568
-      fsGroup: 568
-      fsGroupChangePolicy: "OnRootMismatch"
-      supplementalGroups:
-        - 100
-    volumeClaimTemplates:
-      - name: config
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 2Gi
-        storageClass: ceph-block
-        labels:
-          snapshot.home.arpa/enabled: "true"
     persistence:
       media:
-        enabled: true
-        type: nfs
-        server: ${HOME_NAS_IP}
-        path: /volume1/Media/
-        mountPath: /media
+        existingClaim: media
       downloads:
         enabled: true
         type: nfs
         server: ${HOME_NAS_IP}
         path: /volume1/Media/Downloads/
         mountPath: /downloads
-    resources:
-      requests:
-        cpu: 10m
-        memory: 500Mi
-      limits:
-        memory: 2500Mi
