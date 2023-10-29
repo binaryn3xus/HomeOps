@@ -86,7 +86,7 @@ spec:
       main:
         ports:
           http:
-            port: *port
+            port: 5000
           rtsp:
             port: 8554
     ingress:
