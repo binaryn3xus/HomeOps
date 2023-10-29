@@ -101,7 +101,7 @@ spec:
             secretName: minio-main-tls
       s3:
         enabled: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           nginx.ingress.kubernetes.io/proxy-connect-timeout: "180"
           nginx.ingress.kubernetes.io/proxy-body-size: 1024m
