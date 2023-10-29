@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: default
 resources:
   - ./externalsecret.yaml
+  - ./frigate-mvc.yaml
   - ./nodefeaturerule.yaml
   - ./helmrelease.yaml
   - ./gatus.yaml
