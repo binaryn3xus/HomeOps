@@ -65,7 +65,7 @@ spec:
               size: 1Gi
               storageClass: ceph-block
               globalMounts:
-                - path: /config
+                - path: /app/config
     pod:
       securityContext:
         runAsUser: 1000
