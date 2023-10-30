@@ -94,6 +94,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
+                  name: main
                   port: *console-port
         tls:
           - hosts:
@@ -115,6 +116,7 @@ spec:
               - path: /
                 pathType: Prefix
                 service:
+                  name: s3
                   port: *api-port
         tls:
           - hosts:
