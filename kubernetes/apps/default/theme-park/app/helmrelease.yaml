@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: theme-park
+  name: &app theme-park
   namespace: default
 spec:
   interval: 30m
@@ -58,7 +58,7 @@ spec:
               whenUnsatisfiable: DoNotSchedule
               labelSelector:
                 matchLabels:
-                  app.kubernetes.io/name: "{{ .Release.Name }}"
+                  app.kubernetes.io/name: *app
     service:
       main:
         ports:
