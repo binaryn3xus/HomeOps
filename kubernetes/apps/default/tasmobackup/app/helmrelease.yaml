@@ -3,35 +3,69 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app tasmobackup
+  name: tasmobackup
   namespace: default
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
+  maxHistory: 2
   install:
-    createNamespace: true
     remediation:
-      retries: 5
+      retries: 3
   upgrade:
+    cleanupOnFail: true
     remediation:
-      retries: 5
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: volsync
   values:
-    controller:
-      type: statefulset
-    image:
-      repository: docker.io/danmed/tasmobackupv1
-      tag: 1.05.00
-    env:
-      TZ: "${TIMEZONE}"
-      DBTYPE: "sqlite"
-      DBNAME: "data/tasmobackup"
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: docker.io/danmed/tasmobackupv1
+              tag: 1.05.00
+            env:
+              TZ: "${TIMEZONE}"
+              DBTYPE: "sqlite"
+              DBNAME: "data/tasmobackup"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 100m
+                memory: 100Mi
+              limits:
+                memory: 500Mi
+        statefulset:
+          volumeClaimTemplates:
+            - name: data
+              accessMode: ReadWriteOnce
+              size: 200Mi
+              storageClass: ceph-block
+              globalMounts:
+                - path: /var/www/html/data
     service:
       main:
         ports:
@@ -40,29 +74,21 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "nginx"
+        className: nginx
         annotations:
           hajimari.io/icon: mdi:backup-restore
         hosts:
-          - host: &host "tasmobackup.${SECRET_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
-            secretName: tasmobackup-tls
-    volumeClaimTemplates:
-      - name: data
-        mountPath: /var/www/html/data
-        accessMode: ReadWriteOnce
-        size: 200Mi
-        storageClass: ceph-block
-        labels:
-          snapshot.home.arpa/enabled: "true"
-    resources:
-      requests:
-        cpu: 100m
-        memory: 100Mi
-      limits:
-        memory: 500Mi
+    persistence:
+      media:
+        existingClaim: media
+      downloads:
+        existingClaim: downloads
