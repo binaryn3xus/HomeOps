@@ -3,21 +3,20 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: &app theme-park
+  name: theme-park
   namespace: default
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
   maxHistory: 3
   install:
-    createNamespace: true
     remediation:
       retries: 3
   upgrade:
@@ -27,12 +26,39 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    controller:
-      replicas: 3
-      strategy: RollingUpdate
-    image:
-      repository: ghcr.io/onedr0p/theme-park
-      tag: 1.14.1@sha256:04b6495a9370882ab39bf0f08cd18553b05e99d89d3b8074bb76ba50d61b4f64
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            replicas: 3
+            image:
+              repository: ghcr.io/onedr0p/theme-park
+              tag: 1.14.1@sha256:04b6495a9370882ab39bf0f08cd18553b05e99d89d3b8074bb76ba50d61b4f64
+            env:
+              TZ: "${TIMEZONE}"
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                cpu: 5m
+                memory: 10Mi
+              limits:
+                memory: 50Mi
+        pod:
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: "{{ .Release.Name }}"
     service:
       main:
         ports:
@@ -41,29 +67,17 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
           hajimari.io/enable: "false"
         hosts:
-          - host: &host "theme-park.${SECRET_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
-            secretName: theme-park-tls
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: *app
-    resources:
-      requests:
-        cpu: 5m
-        memory: 10Mi
-      limits:
-        memory: 50Mi
