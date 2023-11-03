@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: teleport-cluster
-      version: 14.1.1
+      version: 14.1.1-dev.isaiah.1-amd64
       interval: 30m
       sourceRef:
         kind: HelmRepository
