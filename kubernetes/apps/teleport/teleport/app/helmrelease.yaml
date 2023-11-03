@@ -6,12 +6,12 @@ metadata:
   name: teleport
   namespace: teleport
 spec:
-  interval: 30m
+  interval: 15m
   chart:
     spec:
       chart: teleport-cluster
       version: 14.1.1
-      interval: 30m
+      interval: 15m
       sourceRef:
         kind: HelmRepository
         name: teleport
