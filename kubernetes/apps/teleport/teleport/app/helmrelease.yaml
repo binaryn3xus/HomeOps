@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: teleport-cluster
-      version: 14.1.1-dev.isaiah.1-amd64
+      version: 14.1.1
       interval: 30m
       sourceRef:
         kind: HelmRepository
@@ -18,6 +18,7 @@ spec:
         namespace: flux-system
 
   values:
+    teleportVersionOverride: "14.1.1-dev.isaiah.1-amd64"
     chartMode: standalone
     clusterName: teleport.${SECRET_DOMAIN}
     kubeClusterName: HomeOpsCluster
