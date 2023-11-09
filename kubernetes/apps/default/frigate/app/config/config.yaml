@@ -130,6 +130,8 @@ cameras:
         threshold: 30
     motion:
       mask: ["739,119,1349,135,1821,352,2034,345,2034,0,0,0"]
+    objects:
+      track: ["person","cat"]
 
   Back_Yard:
     ffmpeg:
