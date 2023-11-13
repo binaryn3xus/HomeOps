@@ -38,7 +38,7 @@ spec:
           main:
             image:
               repository: ghcr.io/netbootxyz/netbootxyz
-              tag: 0.6.9
+              tag: 0.6.9-nbxyz2
             env:
               TZ: America/New_York
             securityContext:
