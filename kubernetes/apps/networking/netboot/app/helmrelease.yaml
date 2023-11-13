@@ -43,7 +43,7 @@ spec:
               TZ: America/New_York
             securityContext:
               privileged: true
-          statefulset:
+        statefulset:
           volumeClaimTemplates:
             - name: config
               accessMode: ReadWriteOnce
