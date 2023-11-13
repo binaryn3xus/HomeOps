@@ -33,6 +33,7 @@ spec:
   values:
     controllers:
       main:
+        type: statefulset
         containers:
           main:
             image:
@@ -42,6 +43,20 @@ spec:
               TZ: America/New_York
             securityContext:
               privileged: true
+          statefulset:
+          volumeClaimTemplates:
+            - name: config
+              accessMode: ReadWriteOnce
+              size: 2Gi
+              storageClass: ceph-block
+              globalMounts:
+                - path: /config
+            - name: assets
+              accessMode: ReadWriteOnce
+              size: 100Gi
+              storageClass: ceph-block
+              globalMounts:
+                - path: /assets
     defaultPodOptions:
       hostNetwork: true
     service:
@@ -91,18 +106,3 @@ spec:
         tls:
           - hosts:
               - *host
-    persistence:
-      config:
-        enabled: true
-        storageClass: ceph-block
-        accessMode: ReadWriteMany
-        size: 2Gi
-        globalMounts:
-          - path: /config
-      data:
-        enabled: true
-        storageClass: ceph-block
-        accessMode: ReadWriteMany
-        size: 100Gi
-        globalMounts:
-          - path: /assets
