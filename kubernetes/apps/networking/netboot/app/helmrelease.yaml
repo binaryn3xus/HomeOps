@@ -57,8 +57,6 @@ spec:
               storageClass: ceph-block
               globalMounts:
                 - path: /assets
-    defaultPodOptions:
-      hostNetwork: true
     service:
       main:
         ports:
