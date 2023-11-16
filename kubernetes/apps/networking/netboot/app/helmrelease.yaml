@@ -57,6 +57,8 @@ spec:
               storageClass: ceph-block
               globalMounts:
                 - path: /assets
+    defaultPodOptions:
+      hostNetwork: true
     service:
       main:
         ports:
@@ -66,8 +68,7 @@ spec:
         enabled: true
         primary: false
         type: LoadBalancer
-        annotations:
-          io.cilium/lb-ipam-ips: "${SVC_NETBOOT_ADDR}"
+        loadBalancerIP: "${SVC_NETBOOT_ADDR}"
         controller: main
         externalTrafficPolicy: Local
         ports:
