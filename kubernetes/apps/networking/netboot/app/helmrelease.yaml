@@ -57,8 +57,6 @@ spec:
               storageClass: ceph-block
               globalMounts:
                 - path: /assets
-    defaultPodOptions:
-      hostNetwork: true
     service:
       main:
         ports:
@@ -68,7 +66,8 @@ spec:
         enabled: true
         primary: false
         type: LoadBalancer
-        loadBalancerIP: "${SVC_NETBOOT_ADDR}"
+        annotations:
+          io.cilium/lb-ipam-ips: "${SVC_NETBOOT_ADDR}"
         controller: main
         externalTrafficPolicy: Local
         ports:
@@ -95,6 +94,7 @@ spec:
         enabled: true
         className: nginx
         annotations:
+          io.cilium/lb-ipam-ips: "${SVC_NETBOOT_ADDR}"
           hajimari.io/icon: mdi:power-off
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
