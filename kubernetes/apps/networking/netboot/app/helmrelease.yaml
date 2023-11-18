@@ -1,5 +1,5 @@
 ---
-## WARNING: THIS DOES NOT WORKING PROPERLY YET
+## WARNING: THIS DOES NOT WORK PROPERLY YET
 # yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
