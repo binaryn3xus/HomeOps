@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: zigbee2mqtt
+  name: cluster-apps-zigbee2mqtt
   namespace: flux-system
 spec:
   dependsOn:
