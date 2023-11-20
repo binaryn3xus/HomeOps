@@ -59,9 +59,9 @@ spec:
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_LEGACY: "false"
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
               ZIGBEE2MQTT_CONFIG_EXPERIMENTAL_NEW_API: "true"
-              #ZIGBEE2MQTT_CONFIG_FRONTEND: false
-              #ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 80
-              #ZIGBEE2MQTT_CONFIG_FRONTEND_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
+              ZIGBEE2MQTT_CONFIG_FRONTEND: false
+              ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 80
+              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: "https://{{ .Release.Name }}.${SECRET_DOMAIN}"
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT: "true"
               ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION: "true"
               ZIGBEE2MQTT_CONFIG_MQTT_KEEPALIVE: 60
@@ -70,7 +70,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_MQTT_VERSION: 5
               ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "false"
               ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/serial/by-id/usb-Nabu_Casa_SkyConnect_v1.0_2009dd8c54edec11987c4740ad51a8b2-if00-port0
-              #ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: "ezsp"
+              ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: "ezsp"
             envFrom:
               - secretRef:
                   name: zigbee2mqtt-secret
