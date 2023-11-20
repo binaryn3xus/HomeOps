@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app node-feature-discovery
+  name: &app cluster-apps-node-feature-discovery
   namespace: flux-system
 spec:
   targetNamespace: kube-system
@@ -24,7 +24,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app node-feature-discovery-rules
+  name: &app cluster-apps-node-feature-discovery-rules
   namespace: flux-system
 spec:
   targetNamespace: kube-system
