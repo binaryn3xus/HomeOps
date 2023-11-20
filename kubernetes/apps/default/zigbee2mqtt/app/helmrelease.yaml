@@ -94,11 +94,11 @@ spec:
                   topologyKey: kubernetes.io/hostname
           nodeSelector:
             skyconnect.feature.node.kubernetes.io/zigbee: "true"
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
+          # securityContext:
+          #   runAsUser: 568
+          #   runAsGroup: 568
+          #   fsGroup: 568
+          #   fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         ports:
