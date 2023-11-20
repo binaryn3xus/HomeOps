@@ -68,6 +68,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_MQTT_REJECT_UNAUTHORIZED: "true"
               ZIGBEE2MQTT_CONFIG_MQTT_SERVER: mqtt://emqx.default.svc.cluster.local
               ZIGBEE2MQTT_CONFIG_MQTT_VERSION: 5
+              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: &serial /dev/ttyUSB0
             envFrom:
               - secretRef:
                   name: zigbee2mqtt-secret
@@ -128,7 +129,6 @@ spec:
         existingClaim: zigbee2mqtt
       usb:
         type: hostPath
-        hostPath: /dev/serial/by-id/usb-Nabu_Casa_SkyConnect_v1.0_2009dd8c54edec11987c4740ad51a8b2-if00-port0
-        hostPathType: CharDevice
+        hostPath: *serial
         globalMounts:
           - path: /dev/serial/by-id/usb-Nabu_Casa_SkyConnect_v1.0_2009dd8c54edec11987c4740ad51a8b2-if00-port0
