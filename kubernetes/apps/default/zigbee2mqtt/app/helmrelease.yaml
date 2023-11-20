@@ -68,8 +68,8 @@ spec:
               ZIGBEE2MQTT_CONFIG_MQTT_REJECT_UNAUTHORIZED: "true"
               ZIGBEE2MQTT_CONFIG_MQTT_SERVER: mqtt://emqx.default.svc.cluster.local
               ZIGBEE2MQTT_CONFIG_MQTT_VERSION: 5
-              ZIGBEE2MQTT_CONFIG_SERIAL_PORT: "/dev/ttyUSB0"
-              ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: "ezsp"
+              #ZIGBEE2MQTT_CONFIG_SERIAL_PORT: "/dev/ttyUSB0"
+              #ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: "ezsp"
             envFrom:
               - secretRef:
                   name: zigbee2mqtt-secret
