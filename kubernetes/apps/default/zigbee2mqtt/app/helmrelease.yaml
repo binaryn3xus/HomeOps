@@ -133,7 +133,7 @@ spec:
         existingClaim: zigbee2mqtt
       usb:
         type: hostPath
-        hostPath: /dev/serial/by-id/usb-Nabu_Casa_SkyConnect_v1.0_2009dd8c54edec11987c4740ad51a8b2-if00-port0
+        hostPath: /dev/ttyUSB0
         hostPathType: CharDevice
         globalMounts:
-          - path: /dev/serial/by-id/usb-Nabu_Casa_SkyConnect_v1.0_2009dd8c54edec11987c4740ad51a8b2-if00-port0
+          - path: /dev/ttyUSB0
