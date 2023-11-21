@@ -54,6 +54,9 @@ spec:
               ZIGBEE2MQTT_CONFIG_ADVANCED_LEGACY_AVAILABILITY_PAYLOAD: "false"
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_LEVEL: debug # info
               ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
+              ZIGBEE2MQTT_CONFIG_ADVANCED_PAN_ID: "GENERATE"
+              ZIGBEE2MQTT_CONFIG_ADVANCED_EXT_PAN_ID: "GENERATE"
+              ZIGBEE2MQTT_CONFIG_ADVANCED_NETWORK_KEY: "GENERATE"
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_ACTIVE_TIMEOUT: 60
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_PASSIVE_TIMEOUT: 2000
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_LEGACY: "false"
@@ -94,11 +97,11 @@ spec:
                   topologyKey: kubernetes.io/hostname
           nodeSelector:
             skyconnect.feature.node.kubernetes.io/zigbee: "true"
-          # securityContext:
-          #   runAsUser: 568
-          #   runAsGroup: 568
-          #   fsGroup: 568
-          #   fsGroupChangePolicy: OnRootMismatch
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         ports:
