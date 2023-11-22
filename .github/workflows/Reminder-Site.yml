@@ -1,25 +1,12 @@
-# This is a basic workflow to help you get started with Actions
-
-name: Reminder-Test
-
-# Controls when the workflow will run
+name: Monthly Reminders
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  # push:
-  #   branches: [ "main" ]
-  # pull_request:
-  #   branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
+  schedule:
+    - cron: '0 0 1 * *'
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  create-issue:
     runs-on: ubuntu-latest
-    
     steps:
       - uses: actions/checkout@v3
       
@@ -27,14 +14,11 @@ jobs:
         uses: dacbd/create-issue-action@main
         with:
           token: ${{ github.token }}
-          title: Simple Issue Reminder.
+          title: Simple Monthly Task Reminder
           body: |
-            ### Reminder
-            Be sure to sign into certain services to make sure everything is up to date.
+            ### Monthly Reminder
             
-            [Failed Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
-            [Codebase](https://github.com/${{ github.repository }}/tree/${{ github.sha }})
-            Workflow name - `${{ github.workflow }}`
-            Job -           `${{ github.job }}`
-            status -        `${{ job.status }}`
+            - [] Be sure to sign into certain external services to prevent lockout
+            - [] Perform Kubernetes Node OS Updates
+            - [] Brew / Apt Updates for WSL.
           assignees: binaryn3xus
