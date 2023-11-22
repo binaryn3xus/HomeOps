@@ -18,7 +18,7 @@ jobs:
           body: |
             ### Monthly Reminder
             
-            - [] Be sure to sign into certain external services to prevent lockout
-            - [] Perform Kubernetes Node OS Updates
-            - [] Brew / Apt Updates for WSL.
+            - [ ] Be sure to sign into certain external services to prevent lockout
+            - [ ] Perform Kubernetes Node OS Updates
+            - [ ] Brew / Apt Updates for WSL.
           assignees: binaryn3xus
