@@ -1,4 +1,16 @@
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: home-assistant
+  namespace: default
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ceph-block
+---
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
