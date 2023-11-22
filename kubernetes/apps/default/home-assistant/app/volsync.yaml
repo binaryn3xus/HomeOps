@@ -5,7 +5,7 @@ metadata:
   name: home-assistant
   namespace: default
 spec:
-  accessModes: ["ReadWriteOnce"]
+  accessModes: ["ReadWriteMany"]
   resources:
     requests:
       storage: 5Gi
@@ -51,7 +51,7 @@ metadata:
   name: home-assistant
   namespace: default
 spec:
-  sourcePVC: config-home-assistant-0
+  sourcePVC: home-assistant
   trigger:
     schedule: "0 4 * * *"
   restic:
