@@ -33,6 +33,7 @@ spec:
   values:
     controllers:
       main:
+        type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -63,6 +64,14 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups:
               - 100
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              accessMode: ReadWriteMany
+              size: 1Gi
+              storageClass: ceph-block
+              globalMounts:
+                - path: /config
     service:
       main:
         type: LoadBalancer
@@ -88,7 +97,3 @@ spec:
         tls:
           - hosts:
               - *host
-    persistence:
-      config:
-        enabled: true
-        existingClaim: home-assistant
