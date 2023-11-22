@@ -8,7 +8,7 @@ spec:
   accessModes: ["ReadWriteOnce"]
   resources:
     requests:
-      storage: 1Gi
+      storage: 5Gi
   storageClassName: ceph-block
 ---
 apiVersion: external-secrets.io/v1beta1
