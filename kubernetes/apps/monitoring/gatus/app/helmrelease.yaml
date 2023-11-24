@@ -96,7 +96,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: external
+        className: nginx
         annotations:
           external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
         hosts:
