@@ -112,7 +112,7 @@ spec:
                 service:
                   name: main
                   port: http
-          - host: &customHost "zigbee.devbu.io"
+          - host: &customHost "zigbee.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
