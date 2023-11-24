@@ -10,7 +10,7 @@ data:
   config.yaml: |
     endpoints:
       - name: zigbee2mqtt
-        url: https://zigbee2mqtt.unscfleet.com
+        url: https://zigbee2mqtt.unscfleet.com/#/
         interval: 1m
         client:
           dns-resolver: tcp://1.1.1.1:53
