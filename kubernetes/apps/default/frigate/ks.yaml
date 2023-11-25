@@ -10,9 +10,9 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: emqx
-    - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-volsync
-    - name: cluster-apps-intel-device-plugin-gpu
+    - name: rook-ceph-cluster
+    - name: volsync
+    - name: intel-device-plugin-gpu
   path: ./kubernetes/apps/default/frigate/app
   prune: true
   sourceRef:

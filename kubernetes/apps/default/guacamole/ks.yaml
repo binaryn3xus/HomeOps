@@ -9,8 +9,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-volsync
+    - name: rook-ceph-cluster
+    - name: volsync
   path: ./kubernetes/apps/default/guacamole/app
   prune: true
   sourceRef:

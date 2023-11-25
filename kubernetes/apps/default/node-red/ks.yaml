@@ -10,8 +10,8 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: emqx
-    - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-volsync
+    - name: rook-ceph-cluster
+    - name: volsync
   path: ./kubernetes/apps/default/node-red/app
   prune: true
   sourceRef:

@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: cluster-apps-external-secrets-azure
+    - name: external-secrets-azure
   path: ./kubernetes/apps/default/minio/app
   prune: true
   sourceRef:
