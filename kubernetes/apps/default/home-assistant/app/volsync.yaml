@@ -36,12 +36,14 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: home-assistant
+  name: &app home-assistant
   namespace: default
 spec:
   sourcePVC: config-home-assistant-0
+  ## Disabling schedule for now while looking into restore issue
   trigger:
-    schedule: "0 4 * * *"
+    #schedule: "0 4 * * *"
+    manual: &app home-assistant
   restic:
     copyMethod: Snapshot
     pruneIntervalDays: 10
