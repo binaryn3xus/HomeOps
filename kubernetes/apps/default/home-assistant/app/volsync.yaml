@@ -1,4 +1,16 @@
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: home-assistant
+  namespace: default
+spec:
+  accessModes: ["ReadWriteMany"]
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: ceph-filesystem
+---
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
@@ -39,7 +51,7 @@ metadata:
   name: &app home-assistant
   namespace: default
 spec:
-  sourcePVC: config-home-assistant-0
+  sourcePVC: home-assistant
   ## Disabling schedule for now while looking into restore issue
   trigger:
     #schedule: "0 4 * * *"
