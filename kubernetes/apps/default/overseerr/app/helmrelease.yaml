@@ -66,12 +66,12 @@ spec:
               storageClass: ceph-block
               globalMounts:
                 - path: /app/config
-    pod:
-      securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         ports:
