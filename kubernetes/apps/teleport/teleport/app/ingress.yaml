@@ -10,6 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
+  ingressClassName: nginx
   rules:
     - host: teleport.${SECRET_DOMAIN}
       http:
