@@ -1,107 +1,34 @@
 ---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
-vars:
-  PYTHON_BIN: python3
-  BOOTSTRAP_DIR: "{{.ROOT_DIR}}/bootstrap"
-  ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
-  KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
-  ROOKCEPH_DIR: "{{.ROOT_DIR}}/.taskfiles/RookCeph"
+# TODO: Clean up `--context` usage
+# https://github.com/go-task/task/issues/1038
 
 env:
-  KUBECONFIG: "{{.ROOT_DIR}}/kubeconfig"
   SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
-  PATH: "{{.ROOT_DIR}}/.venv/bin:$PATH"
-  VIRTUAL_ENV: "{{.ROOT_DIR}}/.venv"
-  ANSIBLE_COLLECTIONS_PATH: "{{.ROOT_DIR}}/.venv/galaxy"
-  ANSIBLE_ROLES_PATH: "{{.ROOT_DIR}}/.venv/galaxy/ansible_roles"
-  ANSIBLE_VARS_ENABLED: "host_group_vars,community.sops.sops"
-  K8S_AUTH_KUBECONFIG: "{{.ROOT_DIR}}/kubeconfig"
+
+vars:
+  KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
+  ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
+  TERRAFORM_DIR: "{{.ROOT_DIR}}/terraform"
 
 includes:
-  ansible: .taskfiles/AnsibleTasks.yaml
-  brew: .taskfiles/BrewTasks.yaml
-  cluster: .taskfiles/ClusterTasks.yaml
-  rookceph: .taskfiles/RookCeph/Tasks.yml
-  volsync: .taskfiles/VolSync/Tasks.yml
+  ansible:
+    taskfile: .taskfiles/Ansible/Taskfile.yaml
+  external-secrets:
+    taskfile: .taskfiles/ExternalSecrets/Taskfile.yaml
+  flux:
+    taskfile: .taskfiles/Flux/Taskfile.yaml
+  kubernetes:
+    taskfile: .taskfiles/Kubernetes/Taskfile.yaml
+  rookceph:
+    taskfile: .taskfiles/RookCeph/Taskfile.yaml
+  volsync:
+    taskfile: .taskfiles/VolSync/Taskfile.yaml
 
 tasks:
 
-  default: task -l
-
-  deps:
-    desc: Create a Python virtual env and install required packages
-    cmds:
-      - "{{.PYTHON_BIN}} -m venv {{.ROOT_DIR}}/.venv"
-      - .venv/bin/python3 -m pip install --upgrade pip setuptools wheel
-      - .venv/bin/python3 -m pip install --upgrade --requirement "{{.ROOT_DIR}}/requirements.txt"
-      - .venv/bin/ansible-galaxy install --role-file "{{.ROOT_DIR}}/requirements.yaml" --force
-
-  init:
-    desc: Initialize configuration files
-    dir: "{{.BOOTSTRAP_DIR}}"
-    cmds:
-      - cp -n vars/addons.sample.yaml vars/addons.yaml
-      - cp -n vars/config.sample.yaml vars/config.yaml
-      - cmd: echo "=== Configuration files copied ==="
-        silent: true
-      - cmd: echo "Proceed with updating the configuration files..."
-        silent: true
-      - cmd: echo "{{.BOOTSTRAP_DIR}}/vars/config.yaml"
-        silent: true
-      - cmd: echo "{{.BOOTSTRAP_DIR}}/vars/addons.yaml"
-        silent: true
-    status:
-      - test -f "{{.BOOTSTRAP_DIR}}/vars/addons.yaml"
-      - test -f "{{.BOOTSTRAP_DIR}}/vars/config.yaml"
-
-  configure:
-    desc: Configure repository from Ansible vars
-    dir: "{{.BOOTSTRAP_DIR}}"
-    cmd: ansible-playbook configure.yaml
-    env:
-      ANSIBLE_DISPLAY_SKIPPED_HOSTS: "false"
-
-  sync-secrets:
-    desc: Sync ExternalSecret resources
-    vars:
-      secret: '{{ .secret | default ""}}'
-      namespace: '{{.namespace | default "default"}}'
-    cmd: |
-      {{if eq .secret ""}}
-        kubectl get externalsecret.external-secrets.io --all-namespaces --no-headers -A | awk '{print $1, $2}' \
-          | xargs --max-procs=4 -l bash -c 'kubectl -n $0 annotate externalsecret.external-secrets.io $1 force-sync=$(date +%s) --overwrite'
-      {{else}}
-        kubectl -n {{.namespace}} annotate externalsecret.external-secrets.io {{.secret}} force-sync=$(date +%s) --overwrite
-      {{end}}
-    preconditions:
-      - kubectl -n {{.namespace}} get externalsecret {{.secret}}
-
-  backup-configs:
-    desc: Backup Configurations
-    cmds:
-      - mkdir -p ./backups/brew/
-      - brew bundle dump -f
-      - mv Brewfile ./backups/brew/Brewfile
-      - mkdir -p ./backups/k9s/
-      - cp ~/.config/k9s/config.yml ./backups/k9s/config.yml
-      - mkdir -p ./backups/fish/
-      - cp ~/.config/fish/config.fish ./backups/fish/config.fish
-      - cp ~/.config/fish/fish_plugins ./backups/fish/fish_plugins
-      - cp ~/.config/fish/fish_variables ./backups/fish/fish_variables
-      - echo -e "\033[33mKubeconfig will not be backed up for security reasons\033[0m"
-
-  restore-configs:
-    desc: Restore Configurations
-    cmds:
-      - cp ./backups/brew/Brewfile Brewfile
-      - brew bundle install
-      - rm Brewfile && rm Brewfile.lock.json
-      - mkdir -p ~/.config/k9s/
-      - cp ./backups/k9s/config.yml ~/.config/k9s/config.yml
-      - mkdir -p ~/.config/fish/
-      - cp ./backups/fish/config.fish ~/.config/fish/config.fish
-      - cp ./backups/fish/fish_plugins ~/.config/fish/fish_plugins
-      - cp ./backups/fish/fish_variables ~/.config/fish/fish_variables
-
-
+  default:
+    silent: true
+    cmd: task -l

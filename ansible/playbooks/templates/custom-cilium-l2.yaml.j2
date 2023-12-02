@@ -6,9 +6,8 @@ metadata:
   name: policy
 spec:
   loadBalancerIPs: true
-  # NOTE: This might need to be set if you have more than one active NIC on your nodes
-  # interfaces:
-  #   - ^eno[0-9]+
+  interfaces:
+    - ^enp.*
   nodeSelector:
     matchLabels:
       kubernetes.io/os: linux
@@ -19,4 +18,4 @@ metadata:
   name: pool
 spec:
   cidrs:
-    - cidr: "{{ node_cidr }}"
+    - cidr: "{{ (ansible_default_ipv4.network + '/' + ansible_default_ipv4.netmask) | ansible.utils.ipaddr('network/prefix') }}"

@@ -1,37 +1,34 @@
 ---
 kubernetes:
+  vars:
+    ansible_user: devin
+    ansible_ssh_port: 22
   children:
     master:
       hosts:
         fleetcom-node1:
-          ansible_user: joshua
           ansible_host: 10.0.30.11
           ceph_drives:
             - /dev/disk/by-id/nvme-SPCC_M.2_PCIe_SSD_AA221223NV01KG03817
         fleetcom-node2:
-          ansible_user: joshua
           ansible_host: 10.0.30.12
           ceph_drives:
             - /dev/disk/by-id/nvme-SPCC_M.2_PCIe_SSD_YT20230100813
         fleetcom-node3:
-          ansible_user: joshua
           ansible_host: 10.0.30.13
           ceph_drives:
             - /dev/disk/by-id/ata-SanDisk_SSD_PLUS_1000GB_224002803991
     worker:
       hosts:
         fleetcom-node4:
-          ansible_user: joshua
           ansible_host: 10.0.30.14
           ceph_drives:
             - /dev/disk/by-id/nvme-Samsung_SSD_980_1TB_S64ANJ0RA66136P
         fleetcom-node5:
-          ansible_user: joshua
           ansible_host: 10.0.30.15
           ceph_drives:
             - /dev/disk/by-id/nvme-Samsung_SSD_980_1TB_S64ANJ0RA72021K
         fleetcom-node6:
-          ansible_user: joshua
           ansible_host: 10.0.30.16
           ceph_drives:
             - /dev/disk/by-id/nvme-Samsung_SSD_980_1TB_S64ANJ0RA71998K

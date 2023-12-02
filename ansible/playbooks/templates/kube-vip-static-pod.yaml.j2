@@ -15,8 +15,10 @@ spec:
       args: ["manager"]
       env:
         - name: address
-          value: "{{ kube_vip_addr }}"
+          value: "{{ k3s_registration_address }}"
         - name: vip_arp
+          value: "true"
+        - name: lb_enable
           value: "true"
         - name: port
           value: "6443"
