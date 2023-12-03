@@ -40,7 +40,7 @@ kind: ReplicationSource
 metadata:
   name: "${APP}"
 spec:
-  sourcePVC: "${SOURCE_PVC:-${APP}}"
+  sourcePVC: "${APP}"
   trigger:
     schedule: "0 * * * *"
   restic:
