@@ -40,8 +40,8 @@ tasks:
     cmd: |
       flux --context {{.cluster}} build ks $(basename {{.path}}) \
           --namespace {{.ns}} \
-          --kustomization-file {{.KUBERNETES_DIR}}/{{.cluster}}/apps/{{.path}}/ks.yaml \
-          --path {{.KUBERNETES_DIR}}/{{.cluster}}/apps/{{.path}} \
+          --kustomization-file {{.KUBERNETES_DIR}}/apps/{{.path}}/ks.yaml \
+          --path {{.KUBERNETES_DIR}}/apps/{{.path}} \
       | \
       kubectl --context {{.cluster}} apply --server-side \
           --field-manager=kustomize-controller -f -
@@ -50,7 +50,7 @@ tasks:
       path: '{{ or .path (fail "Argument (path) is required") }}'
       ns: '{{.ns | default "flux-system"}}'
     preconditions:
-      - { msg: "Kustomization file not found", sh: "test -f {{.KUBERNETES_DIR}}/{{.cluster}}/apps/{{.path}}/ks.yaml" }
+      - { msg: "Kustomization file not found", sh: "test -f {{.KUBERNETES_DIR}}/apps/{{.path}}/ks.yaml" }
 
   reconcile:
     desc: Force update Flux to pull in changes from your Git repository
