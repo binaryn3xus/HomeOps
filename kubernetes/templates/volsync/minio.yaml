@@ -6,8 +6,8 @@ metadata:
   name: "${APP}-volsync"
 spec:
   secretStoreRef:
-    kind: azure-store
-    name: ClusterSecretStore
+    kind: ClusterSecretStore
+    name: azure-store
   refreshInterval: "12h"
   target:
     creationPolicy: Owner
