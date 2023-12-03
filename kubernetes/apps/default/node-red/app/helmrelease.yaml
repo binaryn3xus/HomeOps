@@ -33,7 +33,6 @@ spec:
   values:
     controllers:
       main:
-        type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -60,14 +59,6 @@ spec:
               limits:
                 cpu: 300m
                 memory: 1000M
-        statefulset:
-          volumeClaimTemplates:
-            - name: data
-              accessMode: ReadWriteOnce
-              size: 1Gi
-              storageClass: ceph-block
-              globalMounts:
-                - path: /data
         pod:
           affinity:
             podAntiAffinity:
@@ -106,6 +97,11 @@ spec:
           - hosts:
               - *host
     persistence:
+      data:
+        enabled: true
+        existingClaim: *app
+        globalMounts:
+          - path: /data
       settings:
         type: configMap
         name: node-red-configmap
