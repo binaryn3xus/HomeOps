@@ -23,3 +23,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      VOLSYNC_CAPACITY: 2Gi
+      SOURCE_PVC: config-audiobookshelf-0
