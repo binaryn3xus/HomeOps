@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: tasmobackup
+  name: &app tasmobackup
   namespace: default
 spec:
   interval: 30m
@@ -58,14 +58,6 @@ spec:
                 memory: 100Mi
               limits:
                 memory: 500Mi
-        statefulset:
-          volumeClaimTemplates:
-            - name: data
-              accessMode: ReadWriteOnce
-              size: 200Mi
-              storageClass: ceph-block
-              globalMounts:
-                - path: /var/www/html/data
     service:
       main:
         ports:
@@ -88,6 +80,11 @@ spec:
           - hosts:
               - *host
     persistence:
+      data:
+        enabled: true
+        existingClaim: *app
+        globalMounts:
+          - path: /var/www/html/data
       media:
         existingClaim: media
       downloads:
