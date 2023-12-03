@@ -51,3 +51,7 @@ tasks:
       ns: '{{.ns | default "flux-system"}}'
     preconditions:
       - { msg: "Kustomization file not found", sh: "test -f {{.KUBERNETES_DIR}}/{{.cluster}}/apps/{{.path}}/ks.yaml" }
+
+  reconcile:
+    desc: Force update Flux to pull in changes from your Git repository
+    cmd: flux reconcile -n flux-system kustomization cluster --with-source
