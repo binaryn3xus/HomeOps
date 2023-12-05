@@ -12,10 +12,10 @@
   color: "72ccf3"
   description: >-
     Changes made in the kubernetes directory
-- name: area/addons
+- name: area/tools
   color: "72ccf3"
   description: >-
-    Changes made in the addons directory
+    Changes made in the tools directory
 # Renovate
 - name: renovate/ansible
   color: "ffc300"
