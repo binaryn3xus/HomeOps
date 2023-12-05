@@ -4,9 +4,7 @@ kind: Kustomization
 namespace: teleport
 resources:
   - helmrelease.yaml
-  - config-pvc.yaml
-  - ingress.yaml
-  - volsync.yaml
+  - ../../../../templates/volsync
 commonLabels:
   app.kubernetes.io/name: teleport
   app.kubernetes.io/instance: teleport

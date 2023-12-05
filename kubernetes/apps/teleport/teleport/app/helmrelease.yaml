@@ -22,6 +22,14 @@ spec:
     clusterName: teleport.${SECRET_DOMAIN}
     kubeClusterName: HomeOpsCluster
 
+    annotations:
+      ingress:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
+        nginx.ingress.kubernetes.io/backend-protocol: "https"
+        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+
     authentication:
       type: github
 
@@ -32,8 +40,27 @@ spec:
 
     persistence:
       enabled: true
-      existingClaimName: teleport-config-pvc
+      existingClaimName: teleport
 
     service:
+      type: ClusterIP
+
+    ingress:
+      enabled: true
       spec:
-        loadBalancerIP: ${SVC_TELEPORT_ADDR}
+        ingressClassName: nginx
+        rules:
+          - host: teleport.${SECRET_DOMAIN}
+            http:
+              paths:
+                - path: /
+                  pathType: Prefix
+                  backend:
+                    service:
+                      name: teleport
+                      port:
+                        number: 443
+        tls:
+          - hosts:
+              - teleport.${SECRET_DOMAIN}
+            secretName: teleport-tls
