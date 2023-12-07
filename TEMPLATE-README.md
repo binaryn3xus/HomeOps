@@ -286,8 +286,8 @@ Lets get the required workstation tools installed and configured.
     ```sh
     kubectl get nodes -o wide
     # NAME           STATUS   ROLES                       AGE     VERSION
-    # k8s-0          Ready    control-plane,etcd,master   1h      v1.28.3+k3s1
-    # k8s-1          Ready    worker                      1h      v1.28.3+k3s1
+    # k8s-0          Ready    control-plane,etcd,master   1h      v1.28.4+k3s1
+    # k8s-1          Ready    worker                      1h      v1.28.4+k3s1
     ```
 
 5. The `kubeconfig` for interacting with your cluster should have been created in the root of your repository.
