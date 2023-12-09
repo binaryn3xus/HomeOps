@@ -39,3 +39,4 @@ tasks:
       - cp ./backups/fish/config.fish ~/.config/fish/config.fish
       - cp ./backups/fish/fish_plugins ~/.config/fish/fish_plugins
       - cp ./backups/fish/fish_variables ~/.config/fish/fish_variables
+      - cp ./backups/fish/functions/* ~/.config/fish/functions/
