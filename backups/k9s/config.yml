@@ -1,4 +1,5 @@
 k9s:
+  liveViewAutoRefresh: false
   refreshRate: 2
   maxConnRetry: 5
   enableMouse: false
@@ -26,15 +27,9 @@ k9s:
         favorites:
         - all
         - default
-        - flux-system
         - kube-system
-        - monitoring
-        - networking
-        - rook-ceph
-        - teleport
-        - volsync
       view:
-        active: ks
+        active: pods
       featureGates:
         nodeShell: false
       shellPod:

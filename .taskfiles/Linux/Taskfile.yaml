@@ -19,6 +19,7 @@ tasks:
       - cp ~/.config/fish/config.fish ./backups/fish/config.fish
       - cp ~/.config/fish/fish_plugins ./backups/fish/fish_plugins
       - cp ~/.config/fish/fish_variables ./backups/fish/fish_variables
+      - cp ~/.config/fish/functions/* ./backups/fish/functions/
       # Warn that kubeconfig will not be backed up
       - echo -e "\033[33mKubeconfig will not be backed up for security reasons\033[0m"
 
@@ -34,6 +35,7 @@ tasks:
       - cp ./backups/k9s/config.yml ~/.config/k9s/config.yml
       # Restore Fish
       - mkdir -p ~/.config/fish/
+      - mkdir -p ~/.config/fish/functions/
       - cp ./backups/fish/config.fish ~/.config/fish/config.fish
       - cp ./backups/fish/fish_plugins ~/.config/fish/fish_plugins
       - cp ./backups/fish/fish_variables ~/.config/fish/fish_variables
