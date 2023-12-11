@@ -24,6 +24,12 @@ spec:
     validateConfigOnDeploy: true
     enterprise: false
 
+    auth:
+      teleportConfig:
+        auth_service:
+          client_idle_timeout: 2h
+          client_idle_timeout_message: "Connection closed after 2hours without activity"
+
     podSecurityPolicy:
       enabled: true
     
