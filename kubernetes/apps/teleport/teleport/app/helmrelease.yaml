@@ -18,10 +18,21 @@ spec:
         namespace: flux-system
 
   values:
-    chartMode: standalone
     clusterName: teleport.${SECRET_DOMAIN}
+    chartMode: standalone
     kubeClusterName: HomeOpsCluster
+    validateConfigOnDeploy: true
+    enterprise: false
 
+    podSecurityPolicy:
+      enabled: true
+    
+    log:
+      level: INFO
+      output: stderr
+      format: text
+      extraFields: ["timestamp", "level", "component", "caller"]
+    
     annotations:
       ingress:
         cert-manager.io/cluster-issuer: letsencrypt-production
@@ -41,10 +52,16 @@ spec:
     persistence:
       enabled: true
       existingClaimName: teleport
+    
+    serviceAccount:
+      create: true
+
+    rbac:
+      create: true
 
     service:
       type: ClusterIP
-
+    
     ingress:
       enabled: true
       spec:
