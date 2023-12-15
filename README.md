@@ -115,6 +115,137 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 | HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Debian            | Node 5 (K8s Control Plane) |   17U (Left)     |
 | Dell Optiplex 3060 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Debian            | Node 6 (K8s Worker)        |   16U (Right)    |
 
+
+
+<details>
+  <summary>Click to see the Full Home Ops Rack!</summary>
+
+![ServerRack](/docs/images/ServerRack_20231214.jpg)
+
+<table>
+  <thead>
+    <tr>
+      <th>Rack U</th>
+      <th>Hardware</th>
+      <th>Power Rail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>22</td>
+      <td>16 Port KVM Switch</td>
+      <td>Pending Assignment</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>CAT6 Patch Panel</td>
+      <td>Pending Assignment</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>24 Port Unifi Network Switch</td>
+      <td>Pending Assignment</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>Unifi CloudKey Gen 2</td>
+      <td>Pending Assignment</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>
+        Linux Desktop - Intel Skull Canyon NUC
+        <br/>
+        VyOS Router - HUNSN Micro Firewall Appliance
+      </td>
+      <td>Pending Assignment</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>
+        Node 4 - HP ProDesk 600 G3 Mini
+        <br/>
+        Node 5 - HP ProDesk 600 G3 Mini
+      </td>
+      <td>Pending Assignment</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>
+        Node 3 - Dell Optiplex 7050 Micro
+        <br/>
+        Node 6 - Dell Optiplex 3060 Micro
+      </td>
+      <td>Pending Assignment</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>
+        Node 1 - Dell Optiplex 7050 Micro
+        <br/>
+        Node 2 - Dell Optiplex 7050 Micro
+      </td>
+      <td>Pending Assignment</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td rowspan=4>Custom Build Server</td>
+      <td rowspan=4>Pending Assignment</td>
+    </tr>
+    <tr>
+      <td>13</td>
+    </tr>
+    <tr>
+      <td>12</td>
+    </tr>
+    <tr>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>BLANK</td>
+      <td>Pending Assignment</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Raspberry Pi Mount</td>
+      <td>Pending Assignment</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td rowspan=4>Synology DS1819+</td>
+      <td rowspan=4>Pending Assignment</td>
+    </tr>
+    <tr>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>6</td>
+    </tr>
+    <tr>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td rowspan=2>Dell PowerEdge 2950</td>
+      <td rowspan=2>Pending Assignment</td>
+    </tr>
+    <tr>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td rowspan=2>APC Battery Backup</td>
+      <td rowspan=2>Pending Assignment</td>
+    </tr>
+    <tr>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
+
 ---
 
 ## 🤝 Gratitude and Thanks
