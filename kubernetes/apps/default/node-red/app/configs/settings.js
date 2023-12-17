@@ -27,7 +27,7 @@
 
       editorTheme: {
           tours: false,
-          theme: "github-dark-dimmed",
+          theme: "dark",
           projects: {
               enabled: true,
               workflow: {
