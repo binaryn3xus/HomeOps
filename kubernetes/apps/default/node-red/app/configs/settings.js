@@ -15,7 +15,7 @@
 
       logging: {
           console: {
-              level: "info",
+              level: "trace",
               metrics: false,
               audit: false
           }
