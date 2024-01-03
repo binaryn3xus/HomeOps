@@ -46,14 +46,17 @@ spec:
         nginx.ingress.kubernetes.io/backend-protocol: "https"
         nginx.ingress.kubernetes.io/ssl-passthrough: "true"
         nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    
+    highAvailability:
+      certManager:
+        enabled: true
+        issuerName: letsencrypt-production
+        issuerKind: ClusterIssuer
 
     authentication:
       type: github
 
     proxyListenerMode: multiplex
-
-    #tls:
-    #  existingSecretName: teleport-tls
 
     persistence:
       enabled: true
@@ -67,29 +70,3 @@ spec:
 
     service:
       type: ClusterIP
-    
-    highAvailability:
-      certManager:
-        enabled: true
-        issuerName: letsencrypt-production
-        issuerKind: ClusterIssuer
-      
-    # ingress:
-    #   enabled: true
-    #   spec:
-    #     ingressClassName: nginx
-    #     rules:
-    #       - host: teleport.${SECRET_DOMAIN}
-    #         http:
-    #           paths:
-    #             - path: /
-    #               pathType: Prefix
-    #               backend:
-    #                 service:
-    #                   name: teleport
-    #                   port:
-    #                     number: 443
-    #     tls:
-    #       - hosts:
-    #           - teleport.${SECRET_DOMAIN}
-    #         secretName: teleport-tls
