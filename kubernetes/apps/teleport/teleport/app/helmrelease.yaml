@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: teleport-cluster
-      version: 13.4.0
+      version: 14.3.0
       interval: 15m
       sourceRef:
         kind: HelmRepository
@@ -67,23 +67,29 @@ spec:
 
     service:
       type: ClusterIP
+    
+    highAvailability:
+      certManager:
+        enabled: true
+        issuerName: letsencrypt-production
+        issuerKind: ClusterIssuer
       
-    ingress:
-      enabled: true
-      spec:
-        ingressClassName: nginx
-        rules:
-          - host: teleport.${SECRET_DOMAIN}
-            http:
-              paths:
-                - path: /
-                  pathType: Prefix
-                  backend:
-                    service:
-                      name: teleport
-                      port:
-                        number: 443
-        tls:
-          - hosts:
-              - teleport.${SECRET_DOMAIN}
-            secretName: teleport-tls
+    # ingress:
+    #   enabled: true
+    #   spec:
+    #     ingressClassName: nginx
+    #     rules:
+    #       - host: teleport.${SECRET_DOMAIN}
+    #         http:
+    #           paths:
+    #             - path: /
+    #               pathType: Prefix
+    #               backend:
+    #                 service:
+    #                   name: teleport
+    #                   port:
+    #                     number: 443
+    #     tls:
+    #       - hosts:
+    #           - teleport.${SECRET_DOMAIN}
+    #         secretName: teleport-tls
