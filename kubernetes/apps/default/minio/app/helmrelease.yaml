@@ -84,9 +84,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: nginx
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
+        className: internal
         hosts:
           - host: &console-host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
@@ -101,7 +99,7 @@ spec:
             secretName: minio-main-tls
       s3:
         enabled: true
-        className: nginx
+        className: interal
         annotations:
           nginx.ingress.kubernetes.io/proxy-connect-timeout: "180"
           nginx.ingress.kubernetes.io/proxy-body-size: 1024m
