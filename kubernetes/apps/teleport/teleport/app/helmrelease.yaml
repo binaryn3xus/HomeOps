@@ -41,6 +41,7 @@ spec:
 
     ingress:
       enabled: true
+      suppressAutomaticWildcards: false
       spec:
         ingressClassName: external
     
