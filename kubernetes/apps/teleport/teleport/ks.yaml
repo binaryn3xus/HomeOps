@@ -16,7 +16,7 @@ spec:
     name: home-kubernetes
   wait: false
   interval: 30m
-  retryInterval: 1m
+  retryInterval: 2m
   timeout: 3m
   postBuild:
     substitute:
