@@ -122,7 +122,7 @@ spec:
         enabled: true
         className: nginx
         hosts:
-          - host: &host-code hass-code.${SECRET_DOMAIN}"
+          - host: &host-code "hass-code.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
