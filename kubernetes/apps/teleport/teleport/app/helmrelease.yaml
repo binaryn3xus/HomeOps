@@ -38,6 +38,11 @@ spec:
       output: stderr
       format: text
       extraFields: ["timestamp", "level", "component", "caller"]
+
+    ingress:
+      enabled: true
+      spec:
+        ingressClassName: external
     
     annotations:
       ingress:
