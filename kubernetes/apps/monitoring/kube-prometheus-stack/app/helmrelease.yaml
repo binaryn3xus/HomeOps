@@ -117,9 +117,6 @@ spec:
       ingress:
         enabled: true
         ingressClassName: nginx
-        annotations:
-          hajimari.io/appName: Prometheus
-          hajimari.io/icon: simple-icons:prometheus
         pathType: Prefix
         hosts:
           - &host "prometheus.${SECRET_DOMAIN}"

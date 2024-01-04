@@ -163,8 +163,6 @@ spec:
     ingress:
       enabled: true
       ingressClassName: nginx
-      annotations:
-        hajimari.io/icon: simple-icons:grafana
       hosts:
         - &host "grafana.${SECRET_DOMAIN}"
       tls:

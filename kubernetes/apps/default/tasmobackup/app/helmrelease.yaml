@@ -66,8 +66,6 @@ spec:
       main:
         enabled: true
         className: nginx
-        annotations:
-          hajimari.io/icon: mdi:backup-restore
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:

@@ -97,7 +97,6 @@ spec:
         className: nginx
         annotations:
           external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
-          hajimari.io/icon: mdi:home-assistant
         hosts:
           - host: &host "hass.${SECRET_DOMAIN}"
             paths:

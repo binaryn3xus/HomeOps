@@ -87,7 +87,6 @@ spec:
         className: nginx
         annotations:
           external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
-          hajimari.io/icon: mdi:pail
         hosts:
           - host: &console-host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
@@ -109,7 +108,6 @@ spec:
           nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             chunked_transfer_encoding off;
-          hajimari.io/enable: "false"
         hosts:
           - host: &api-host s3.${SECRET_DOMAIN}
             paths:
