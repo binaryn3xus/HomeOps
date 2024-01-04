@@ -42,7 +42,7 @@ spec:
     ingress:
       dashboard:
         enabled: true
-        ingressClassName: nginx
+        ingressClassName: internal
         path: /
         pathType: Prefix
         hosts:
