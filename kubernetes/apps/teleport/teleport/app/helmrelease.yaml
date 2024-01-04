@@ -53,11 +53,6 @@ spec:
         issuerName: letsencrypt-production
         issuerKind: ClusterIssuer
 
-    ingress:
-      enabled: true
-      spec:
-        ingressClassName: external
-        
     authentication:
       type: github
 
