@@ -96,9 +96,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: nginx
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+        className: external
         hosts:
           - host: &host "status.unscfleet.com"
             paths:
