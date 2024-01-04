@@ -84,9 +84,7 @@ spec:
     ingress:
       main:
         enabled: true
-        className: interal
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
+        className: internal
         hosts:
           - host: &console-host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
