@@ -39,7 +39,7 @@ spec:
           main:
             image:
               repository: ghcr.io/onedr0p/home-assistant
-              tag: 2024.1.0@sha256:28726966846cb938578d599460ca42fe379a5b63b82f34c7a1cd01c9916ed98a
+              tag: 2023.12.4@sha256:fbf40169fd70409280bfce460be144a2f49e1bb9f3350e3f775e308bd3379885
             env:
               TZ: "${TIMEZONE}"
             probes:
@@ -63,6 +63,38 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups:
               - 100
+      code:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/coder/code-server
+              tag: 4.20.0
+            env:
+              TZ: America/New_York
+            args:
+              - --auth
+              - "none"
+              - --user-data-dir
+              - "/config/.vscode"
+              - --extensions-dir
+              - "/config/.vscode"
+              - "--port"
+              - "80"
+              - /config
+            resources:
+              limits: &resources
+                memory: 512Mi
+              requests:
+                <<: *resources
+                cpu: 10m
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         type: LoadBalancer
@@ -71,6 +103,10 @@ spec:
         ports:
           http:
             port: 8123
+      code:
+        ports:
+          http:
+            port: 80
     ingress:
       main:
         enabled: true
@@ -88,6 +124,19 @@ spec:
         tls:
           - hosts:
               - *host
+      code:
+        enabled: true
+        className: nginx
+        hosts:
+          - host: &code-host hass-code.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  name: main
+                  port: http
+        tls:
+          - hosts:
+              - *code-host
     persistence:
       config:
         enabled: true
