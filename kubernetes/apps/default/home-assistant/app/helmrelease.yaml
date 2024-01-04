@@ -31,6 +31,14 @@ spec:
     - name: volsync
       namespace: volsync
   values:
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: "OnRootMismatch"
+
     controllers:
       main:
         annotations:
@@ -55,19 +63,8 @@ spec:
                 memory: 200Mi
               limits:
                 memory: 1000Mi
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups:
-              - 100
-      code:
-        annotations:
-          reloader.stakater.com/auto: "true"
-        containers:
-          main:
+          code:
+            dependsOn: main
             image:
               repository: ghcr.io/coder/code-server
               tag: 4.20.0
@@ -89,12 +86,7 @@ spec:
               requests:
                 <<: *resources
                 cpu: 10m
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
+
     service:
       main:
         type: LoadBalancer
@@ -107,6 +99,7 @@ spec:
         ports:
           http:
             port: 80
+
     ingress:
       main:
         enabled: true
@@ -128,15 +121,15 @@ spec:
         enabled: true
         className: nginx
         hosts:
-          - host: &code-host hass-code.${SECRET_DOMAIN}"
+          - host: &host-code hass-code.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
-                  name: main
+                  name: code
                   port: http
         tls:
           - hosts:
-              - *code-host
+              - *host-code
     persistence:
       config:
         enabled: true
