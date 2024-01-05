@@ -28,4 +28,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: external-dns-bind
-    namespace: network
+    namespace: networking
