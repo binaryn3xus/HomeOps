@@ -51,13 +51,13 @@ spec:
                 enabled: false
               startup:
                 enabled: false
-            resources:
-              requests:
-                cpu: 100m
-                memory: 2Gi
-              limits:
-                memory: 3Gi
-                cpu: 750m
+            # resources:
+            #   requests:
+            #     cpu: 100m
+            #     memory: 2Gi
+            #   limits:
+            #     memory: 3Gi
+            #     cpu: 750m
         # pod:
         #   securityContext:
         #     runAsUser: 568
