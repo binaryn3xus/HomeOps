@@ -45,18 +45,10 @@ spec:
               EMULATOR_DEVICE: "Samsung Galaxy S10"
               WEB_VNC: "true"
             probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /healthcheck
-                    port: &port 6080
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
               startup:
                 enabled: false
             resources:
@@ -76,7 +68,7 @@ spec:
       main:
         ports:
           http:
-            port: *port
+            port: 6080
     ingress:
       main:
         enabled: true
