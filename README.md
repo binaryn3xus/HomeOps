@@ -84,8 +84,9 @@ While most of my infrastructure and workloads are selfhosted I do rely upon the 
 | [GitHub](https://github.com/)                                                | Hosting this repository and continuous integration/deployments    | Free             |
 | [Cloudflare](https://www.cloudflare.com/)                                    | Domain, DNS and proxy management                                  | Free             |
 | [UptimeRobot](https://uptimerobot.com/)                                      | Monitoring internet connectivity and external facing applications | Free             |
+| [NextDNS Pro](https://nextdns.io/?from=wgggpc5h)                             | DNS with some ad-blocking and other features                      | ~$1.65.mo        |
 | [Azure Key Vault](https://azure.microsoft.com/en-us/products/key-vault)      | Secrets with [External Secrets](https://external-secrets.io/)     | ~$0.10/mo        |
-|                                                                              |                                                                   | Total: ~$0.10/mo |
+|                                                                              |                                                                   | Total: ~$1.75/mo |
 
 ---
 
