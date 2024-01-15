@@ -6,6 +6,7 @@ metadata:
   namespace: flux-system
 data:
   TIMEZONE: "America/New_York"
+  CLUSTER_CLOUDFLARE_TUNNEL_ID: b9d1e81f-c1e0-4538-b153-bfe3cc327d2f
   COREDNS_ADDR: "10.43.0.10"
   KUBE_VIP_ADDR: "10.0.30.30"
   CLUSTER_CIDR: "10.42.0.0/16"
