@@ -6,4 +6,4 @@ namespace: default
 resources:
   - ./externalsecrets.yaml
   - ./helmrelease.yaml
-  - ../../../../templates/gatus/guarded
+  - ../../../../templates/gatus/internal
