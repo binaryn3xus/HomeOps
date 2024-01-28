@@ -83,6 +83,8 @@ go2rtc:
 cameras:
 
   Garage:
+    birdseye:
+      enabled: false
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_garage_lq
@@ -268,6 +270,8 @@ cameras:
       track: ["person"]
 
   Unifi_Doorbell_Package:
+    birdseye:
+      enabled: false
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_unifi_doorbell_package
