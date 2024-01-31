@@ -16,6 +16,8 @@ vars:
 includes:
   ansible:
     taskfile: .taskfiles/Ansible/Taskfile.yaml
+  azure-keyvault:
+    taskfile: .taskfiles/AzureKeyVault/Taskfile.yaml
   external-secrets:
     taskfile: .taskfiles/ExternalSecrets/Taskfile.yaml
   flux:
