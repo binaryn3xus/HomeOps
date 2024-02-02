@@ -9,6 +9,8 @@ configMapGenerator:
   - name: teleport-relay-configmap
     files:
       - teleport.yaml=./configs/teleport.yaml
+generatorOptions:
+  disableNameSuffixHash: true
 commonLabels:
   app.kubernetes.io/name: teleport-relay
   app.kubernetes.io/instance: teleport-relay
