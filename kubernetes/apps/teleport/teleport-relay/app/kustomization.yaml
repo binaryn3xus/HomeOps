@@ -8,7 +8,7 @@ resources:
 configMapGenerator:
   - name: teleport-relay-configmap
     files:
-      - teleport.yaml=./config/teleport.yaml
+      - teleport.yaml=./configs/teleport.yaml
 commonLabels:
   app.kubernetes.io/name: teleport-relay
   app.kubernetes.io/instance: teleport-relay
