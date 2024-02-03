@@ -33,7 +33,26 @@ spec:
       enabled: true
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
-      enabled: false
+      ingress:
+        enabled: true
+        pathType: Prefix
+        ingressClassName: internal
+        hosts:
+          - &host "alertmanager.${SECRET_DOMAIN}"
+        tls:
+          - hosts:
+              - *host
+      alertmanagerSpec:
+        replicas: 2
+        # useExistingSecret: true
+        # configSecret: alertmanager-secret
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: local-path
+              resources:
+                requests:
+                  storage: 1Gi
     kube-state-metrics:
       metricLabelsAllowlist:
         - "deployments=[*]"
