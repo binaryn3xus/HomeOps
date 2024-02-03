@@ -96,7 +96,6 @@ cameras:
       height: 960
       fps: 5
       stationary:
-        interval: 0
         threshold: 50
 
   Front_Porch:
@@ -111,7 +110,6 @@ cameras:
       height: 1296
       fps: 10
       stationary:
-        interval: 0
         threshold: 50
     motion:
       mask: ["448,338,1051,179,1677,366,1772,0,0,0,0,861"]
@@ -128,7 +126,6 @@ cameras:
       height: 1296
       fps: 10
       stationary:
-        interval: 0
         threshold: 30
     motion:
       mask: ["739,119,1349,135,1821,352,2034,345,2034,0,0,0"]
@@ -147,7 +144,6 @@ cameras:
       height: 1296
       fps: 10
       stationary:
-        interval: 0
         threshold: 30
     motion:
       mask: ["1962,460,2034,1296,2034,0,1460,0"]
@@ -164,7 +160,6 @@ cameras:
       height: 1296
       fps: 10
       stationary:
-        interval: 0
         threshold: 50
     motion:
       mask: ["2034,0,346,0,474,330,2034,499,2034,496"]
@@ -181,7 +176,6 @@ cameras:
       height: 1296
       fps: 10
       stationary:
-        interval: 0
         threshold: 50
     motion:
       mask: ["553,330,1241,377,1813,1296,2034,1296,2034,0,600,0,0,0,0,489"]
@@ -200,7 +194,6 @@ cameras:
       height: 1296
       fps: 10
       stationary:
-        interval: 0
         threshold: 50
     # Detect something wild to hopefully never trigger
     objects:
@@ -220,7 +213,6 @@ cameras:
       height: 1296
       fps: 10
       stationary:
-        interval: 0
         threshold: 50
     snapshots:
       enabled: true
@@ -244,7 +236,6 @@ cameras:
       height: 1296
       fps: 10
       stationary:
-        interval: 0
         threshold: 50
     # Detect something wild to hopefully never trigger
     objects:
@@ -262,7 +253,6 @@ cameras:
       height: 720
       fps: 10
       stationary:
-        interval: 0
         threshold: 50
     motion:
       mask: ["0,0,773,0,778,442,420,426,0,450"]
@@ -281,7 +271,6 @@ cameras:
       height: 1200
       fps: 10
       stationary:
-        interval: 0
         threshold: 50
     # Detect something wild to hopefully never trigger
     objects:
