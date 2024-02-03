@@ -49,27 +49,12 @@ spec:
                 enabled: false
               startup:
                 enabled: false
-    service:
-      main:
-        ports:
-          http:
-            port: 80
     ingress:
       main:
         enabled: true
         className: internal
         annotations:
           io.cilium/lb-ipam-ips: "${SVC_TELEPORT_RELAY}"
-        hosts:
-          - host: &host "teleport-relay.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  name: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
     persistence:
       config-file:
         type: configMap
