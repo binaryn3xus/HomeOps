@@ -7,4 +7,3 @@ resources:
   - ./helmrelease.yaml
   - ../../../../templates/gatus/external
   - ../../../../templates/volsync
-  - externalsecretstest.yaml
