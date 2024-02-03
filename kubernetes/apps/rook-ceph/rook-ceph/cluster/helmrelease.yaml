@@ -188,7 +188,7 @@ spec:
             port: 80
             resources:
               requests:
-                cpu: 500m
+                cpu: 250m
                 memory: 500M
               limits:
                 memory: 1Gi
