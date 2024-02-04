@@ -181,7 +181,7 @@ reboot
     systemctl restart kvmd-nginx.service
     ```
 
-## Monitoring
+## Observability
 
 ### Disable auth on prometheus exporter
 

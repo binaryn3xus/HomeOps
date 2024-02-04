@@ -2,14 +2,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-kubernetes-dashboard
+  name: &app kube-prometheus-stack
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: cluster-apps-cert-manager
-    - name: cluster-apps-ingress-nginx
-    - name: cluster-apps-metrics-server
-  path: ./kubernetes/apps/observability/kubernetes-dashboard/app
+  path: ./kubernetes/apps/observability/kube-prometheus-stack/app
   prune: true
   sourceRef:
     kind: GitRepository

@@ -1,6 +1,5 @@
-#jinja2: trim_blocks: True, lstrip_blocks: True
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: kube-prometheus-stack
@@ -11,7 +10,7 @@ spec:
   chart:
     spec:
       chart: kube-prometheus-stack
-      version: 48.1.2
+      version: 56.6.1
       sourceRef:
         kind: HelmRepository
         name: prometheus-community
@@ -29,17 +28,31 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: local-path-provisioner
-      namespace: kube-system
-    - name: ingress-nginx
-      namespace: networking
   values:
     crds:
       enabled: true
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
-      enabled: false
+      ingress:
+        enabled: true
+        pathType: Prefix
+        ingressClassName: internal
+        hosts:
+          - &host "alertmanager.${SECRET_DOMAIN}"
+        tls:
+          - hosts:
+              - *host
+      alertmanagerSpec:
+        replicas: 2
+        # useExistingSecret: true
+        # configSecret: alertmanager-secret
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: local-path
+              resources:
+                requests:
+                  storage: 1Gi
     kube-state-metrics:
       metricLabelsAllowlist:
         - "deployments=[*]"
@@ -91,9 +104,9 @@ spec:
     kubeControllerManager:
       enabled: true
       endpoints: &cp
-      {% for item in bootstrap_nodes.master %}
-        - {{ item.address }}
-      {% endfor %}
+        - 10.0.30.11
+        - 10.0.30.12
+        - 10.0.30.13
       serviceMonitor:
         metricRelabelings:
           # Remove duplicate labels provided by k3s
@@ -117,10 +130,7 @@ spec:
     prometheus:
       ingress:
         enabled: true
-        ingressClassName: nginx
-        annotations:
-          hajimari.io/appName: Prometheus
-          hajimari.io/icon: simple-icons:prometheus
+        ingressClassName: internal
         pathType: Prefix
         hosts:
           - &host "prometheus.${SECRET_DOMAIN}"

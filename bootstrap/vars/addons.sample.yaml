@@ -20,7 +20,7 @@ kube_prometheus_stack:
 kubernetes_dashboard:
   enabled: false
   # Password can be obtained by running the following command once it is deployed:
-  # kubectl -n monitoring get secret kubernetes-dashboard -o jsonpath='{.data.token}' | base64 -d
+  # kubectl -n observability get secret kubernetes-dashboard -o jsonpath='{.data.token}' | base64 -d
 
 # https://github.com/weaveworks/weave-gitops
 weave_gitops:
