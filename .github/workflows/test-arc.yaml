@@ -1,0 +1,17 @@
+name: Test Self-Hosted Runner
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Run on self-hosted runner
+    runs-on: [self-hosted, arc-runner-set-home-ops]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Run a one-line script
+      run: |
+        echo "Hello, World! This is running on a self-hosted runner with the label 'arc-runner-set-home-ops'."
