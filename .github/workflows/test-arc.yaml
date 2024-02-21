@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     name: Run on self-hosted runner
-    runs-on: [self-hosted, arc-runner-set-home-ops]
+    runs-on: arc-runner-set-home-ops
 
     steps:
     - name: Checkout repository
