@@ -41,7 +41,8 @@ spec:
           - name: "null"
           - name: "discord"
             discord_configs:
-              - webhook_url: "https://discord.com/api/webhooks/1108219487167189062/edrAf3VJd18qs4kvCnq_nVORNqQkK3HobQWxBfmPMA5ymZpOdrMlHAZDvgtTCzeYth15"
+              - url_title: View in Alert Manager
+                webhook_url: "https://discord.com/api/webhooks/1108219487167189062/edrAf3VJd18qs4kvCnq_nVORNqQkK3HobQWxBfmPMA5ymZpOdrMlHAZDvgtTCzeYth15"
       ingress:
         enabled: true
         pathType: Prefix
