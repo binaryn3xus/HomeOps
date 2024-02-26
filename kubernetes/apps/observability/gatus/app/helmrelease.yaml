@@ -36,7 +36,7 @@ spec:
             order: 1
             image: &configSyncImage
               repository: ghcr.io/kiwigrid/k8s-sidecar
-              tag: 1.25.4
+              tag: 1.25.6
               pullPolicy: IfNotPresent
             env:
               FOLDER: /config
