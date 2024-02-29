@@ -12,6 +12,13 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Run a one-line script
+    - name: 'Log into Azure using github secret AZURE_CREDENTIALS'
+      uses: Azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        enable-AzPSSession: true
+
+    - name: 'Run az commands'
       run: |
-        echo "Hello, World! This is running on a self-hosted runner with the label 'arc-runner-set-home-ops'."
+        az account show
+        az group list

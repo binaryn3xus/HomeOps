@@ -9,6 +9,5 @@
     "yaml.schemas": {
         "ansible": "**/ansible/*.yaml",
         "Kubernetes": "**/kubernetes/*.yaml"
-    },
-    "sops.defaults.ageKeyFile": "age.key"
+    }
 }
