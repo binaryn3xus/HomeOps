@@ -142,13 +142,13 @@ spec:
         minio:
           # renovate: depName="MinIO Dashboard"
           gnetId: 13502
-          revision: 25
+          revision: 26
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
           gnetId: 1860
-          revision: 34
+          revision: 36
           datasource: Prometheus
         cert-manager:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
