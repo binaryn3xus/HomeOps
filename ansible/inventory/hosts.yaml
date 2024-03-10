@@ -32,3 +32,11 @@ kubernetes:
           ansible_host: 10.0.30.16
           ceph_drives:
             - /dev/disk/by-id/nvme-Samsung_SSD_980_1TB_S64ANJ0RA71998K
+        fleetcom-node7:
+          ansible_host: 10.0.30.17
+          ceph_drives:
+            - /dev/disk/by-id/nvme-SPCC_M.2_PCIe_SSD_A21E073B187C00027187
+        fleetcom-node8:
+          ansible_host: 10.0.30.18
+          ceph_drives:
+            - /dev/disk/by-id/nvme-CT500P3SSD8_2303E69E2396
