@@ -6,9 +6,9 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  ref:
-    branch: main
   url: "https://github.com/binaryn3xus/HomeOps.git"
+  ref:
+    branch: "main"
   ignore: |
     # exclude all
     /*

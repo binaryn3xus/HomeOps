@@ -8,8 +8,19 @@ kubeconfig
 *.agekey
 *.pub
 *.key
+# Private
+.private
+.bin
 # Ansible
 .venv*
+# Taskfile
+.task
 # Brew
-Brewfile
 Brewfile.lock.json
+# intellij
+.idea
+# wiki
+wiki
+# Bootstrap
+/config.yaml
+/z_Rebuild
