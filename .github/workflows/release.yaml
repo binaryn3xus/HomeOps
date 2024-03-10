@@ -4,8 +4,14 @@ name: "Release"
 
 on:
   workflow_dispatch:
+<<<<<<< HEAD
   schedule:
     - cron: "0 0 1 * *"
+=======
+  #schedule:
+    # Run every Monday at 12:00am
+  #  - cron: '0 0 * * 1'
+>>>>>>> 1fd5c11049953b06619a0ce6517d1d97d4740532
 
 jobs:
   release:
