@@ -23,9 +23,3 @@ kubernetes:
         "fleetcom-node6":
           ansible_user: "joshua"
           ansible_host: "10.0.30.16"
-        "fleetcom-node7":
-          ansible_user: "joshua"
-          ansible_host: "10.0.30.17"
-        "fleetcom-node8":
-          ansible_user: "joshua"
-          ansible_host: "10.0.30.18"
