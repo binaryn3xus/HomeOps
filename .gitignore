@@ -3,6 +3,7 @@
 Thumbs.db
 # k8s
 kubeconfig
+talosconfig
 .decrypted~*.yaml
 .config.env
 *.agekey
@@ -23,4 +24,3 @@ Brewfile.lock.json
 wiki
 # Bootstrap
 /config.yaml
-/z_Rebuild

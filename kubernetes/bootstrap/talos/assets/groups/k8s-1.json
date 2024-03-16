@@ -1,0 +1,8 @@
+{
+  "id": "fleetcom-node2",
+  "name": "fleetcom-node2",
+  "profile": "talos-controller02",
+  "selector": {
+    "mac": "b8:85:84:bf:db:f3"
+  }
+}

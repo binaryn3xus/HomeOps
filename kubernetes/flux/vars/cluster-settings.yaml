@@ -6,5 +6,5 @@ metadata:
   namespace: flux-system
 data:
   TIMEZONE: "America/New_York"
-  CLUSTER_CIDR: "10.42.0.0/16"
+  CLUSTER_CIDR: "10.69.0.0/16"
   NODE_CIDR: "10.0.30.0/24"

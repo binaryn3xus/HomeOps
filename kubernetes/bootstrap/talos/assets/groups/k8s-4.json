@@ -1,0 +1,8 @@
+{
+  "id": "fleetcom-node5",
+  "name": "fleetcom-node5",
+  "profile": "talos-worker05",
+  "selector": {
+    "mac": "ac:e2:d3:0d:48:71"
+  }
+}

@@ -1,0 +1,21 @@
+{
+    "id": "talos-worker06",
+    "name": "talos-worker06",
+    "boot": {
+      "kernel": "/assets/kernel-amd64",
+      "initrd": [
+        "/assets/initramfs-amd64.xz"
+      ],
+      "args": [
+        "initrd=initramfs-amd64.xz",
+        "init_on_alloc=1",
+        "slab_nomerge",
+        "pti=on",
+        "console=tty0",
+        "console=ttyS0",
+        "printk.devkmsg=on",
+        "talos.platform=metal",
+        "talos.config=http://10.0.254.3/assets/worker6.yaml"
+      ]
+    }
+  }
