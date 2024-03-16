@@ -21,8 +21,7 @@ cniConfig:
 nodes:
   - hostname: "fleetcom-node1"
     ipAddress: "10.0.30.11"
-    installDiskSelector:
-      serial: "S6PXNM0TA06773Z"
+    installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/c6e79f26b414c5323fd87d853fd72654e3b3561d6cd1950a9c0aa2ca6e0ccf0c
     controlPlane: true
     networkInterfaces:
@@ -34,8 +33,7 @@ nodes:
           ip: 10.0.30.30
   - hostname: "fleetcom-node2"
     ipAddress: "10.0.30.12"
-    installDiskSelector:
-      serial: "S6PXNM0TB56304Y"
+    installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/c6e79f26b414c5323fd87d853fd72654e3b3561d6cd1950a9c0aa2ca6e0ccf0c
     controlPlane: true
     networkInterfaces:
@@ -47,8 +45,7 @@ nodes:
           ip: 10.0.30.30
   - hostname: "fleetcom-node3"
     ipAddress: "10.0.30.13"
-    installDiskSelector:
-      serial: "224002803991"
+    installDisk: "/dev/nvme0n1"
     talosImageURL: factory.talos.dev/installer/c6e79f26b414c5323fd87d853fd72654e3b3561d6cd1950a9c0aa2ca6e0ccf0c
     controlPlane: true
     networkInterfaces:
@@ -60,8 +57,7 @@ nodes:
           ip: 10.0.30.30
   - hostname: "fleetcom-node4"
     ipAddress: "10.0.30.14"
-    installDiskSelector:
-      serial: "173802800239"
+    installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/c6e79f26b414c5323fd87d853fd72654e3b3561d6cd1950a9c0aa2ca6e0ccf0c
     controlPlane: false
     networkInterfaces:
@@ -71,8 +67,7 @@ nodes:
         dhcp: true
   - hostname: "fleetcom-node5"
     ipAddress: "10.0.30.15"
-    installDiskSelector:
-      serial: "UFZMV01D18859J"
+    installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/c6e79f26b414c5323fd87d853fd72654e3b3561d6cd1950a9c0aa2ca6e0ccf0c
     controlPlane: false
     networkInterfaces:
@@ -82,8 +77,7 @@ nodes:
         dhcp: true
   - hostname: "fleetcom-node6"
     ipAddress: "10.0.30.16"
-    installDiskSelector:
-      serial: "14440F62970"
+    installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/c6e79f26b414c5323fd87d853fd72654e3b3561d6cd1950a9c0aa2ca6e0ccf0c
     controlPlane: false
     networkInterfaces:

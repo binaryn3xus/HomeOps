@@ -1,6 +1,6 @@
 {
-    "id": "talos-worker06",
-    "name": "talos-worker06",
+    "id": "fleetcom-node6",
+    "name": "fleetcom-node6",
     "boot": {
       "kernel": "/assets/kernel-amd64",
       "initrd": [
@@ -15,7 +15,7 @@
         "console=ttyS0",
         "printk.devkmsg=on",
         "talos.platform=metal",
-        "talos.config=http://10.0.254.3/assets/worker6.yaml"
+        "talos.config=http://10.0.254.3/assets/fleetcom-node6.yaml"
       ]
     }
   }

@@ -3,107 +3,182 @@
 version: "3"
 
 vars:
-  TALOS_DIR: "{{.KUBERNETES_DIR}}/bootstrap/talos"
-  TALHELPER_SECRET_FILE: "{{.TALOS_DIR}}/talsecret.sops.yaml"
-  TALHELPER_CONFIG_FILE: "{{.TALOS_DIR}}/talconfig.yaml"
-
-env:
-  TALOSCONFIG: "{{.TALOS_DIR}}/clusterconfig/talosconfig"
+  VYOS_ADDR: 10.0.10.1
+  VYOS_USER: vyos
+  VYOS_MATCHBOX_DIR: /config/containers/matchbox/data
+  VYOS_MATCHBOX_GROUPS_DIR: "{{.VYOS_MATCHBOX_DIR}}/groups"
+  VYOS_MATCHBOX_PROFILES_DIR: "{{.VYOS_MATCHBOX_DIR}}/profiles"
+  VYOS_MATCHBOX_ASSETS_DIR: "{{.VYOS_MATCHBOX_DIR}}/assets"
+  VYOS_MATCHBOX_ADDR: 10.0.254.3
+  # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+  TALOS_VERSION: v1.6.6
+  TALOS_SCHEMATIC_ID: d715f723f882b1e1e8063f1b89f237dcc0e3bd000f9f970243af59c8baae0100
+  # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+  KUBERNETES_VERSION: v1.29.2
+  TALOS_SCRIPTS_DIR: "{{.ROOT_DIR}}/.taskfiles/Talos/scripts"
 
 tasks:
 
   bootstrap:
-    desc: Bootstrap the Talos cluster
-    dir: "{{.TALOS_DIR}}"
+    desc: Bootstrap Talos
+    prompt: Bootstrap Talos on the cluster ... continue?
     cmds:
-      - task: bootstrap-gensecret
-      - task: bootstrap-genconfig
-      - task: bootstrap-apply
-      - task: bootstrap-install
+      - task: bootstrap-etcd
       - task: fetch-kubeconfig
       - task: bootstrap-apps
-      - talosctl health --server=false
 
-  bootstrap-gensecret:
-    desc: Generate the Talos secrets
-    dir: "{{.TALOS_DIR}}"
-    cmds:
-      - talhelper gensecret > {{.TALHELPER_SECRET_FILE}}
-      - task: :sops:.encrypt-file
-        vars:
-          file: "{{.TALHELPER_SECRET_FILE}}"
+  bootstrap-etcd:
+    desc: Bootstrap Etcd
+    cmd: until talosctl --nodes {{.controller}} bootstrap; do sleep 10; done
+    vars:
+      controller:
+        sh: talosctl config info --output json | jq --raw-output '.endpoints[0]'
     preconditions:
-      - { msg: "Missing talhelper config file", sh: "test -f {{.TALHELPER_CONFIG_FILE}}" }
-    status:
-      - test -f "{{.TALHELPER_SECRET_FILE}}"
-
-  bootstrap-genconfig:
-    desc: Generate the Talos configs
-    dir: "{{.TALOS_DIR}}"
-    cmd: talhelper genconfig
-    preconditions:
-      - { msg: "Missing talhelper config file", sh: "test -f {{.TALHELPER_CONFIG_FILE}}" }
-
-  bootstrap-apply:
-    desc: Apply the Talos config on a node
-    dir: "{{.TALOS_DIR}}"
-    cmd: talhelper gencommand apply --extra-flags=--insecure | bash
-    preconditions:
-      - { msg: "Missing talhelper config file", sh: "test -f {{.TALHELPER_CONFIG_FILE}}" }
-
-  bootstrap-install:
-    desc: Install the Talos cluster
-    dir: "{{.TALOS_DIR}}"
-    cmds:
-      - echo "Installing Talos... ignore the errors and be patient"
-      - until talhelper gencommand bootstrap | bash; do sleep 10; done
-      - sleep 10
-    preconditions:
-      - { msg: "Missing talhelper config file", sh: "test -f {{.TALHELPER_CONFIG_FILE}}" }
+      - test -f {{.KUBERNETES_DIR}}/talosconfig
+      - talosctl config info >/dev/null 2>&1
 
   bootstrap-apps:
     desc: Bootstrap core apps needed for Talos
-    dir: "{{.TALOS_DIR}}"
     cmds:
-      - until kubectl --kubeconfig {{.KUBECONFIG_FILE}} wait --for=condition=Ready=False nodes --all --timeout=600s; do sleep 10; done
-      - helmfile --file ./apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
-      - until kubectl --kubeconfig {{.KUBECONFIG_FILE}} wait --for=condition=Ready nodes --all --timeout=600s; do sleep 10; done
+      - until kubectl wait --for=condition=Ready=False nodes --all --timeout=10m; do sleep 10; done
+      - helmfile --quiet --file {{.KUBERNETES_DIR}}/bootstrap/talos/apps/helmfile.yaml apply --skip-diff-on-install --suppress-diff
+      - until kubectl wait --for=condition=Ready nodes --all --timeout=10m; do sleep 10; done
     preconditions:
-      - { msg: "Missing kubeconfig", sh: "test -f {{.KUBECONFIG_FILE}}" }
-
-  upgrade-talos:
-    desc: Upgrade talos on a node
-    cmd: talosctl --nodes {{.node}} upgrade --image {{.image}} --preserve=true --reboot-mode=default
-    requires:
-      vars: ["node", "image"]
-    preconditions:
-      - { msg: "Node not found", sh: "talosctl --nodes {{.node}} get machineconfig" }
-
-  upgrade-k8s:
-    desc: Upgrade k8s on a node
-    cmd: talosctl --nodes {{.node}} upgrade-k8s --to {{.to}}
-    requires:
-      vars: ["node", "to"]
-    preconditions:
-      - { msg: "Node not found", sh: "talosctl --nodes {{.node}} get machineconfig" }
+      - test -f {{.KUBERNETES_DIR}}/talosconfig
+      - talosctl config info >/dev/null 2>&1
+      - test -f {{.KUBERNETES_DIR}}/bootstrap/talos/apps/helmfile.yaml
 
   fetch-kubeconfig:
-    desc: Generate talos kubeconfig
-    dir: "{{.TALOS_DIR}}"
-    cmd: until talhelper gencommand kubeconfig --extra-flags "--force" | bash; do sleep 10; done
+    desc: Fetch kubeconfig from Talos controllers
+    cmd: |
+      talosctl kubeconfig --nodes {{.controller}} --force {{.KUBERNETES_DIR}}
+    vars:
+      controller:
+        sh: talosctl config info --output json | jq --raw-output '.endpoints[0]'
+    preconditions:
+      - test -f {{.KUBERNETES_DIR}}/talosconfig
+      - talosctl config info >/dev/null 2>&1
 
-  soft-nuke:
-    desc: Resets nodes back to maintenance mode so you can re-deploy again straight after
-    prompt: This will destroy your cluster and reset the nodes back to maintenance mode... continue?
-    dir: "{{.TALOS_DIR}}"
-    cmd: talhelper gencommand reset --extra-flags "--reboot --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false --wait=false" | bash
+  # apply-config:
+  #   desc: Apply Talos configuration to a node
+  #   cmd: |
+  #     sops -d {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/{{.role | replace "controlplane" "controller"}}.secret.sops.yaml | \
+  #         envsubst | \
+  #             talosctl --context {{.cluster}} apply-config --mode=reboot --nodes {{.node}} --file /dev/stdin
+  #   env:
+  #     TALOS_VERSION: "{{.TALOS_VERSION}}"
+  #     TALOS_SCHEMATIC_ID: "{{.TALOS_SCHEMATIC_ID}}"
+  #     KUBERNETES_VERSION: "{{.KUBERNETES_VERSION}}"
+  #   vars:
+  #     role:
+  #       sh: talosctl --context {{.cluster}} --nodes {{.node}} get machineconfig -o jsonpath='{.spec.machine.type}'
+  #   requires:
+  #     vars: ["cluster", "node"]
+  #   preconditions:
+  #     - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/talosconfig
+  #     - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/controller.secret.sops.yaml
+  #     - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/bootstrap/talos/matchbox/assets/worker.secret.sops.yaml
+  #     - talosctl --context {{.cluster}} --nodes {{.node}} get machineconfig >/dev/null 2>&1
 
-  hard-nuke:
-    desc: Resets nodes back completely and reboots them
-    prompt: This will destroy your cluster and reset the nodes... continue?
-    dir: "{{.TALOS_DIR}}"
-    cmd: talhelper gencommand reset --extra-flags "--reboot --graceful=false --wait=false" | bash
+  # upgrade:
+  #   desc: Upgrade Talos on a node
+  #   cmd: bash {{.TALOS_SCRIPTS_DIR}}/upgrade.sh "{{.cluster}}" "{{.node}}" "{{.TALOS_SCHEMATIC_ID}}:{{.TALOS_VERSION}}" "{{.rollout}}"
+  #   vars:
+  #     rollout: '{{.rollout | default "false"}}'
+  #   requires:
+  #     vars: ["cluster", "node"]
+  #   preconditions:
+  #     - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/talosconfig
+  #     - talosctl --context {{.cluster}} config info >/dev/null 2>&1
+  #     - talosctl --context {{.cluster}} --nodes {{.node}} get machineconfig >/dev/null 2>&1
 
-  .reset:
-    internal: true
-    cmd: rm -rf {{.TALOS_DIR}}
+  # upgrade-rollout:
+  #   desc: Rollout Talos upgrade on all nodes
+  #   cmds:
+  #     - flux --context {{.cluster}} suspend kustomization --all
+  #     - kubectl cnpg --context {{.cluster}} maintenance set --reusePVC --all-namespaces
+  #     - for: { var: nodes, split: "," }
+  #       task: upgrade
+  #       vars:
+  #         cluster: "{{.cluster}}"
+  #         node: "{{.ITEM}}"
+  #         rollout: "true"
+  #     - kubectl cnpg --context {{.cluster}} maintenance unset --reusePVC --all-namespaces
+  #     - flux --context {{.cluster}} resume kustomization --all
+  #     - task: :kubernetes:delete-failed-pods
+  #       vars:
+  #         cluster: "{{.cluster}}"
+  #   vars:
+  #     nodes:
+  #       sh: talosctl --context {{.cluster}} config info --output json | jq --join-output '[.nodes[]] | join(",")'
+  #   requires:
+  #     vars: ["cluster"]
+  #   preconditions:
+  #     - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/talosconfig
+  #     - talosctl --context {{.cluster}} config info >/dev/null 2>&1
+  #     - talosctl --context {{.cluster}} --nodes {{.nodes}} get machineconfig >/dev/null 2>&1
+
+  # upgrade-k8s:
+  #   desc: Upgrade the clusters k8s version
+  #   cmd: talosctl --context {{.cluster}} --nodes {{.controller}} upgrade-k8s --to {{.KUBERNETES_VERSION}}
+  #   vars:
+  #     controller:
+  #       sh: talosctl --context {{.cluster}} config info --output json | jq --raw-output '.endpoints[0]'
+  #   requires:
+  #     vars: ["cluster"]
+  #   preconditions:
+  #     - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/talosconfig
+  #     - talosctl --context {{.cluster}} config info >/dev/null 2>&1
+  #     - talosctl --context {{.cluster}} --nodes {{.node}} get machineconfig >/dev/null 2>&1
+
+  # reset-node:
+  #   desc: Reset a Talos node and shut it down
+  #   prompt: Reset Talos '{{.node}}' node on the '{{.cluster}}' cluster ... continue?
+  #   cmd: talosctl --context {{.cluster}} reset --nodes {{.node}} --graceful=false
+  #   requires:
+  #     vars: ["cluster", "node"]
+  #   preconditions:
+  #     - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/talosconfig
+  #     - talosctl --context {{.cluster}} config info >/dev/null 2>&1
+  #     - talosctl --context {{.cluster}} --nodes {{.node}} get machineconfig >/dev/null 2>&1
+
+  # reset-cluster:
+  #   desc: Reset all the Talos nodes and shut 'em down
+  #   prompt: Reset Talos on the '{{.cluster}}' cluster ... continue?
+  #   cmd: talosctl --context {{.cluster}} reset --nodes {{.nodes}} --graceful=false
+  #   vars:
+  #     nodes:
+  #       sh: talosctl --context {{.cluster}} config info --output json | jq --join-output '[.nodes[]] | join(",")'
+  #   requires:
+  #     vars: ["cluster"]
+  #   preconditions:
+  #     - test -f {{.KUBERNETES_DIR}}/{{.cluster}}/talosconfig
+  #     - talosctl --context {{.cluster}} config info >/dev/null 2>&1
+  #     - talosctl --context {{.cluster}} --nodes {{.nodes}} get machineconfig >/dev/null 2>&1
+
+  bootstrap-matchbox:
+    desc: Bootstrap required Matchbox configuration to Vyos for PXE Boot
+    dir: "{{.KUBERNETES_DIR}}/bootstrap/talos/matchbox/"
+    cmds:
+      - ssh -l {{.VYOS_USER}} {{.VYOS_ADDR}} "sudo mkdir -p {{.VYOS_MATCHBOX_DIR}}/{groups,profiles,assets}"
+      - ssh -l {{.VYOS_USER}} {{.VYOS_ADDR}} "sudo chown -R {{.VYOS_USER}}:users {{.VYOS_MATCHBOX_DIR}}/{groups,profiles,assets}"
+      - for: ["kernel-amd64", "initramfs-amd64.xz"]
+        cmd: |
+          curl -skL https://factory.talos.dev/image/{{.TALOS_SCHEMATIC_ID}}/{{.TALOS_VERSION}}/{{.ITEM}} > /tmp/{{.ITEM}}
+          scp -o StrictHostKeyChecking=no /tmp/{{.ITEM}} {{.VYOS_USER}}@{{.VYOS_ADDR}}:{{.VYOS_MATCHBOX_ASSETS_DIR}}/{{.ITEM}}
+          rm /tmp/{{.ITEM}}
+      - for: ["fleetcom-node1.yaml", "fleetcom-node2.yaml", "fleetcom-node3.yaml", "fleetcom-node4.yaml", "fleetcom-node5.yaml", "fleetcom-node6.yaml"]
+        cmd: |
+          scp {{.KUBERNETES_DIR}}/bootstrap/talos/matchbox/assets/{{.ITEM}} {{.VYOS_USER}}@{{.VYOS_ADDR}}:{{.VYOS_MATCHBOX_ASSETS_DIR}}/{{.ITEM}}
+      - for: ["fleetcom-node1.json", "fleetcom-node2.json", "fleetcom-node3.json", "fleetcom-node4.json", "fleetcom-node5.json", "fleetcom-node6.json" ]
+        cmd: |
+          scp {{.KUBERNETES_DIR}}/bootstrap/talos/matchbox/groups/{{.ITEM}} {{.VYOS_USER}}@{{.VYOS_ADDR}}:{{.VYOS_MATCHBOX_GROUPS_DIR}}/{{.ITEM}}
+      - for: ["fleetcom-node1.json", "fleetcom-node2.json", "fleetcom-node3.json", "fleetcom-node4.json", "fleetcom-node5.json", "fleetcom-node6.json" ]
+        cmd: |
+          scp {{.KUBERNETES_DIR}}/bootstrap/talos/matchbox/profiles/{{.ITEM}} {{.VYOS_USER}}@{{.VYOS_ADDR}}:{{.VYOS_MATCHBOX_PROFILES_DIR}}/{{.ITEM}}
+      - ssh -l {{.VYOS_USER}} {{.VYOS_ADDR}} -t /opt/vyatta/bin/vyatta-op-cmd-wrapper "restart container matchbox"
+      - curl --silent --output /dev/null --connect-timeout 10 --retry 10 --retry-delay 2 http://{{.VYOS_MATCHBOX_ADDR}}/assets/fleetcom-node1.yaml
+    env:
+      TALOS_VERSION: "{{.TALOS_VERSION}}"
+      TALOS_SCHEMATIC_ID: "{{.TALOS_SCHEMATIC_ID}}"
+      KUBERNETES_VERSION: "{{.KUBERNETES_VERSION}}"

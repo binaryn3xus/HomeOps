@@ -1,7 +1,7 @@
 {
   "id": "fleetcom-node6",
   "name": "fleetcom-node6",
-  "profile": "talos-worker06",
+  "profile": "fleetcom-node6",
   "selector": {
     "mac": "6c:2b:59:eb:e3:be"
   }

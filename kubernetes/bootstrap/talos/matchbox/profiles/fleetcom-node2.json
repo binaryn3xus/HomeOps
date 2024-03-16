@@ -1,6 +1,6 @@
 {
-  "id": "talos-controller02",
-  "name": "talos-controller02",
+  "id": "fleetcom-node2",
+  "name": "fleetcom-node2",
   "boot": {
     "kernel": "/assets/kernel-amd64",
     "initrd": [
@@ -15,7 +15,7 @@
       "console=ttyS0",
       "printk.devkmsg=on",
       "talos.platform=metal",
-      "talos.config=http://10.0.254.3/assets/controller02.yaml"
+      "talos.config=http://10.0.254.3/assets/fleetcom-node2.yaml"
     ]
   }
 }

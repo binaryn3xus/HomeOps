@@ -12,7 +12,7 @@ vars:
   # Files
   AGE_FILE: "{{.ROOT_DIR}}/age.key"
   BOOTSTRAP_CONFIG_FILE: "{{.ROOT_DIR}}/config.yaml"
-  KUBECONFIG_FILE: "{{.ROOT_DIR}}/kubeconfig"
+  KUBECONFIG_FILE: "{{.ROOT_DIR}}/kubernetes/kubeconfig"
   MAKEJINJA_CONFIG_FILE: "{{.ROOT_DIR}}/makejinja.toml"
   PIP_REQUIREMENTS_FILE: "{{.ROOT_DIR}}/requirements.txt"
   # Binaries
