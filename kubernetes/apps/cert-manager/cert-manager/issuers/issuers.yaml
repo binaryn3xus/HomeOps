@@ -14,7 +14,7 @@ spec:
             email: "${SECRET_ACME_EMAIL}"
             apiTokenSecretRef:
               name: cert-manager-secret
-              key: api-token
+              key: cf_api_token
         selector:
           dnsZones:
             - "${SECRET_DOMAIN}"
@@ -35,7 +35,7 @@ spec:
             email: "${SECRET_ACME_EMAIL}"
             apiTokenSecretRef:
               name: cert-manager-secret
-              key: api-token
+              key: cf_api_token
         selector:
           dnsZones:
             - "${SECRET_DOMAIN}"
