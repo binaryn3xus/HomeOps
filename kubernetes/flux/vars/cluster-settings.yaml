@@ -6,6 +6,7 @@ metadata:
   namespace: flux-system
 data:
   TIMEZONE: "America/New_York"
+  CLUSTER_CLOUDFLARE_TUNNEL_ID: b9d1e81f-c1e0-4538-b153-bfe3cc327d2f
   CLUSTER_CIDR: "10.69.0.0/16"
   NODE_CIDR: "10.0.30.0/24"
   HOME_NAS_IP: "10.0.30.4"
