@@ -35,6 +35,7 @@ includes:
     taskfile: .taskfiles/Repository/Taskfile.yaml
   talos: .taskfiles/Talos/Taskfile.yaml
   sops: .taskfiles/Sops/Taskfile.yaml
+  rook: .taskfiles/Rook/Taskfile.yaml
   workstation: .taskfiles/Workstation/Taskfile.yaml
   user:
     taskfile: .taskfiles/User

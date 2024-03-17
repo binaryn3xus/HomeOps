@@ -8,3 +8,4 @@ data:
   TIMEZONE: "America/New_York"
   CLUSTER_CIDR: "10.69.0.0/16"
   NODE_CIDR: "10.0.30.0/24"
+  HOME_NAS_IP: "10.0.30.4"
