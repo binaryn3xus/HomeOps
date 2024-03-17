@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app home-assistant
+  name: home-assistant
   namespace: default
 spec:
   interval: 30m
@@ -31,20 +31,12 @@ spec:
     - name: volsync
       namespace: volsync
   values:
-    defaultPodOptions:
-      automountServiceAccountToken: false
-      securityContext:
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
-        fsGroupChangePolicy: "OnRootMismatch"
-
     controllers:
-      main:
+      home-assistant:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/home-assistant
               tag: 2024.2.5@sha256:3c63e08234d808cbe2f29efc44347ddf09b277fe9c570ffe042d15ca2944b9f7
@@ -53,9 +45,8 @@ spec:
             resources:
               requests:
                 cpu: 50m
-                memory: 200Mi
               limits:
-                memory: 1000Mi
+                memory: 1Gi
           code:
             dependsOn: main
             image:
@@ -74,26 +65,32 @@ spec:
               - "80"
               - /config
             resources:
-              limits: &resources
-                memory: 512Mi
               requests:
-                <<: *resources
                 cpu: 10m
+              limits:
+                memory: 512Mi
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
 
     service:
-      main:
+      app:
+        controller: home-assistant
         ports:
           http:
             port: 8123
       code:
-        controller: main
+        controller: home-assistant
         ports:
           http:
             port: 80
 
     ingress:
-      main:
-        enabled: true
+      app:
         className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
@@ -102,7 +99,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  name: app
                   port: http
         tls:
           - hosts:
@@ -125,5 +122,13 @@ spec:
       config:
         enabled: true
         existingClaim: home-assistant
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/logs
+      tts:
+        type: emptyDir
+        globalMounts:
+          - path: /config/tts
       tmp:
         type: emptyDir
