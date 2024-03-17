@@ -8,6 +8,7 @@ api:
 # Sources
 #
 
+sources:
   kubernetes_source:
     type: vector
     version: "2"
@@ -32,7 +33,6 @@ transforms:
 #
 
 sinks:
-
   kubernetes:
     inputs: ["kubernetes_remap"]
     type: loki
