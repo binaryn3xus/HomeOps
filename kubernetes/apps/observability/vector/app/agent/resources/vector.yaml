@@ -2,7 +2,6 @@
 data_dir: /vector-data-dir
 
 sources:
-
   kubernetes_source:
     type: kubernetes_logs
     use_apiserver_cache: true
@@ -18,7 +17,6 @@ sources:
       node_labels: ""
 
 sinks:
-
   kubernetes:
     type: vector
     compression: true
