@@ -12,10 +12,10 @@ resources:
   - ./emqx/ks.yaml
   # - ./frigate/ks.yaml
   - ./guacamole/ks.yaml
-  # - ./home-assistant/ks.yaml
+  - ./home-assistant/ks.yaml
   - ./it-tools/ks.yaml
   - ./minio/ks.yaml
-  # - ./node-red/ks.yaml
+  - ./node-red/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
