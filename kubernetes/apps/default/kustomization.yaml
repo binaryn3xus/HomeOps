@@ -16,15 +16,15 @@ resources:
   - ./it-tools/ks.yaml
   - ./minio/ks.yaml
   # - ./node-red/ks.yaml
-  # - ./overseerr/ks.yaml
+  - ./overseerr/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
   - ./recyclarr/ks.yaml
-  # - ./sabnzbd/ks.yaml
+  - ./sabnzbd/ks.yaml
   - ./sonarr/ks.yaml
-  # - ./tasmobackup/ks.yaml
-  # - ./tautulli/ks.yaml
+  - ./tasmobackup/ks.yaml
+  - ./tautulli/ks.yaml
   - ./theme-park/ks.yaml
   # - ./zigbee2mqtt/ks.yaml
   # - ./zwave-js-ui/ks.yaml
