@@ -27,8 +27,6 @@ tasks:
   list:
     desc: List snapshots for an application
     summary: |
-      Args:
-        cluster: Cluster to run command against (required)
         ns: Namespace the PVC is in (default: default)
         app: Application to list snapshots for (required)
     cmds:
@@ -39,7 +37,6 @@ tasks:
       - kubectl -n {{.ns}} delete job list-{{.app}}-{{.ts}}
     env: *env
     vars:
-      cluster: '{{ or .cluster (fail "Argument (cluster) is required") }}'
       ns: '{{.ns | default "default"}}'
       app: '{{ or .app (fail "Argument (app) is required") }}'
     preconditions:
@@ -51,7 +48,6 @@ tasks:
     desc: Unlock a Restic repository for an application
     summary: |
       Args:
-        cluster: Cluster to run command against (required)
         ns: Namespace the PVC is in (default: default)
         app: Application to unlock (required)
     cmds:
@@ -62,7 +58,6 @@ tasks:
       - kubectl -n {{.ns}} delete job unlock-{{.app}}-{{.ts}}
     env: *env
     vars:
-      cluster: '{{ or .cluster (fail "Argument (cluster) is required") }}'
       ns: '{{.ns | default "default"}}'
       app: '{{ or .app (fail "Argument (app) is required") }}'
     preconditions:
@@ -76,7 +71,6 @@ tasks:
     desc: Snapshot a PVC for an application
     summary: |
       Args:
-        cluster: Cluster to run command against (required)
         ns: Namespace the PVC is in (default: default)
         app: Application to snapshot (required)
     cmds:
@@ -89,7 +83,6 @@ tasks:
       - kubectl -n {{.ns}} wait job/volsync-src-{{.app}} --for condition=complete --timeout=120m
     env: *env
     vars:
-      cluster: '{{ or .cluster (fail "Argument (cluster) is required") }}'
       ns: '{{.ns | default "default"}}'
       app: '{{ or .app (fail "Argument (app) is required") }}'
       controller:
