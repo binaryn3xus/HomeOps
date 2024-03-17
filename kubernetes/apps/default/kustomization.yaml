@@ -11,9 +11,9 @@ resources:
   # - ./bazarr/ks.yaml
   # - ./emqx/ks.yaml
   # - ./frigate/ks.yaml
-  # - ./guacamole/ks.yaml
+  - ./guacamole/ks.yaml
   # - ./home-assistant/ks.yaml
-  # - ./it-tools/ks.yaml
+  - ./it-tools/ks.yaml
   - ./minio/ks.yaml
   # - ./node-red/ks.yaml
   # - ./overseerr/ks.yaml
@@ -25,6 +25,6 @@ resources:
   # - ./sonarr/ks.yaml
   # - ./tasmobackup/ks.yaml
   # - ./tautulli/ks.yaml
-  # - ./theme-park/ks.yaml
+  - ./theme-park/ks.yaml
   # - ./zigbee2mqtt/ks.yaml
   # - ./zwave-js-ui/ks.yaml
