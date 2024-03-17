@@ -25,7 +25,7 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: openebs-hostpath-provisioner
+    - name: openebs
       namespace: kube-system
     - name: rook-ceph-cluster
       namespace: rook-ceph
