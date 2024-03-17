@@ -1,0 +1,16 @@
+---
+apiVersion: nfd.k8s-sigs.io/v1alpha1
+kind: NodeFeatureRule
+metadata:
+  name: skyconnect-zigbee-device
+spec:
+  rules:
+    - # SkyConnect USB
+      name: skyconnect.zigbee
+      labels:
+        skyconnect.feature.node.kubernetes.io/zigbee: "true"
+      matchFeatures:
+        - feature: usb.device
+          matchExpressions:
+            vendor: { op: In, value: ["10c4"] }
+            device: { op: In, value: ["ea60"] }
