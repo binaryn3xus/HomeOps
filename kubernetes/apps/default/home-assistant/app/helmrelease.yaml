@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: home-assistant
+  name: &app home-assistant
   namespace: default
 spec:
   interval: 30m
@@ -32,11 +32,11 @@ spec:
       namespace: volsync
   values:
     controllers:
-      home-assistant:
+      main:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          app:
+          main:
             image:
               repository: ghcr.io/onedr0p/home-assistant
               tag: 2024.2.5@sha256:3c63e08234d808cbe2f29efc44347ddf09b277fe9c570ffe042d15ca2944b9f7
@@ -45,8 +45,9 @@ spec:
             resources:
               requests:
                 cpu: 50m
+                memory: 200Mi
               limits:
-                memory: 1Gi
+                memory: 1000Mi
           code:
             dependsOn: main
             image:
@@ -78,19 +79,19 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
 
     service:
-      app:
-        controller: home-assistant
+      main:
         ports:
           http:
             port: 8123
       code:
-        controller: home-assistant
+        controller: main
         ports:
           http:
             port: 80
 
     ingress:
-      app:
+      main:
+        enabled: true
         className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
@@ -99,7 +100,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
+                  name: main
                   port: http
         tls:
           - hosts:
