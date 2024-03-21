@@ -1,0 +1,78 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: teleport
+  namespace: teleport
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: teleport-cluster
+      version: 15.1.3
+      interval: 15m
+      sourceRef:
+        kind: HelmRepository
+        name: teleport
+        namespace: flux-system
+
+  values:
+    clusterName: teleport.${SECRET_DOMAIN}
+    chartMode: standalone
+    kubeClusterName: HomeOpsCluster
+    validateConfigOnDeploy: true
+    enterprise: false
+
+    auth:
+      teleportConfig:
+        auth_service:
+          client_idle_timeout: 2h
+          client_idle_timeout_message: "Connection closed after 2hours without activity"
+
+    podSecurityPolicy:
+      enabled: true
+    
+    log:
+      level: INFO
+      output: stderr
+      format: text
+      extraFields: ["timestamp", "level", "component", "caller"]
+
+    ingress:
+      enabled: true
+      suppressAutomaticWildcards: false
+      spec:
+        ingressClassName: external
+    
+    annotations:
+      ingress:
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+        nginx.ingress.kubernetes.io/backend-protocol: "https"
+        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    
+    highAvailability:
+      certManager:
+        enabled: true
+        issuerName: letsencrypt-production
+        issuerKind: ClusterIssuer
+
+    authentication:
+      type: github
+
+    proxyListenerMode: multiplex
+
+    persistence:
+      enabled: true
+      existingClaimName: teleport
+    
+    serviceAccount:
+      create: true
+
+    rbac:
+      create: true
+
+    service:
+      type: ClusterIP
