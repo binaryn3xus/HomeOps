@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -8,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.0.3
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -19,6 +20,7 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
   values:
     controllers:
@@ -27,8 +29,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/rancher/system-upgrade-controller
-              tag: v0.13.4
+              repository: ghcr.io/buroa/system-upgrade-controller
+              tag: v0.14.2@sha256:1c2a8684fc7d738af7df996e0246e4938682aa2c11e55ccd4c9592274950b120
             env:
               SYSTEM_UPGRADE_CONTROLLER_DEBUG: false
               SYSTEM_UPGRADE_CONTROLLER_THREADS: 2
@@ -77,26 +79,21 @@ spec:
     persistence:
       tmp:
         type: emptyDir
-        globalMounts:
-          - path: /tmp
       etc-ssl:
         type: hostPath
         hostPath: /etc/ssl
         hostPathType: DirectoryOrCreate
         globalMounts:
-          - path: /etc/ssl
-            readOnly: true
+          - readOnly: true
       etc-pki:
         type: hostPath
         hostPath: /etc/pki
         hostPathType: DirectoryOrCreate
         globalMounts:
-          - path: /etc/pki
-            readOnly: true
+          - readOnly: true
       etc-ca-certificates:
         type: hostPath
         hostPath: /etc/ca-certificates
         hostPathType: DirectoryOrCreate
         globalMounts:
-          - path: /etc/ca-certificates
-            readOnly: true
+          - readOnly: true
