@@ -129,70 +129,58 @@ Outside the `external-dns` instance mentioned above another instance is deployed
     <tr>
       <th>Rack U</th>
       <th>Hardware</th>
-      <th>Power Rail</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>22</td>
-      <td>16 Port KVM Switch</td>
-      <td>Pending Assignment</td>
+      <td><a href="https://a.co/d/cZALbnG">16 Port KVM Switch</a></td>
     </tr>
     <tr>
       <td>21</td>
-      <td>CAT6 Patch Panel</td>
-      <td>Pending Assignment</td>
+      <td><a href="https://a.co/d/j0fuuLZ">24 Port Keystone Patch Panel</a></td>
     </tr>
     <tr>
       <td>20</td>
-      <td>24 Port Unifi Network Switch</td>
-      <td>Pending Assignment</td>
+      <td><a href="https://store.ui.com/us/en/collections/unifi-switching-standard-power-over-ethernet/products/us-24-250w">Unifi Standard 24 PoE (Gen1) Network Switch</a></td>
     </tr>
     <tr>
       <td>19</td>
-      <td>Unifi CloudKey Gen 2</td>
-      <td>Pending Assignment</td>
+      <td><a href="https://store.ui.com/us/en/collections/unifi-accessory-tech-hosting-and-gateways-small-scale/products/unifi-cloudkey-plus">Unifi CloudKey Gen 2</a></td>
     </tr>
     <tr>
       <td>18</td>
       <td>
         Linux Desktop - Intel Skull Canyon NUC
-        <br/>
-        VyOS Router - HUNSN Micro Firewall Appliance
       </td>
-      <td>Pending Assignment</td>
     </tr>
     <tr>
       <td>17</td>
       <td>
-        Node 4 - HP ProDesk 600 G3 Mini
+        Kubernetes Node 4 - <a href="https://support.hp.com/us-en/product/details/hp-prodesk-600-g3-desktop-mini-pc/15257642">HP ProDesk 600 G3 Mini</a>
         <br/>
-        Node 5 - HP ProDesk 600 G3 Mini
+        Kubernetes Node 5 - <a href="https://support.hp.com/us-en/product/details/hp-prodesk-600-g3-desktop-mini-pc/15257642">HP ProDesk 600 G3 Mini</a>
       </td>
-      <td>Pending Assignment</td>
     </tr>
     <tr>
       <td>16</td>
       <td>
-        Node 3 - Dell Optiplex 7050 Micro
+        Kubernetes Node 3 - <a href="https://www.dell.com/support/home/en-us/product-support/product/optiplex-7050-sff/drivers">Dell Optiplex 7050 Micro</a>
         <br/>
-        Node 6 - Dell Optiplex 3060 Micro
+        Kubernetes Node 6 - <a href="https://www.dell.com/support/home/en-us/product-support/product/optiplex-3060-sff/drivers">Dell Optiplex 3060 Micro</a>
       </td>
-      <td>Pending Assignment</td>
     </tr>
     <tr>
       <td>15</td>
       <td>
-        Node 1 - Dell Optiplex 7050 Micro
+        Kubernetes Node 1 - <a href="https://www.dell.com/support/home/en-us/product-support/product/optiplex-7050-sff/drivers">Dell Optiplex 7050 Micro</a>
         <br/>
-        Node 2 - Dell Optiplex 7050 Micro
+        Kubernetes Node 2 - <a href="https://www.dell.com/support/home/en-us/product-support/product/optiplex-7050-sff/drivers">Dell Optiplex 7050 Micro</a>
       </td>
-      <td>Pending Assignment</td>
     </tr>
     <tr>
       <td>14</td>
-      <td rowspan=4>Custom Build Server</td>
-      <td rowspan=4>Pending Assignment</td>
+      <td rowspan=4><a href="https://a.co/d/g9Dpp8D">Synology DS1819+</a></td>
     </tr>
     <tr>
       <td>13</td>
@@ -205,18 +193,18 @@ Outside the `external-dns` instance mentioned above another instance is deployed
     </tr>
     <tr>
       <td>10</td>
-      <td>BLANK</td>
-      <td>Pending Assignment</td>
+      <td><em>Blank</em></td>
     </tr>
     <tr>
       <td>9</td>
-      <td>Raspberry Pi Mount</td>
-      <td>Pending Assignment</td>
+      <td>VyOS Router - <a href="https://a.co/d/b6JFO9e">HUNSN Micro Firewall Appliance</a></td>
     </tr>
     <tr>
       <td>8</td>
-      <td rowspan=4>Synology DS1819+</td>
-      <td rowspan=4>Pending Assignment</td>
+      <td rowspan='4'>
+      Custom Build Server 1
+      </br>
+      Proxmox</td>
     </tr>
     <tr>
       <td>7</td>
@@ -229,16 +217,13 @@ Outside the `external-dns` instance mentioned above another instance is deployed
     </tr>
     <tr>
       <td>4</td>
-      <td rowspan=2>Dell PowerEdge 2950</td>
-      <td rowspan=2>Pending Assignment</td>
+      <td rowspan=4>Custom Build Server 2</td>
     </tr>
     <tr>
       <td>3</td>
     </tr>
     <tr>
       <td>2</td>
-      <td rowspan=2>APC Battery Backup</td>
-      <td rowspan=2>Pending Assignment</td>
     </tr>
     <tr>
       <td>1</td>
