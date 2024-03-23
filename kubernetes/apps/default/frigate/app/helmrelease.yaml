@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -22,6 +22,7 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   uninstall:
     keepHistory: false
@@ -36,12 +37,12 @@ spec:
       namespace: volsync
   values:
     controllers:
-      main:
+      frigate:
         type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/blakeblackshear/frigate
               tag: 0.13.2
@@ -74,22 +75,22 @@ spec:
               globalMounts:
                 - path: /data
     service:
-      main:
+      app:
+        controller: frigate
         ports:
           http:
             port: 5000
           rtsp:
             port: 8554
     ingress:
-      main:
-        enabled: true
+      frigate:
         className: internal
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: main
                   port: http
         tls:
           - hosts:
@@ -103,14 +104,12 @@ spec:
             subPath: config.yaml
             readOnly: true
       cache:
-        enabled: true
         type: emptyDir
         medium: Memory
         sizeLimit: 4Gi
         globalMounts:
           - path: /dev/shm
       usb:
-        enabled: true
         type: hostPath
         hostPath: /dev/bus/usb
         hostPathType: Directory

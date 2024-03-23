@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.0.4
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -22,6 +22,7 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: uninstall
       retries: 3
   uninstall:
     keepHistory: false
@@ -32,11 +33,11 @@ spec:
       namespace: volsync
   values:
     controllers:
-      main:
+      home-assistant:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/onedr0p/home-assistant
               tag: 2024.3.3@sha256:a4c2b7a75e8d5168a9e9f78d9d9f7f36435e2da07899e7faf5f6e3cdc4eebe56
@@ -49,7 +50,7 @@ spec:
               limits:
                 memory: 1000Mi
           code:
-            dependsOn: main
+            dependsOn: app
             image:
               repository: ghcr.io/coder/code-server
               tag: 4.22.1
@@ -79,19 +80,19 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
 
     service:
-      main:
+      app:
+        controller: home-assistant
         ports:
           http:
             port: 8123
       code:
-        controller: main
+        controller: home-assistant
         ports:
           http:
             port: 80
 
     ingress:
-      main:
-        enabled: true
+      home-assistant:
         className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
@@ -100,20 +101,19 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
               - *host
       code:
-        enabled: true
         className: internal
         hosts:
           - host: &host-code "hass-code.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
-                  name: code
+                  identifier: code
                   port: http
         tls:
           - hosts:
@@ -121,7 +121,6 @@ spec:
 
     persistence:
       config:
-        enabled: true
         existingClaim: home-assistant
       logs:
         type: emptyDir

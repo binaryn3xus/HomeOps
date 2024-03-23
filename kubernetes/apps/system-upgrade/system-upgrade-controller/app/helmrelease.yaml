@@ -20,8 +20,8 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
-      strategy: rollback
       retries: 3
+      strategy: rollback
   values:
     controllers:
       system-upgrade-controller:
