@@ -34,7 +34,6 @@ spec:
         initContainers:
           # TODO: Convert this to a proper 'sidecar' container someday
           init-config:
-            order: 1
             image: &configSyncImage
               repository: ghcr.io/kiwigrid/k8s-sidecar
               tag: 1.26.1@sha256:b8d5067137fec093cf48670dc3a1dbb38f9e734f3a6683015c2e89a45db5fd16
