@@ -151,7 +151,7 @@ Outside the `external-dns` instance mentioned above another instance is deployed
     <tr>
       <td>18</td>
       <td>
-        Linux Desktop - Intel Skull Canyon NUC
+        Linux Desktop - <a href="https://www.intel.com/content/www/us/en/products/sku/89187/intel-nuc-kit-nuc6i7kyk/specifications.html">Intel Skull Canyon NUC</a>
       </td>
     </tr>
     <tr>
