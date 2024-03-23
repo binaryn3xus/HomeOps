@@ -17,3 +17,4 @@ if ! grep -q "venv /workspaces/" .venv/pyvenv.cfg; then
     rm -rf .venv
 fi
 task workstation:venv
+ 

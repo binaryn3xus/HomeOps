@@ -19,8 +19,6 @@ _... managed with Flux, SOPS and GitHub Actions_ 🤖
 
 ---
 
-# NOTE: Readme outdated. Will return to update.
-
 ## 📖 Overview
 
 This is a mono repository for my home infrastructure and Kubernetes cluster. I try to adhere to Infrastructure as Code (IaC) and GitOps practices using the tools like [Ansible](https://www.ansible.com/), [Kubernetes](https://kubernetes.io/), [Flux](https://github.com/fluxcd/flux2), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions).
@@ -29,23 +27,23 @@ This is a mono repository for my home infrastructure and Kubernetes cluster. I t
 
 ## ⛵ Kubernetes
 
-There is a template over at [onedr0p/flux-cluster-template](https://github.com/onedr0p/flux-cluster-template) if you wanted to try and follow along with some of the practices I use here.
-
 ### Installation
 
-My cluster is [k3s](https://k3s.io/) provisioned overtop bare-metal Debian Servers using the [Ansible](https://www.ansible.com/) galaxy role [ansible-role-k3s](https://github.com/PyratLabs/ansible-role-k3s). This is a semi hyper-converged cluster, workloads and block storage are sharing the same available resources on my nodes while I have a separate server for (NFS) file storage.
-
-🔸 _[Click here](./ansible/) to see my Ansible playbooks and roles._
+My Kubernetes cluster is deploy with [Talos](https://www.talos.dev). This is a semi-hyper-converged cluster, workloads and block storage are sharing the same available resources on my nodes while I have a separate server with on my Synology NAS for storage for bulk file storage and backups.
 
 ### Core Components
 
-- [cilium](https://cilium.io/): Internal Kubernetes networking plugin.
-- [cloudflared](https://github.com/cloudflare/cloudflared): Tunneling daemon that proxies traffic from the Cloudflare network to my cluster
-- [cert-manager](https://cert-manager.io/docs/): Creates SSL certificates for services in my Kubernetes cluster.
-- [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically manages DNS records from my cluster in a cloud DNS provider.
-- [ingress-nginx](https://github.com/kubernetes/ingress-nginx/): Ingress controller to expose HTTP traffic to pods over DNS.
+
+- [actions-runner-controller](https://github.com/actions/actions-runner-controller): Self-hosted Github runners.
+- [cert-manager](https://github.com/cert-manager/cert-manager): Creates SSL certificates for services in my cluster.
+- [cilium](https://github.com/cilium/cilium): Internal Kubernetes container networking interface.
+- [cloudflared](https://github.com/cloudflare/cloudflared): Enables Cloudflare secure access to certain ingresses.
+- [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically syncs ingress DNS records to a DNS provider.
+- [external-secrets](https://github.com/external-secrets/external-secrets): Managed Kubernetes secrets using [Azure Keyvault](https://azure.microsoft.com/en-us/products/key-vault).
+- [ingress-nginx](https://github.com/kubernetes/ingress-nginx): Kubernetes ingress controller using NGINX as a reverse proxy and load balancer.
 - [rook](https://github.com/rook/rook): Distributed block storage for peristent storage.
-- [sops](https://toolkit.fluxcd.io/guides/mozilla-sops/): Managed secrets for Kubernetes, Ansible and Terraform which are commited to Git.
+- [sops](https://github.com/getsops/sops): Managed secrets for Kubernetes and Terraform which are commited to Git.
+- [spegel](https://github.com/XenitAB/spegel): Stateless cluster local OCI registry mirror.
 - [teleport](https://goteleport.com/): Manage some network resources remotely
 - [tf-controller](https://github.com/weaveworks/tf-controller): Additional Flux component used to run Terraform from within a Kubernetes cluster.
 - [volsync](https://github.com/backube/volsync): Backup and recovery of persistent volume claims.
@@ -66,7 +64,8 @@ This Git repository contains the following directories under [kubernetes](./kube
 📁 kubernetes      # Kubernetes cluster defined as code
 ├─📁 apps          # Apps deployed into my cluster grouped by namespace (see below)
 ├─📁 bootstrap     # Flux installation
-└─📁 flux          # Main Flux configuration of repository
+├─📁 flux          # Main Flux configuration of repository
+└─📁 templates      # re-useable components
 ```
 
 ### 📡 Networking
@@ -74,8 +73,8 @@ This Git repository contains the following directories under [kubernetes](./kube
 | Name                  | CIDR              |
 |-----------------------|-------------------|
 | Server VLAN           | `10.0.30.0/24`    |
-| Kubernetes pods       | `10.42.0.0/16`    |
-| Kubernetes services   | `10.43.0.0/16`    |
+| Kubernetes pods       | `10.69.0.0/16`    |
+| Kubernetes services   | `10.96.0.0/16`    |
 
 ## ☁️ Cloud Dependencies
 
@@ -96,13 +95,13 @@ While most of my infrastructure and workloads are selfhosted I do rely upon the 
 
 ### Home DNS
 
-On my Vyos router I have CoreDNS deployed as a container. I have a split-dns setup so I can access certain pods on my network but not expose them to the public internet.
+On my Vyos router I have [Bind9](https://github.com/isc-projects/bind9) and [dnsdist](https://dnsdist.org/) deployed as containers. In my cluster `external-dns` is deployed with the `RFC2136` provider which syncs DNS records to `bind9`.
 
-You can see more about this setup in my VyOS repo: [VyosConfig](https://github.com/binaryn3xus/VyosConfig)
+Downstream DNS servers configured in `dnsdist` such as `bind9` (above) and [NextDNS](https://nextdns.io/). All my clients use `dnsdist` as the upstream DNS server, this allows for more granularity with configuring DNS across my networks. These could be things like giving each of my VLANs a specific `nextdns` profile, or having all requests for my domain forward to `bind9` on certain networks, or only using `1.1.1.1` instead of `nextdns` on certain networks where adblocking isn't required.
 
 ### Public DNS
 
-Outside the `external-dns` instance mentioned above another instance is deployed in my cluster and configure to sync DNS records to [Cloudflare](https://www.cloudflare.com/). The only ingresses this `external-dns` instance looks at to gather DNS records to put in `Cloudflare` are ones that have an ingress class name of `external` and an ingress annotation of `external-dns.alpha.kubernetes.io/target`.
+Outside the `external-dns` instance mentioned above another instance is deployed in my cluster and configured to sync DNS records to [Cloudflare](https://www.cloudflare.com/). The only ingress this `external-dns` instance looks at to gather DNS records to put in `Cloudflare` are ones that have an ingress class name of `external` and contain an ingress annotation `external-dns.alpha.kubernetes.io/target`.
 
 ---
 
@@ -111,12 +110,12 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 | Model                          | RAM       | OS Disk Size | Data Disk Size | Operating System  | Purpose                    | Rack Location    |
 | ------------------------------ | --------- | ------------ | -------------- | ----------------- | -------------------------- | ---------------- |
 | HUNSN Micro Firewall Appliance | 8 GB      | 64GB (SSD)   |                | VyOS              | Router                     |   18U (Right)    |
-| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Debian            | Node 1 (K8s Control Plane) |   15U (Left)     |
-| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Debian            | Node 2 (K8s Control Plane) |   15U (Right)    |
-| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (NVMe) | 1TB (SSD)      | Debian            | Node 3 (K8s Worker)        |   16U (Left)     |
-| HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Debian            | Node 4 (K8s Worker)        |   17U (Right)    |
-| HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Debian            | Node 5 (K8s Control Plane) |   17U (Left)     |
-| Dell Optiplex 3060 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Debian            | Node 6 (K8s Worker)        |   16U (Right)    |
+| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 1 (K8s Control Plane) |   15U (Left)     |
+| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 2 (K8s Control Plane) |   15U (Right)    |
+| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (NVMe) | 1TB (SSD)      | Talos             | Node 3 (K8s Worker)        |   16U (Left)     |
+| HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 4 (K8s Worker)        |   17U (Right)    |
+| HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 5 (K8s Control Plane) |   17U (Left)     |
+| Dell Optiplex 3060 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 6 (K8s Worker)        |   16U (Right)    |
 
 
 
@@ -253,7 +252,7 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 
 ## 🤝 Gratitude and Thanks
 
-Big shout out to all the authors and contributors to the [flux-cluster-template](https://github.com/onedr0p/flux-cluster-template) projects that we are using in this repository.
+Big shout out to all the contributors to the [flux-cluster-template](https://github.com/onedr0p/flux-cluster-template) projects that we are using in this repository.
 
 Community member [onedr0p](https://github.com/onedr0p/) for initially creating this amazing template and providing me with additional help.
 
