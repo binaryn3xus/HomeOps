@@ -6,4 +6,3 @@ resources:
   - ./dnsendpoint-crd.yaml
   - ./externalsecrets.yaml
   - ./helmrelease.yaml
-  - ./rbac.yaml
