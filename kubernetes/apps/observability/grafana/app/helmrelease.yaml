@@ -244,8 +244,7 @@ spec:
         - hosts:
             - *host
     persistence:
-      enabled: true
-      storageClassName: openebs-hostpath
+      enabled: false
     testFramework:
       enabled: false
     topologySpreadConstraints:
