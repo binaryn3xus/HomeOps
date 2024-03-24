@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
@@ -8,11 +8,11 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: app-template
-      version: 3.0.4
+      chart: external-dns
+      version: 1.14.3
       sourceRef:
         kind: HelmRepository
-        name: bjw-s
+        name: external-dns
         namespace: flux-system
   install:
     remediation:
@@ -20,87 +20,35 @@ spec:
   upgrade:
     cleanupOnFail: true
     remediation:
-      retries: 3
       strategy: rollback
-  uninstall:
-    keepHistory: false
+      retries: 3
   values:
-    controllers:
-      external-dns-bind:
-        strategy: Recreate
-        annotations:
-          reloader.stakater.com/auto: "true"
-        containers:
-          app:
-            image:
-              repository: registry.k8s.io/external-dns/external-dns
-              tag: v0.14.1@sha256:7bb4c52748dec4fa2df1a8df7b94355c9677c70378cfe555ee4eb9a476409f0c
-            env:
-              EXTERNAL_DNS_RFC2136_HOST: 10.0.254.5
-              EXTERNAL_DNS_RFC2136_PORT: "53"
-              EXTERNAL_DNS_RFC2136_ZONE: ${SECRET_DOMAIN}
-              EXTERNAL_DNS_RFC2136_TSIG_AXFR: "true"
-              EXTERNAL_DNS_RFC2136_TSIG_KEYNAME: kubernetes-main-key
-              EXTERNAL_DNS_RFC2136_TSIG_SECRET_ALG: hmac-sha256
-            envFrom:
-              - secretRef:
-                  name: external-dns-bind
-            args:
-              - --domain-filter=${SECRET_DOMAIN}
-              - --interval=1m
-              - --log-format=text
-              - --log-level=debug
-              - --metrics-address=:7979
-              - --policy=sync
-              - --provider=rfc2136
-              - --registry=txt
-              - --source=ingress
-              - --source=service
-              - --txt-owner-id=default
-              - --txt-prefix=k8s.
-            probes:
-              liveness: &probes
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /healthz
-                    port: &port 7979
-                  initialDelaySeconds: 0
-                  periodSeconds: 10
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *probes
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
-            resources:
-              limits: &resources
-                memory: 64Mi
-              requests:
-                <<: *resources
-                cpu: 10m
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            runAsNonRoot: true
-    serviceAccount:
-      create: true
-      name: *app
-    service:
-      app:
-        controller: external-dns-bind
-        ports:
-          http:
-            port: *port
+    fullnameOverride: *app
+    provider: rfc2136
+    env:
+      - name: EXTERNAL_DNS_RFC2136_HOST
+        value: "10.0.254.5"
+      - name: EXTERNAL_DNS_RFC2136_PORT
+        value: "53"
+      - name: EXTERNAL_DNS_RFC2136_ZONE
+        value: &domain ${SECRET_DOMAIN}
+      - name: EXTERNAL_DNS_RFC2136_TSIG_AXFR
+        value: "true"
+      - name: EXTERNAL_DNS_RFC2136_TSIG_KEYNAME
+        value: kubernetes-main-key
+      - name: EXTERNAL_DNS_RFC2136_TSIG_SECRET_ALG
+        value: hmac-sha256
+      - name: EXTERNAL_DNS_RFC2136_TSIG_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: &secret external-dns-bind
+            key: EXTERNAL_DNS_RFC2136_TSIG_SECRET
+    policy: sync
+    sources: ["ingress", "service"]
+    txtOwnerId: default
+    txtPrefix: k8s.
+    domainFilters: [*domain]
     serviceMonitor:
-      app:
-        serviceName: external-dns-bind
-        endpoints:
-          - port: http
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
+      enabled: true
+    podAnnotations:
+      secret.reloader.stakater.com/reload: *secret
