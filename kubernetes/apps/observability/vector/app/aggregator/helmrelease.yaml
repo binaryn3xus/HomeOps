@@ -70,7 +70,4 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /vector-data-dir
-      geoip:
-        type: emptyDir
-        globalMounts:
-          - path: /usr/share/GeoIP
+

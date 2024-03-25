@@ -4,19 +4,11 @@ api:
   enabled: true
   address: 0.0.0.0:8686
 
-#
-# Sources
-#
-
 sources:
   kubernetes_source:
     type: vector
     version: "2"
     address: 0.0.0.0:6010
-
-#
-# Transforms
-#
 
 transforms:
   kubernetes_remap:
@@ -27,10 +19,6 @@ transforms:
       .custom_app_name = .pod_labels."app.kubernetes.io/name" || .pod_labels.app || .pod_labels."k8s-app" || "unknown"
       # Drop pod_labels
       del(.pod_labels)
-
-#
-# Sinks
-#
 
 sinks:
   kubernetes:
