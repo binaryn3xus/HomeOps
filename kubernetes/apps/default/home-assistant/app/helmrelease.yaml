@@ -81,6 +81,7 @@ spec:
 
     service:
       app:
+        nameOverride: home-assistant
         controller: home-assistant
         ports:
           http:
