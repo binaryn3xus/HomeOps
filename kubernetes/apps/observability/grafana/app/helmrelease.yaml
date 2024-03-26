@@ -241,11 +241,9 @@ spec:
       hosts:
         - &host "grafana.${SECRET_DOMAIN}"
       tls:
-        - hosts:
-            - *host
+        - hosts: [*host]
     persistence:
-      enabled: true
-      storageClassName: openebs-hostpath
+      enabled: false
     testFramework:
       enabled: false
     topologySpreadConstraints:
