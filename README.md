@@ -122,7 +122,7 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 <details>
   <summary>Click to see the Full Home Ops Rack!</summary>
 
-![ServerRack](/docs/images/ServerRack_20231214.jpg)
+![ServerRack](/docs/images/ServerRack_20240326.png)
 
 <table>
   <thead>
@@ -132,6 +132,14 @@ Outside the `external-dns` instance mentioned above another instance is deployed
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td>Forbidden</br>Zone</td>
+      <td><a href="https://pikvm.org/" title="No mounting rails here, its kind of the danger zone">PiKVM V4 Plus</a></td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td><a href="https://a.co/d/cZALbnG">16 Port KVM Switch</a></td>
+    </tr>
     <tr>
       <td>22</td>
       <td><a href="https://a.co/d/cZALbnG">16 Port KVM Switch</a></td>
