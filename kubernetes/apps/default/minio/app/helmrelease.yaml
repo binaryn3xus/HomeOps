@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: quay.io/minio/minio
-              tag: RELEASE.2024-03-21T23-13-43Z
+              tag: RELEASE.2024-03-30T09-41-56Z
             env:
               TZ: "${TIMEZONE}"
               MINIO_UPDATE: "off"
