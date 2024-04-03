@@ -25,4 +25,5 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 100Gi
+      VOLSYNC_CACHE_CAPACITY: 12Gi
       GATUS_PATH: /web/index.html
