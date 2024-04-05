@@ -93,7 +93,11 @@ spec:
       sshkey:
         type: secret
         name: node-red-secret
+        defaultMode: 0600
         globalMounts:
-          - path: /data/projects/.sshkeys/testkey.pub
+          - path: /data/projects/.sshkeys/NodeRedGithubKey
+            subPath: NODERED-SSH-PRIVATE-KEY
+            readOnly: true
+          - path: /data/projects/.sshkeys/NodeRedGithubKey.pub
             subPath: NODERED-SSH-PUBLIC-KEY
             readOnly: true
