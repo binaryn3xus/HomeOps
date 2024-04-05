@@ -90,3 +90,10 @@ spec:
           - path: /data/settings.js
             subPath: settings.js
             readOnly: true
+      sshkey:
+        type: secret
+        name: node-red-secret
+        globalMounts:
+          - path: /data/projects/.sshkeys/testkey.pub
+            subPath: NODERED-SSH-PUBLIC-KEY
+            readOnly: true
