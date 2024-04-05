@@ -1,0 +1,42 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+vars:
+  vaultName: 'K8sHomeOpsKeyVault'
+
+tasks:
+
+  list:
+    desc: List Azure Keyvault Secret Names
+    cmds:
+      - az keyvault secret list --vault-name {{.vaultName}} | jq -r .[].name
+
+  show:
+    desc: Show Azure Keyvault Secret Value
+    cmds:
+      - az keyvault secret show --vault-name {{.vaultName}} --name {{.id}} | jq -r .value
+    vars:
+      id: '{{ or .id (fail "Argument (id) is required") }}'
+
+  set:
+    desc: Set Azure Keyvault Secret Value
+    cmds:
+      - az keyvault secret set --vault-name {{.vaultName}} --name {{.id}} --value {{.value}} | jq -r .value
+    vars:
+      id: '{{ or .id (fail "Argument (id) is required") }}'
+      value: '{{ or .value (fail "Argument (value) is required") }}'
+
+  delete:
+    desc: Delete Azure Keyvault Secret
+    cmds:
+      - az keyvault secret delete --vault-name {{.vaultName}} --name {{.id}} | jq -r .value
+    vars:
+      id: '{{ or .id (fail "Argument (id) is required") }}'
+
+  purge:
+    desc: PERMANENTLY delete Azure Keyvault Secret
+    cmds:
+      - az keyvault secret purge --vault-name {{.vaultName}} --name {{.id}} | jq -r .value
+    vars:
+      id: '{{ or .id (fail "Argument (id) is required") }}'

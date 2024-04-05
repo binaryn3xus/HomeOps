@@ -26,6 +26,9 @@ env:
 
 includes:
   ansible: .taskfiles/Ansible/Taskfile.yaml
+  az:
+    aliases: ["keyvault"]
+    taskfile: .taskfiles/AzureKeyVault/Taskfile.yaml
   kubernetes:
     aliases: ["k8s"]
     taskfile: .taskfiles/Kubernetes/Taskfile.yaml
