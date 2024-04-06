@@ -15,4 +15,4 @@ spec:
     type: in_cluster
     allow:
       # Service account names follow the format "namespace:serviceaccountname".
-      - service_account: "teleport:teleport-agent-service"
+      - service_account: "teleport:teleport"
