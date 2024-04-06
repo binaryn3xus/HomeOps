@@ -87,3 +87,9 @@ sudo rm -f /etc/teleport.yaml && \
 sudo rm -f /usr/local/bin/teleport /usr/local/bin/tctl /usr/local/bin/tsh && \
 sudo apt remove teleport -y
 ```
+
+### Setup Kubernetes Tokens via Service Account
+
+[Docs - Joining Services via Kubernetes ServiceAccount Token](https://goteleport.com/docs/agents/join-services-to-your-cluster/kubernetes/)
+
+`kubectl exec -i <teleport-auth-... pod name> -n teleport -- tctl create -f - < ./kubernetes/apps/teleport/teleport/app/resources/token.yaml`
