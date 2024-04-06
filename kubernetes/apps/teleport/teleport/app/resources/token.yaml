@@ -6,7 +6,7 @@ metadata:
   expires: "2050-01-01T00:00:00Z"
 spec:
   # Use the minimal set of system roles required.
-  roles: [kube,app,discovery]
+  roles: [kube,app,discovery,node,windowsdesktop]
 
   # set the join method allowed for this token
   join_method: kubernetes

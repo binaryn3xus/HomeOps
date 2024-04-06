@@ -19,7 +19,7 @@ spec:
   values:
     log:
       level: DEBUG
-    roles: kube,app,discovery
+    roles: kube,app,discovery,node,windowsdesktop
     insecureSkipProxyTLSVerify: true
     proxyAddr: teleport.${SECRET_DOMAIN}:443
     joinParams:
