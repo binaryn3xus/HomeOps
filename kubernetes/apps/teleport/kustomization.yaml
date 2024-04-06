@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - ./teleport/ks.yaml
+  - ./teleport-kube-agent/ks.yaml
