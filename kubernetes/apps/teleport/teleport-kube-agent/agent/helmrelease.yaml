@@ -27,3 +27,10 @@ spec:
       # Following must match the name of the token in token.yaml
       tokenName: "kubernetes-token"
     kubeClusterName: home-cluster
+    teleportConfig:
+      windows_desktop_service:
+        enabled: yes
+        static_hosts:
+        - name: UNSC-PillarOfAutumn
+          ad: false
+          addr: 10.0.20.10
