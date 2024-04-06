@@ -32,5 +32,8 @@ spec:
         enabled: yes
         static_hosts:
         - name: UNSC-PillarOfAutumn
-          ad: false
           addr: 10.0.20.10
+          ad: false
+        - name: UNSC-AllUnderHeaven
+          addr: 10.0.20.11
+          ad: false
