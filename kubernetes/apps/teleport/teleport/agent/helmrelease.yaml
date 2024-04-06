@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: teleport-kube-agent
+  namespace: teleport
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: teleport-kube-agent
+      version: 15.2.0
+      interval: 15m
+      sourceRef:
+        kind: HelmRepository
+        name: teleport
+        namespace: flux-system
+  values:
+    log:
+      level: DEBUG
+    roles: kube,app,discovery
+    insecureSkipProxyTLSVerify: true
+    proxyAddr: teleport.${SECRET_DOMAIN}:443
+    joinParams:
+      method: kubernetes
+      # Following must match the name of the token in token.yaml
+      tokenName: "kubernetes-token"
+    kubeClusterName: home-cluster
