@@ -74,6 +74,10 @@ spec:
     service:
       app:
         controller: radarr
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: *port

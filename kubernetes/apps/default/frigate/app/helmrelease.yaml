@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: frigate
+  name: &app frigate
   namespace: default
 spec:
   interval: 30m
@@ -77,6 +77,10 @@ spec:
     service:
       app:
         controller: frigate
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: 5000

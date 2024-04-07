@@ -97,6 +97,10 @@ spec:
     service:
       app:
         controller: zigbee2mqtt
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: 80

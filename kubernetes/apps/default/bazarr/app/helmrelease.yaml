@@ -58,6 +58,10 @@ spec:
     service:
       app:
         controller: bazarr
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: 6767

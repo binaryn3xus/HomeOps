@@ -53,6 +53,10 @@ spec:
     service:
       app:
         controller: guacamole
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: 8080

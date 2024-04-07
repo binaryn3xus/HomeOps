@@ -58,6 +58,10 @@ spec:
     service:
       app:
         controller: tautulli
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: 8181

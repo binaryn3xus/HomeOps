@@ -62,6 +62,10 @@ spec:
     service:
       app:
         controller: prowlarr
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: *port

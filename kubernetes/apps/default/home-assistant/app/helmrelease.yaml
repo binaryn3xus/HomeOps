@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: home-assistant
+  name: &app home-assistant
   namespace: default
 spec:
   interval: 30m
@@ -81,8 +81,12 @@ spec:
 
     service:
       app:
-        nameOverride: home-assistant
+        nameOverride: *app
         controller: home-assistant
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: 8123

@@ -75,6 +75,10 @@ spec:
     service:
       app:
         controller: sonarr
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: *port

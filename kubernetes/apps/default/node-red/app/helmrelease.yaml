@@ -62,6 +62,10 @@ spec:
     service:
       app:
         controller: node-red
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: 1880

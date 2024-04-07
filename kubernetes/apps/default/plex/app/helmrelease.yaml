@@ -68,6 +68,9 @@ spec:
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: "${SVC_PLEX_ADDR}"
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: 32400

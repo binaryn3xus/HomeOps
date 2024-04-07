@@ -69,6 +69,10 @@ spec:
     service:
       app:
         controller: zwave-js-ui
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: *port

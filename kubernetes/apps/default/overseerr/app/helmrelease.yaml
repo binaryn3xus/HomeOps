@@ -60,6 +60,10 @@ spec:
     service:
       app:
         controller: overseerr
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
         ports:
           http:
             port: *port
