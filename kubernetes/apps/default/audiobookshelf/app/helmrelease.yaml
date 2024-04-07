@@ -5,6 +5,8 @@ kind: HelmRelease
 metadata:
   name: &app audiobookshelf
   namespace: default
+  labels:
+    teleport: enabled
 spec:
   interval: 30m
   chart:
