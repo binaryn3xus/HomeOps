@@ -28,11 +28,12 @@ spec:
       tokenName: "kubernetes-token"
     kubeClusterName: home-cluster
     teleportConfig:
-      kubernetesDiscovery:
-      - types: ["app"]
-        namespaces: [ "default" ]
-        labels:
-          teleport: enabled
+      discovery_service:
+        kubernetes:
+        - types: ["app"]
+          namespaces: [ "default" ]
+          labels:
+            teleport: enabled
       windows_desktop_service:
         enabled: yes
         static_hosts:
