@@ -36,8 +36,6 @@ spec:
       audiobookshelf:
         annotations:
           reloader.stakater.com/auto: "true"
-        labels:
-          teleport: enabled
         containers:
           app:
             image:
@@ -71,6 +69,8 @@ spec:
               limits:
                 memory: 2500Mi
         pod:
+          labels:
+            teleport: enabled
           securityContext:
             runAsUser: 568
             runAsGroup: 568
