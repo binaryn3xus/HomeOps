@@ -77,6 +77,8 @@ spec:
     service:
       app:
         controller: audiobookshelf
+        annotations:
+          teleport.dev/name: *app
         labels:
           teleport: enabled
         ports:
