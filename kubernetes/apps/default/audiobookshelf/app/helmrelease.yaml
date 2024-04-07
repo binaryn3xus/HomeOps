@@ -69,8 +69,6 @@ spec:
               limits:
                 memory: 2500Mi
         pod:
-          labels:
-            teleport: enabled
           securityContext:
             runAsUser: 568
             runAsGroup: 568
@@ -79,6 +77,8 @@ spec:
     service:
       app:
         controller: audiobookshelf
+        labels:
+          teleport: enabled
         ports:
           http:
             port: *port
