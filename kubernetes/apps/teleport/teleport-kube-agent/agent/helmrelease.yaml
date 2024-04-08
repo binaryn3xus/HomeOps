@@ -52,6 +52,6 @@ spec:
       app_service:
         enabled: "yes"
         apps:
-        - name: "PiKVM"
-          uri: "https://10.0.30.5/"
+        - name: PiKVM
+          uri: https://10.0.30.5/
           insecure_skip_verify: true
