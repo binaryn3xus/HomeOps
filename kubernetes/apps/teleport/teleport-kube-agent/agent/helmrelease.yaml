@@ -49,3 +49,9 @@ spec:
         - name: UNSC-GhostFlag
           addr: 10.0.20.15
           ad: false
+      app_service:
+        enabled: "yes"
+        apps:
+        - name: "PiKVM"
+          uri: "https://10.0.30.5/"
+          insecure_skip_verify: true
