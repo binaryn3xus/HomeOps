@@ -53,5 +53,6 @@ spec:
         enabled: "yes"
         apps:
         - name: PiKVM
+          public_addr: pikvm.teleport.${SECRET_DOMAIN}
           uri: https://10.0.30.5/
           insecure_skip_verify: true
