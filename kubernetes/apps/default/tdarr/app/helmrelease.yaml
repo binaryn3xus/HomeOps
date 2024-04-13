@@ -33,7 +33,7 @@ spec:
       namespace: volsync
   values:
     controllers:
-      sonarr:
+      tdarr:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
