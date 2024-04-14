@@ -83,7 +83,7 @@ spec:
           - hosts:
               - *host
     persistence:
-      config:
+      app:
         existingClaim: *app
         globalMounts:
           - path: /app
