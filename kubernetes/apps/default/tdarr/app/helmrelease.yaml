@@ -32,6 +32,10 @@ spec:
     - name: volsync
       namespace: volsync
   values:
+    defaultPodOptions:
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
     controllers:
       tdarr:
         annotations:
@@ -48,18 +52,19 @@ spec:
               repository: haveagitgat/tdarr_node
               tag: 2.17.01@sha256:3ff0913202ddabce321ef99cd944a5cb65946c33677324dd7bd4fd706f0e5682
             env:
-            - name: nodeID
-              value: node
-            - name: serverIP
-              value: localhost
-            - name: serverPort
-              value: &serverPort 8266
+              webUIPort: &webPort 8265
+              serverIP: 0.0.0.0
+              serverPort: &serverPort 8266
+              TZ: ${TZ}
+              TDARR__PORT: *webPort
+              TDARR_APPLICATION_URL: &host tdarr.${SECRET_DOMAIN}
+              TDARR_INSTANCE_NAME: Tdarr
     service:
       app:
         controller: tdarr
         ports:
           http:
-            port: 8265
+            port: *webPort
           server:
             enabled: true
             protocol: TCP
