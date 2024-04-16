@@ -86,7 +86,9 @@ spec:
               - *host
     persistence:
       app:
-        existingClaim: *app
+        type: persistentVolumeClaim
+        accessMode: ReadWriteOnce
+        size: 5Gi
         globalMounts:
           - path: /app
       media:
