@@ -47,14 +47,13 @@ spec:
               tag: 2.17.01@sha256:dc1c17ebeee83583fa74df90a96017869fe4a9448cd066be8482720a3798d319
             env:
               TZ: "${TIMEZONE}"
-              nodeID: node
-              internalNode: true
-              inContainer: true
               ffmpegVersion: 6
-              webUIPort: &webPort 8265
-              serverIP: localhost
+              inContainer: "true"
+              internalNode: "true"
+              nodeID: "homeops"
+              serverIP: "localhost"
               serverPort: &serverPort 8266
-              TDARR__PORT: *webPort
+              webUIPort: &webPort 8265
     service:
       app:
         controller: tdarr
