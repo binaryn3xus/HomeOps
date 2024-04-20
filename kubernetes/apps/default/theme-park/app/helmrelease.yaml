@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/theme-park
-              tag: 1.16.1@sha256:6fffb28303a5db4998bdceed10a022c64fb848d8b938ff1897cb783ab0451244
+              tag: 1.16.2@sha256:6c780d6a9048a2f1361bff20490315b340e78f0b064b943a57fccfd2fcbaf274
             env:
               TZ: "${TIMEZONE}"
             resources:
