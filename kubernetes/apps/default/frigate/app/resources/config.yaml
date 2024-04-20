@@ -147,6 +147,11 @@ cameras:
         threshold: 30
     motion:
       mask: ["1962,460,2034,1296,2034,0,1460,0"]
+    objects:
+      filters:
+        person:
+          # To stop the table being triggered as a person in certain lighting
+          mask: 193,875,385,629
 
   East_Side:
     ffmpeg:
@@ -197,7 +202,7 @@ cameras:
         threshold: 50
     # Detect something wild to hopefully never trigger
     objects:
-      track: ["person"]
+      track: ["giraffe"]
 
   Living_Room:
     birdseye:
