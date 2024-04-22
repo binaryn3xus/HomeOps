@@ -22,7 +22,7 @@ spec:
         values: ["talos"]
       - key: feature.node.kubernetes.io/system-os_release.VERSION_ID
         operator: NotIn
-        values: [*version]
+        values: ["${TALOS_VERSION}"]
   tolerations:
     - key: CriticalAddonsOnly
       operator: Exists
