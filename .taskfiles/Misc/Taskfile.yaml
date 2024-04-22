@@ -1,0 +1,10 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+tasks:
+
+  pikvm-backup:
+    desc: Backup PiKVM Override File
+    cmds:
+      - scp root@10.0.30.5:/etc/kvmd/override.yaml ./docs/pikvm/override.yaml
