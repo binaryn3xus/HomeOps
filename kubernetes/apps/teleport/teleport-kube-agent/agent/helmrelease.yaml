@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: teleport-kube-agent
-      version: 15.2.2
+      version: 15.2.5
       interval: 15m
       sourceRef:
         kind: HelmRepository
