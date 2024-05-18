@@ -28,7 +28,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      audiobookshelf:
+      discordbot:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -48,10 +48,11 @@ spec:
               limits:
                 memory: 2500Mi
     persistence:
-      creds:
+      fbcookie:
         type: secret
         name: phc-hc-bot-secret
-        identifier: facebook-cookie
+        defaultMode: 0600
         globalMounts:
           - path: /app/cookies.txt
+            subPath: facebook-cookie
             readOnly: true
