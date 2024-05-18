@@ -9,6 +9,7 @@ resources:
   # Flux-Kustomizations
   - ./audiobookshelf/ks.yaml
   - ./bazarr/ks.yaml
+  - ./discord/ks.yaml
   - ./emqx/ks.yaml
   - ./frigate/ks.yaml
   - ./guacamole/ks.yaml
