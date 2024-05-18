@@ -54,5 +54,5 @@ spec:
         defaultMode: 0600
         globalMounts:
           - path: /app/cookies.txt
-            subPath: facebook-cookie
+            subPath: FACEBOOK_COOKIE
             readOnly: true
