@@ -25,23 +25,24 @@ env:
   VIRTUAL_ENV: "{{.ROOT_DIR}}/.venv"
 
 includes:
-  ansible: .taskfiles/Ansible/Taskfile.yaml
+  ansible: .taskfiles/Ansible
   az:
     aliases: ["keyvault"]
-    taskfile: .taskfiles/AzureKeyVault/Taskfile.yaml
+    taskfile: .taskfiles/AzureKeyVault
+  external-secrets: .taskfiles/ExternalSecrets
   kubernetes:
     aliases: ["k8s"]
-    taskfile: .taskfiles/Kubernetes/Taskfile.yaml
-  flux: .taskfiles/Flux/Taskfile.yaml
-  misc: .taskfiles/Misc/Taskfile.yaml
+    taskfile: .taskfiles/Kubernetes
+  flux: .taskfiles/Flux
+  misc: .taskfiles/Misc
   repository:
     aliases: ["repo"]
-    taskfile: .taskfiles/Repository/Taskfile.yaml
-  talos: .taskfiles/Talos/Taskfile.yaml
-  sops: .taskfiles/Sops/Taskfile.yaml
-  rook: .taskfiles/Rook/Taskfile.yaml
-  volsync: .taskfiles/VolSync/Taskfile.yaml
-  workstation: .taskfiles/Workstation/Taskfile.yaml
+    taskfile: .taskfiles/Repository
+  talos: .taskfiles/Talos
+  sops: .taskfiles/Sops
+  rook: .taskfiles/Rook
+  volsync: .taskfiles/VolSync
+  workstation: .taskfiles/Workstation
   user:
     taskfile: .taskfiles/User
     optional: true
