@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: ghcr.io/onedr0p/home-assistant
-              tag: 2024.5.0@sha256:f40002f1b631e7c2e70e0efd14e5e05a0d22ff08de81b2e7bd0ad3c190d1c744
+              tag: 2024.5.3@sha256:6255c3c8d6c6c0e844379916b5d9038e835b2a58a8722a1973338f43e5912b53
             env:
               TZ: "${TIMEZONE}"
             resources:
@@ -53,7 +53,7 @@ spec:
             dependsOn: app
             image:
               repository: ghcr.io/coder/code-server
-              tag: 4.23.1
+              tag: 4.89.1
             env:
               TZ: America/New_York
             args:
