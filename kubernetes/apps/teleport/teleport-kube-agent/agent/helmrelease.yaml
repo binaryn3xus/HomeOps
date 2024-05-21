@@ -1,6 +1,6 @@
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: teleport-kube-agent
@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: teleport-kube-agent
-      version: 15.3.4
+      version: 15.3.5
       interval: 15m
       sourceRef:
         kind: HelmRepository
