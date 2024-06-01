@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: phc-discord-bot
+  name: phc-high-counsel-ai-bot
   namespace: default
 spec:
   interval: 30m
