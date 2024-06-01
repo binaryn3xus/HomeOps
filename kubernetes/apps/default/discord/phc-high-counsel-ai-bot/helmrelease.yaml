@@ -41,6 +41,10 @@ spec:
               tag: 2024.5.0
             env:
               TZ: "${TIMEZONE}"
+              Ollama__Model: "wizardlm2"
+              Ollama__Server: "http://10.0.30.6:11434"
+              Links__SupportServerUrl: "https://github.com/binaryn3xus/PHC-HighCounsel-Bot"
+              Links__SourceRepositoryUrl: "https://github.com/binaryn3xus/PHC-HighCounsel-Bot"
             envFrom:
               - secretRef:
                   name: phc-hc-ai-bot-secret
