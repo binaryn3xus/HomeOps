@@ -43,7 +43,7 @@ spec:
               TZ: "${TIMEZONE}"
             envFrom:
               - secretRef:
-                  name: phc-hc-ai-bot
+                  name: phc-hc-ai-bot-secret
             resources:
               requests:
                 cpu: 100m
