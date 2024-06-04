@@ -34,7 +34,7 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/binaryn3xus/discord-video-embed-bot
+              repository: ghcr.io/amadejkastelic/discord-video-embed-bot
               tag: 0.18.0
             env:
               TZ: "${TIMEZONE}"
