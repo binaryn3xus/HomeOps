@@ -24,7 +24,7 @@ spec:
       retries: 3
   values:
     fullnameOverride: *app
-    # logLevel: debug
+    logLevel: debug
     provider:
       name: webhook
       webhook:
@@ -64,7 +64,7 @@ spec:
     sources: ["ingress", "service"]
     txtOwnerId: main
     txtPrefix: k8s.main.
-    domainFilters: ["${SECRET_DOMAIN}"]
+    domainFilters: ["unscfleet.com"]
     serviceMonitor:
       enabled: true
     podAnnotations:
