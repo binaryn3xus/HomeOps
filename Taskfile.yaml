@@ -29,7 +29,9 @@ includes:
   az:
     aliases: ["keyvault"]
     taskfile: .taskfiles/AzureKeyVault
-  external-secrets: .taskfiles/ExternalSecrets
+  external-secrets: 
+    aliases: ["es"]
+    taskfile: .taskfiles/ExternalSecrets
   kubernetes:
     aliases: ["k8s"]
     taskfile: .taskfiles/Kubernetes
