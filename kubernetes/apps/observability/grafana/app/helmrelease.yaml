@@ -238,6 +238,8 @@ spec:
     ingress:
       enabled: true
       ingressClassName: internal
+      annotations:
+        external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
       hosts:
         - &host "grafana.${SECRET_DOMAIN}"
       tls:
