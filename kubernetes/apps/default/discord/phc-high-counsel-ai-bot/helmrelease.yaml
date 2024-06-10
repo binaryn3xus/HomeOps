@@ -38,11 +38,13 @@ spec:
           app:
             image:
               repository: ghcr.io/binaryn3xus/phc-highcounsel-bot
-              tag: 2024.6.0
+              tag: 2024.6.1
             env:
               TZ: "${TIMEZONE}"
               PHC_Ollama__Model: "wizardlm2"
               PHC_Ollama__Server: "http://10.0.30.6:11434"
+              # TODO: This double PHC is redudant. Need to fix this code.
+              PHC_PHC__MemberRoleId: 1192231944910544996
               PHC_Links__SupportServerUrl: "https://github.com/binaryn3xus/PHC-HighCounsel-Bot"
               PHC_Links__SourceRepositoryUrl: "https://github.com/binaryn3xus/PHC-HighCounsel-Bot"
             envFrom:
