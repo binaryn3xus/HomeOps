@@ -5,7 +5,6 @@ kind: Plan
 metadata:
   name: talos
 spec:
-  # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
   version: ${TALOS_VERSION}
   serviceAccountName: system-upgrade
   secrets:
@@ -14,7 +13,6 @@ spec:
       ignoreUpdates: true
   concurrency: 1
   exclusive: true
-  cordon: false
   nodeSelector:
     matchExpressions:
       - key: feature.node.kubernetes.io/system-os_release.ID
