@@ -60,6 +60,7 @@ spec:
         enabled: true
         urlPrefix: /
         ssl: false
+        prometheusEndpoint: http://prometheus-operated.observability.svc.cluster.local:9090
       storage:
         useAllNodes: false
         useAllDevices: false
@@ -87,25 +88,28 @@ spec:
       resources:
         mgr:
           requests:
-            cpu: 500m
+            cpu: 100m
             memory: 512Mi
           limits:
-            cpu: 2000m
             memory: 2Gi
         mon:
           requests:
-            cpu: 1000m
-            memory: 1Gi
+            cpu: 50m
+            memory: 512Mi
           limits:
-            cpu: 4000m
-            memory: 3Gi
+            memory: 1Gi
         osd:
           requests:
-            cpu: 1000m
-            memory: 3Gi
+            cpu: 500m
+            memory: 2Gi
           limits:
-            cpu: 4000m
             memory: 6Gi
+        mgr-sidecar:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limits:
+            memory: 256Mi
     cephBlockPools:
       - name: ceph-blockpool
         spec:
@@ -149,10 +153,10 @@ spec:
             activeStandby: true
             resources:
               requests:
-                cpu: 750m
-                memory: 2Gi
+                cpu: 100m
+                memory: 1Gi
               limits:
-                memory: 3Gi
+                memory: 4Gi
         storageClass:
           enabled: true
           isDefault: false
@@ -190,10 +194,10 @@ spec:
             port: 80
             resources:
               requests:
-                cpu: 250m
-                memory: 500M
-              limits:
+                cpu: 100m
                 memory: 1Gi
+              limits:
+                memory: 2Gi
             instances: 2
           healthCheck:
             bucket:
