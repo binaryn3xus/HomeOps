@@ -7,8 +7,8 @@ resources:
   - ./downloads-pvc.yaml
   - ./media-pvc.yaml
   # Flux-Kustomizations
-  #- ./audiobookshelf/ks.yaml
-  #- ./bazarr/ks.yaml
+  - ./audiobookshelf/ks.yaml
+  - ./bazarr/ks.yaml
   - ./discord/ks.yaml
   - ./emqx/ks.yaml
   - ./frigate/ks.yaml
