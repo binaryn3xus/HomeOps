@@ -28,6 +28,7 @@
   "assigneesFromCodeOwners": true,
   "reviewersFromCodeOwners": true,
   "ignorePaths": ["**/archive/**"],
+  "ignoreDeps": ["binaryn3xus/phc-highcounsel-bot"],
   "flux": {
     "fileMatch": [
       "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
