@@ -107,7 +107,6 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 
 | Model                          | RAM       | OS Disk Size | Data Disk Size | Operating System  | Purpose                    | Rack Location    |
 | ------------------------------ | --------- | ------------ | -------------- | ----------------- | -------------------------- | ---------------- |
-| HUNSN Micro Firewall Appliance | 8 GB      | 64GB (SSD)   |                | VyOS              | Router                     |   18U (Right)    |
 | Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 1 (K8s Control Plane) |   15U (Left)     |
 | Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 2 (K8s Control Plane) |   15U (Right)    |
 | Dell Optiplex 7050 Micro       | 16 GB     | 500GB (NVMe) | 1TB (SSD)      | Talos             | Node 3 (K8s Worker)        |   16U (Left)     |
