@@ -50,7 +50,7 @@
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
-      "separateMinorPatch": true
+      "separateMinorPatch": false
     }
   ]
 }
