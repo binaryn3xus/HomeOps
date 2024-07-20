@@ -38,7 +38,7 @@ spec:
               tag: 4
             env:
               TZ: "${TIMEZONE}"
-              LAVALINK_SERVER_PORT: &port 2333
+              LAVALINK_SERVER_PORT: &port 443
               LAVALINK_SERVER_ADDRESS: "0.0.0.0"
               LAVALINK_SERVER_SOURCES_YOUTUBE: "false"
               LAVALINK_SERVER_SOURCES_SOUNDCLOUD: "false"
