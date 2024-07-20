@@ -42,8 +42,6 @@ spec:
             envFrom:
               - secretRef:
                   name: lavalink-secret # Server Password is in this secret
-              - configMapKeyRef:
-                  name: lavalink-config # Additional LavaLink Options
     service:
       app:
         controller: lavalink
@@ -74,3 +72,7 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /opt/Lavalink/plugins/
+      config:
+        enabled: true
+        type: configMap
+        name: lavalink-config
