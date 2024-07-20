@@ -38,7 +38,7 @@ spec:
               tag: 4
             env:
               TZ: "${TIMEZONE}"
-              LAVALINK_SERVER__PORT: &port 2333
+              LAVALINK_SERVER_PORT: &port 2333
             envFrom:
               - secretRef:
                   name: lavalink-secret # Server Password is in this secret
