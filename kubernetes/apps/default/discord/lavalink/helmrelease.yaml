@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: ghcr.io/lavalink-devs/lavalink
-              tag: 4
+              tag: 9930779
             env:
               TZ: "${TIMEZONE}"
               LAVALINK_SERVER__PORT: &port 2333
