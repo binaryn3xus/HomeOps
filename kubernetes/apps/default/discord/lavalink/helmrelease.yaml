@@ -68,10 +68,6 @@ spec:
           - hosts:
               - *host
     persistence:
-      plugins:
-        existingClaim: *app
-        globalMounts:
-          - path: /opt/Lavalink/plugins/
       config:
         enabled: true
         type: configMap
