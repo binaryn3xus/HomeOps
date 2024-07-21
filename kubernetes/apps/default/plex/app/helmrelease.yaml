@@ -15,7 +15,6 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-  maxHistory: 3
   install:
     remediation:
       retries: 3
@@ -24,8 +23,6 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   dependsOn:
     - name: intel-device-plugin-gpu
       namespace: kube-system
@@ -45,6 +42,7 @@ spec:
               tag: 1.40.4.8679-424562606@sha256:6caeca24f3b08206a94a6a9c102e2c0c14d46d5a9163241716559e8c83f53ff8
             env:
               TZ: "${TIMEZONE}"
+              PLEX_NO_AUTH_NETWORKS: 10.0.0.0/16,10.1.0.0/16
             resources:
               requests:
                 gpu.intel.com/i915: 1
