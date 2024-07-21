@@ -28,6 +28,7 @@ spec:
     tcp:
       "32400": "default/plex:32400"
       "1883": "default/emqx:1883"
+      "2333": "default/lavalink:2333"
       # "3021": "teleport/teleport:3021"
       # "3023": "teleport/teleport:3023"
       # "3024": "teleport/teleport:3024"
