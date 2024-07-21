@@ -29,6 +29,7 @@ spec:
         auth_service:
           client_idle_timeout: 2h
           client_idle_timeout_message: "Connection closed after 2hours without activity"
+          session_recording: "off" # Leaving this on will fill up too much space.
 
     podSecurityPolicy:
       enabled: true
