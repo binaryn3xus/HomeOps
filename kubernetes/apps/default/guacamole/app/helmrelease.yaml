@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: docker.io/flcontainers/guacamole
-              tag: 1.5.4
+              tag: 1.5.5
             env:
               TZ: "${TIMEZONE}"
               EXTENSIONS: auth-totp
