@@ -41,16 +41,16 @@
         "commitMessageTopic": "{{{groupName}}} group"
       },
       "separateMinorPatch": true
-    },
-    {
-      "description": "Teleport Group",
-      "groupName": "Teleport",
-      "matchPackagePatterns": ["teleport"],
-      "matchDatasources": ["docker", "github-releases"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group"
-      },
-      "separateMinorPatch": false
     }
+    // {
+    //   "description": "Teleport Group",
+    //   "groupName": "Teleport",
+    //   "matchPackagePatterns": ["teleport"],
+    //   "matchDatasources": ["docker", "github-releases"],
+    //   "group": {
+    //     "commitMessageTopic": "{{{groupName}}} group"
+    //   },
+    //   "separateMinorPatch": false
+    // }
   ]
 }
