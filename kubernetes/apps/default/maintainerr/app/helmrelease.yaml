@@ -43,7 +43,6 @@ spec:
               tag: 2.0.4
             env:
               TZ: "${TIMEZONE}"
-              PORT: &port 80
               DEBUG: true
             resources:
               requests:
@@ -66,7 +65,7 @@ spec:
           teleport: enabled
         ports:
           http:
-            port: *port
+            port: 6246
     ingress:
       overseerr:
         className: external
