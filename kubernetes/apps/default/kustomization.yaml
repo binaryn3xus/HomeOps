@@ -15,7 +15,6 @@ resources:
   - ./guacamole/ks.yaml
   - ./home-assistant/ks.yaml
   - ./it-tools/ks.yaml
-  - ./maintainerr/ks.yaml
   - ./minio/ks.yaml
   - ./node-red/ks.yaml
   - ./overseerr/ks.yaml
