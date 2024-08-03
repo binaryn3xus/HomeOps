@@ -49,12 +49,6 @@ spec:
                 memory: 1Gi
               limits:
                 memory: 2Gi
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         controller: tautulli
