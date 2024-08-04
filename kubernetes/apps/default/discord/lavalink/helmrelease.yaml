@@ -62,7 +62,6 @@ spec:
               LOGGING_REQUEST_INCLUDE_HEADERS: true
               LOGGING_REQUEST_INCLUDE_QUERY_STRING: true
               LOGGING_REQUEST_INCLUDE_PAYLOAD: true
-              LOGGING_REQUEST_MAX_PAYLOAD_LENGTH: true
             envFrom:
               - secretRef:
                   name: lavalink-secret # Server Password is in this secret
