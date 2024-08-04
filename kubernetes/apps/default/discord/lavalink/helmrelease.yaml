@@ -38,6 +38,7 @@ spec:
               tag: 4.0.7
             env:
               TZ: "${TIMEZONE}"
+              _JAVA_OPTIONS: -Xmx8G
               LAVALINK_SERVER_PORT: &port 2333
               LAVALINK_SERVER_ADDRESS: "0.0.0.0"
               LAVALINK_SERVER_SOURCES_YOUTUBE: "false"
