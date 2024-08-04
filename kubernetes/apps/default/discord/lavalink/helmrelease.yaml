@@ -54,6 +54,15 @@ spec:
               LAVALINK_SERVER_LAVAPLAYER_YOUTUBE-SEARCH-RESULTS: "1"
               LAVALINK_SERVER_LAVAPLAYER_GC-PRIMARY-ALLOCATION: "0"
               LAVALINK_SERVER_LAVAPLAYER_GC-SECONDARY-ALLOCATION: "0"
+              # Debugging
+              LOGGING_LEVEL_ROOT: DEBUG
+              LOGGING_LEVEL_LAVALINK: DEBUG
+              LOGGING_REQUEST_ENABLED: true
+              LOGGING_REQUEST_INCLUDE_CLIENT_INFO: true
+              LOGGING_REQUEST_INCLUDE_HEADERS: true
+              LOGGING_REQUEST_INCLUDE_QUERY_STRING: true
+              LOGGING_REQUEST_INCLUDE_PAYLOAD: true
+              LOGGING_REQUEST_MAX_PAYLOAD_LENGTH: true
             envFrom:
               - secretRef:
                   name: lavalink-secret # Server Password is in this secret
