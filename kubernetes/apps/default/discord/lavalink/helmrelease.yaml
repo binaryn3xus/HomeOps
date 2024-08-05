@@ -68,8 +68,10 @@ spec:
     service:
       app:
         controller: lavalink
+        type: LoadBalancer
         annotations:
           teleport.dev/name: *app
+          io.cilium/lb-ipam-ips: "${SVC_LAVALINK_ADDR}"
         labels:
           teleport: enabled
         ports:
@@ -80,7 +82,6 @@ spec:
         className: internal
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
-          io.cilium/lb-ipam-ips: ${SVC_LAVALINK_ADDR}
           nginx.org/websocket-services: *app
         hosts:
           - host: &host "lavalink.${SECRET_DOMAIN}"
