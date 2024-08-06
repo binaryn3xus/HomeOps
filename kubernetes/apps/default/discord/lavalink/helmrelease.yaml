@@ -68,10 +68,12 @@ spec:
     service:
       app:
         controller: lavalink
+        type: LoadBalancer
         annotations:
           teleport.dev/name: *app
         labels:
           teleport: enabled
+          io.cilium/lb-ipam-ips: "${SVC_LAVALINK_ADDR}"
         ports:
           http:
             port: *port
