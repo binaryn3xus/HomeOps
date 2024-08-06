@@ -75,15 +75,11 @@ spec:
         ports:
           http:
             port: *port
-          websocket:
-            port: *port
     ingress:
       lavalink:
         className: internal
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
-          nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
-          nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
         hosts:
           - host: &host "lavalink.${SECRET_DOMAIN}"
             paths:
