@@ -68,10 +68,8 @@ spec:
     service:
       app:
         controller: lavalink
-        type: LoadBalancer
         annotations:
           teleport.dev/name: *app
-          io.cilium/lb-ipam-ips: "${SVC_LAVALINK_ADDR}"
         labels:
           teleport: enabled
         ports:
@@ -84,6 +82,8 @@ spec:
         className: internal
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
+          nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+          nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
         hosts:
           - host: &host "lavalink.${SECRET_DOMAIN}"
             paths:
