@@ -77,6 +77,8 @@ spec:
         ports:
           http:
             port: *port
+          websocket:
+            port: *port
     ingress:
       lavalink:
         className: internal
