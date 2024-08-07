@@ -1,22 +1,20 @@
 ---
-# https://docs.cilium.io/en/latest/network/l2-announcements
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/cilium.io/ciliuml2announcementpolicy_v2alpha1.json
 apiVersion: cilium.io/v2alpha1
 kind: CiliumL2AnnouncementPolicy
 metadata:
-  name: policy
+  name: l2-policy
 spec:
   loadBalancerIPs: true
-  # NOTE: This might need to be set if you have more than one active NIC on your hosts
-  # interfaces:
-  #   - ^eno[0-9]+
   nodeSelector:
     matchLabels:
       kubernetes.io/os: linux
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/cilium.io/ciliumloadbalancerippool_v2alpha1.json
 apiVersion: cilium.io/v2alpha1
 kind: CiliumLoadBalancerIPPool
 metadata:
-  name: pool
+  name: l2-pool
 spec:
   blocks:
     - cidr: "${NODE_CIDR}"
