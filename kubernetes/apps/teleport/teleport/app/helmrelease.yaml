@@ -59,11 +59,18 @@ spec:
         enabled: true
         issuerName: letsencrypt-production
         issuerKind: ClusterIssuer
+        issuerGroup: cert-manager.io
 
     authentication:
       type: github
 
     proxyListenerMode: multiplex
+
+    podMonitor:
+      enabled: true
+      additionalLabels:
+        prometheus: default
+      interval: 30s
 
     persistence:
       enabled: true
