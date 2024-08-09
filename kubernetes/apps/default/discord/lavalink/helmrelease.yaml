@@ -56,7 +56,7 @@ spec:
               LAVALINK_SERVER_LAVAPLAYER_GC-SECONDARY-ALLOCATION: "0"
               # Debugging
               LOGGING_LEVEL_ROOT: DEBUG
-              LOGGING_LEVEL_LAVALINK: DEBUG
+              LOGGING_LEVEL_LAVALINK: INFO
               LOGGING_REQUEST_ENABLED: true
               LOGGING_REQUEST_INCLUDE_CLIENT_INFO: true
               LOGGING_REQUEST_INCLUDE_HEADERS: true
