@@ -54,6 +54,8 @@ spec:
               LAVALINK_SERVER_LAVAPLAYER_YOUTUBE-SEARCH-RESULTS: "1"
               LAVALINK_SERVER_LAVAPLAYER_GC-PRIMARY-ALLOCATION: "0"
               LAVALINK_SERVER_LAVAPLAYER_GC-SECONDARY-ALLOCATION: "0"
+              METRICS_PROMETHEUS_ENABLED: true
+              METRICS_PROMETHEUS_ENDPOINT: /metrics
               # Debugging
               LOGGING_LEVEL_ROOT: INFO
               LOGGING_LEVEL_LAVALINK: DEBUG
@@ -80,8 +82,16 @@ spec:
         className: internal
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
+          nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+          nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+          nginx.ingress.kubernetes.io/proxy-connect-timeout: "3600"
+          nginx.ingress.kubernetes.io/server-snippets: |
+            location / {
+              proxy_set_header Upgrade $http_upgrade;
+              proxy_set_header Connection "upgrade";
+            }
         hosts:
-          - host: &host "lavalink.${SECRET_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
