@@ -68,6 +68,13 @@ spec:
             envFrom:
               - secretRef:
                   name: lavalink-secret # Server Password is in this secret
+        pod:
+          securityContext:
+            runAsUser: 322
+            runAsGroup: 322
+            runAsNonRoot: true
+            fsGroup: 322
+            fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         controller: lavalink
@@ -81,8 +88,6 @@ spec:
     ingress:
       lavalink:
         className: internal
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
