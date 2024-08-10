@@ -39,8 +39,9 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               _JAVA_OPTIONS: -Xmx8G
-              LAVALINK_SERVER_PORT: &port 443
-              LAVALINK_SERVER_ADDRESS: "0.0.0.0"
+              SERVER_PORT: &port 2333
+              SERVER_ADDRESS: "0.0.0.0"
+              SERVER_HTTP2_ENABLED: false
               LAVALINK_SERVER_SOURCES_YOUTUBE: "false"
               LAVALINK_SERVER_SOURCES_SOUNDCLOUD: "false"
               LAVALINK_SERVER_SOURCES_BANDCAMP: "false"
@@ -82,14 +83,6 @@ spec:
         className: internal
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
-          nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
-          nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
-          nginx.ingress.kubernetes.io/proxy-connect-timeout: "3600"
-          nginx.ingress.kubernetes.io/server-snippets: |
-            location / {
-              proxy_set_header Upgrade $http_upgrade;
-              proxy_set_header Connection "upgrade";
-            }
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
