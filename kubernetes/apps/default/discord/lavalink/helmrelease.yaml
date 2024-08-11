@@ -68,6 +68,13 @@ spec:
             envFrom:
               - secretRef:
                   name: lavalink-secret # Server Password is in this secret
+            resources:
+              requests:
+                cpu: 500m
+                memory: 3000Mi
+              limits:
+                cpu: 1000m
+                memory: 8000Mi
         pod:
           securityContext:
             runAsUser: 322
