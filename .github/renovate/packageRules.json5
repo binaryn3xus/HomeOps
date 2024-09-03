@@ -30,12 +30,6 @@
         "matchDatasources": ["docker"],
         "versioning": "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z$",
         "matchPackagePatterns": ["minio"]
-      },
-      {
-        "description": "Ignore unstable versions of discord embed bot",
-        "matchDatasources": ["docker"],
-        "matchPackagePatterns": ["discord-video-embed-bot"],
-        "ignoreUnstable": "true"
       }
     ]
   }
