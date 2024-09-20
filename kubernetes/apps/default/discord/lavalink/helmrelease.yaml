@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: ghcr.io/lavalink-devs/lavalink
-              tag: 4.0.7
+              tag: 4.0.8
             env:
               TZ: "${TIMEZONE}"
               _JAVA_OPTIONS: -Xmx8G
