@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: ghcr.io/amadejkastelic/discord-video-embed-bot
-              tag: 0.21.0@sha256:5a507c26b687e3a9dc756a300639e9adb706bc14200ae9a18d5c1f3e5a7e64f8
+              tag: 0.39.2@sha256:a6b9360320ba1c7b091c78525f5459742c15dee0b01fa7e77cf50430a600c98e
             env:
               TZ: "${TIMEZONE}"
               COMPACT_POST: "true"
