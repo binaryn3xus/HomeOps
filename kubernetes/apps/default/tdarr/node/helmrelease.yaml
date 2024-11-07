@@ -40,10 +40,22 @@ spec:
               repository: haveagitgat/tdarr_node
               tag: 2.27.02@sha256:fcf8f5d30c718c72d1db099b2b9cfd58a77c85a61b0c26edab4cba057ddc4023
             env:
-              TZ: "${TIMEZONE}"
-              nodeID: "kube-node"
-              serverIP: "tdarr.default.svc.cluster.local"
-              serverPort: 8266
+              - name: TZ
+                value: "${TIMEZONE}"
+              - name: nodeID
+                value: "kube-node"
+              - name: serverIP
+                value: "tdarr.default.svc.cluster.local"
+              - name: serverPort
+                value: "8266"
+              - name: internalNode
+                value: "true"
+              - name: nodeGPU
+                value: "true"
+              - name: nodeCPU
+                value: "false"
+              - name: LIBVA_DRIVER_NAME
+                value: "i965" # Use "iHD" if applicable
             resources:
               requests:
                 cpu: 100m
