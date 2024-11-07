@@ -50,6 +50,7 @@ spec:
                 gpu.intel.com/i915: "1"
               limits:
                 cpu: 2
+                gpu.intel.com/i915: 1
     service:
       app:
         controller: *app
