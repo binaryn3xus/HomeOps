@@ -26,6 +26,9 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: intel-device-plugin-gpu
+      namespace: kube-system
   values:
     controllers:
       tdarr-node:
@@ -39,11 +42,12 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               nodeID: "kube-node"
-              serverIP: "tdarr-server.default.svc.cluster.local"
+              serverIP: "tdarr.default.svc.cluster.local"
               serverPort: 8266
             resources:
               requests:
                 cpu: 100m
+                gpu.intel.com/i915: "1"
               limits:
                 cpu: 2
     service:
