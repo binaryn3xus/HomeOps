@@ -49,6 +49,8 @@ spec:
                 memory: 256Mi
               limits:
                 memory: 1Gi
+            securityContext:
+              privileged: true
     service:
       app:
         controller: *app
