@@ -216,8 +216,8 @@ spec:
       prometheus:
         prometheus:
           # renovate: depName="Prometheus"
-          gnetId: 19105
-          revision: 5
+          gnetId: 19106
+          revision: 6
           datasource: Prometheus
     sidecar:
       dashboards:
