@@ -42,7 +42,7 @@ spec:
 
     ingress:
       enabled: true
-      suppressAutomaticWildcards: false
+      suppressAutomaticWildcards: true
       spec:
         ingressClassName: external
     
