@@ -43,7 +43,7 @@ spec:
               tag: main
             env:
               TZ: "${TIMEZONE}"
-              OLLAMA_BASE_URL: "https://10.0.30.6"
+              OLLAMA_BASE_URL: "${OLLAMA_BASE_URL}"
             resources:
               requests:
                 cpu: 100m
