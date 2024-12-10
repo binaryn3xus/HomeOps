@@ -33,11 +33,11 @@ spec:
       namespace: volsync
   values:
     controllers:
-      app:
+      open-webui:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          open-webui:
+          app:
             image:
               repository: ghcr.io/open-webui/open-webui
               tag: main
