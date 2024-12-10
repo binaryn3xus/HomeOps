@@ -42,7 +42,7 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               Bot_Ollama__Model: "wizardlm2"
-              Bot_Ollama__Server: "${OLLAMA_BASE_URL}"
+              Bot_Ollama__Server: "http://10.0.30.6:11434"
               Bot_PHC__MemberRoleId: "1192231944910544996"
               Bot_PHC__AutoReactions: false
               Bot_Links__SupportServerUrl: "https://github.com/binaryn3xus/PHC-HighCounsel-Bot"
