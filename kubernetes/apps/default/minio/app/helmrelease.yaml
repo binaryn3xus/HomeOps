@@ -91,8 +91,12 @@ spec:
     ingress:
       app:
         className: internal
-        #annotations:
-        #  external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
+        annotations:
+          nginx.ingress.kubernetes.io/proxy-body-size: "1024m"
+          nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+          nginx.ingress.kubernetes.io/proxy-connect-timeout: "180"
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            chunked_transfer_encoding off;
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
