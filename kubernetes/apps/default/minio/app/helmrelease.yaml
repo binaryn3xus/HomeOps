@@ -115,4 +115,4 @@ spec:
       media:
         existingClaim: minio-nfs
         globalMounts:
-          - path: /data
+          - path: /mnt/data
