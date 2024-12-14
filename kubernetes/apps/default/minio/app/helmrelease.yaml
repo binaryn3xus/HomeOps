@@ -110,7 +110,7 @@ spec:
           - hosts:
               - *host
               - *s3Host
-            secretName: minio-main-tls
+            # secretName: minio-main-tls
     persistence:
       media:
         existingClaim: minio-nfs
