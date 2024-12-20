@@ -36,7 +36,7 @@ spec:
           init-config:
             image: &configSyncImage
               repository: ghcr.io/kiwigrid/k8s-sidecar
-              tag: 1.28.3@sha256:28711f703bc326298c7bab6610728ca158aa4006befaf9c75f69f62897d136a2
+              tag: 1.28.4@sha256:20caf4e241e1f9f9231527db5e75b735aa7b0da7bee3d262cbe369bb9b33469f
             env:
               FOLDER: /config
               LABEL: gatus.io/enabled
@@ -53,7 +53,7 @@ spec:
           app:
             image:
               repository: ghcr.io/twin/gatus
-              tag: v5.13.1@sha256:24842a8adebd3dd4bd04a4038ffa27cb2fe72bb50631415e0fb2915063fc1993
+              tag: v5.14.0@sha256:acc0c116458a8d65ce48f7caea13881afa20bf5a405bb95230c51430eb9e2313
             env:
               TZ: America/New_York
               GATUS_CONFIG_PATH: /config
