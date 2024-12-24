@@ -43,7 +43,7 @@ My Kubernetes cluster is deploy with [Talos](https://www.talos.dev). This is a s
 - [ingress-nginx](https://github.com/kubernetes/ingress-nginx): Kubernetes ingress controller using NGINX as a reverse proxy and load balancer.
 - [rook](https://github.com/rook/rook): Distributed block storage for peristent storage.
 - [sops](https://github.com/getsops/sops): Managed secrets for Kubernetes and Terraform which are commited to Git.
-- [spegel](https://github.com/XenitAB/spegel): Stateless cluster local OCI registry mirror.
+- [spegel](https://github.com/spegel-org/spegel): Stateless cluster local OCI registry mirror.
 - [teleport](https://goteleport.com/): Manage some network resources remotely
 - [tf-controller](https://github.com/weaveworks/tf-controller): Additional Flux component used to run Terraform from within a Kubernetes cluster.
 - [volsync](https://github.com/backube/volsync): Backup and recovery of persistent volume claims.
