@@ -199,6 +199,6 @@ controlPlane:
             allowedRoles:
               - os:admin
             allowedKubernetesNamespaces:
-              - system-upgrade
+              - kube-system
 
 
