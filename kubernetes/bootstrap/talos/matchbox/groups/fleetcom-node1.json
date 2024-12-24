@@ -1,8 +1,0 @@
-{
-    "id": "fleetcom-node1",
-    "name": "fleetcom-node1",
-    "profile": "fleetcom-node1",
-    "selector": {
-      "mac": "b8:85:84:ad:fc:89"
-    }
-  }
