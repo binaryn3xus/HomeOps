@@ -1,9 +1,9 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
 ---
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: v1.6.6
+talosVersion: v1.8.2
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-kubernetesVersion: v1.29.2
+kubernetesVersion: v1.31.4
 
 clusterName: &cluster home-kubernetes
 endpoint: https://10.0.30.30:6443
@@ -72,7 +72,7 @@ nodes:
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: ac:e2:d3:0d:48:71
+          hardwareAddr: ac:e2:d3:0d:a3:e7
         mtu: 1500
         dhcp: true
   - hostname: "fleetcom-node6"
@@ -137,7 +137,7 @@ patches:
       time:
         disabled: false
         servers:
-          - 10.0.10.1
+          - 10.0.30.1
 
   # Custom sysctl settings
   - |-
