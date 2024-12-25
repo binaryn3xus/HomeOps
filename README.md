@@ -33,8 +33,6 @@ My Kubernetes cluster is deploy with [Talos](https://www.talos.dev). This is a s
 
 ### Core Components
 
-
-- [actions-runner-controller](https://github.com/actions/actions-runner-controller): Self-hosted Github runners.
 - [cert-manager](https://github.com/cert-manager/cert-manager): Creates SSL certificates for services in my cluster.
 - [cilium](https://github.com/cilium/cilium): Internal Kubernetes container networking interface.
 - [cloudflared](https://github.com/cloudflare/cloudflared): Enables Cloudflare secure access to certain ingresses.
@@ -85,9 +83,8 @@ While most of my infrastructure and workloads are selfhosted I do rely upon the 
 | [GitHub](https://github.com/)                                                | Hosting this repository and continuous integration/deployments    | Free             |
 | [Cloudflare](https://www.cloudflare.com/)                                    | Domain, DNS and proxy management                                  | Free             |
 | [UptimeRobot](https://uptimerobot.com/)                                      | Monitoring internet connectivity and external facing applications | Free             |
-| [NextDNS Pro](https://nextdns.io/?from=wgggpc5h)                             | DNS with some ad-blocking and other features                      | ~$1.65.mo        |
 | [Azure Key Vault](https://azure.microsoft.com/en-us/products/key-vault)      | Secrets with [External Secrets](https://external-secrets.io/)     | ~$0.10/mo        |
-|                                                                              |                                                                   | Total: ~$1.75/mo |
+|                                                                              |                                                                   | Total: ~$0.10/mo |
 
 ---
 
@@ -105,14 +102,14 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 
 ## 🔧 Hardware
 
-| Model                          | RAM       | OS Disk Size | Data Disk Size | Operating System  | Purpose                    | Rack Location    |
-| ------------------------------ | --------- | ------------ | -------------- | ----------------- | -------------------------- | ---------------- |
-| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 1 (K8s Control Plane) |   15U (Left)     |
-| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 2 (K8s Control Plane) |   15U (Right)    |
-| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (NVMe) | 1TB (SSD)      | Talos             | Node 3 (K8s Worker)        |   16U (Left)     |
-| HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 4 (K8s Worker)        |   17U (Right)    |
-| HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 5 (K8s Control Plane) |   17U (Left)     |
-| Dell Optiplex 3060 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 6 (K8s Worker)        |   16U (Right)    |
+| Model                          | RAM       | OS Disk Size | Data Disk Size | Operating System  | Purpose                    | Rack Location    | Bios Key |
+| ------------------------------ | --------- | ------------ | -------------- | ----------------- | -------------------------- | ---------------- | ---------|
+| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 1 (K8s Control Plane) |   15U (Left)     | F2       |
+| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 2 (K8s Control Plane) |   15U (Right)    | F2       |
+| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (NVMe) | 1TB (SSD)      | Talos             | Node 3 (K8s Worker)        |   16U (Left)     | F2       |
+| HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 4 (K8s Worker)        |   17U (Right)    | F10      |
+| HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 5 (K8s Control Plane) |   17U (Left)     | F10      |
+| Dell Optiplex 3060 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 6 (K8s Worker)        |   16U (Right)    | F2       |
 
 
 
