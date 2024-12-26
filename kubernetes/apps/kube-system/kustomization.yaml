@@ -12,4 +12,3 @@ resources:
   - ./snapshot-controller/ks.yaml
   - ./kubelet-csr-approver/ks.yaml
   - ./spegel/ks.yaml
-  - ./system-upgrade-controller/ks.yaml
