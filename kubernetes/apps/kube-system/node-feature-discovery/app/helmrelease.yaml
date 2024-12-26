@@ -29,6 +29,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    master:
+      replicaCount: 1
     worker:
       config:
         core:
