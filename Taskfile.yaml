@@ -8,7 +8,7 @@ vars:
   SOPS_CONFIG_FILE: '{{.ROOT_DIR}}/.sops.yaml'
 
 env:
-  KUBECONFIG: '{{.KUBERNETES_DIR}}/kubeconfig'
+  KUBECONFIG_FILE: "{{.ROOT_DIR}}/kubernetes/kubeconfig"
   SOPS_AGE_KEY_FILE: '{{.ROOT_DIR}}/age.key'
   VIRTUAL_ENV: "{{.ROOT_DIR}}/.venv"
 
