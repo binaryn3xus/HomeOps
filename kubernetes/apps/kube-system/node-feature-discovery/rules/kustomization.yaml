@@ -5,5 +5,4 @@ resources:
   - ./aeotec-zwave-device.yaml
   - ./google-coral-device.yaml
   - ./intel-gpu-device.yaml
-  - ./skyconnect-zigbee-device.yaml
 
