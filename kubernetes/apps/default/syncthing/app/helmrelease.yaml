@@ -33,7 +33,7 @@ spec:
       namespace: volsync
   values:
     controllers:
-      prowlarr:
+      syncthing:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -76,7 +76,7 @@ spec:
             protocol: UDP
 
     ingress:
-      prowlarr:
+      syncthing:
         className: internal
         annotations:
           external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
