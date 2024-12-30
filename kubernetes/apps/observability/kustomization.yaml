@@ -7,4 +7,4 @@ resources:
   - ./grafana/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./loki/ks.yaml
-  - ./vector/ks.yaml
+  - ./promtail/ks.yaml
