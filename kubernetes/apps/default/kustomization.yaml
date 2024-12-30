@@ -24,7 +24,6 @@ resources:
   - ./radarr/ks.yaml
   - ./sabnzbd/ks.yaml
   - ./sonarr/ks.yaml
-  - ./syncthing/ks.yaml
   - ./tautulli/ks.yaml
   - ./theme-park/ks.yaml
   - ./zigbee2mqtt/ks.yaml
