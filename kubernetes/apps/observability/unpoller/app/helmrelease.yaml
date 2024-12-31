@@ -35,6 +35,7 @@ spec:
               tag: v2.11.2@sha256:73b39c0b3b8fa92aa82a7613d3486253ffbd8c057833b4621402a268159bf2a2
             env:
               TZ: "${TIMEZONE}"
+              UP_POLLER_DEBUG: "true"
               UP_UNIFI_DEFAULT_URL: https://10.0.0.1
               UP_PROMETHEUS_HTTP_LISTEN: 0.0.0.0:80
               UP_INFLUXDB_DISABLE: true
