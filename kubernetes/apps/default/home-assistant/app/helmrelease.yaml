@@ -45,10 +45,10 @@ spec:
               TZ: "${TIMEZONE}"
             resources:
               requests:
-                cpu: 50m
-                memory: 200Mi
+                cpu: 100m
+                memory: 250Mi
               limits:
-                memory: 1000Mi
+                memory: 1500Mi
           code:
             dependsOn: app
             image:
