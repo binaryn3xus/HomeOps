@@ -140,12 +140,35 @@ spec:
           gnetId: 15038
           revision: 3
           datasource: Prometheus
+        node-feature-discovery:
+          url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/examples/grafana-dashboard.json
+          datasource: Prometheus
         minio:
           # renovate: depName="MinIO Dashboard"
           gnetId: 13502
           revision: 26
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
+        unifi-insights:
+          # renovate: depName="UniFi-Poller: Client Insights - Prometheus"
+          gnetId: 11315
+          revision: 9
+          datasource: Prometheus
+        unifi-network-sites:
+          # renovate: depName="UniFi-Poller: Network Sites - Prometheus"
+          gnetId: 11311
+          revision: 5
+          datasource: Prometheus
+        unifi-uap:
+          # renovate: depName="UniFi-Poller: UAP Insights - Prometheus"
+          gnetId: 11314
+          revision: 10
+          datasource: Prometheus
+        unifi-usw:
+          # renovate: depName="UniFi-Poller: USW Insights - Prometheus"
+          gnetId: 11312
+          revision: 9
+          datasource: Prometheus
         node-exporter-full:
           # renovate: depName="Node Exporter Full"
           gnetId: 1860
