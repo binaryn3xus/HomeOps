@@ -62,6 +62,13 @@ spec:
         enabled: true
         storageClass: ceph-block
         size: 50Gi
+      resources:
+        requests:
+          memory: "1Gi"
+          cpu: "1"
+        limits:
+          memory: "2Gi"
+          cpu: "2"
     gateway:
       replicas: 0
     backend:
