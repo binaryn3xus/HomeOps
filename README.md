@@ -63,28 +63,28 @@ This Git repository contains the following directories under [kubernetes](./kube
 ├─📁 apps          # Apps deployed into my cluster grouped by namespace (see below)
 ├─📁 bootstrap     # Flux installation
 ├─📁 flux          # Main Flux configuration of repository
-└─📁 templates      # re-useable components
+└─📁 templates     # re-useable components
 ```
 
 ### 📡 Networking
 
-| Name                  | CIDR              |
-|-----------------------|-------------------|
-| Server VLAN           | `10.0.30.0/24`    |
-| Kubernetes pods       | `10.69.0.0/16`    |
-| Kubernetes services   | `10.96.0.0/16`    |
+| Name                | CIDR           |
+|---------------------|----------------|
+| Server VLAN         | `10.0.30.0/24` |
+| Kubernetes pods     | `10.69.0.0/16` |
+| Kubernetes services | `10.96.0.0/16` |
 
 ## ☁️ Cloud Dependencies
 
 While most of my infrastructure and workloads are selfhosted I do rely upon the cloud for certain key parts of my setup. This saves me from having to worry about two things. (1) Dealing with chicken/egg scenarios and (2) services I critically need whether my cluster is online or not.
 
-| Service                                                                      | Use                                                               | Cost             |
-|------------------------------------------------------------------------------|-------------------------------------------------------------------|------------------|
-| [GitHub](https://github.com/)                                                | Hosting this repository and continuous integration/deployments    | Free             |
-| [Cloudflare](https://www.cloudflare.com/)                                    | Domain, DNS and proxy management                                  | Free             |
-| [UptimeRobot](https://uptimerobot.com/)                                      | Monitoring internet connectivity and external facing applications | Free             |
-| [Azure Key Vault](https://azure.microsoft.com/en-us/products/key-vault)      | Secrets with [External Secrets](https://external-secrets.io/)     | ~$0.10/mo        |
-|                                                                              |                                                                   | Total: ~$0.10/mo |
+| Service                                                                 | Use                                                               | Cost             |
+|-------------------------------------------------------------------------|-------------------------------------------------------------------|------------------|
+| [GitHub](https://github.com/)                                           | Hosting this repository and continuous integration/deployments    | Free             |
+| [Cloudflare](https://www.cloudflare.com/)                               | Domain, DNS and proxy management                                  | Free             |
+| [UptimeRobot](https://uptimerobot.com/)                                 | Monitoring internet connectivity and external facing applications | Free             |
+| [Azure Key Vault](https://azure.microsoft.com/en-us/products/key-vault) | Secrets with [External Secrets](https://external-secrets.io/)     | ~$0.10/mo        |
+|                                                                         |                                                                   | Total: ~$0.10/mo |
 
 ---
 
@@ -102,16 +102,14 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 
 ## 🔧 Hardware
 
-| Model                          | RAM       | OS Disk Size | Data Disk Size | Operating System  | Purpose                    | Rack Location    | Bios Key |
-| ------------------------------ | --------- | ------------ | -------------- | ----------------- | -------------------------- | ---------------- | ---------|
-| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 1 (K8s Control Plane) |   15U (Left)     | F2       |
-| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 2 (K8s Control Plane) |   15U (Right)    | F2       |
-| Dell Optiplex 7050 Micro       | 16 GB     | 500GB (NVMe) | 1TB (SSD)      | Talos             | Node 3 (K8s Worker)        |   16U (Left)     | F2       |
-| HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 4 (K8s Worker)        |   17U (Right)    | F10      |
-| HP ProDesk 600 G3 Mini         | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 5 (K8s Control Plane) |   17U (Left)     | F10      |
-| Dell Optiplex 3060 Micro       | 16 GB     | 500GB (SSD)  | 1TB (NVMe)     | Talos             | Node 6 (K8s Worker)        |   16U (Right)    | F2       |
-
-
+| Model                    | RAM   | OS Disk Size | Data Disk Size | Operating System | Purpose                    | Rack Location | Bios Key |
+|--------------------------|-------|--------------|----------------|------------------|----------------------------|---------------|----------|
+| Dell Optiplex 7050 Micro | 16 GB | 500GB (SSD)  | 1TB (NVMe)     | Talos            | Node 1 (K8s Control Plane) | 15U (Left)    | F2       |
+| Dell Optiplex 7050 Micro | 16 GB | 500GB (SSD)  | 1TB (NVMe)     | Talos            | Node 2 (K8s Control Plane) | 15U (Right)   | F2       |
+| Dell Optiplex 7050 Micro | 16 GB | 500GB (NVMe) | 1TB (SSD)      | Talos            | Node 3 (K8s Worker)        | 16U (Left)    | F2       |
+| HP ProDesk 600 G3 Mini   | 16 GB | 500GB (SSD)  | 1TB (NVMe)     | Talos            | Node 4 (K8s Worker)        | 17U (Right)   | F10      |
+| HP ProDesk 600 G3 Mini   | 16 GB | 500GB (SSD)  | 1TB (NVMe)     | Talos            | Node 5 (K8s Control Plane) | 17U (Left)    | F10      |
+| Dell Optiplex 3060 Micro | 16 GB | 500GB (SSD)  | 1TB (NVMe)     | Talos            | Node 6 (K8s Worker)        | 16U (Right)   | F2       |
 
 <details>
   <summary>Click to see the Full Home Ops Rack!</summary>
@@ -123,8 +121,6 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 ---
 
 ## 🤝 Gratitude and Thanks
-
-Big shout out to all the contributors to the [flux-cluster-template](https://github.com/onedr0p/flux-cluster-template) projects that we are using in this repository.
 
 Community member [onedr0p](https://github.com/onedr0p/) for initially creating this amazing template and providing me with additional help.
 
