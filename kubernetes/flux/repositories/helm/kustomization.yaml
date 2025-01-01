@@ -2,10 +2,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./actions-runner-controller.yaml
-  - ./angelnu.yaml
   - ./backube.yaml
-  - ./bitnami.yaml
   - ./bjw-s.yaml
   - ./cilium.yaml
   - ./coredns.yaml
@@ -29,4 +26,3 @@ resources:
   - ./spegel.yaml
   - ./stakater.yaml
   - ./teleport.yaml
-  - ./weave-gitops.yaml
