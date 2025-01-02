@@ -49,10 +49,10 @@ spec:
             resources:
               requests:
                 cpu: 200m
-                memory: 500M
+                memory: 300M
               limits:
                 cpu: 300m
-                memory: 1000M
+                memory: 400M
         pod:
           securityContext:
             runAsUser: 1000
