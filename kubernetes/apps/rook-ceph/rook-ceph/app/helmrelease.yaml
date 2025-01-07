@@ -25,16 +25,7 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    csi:
-      cephFSKernelMountOptions: ms_mode=prefer-crc
-      enableLiveness: true
+    controller:
+      replicaCount: 1
       serviceMonitor:
-        enabled: true
-    enableDiscoveryDaemon: true
-    monitoring:
-      enabled: true
-    resources:
-      requests:
-        memory: 128Mi # unchangable
-        cpu: 100m # unchangable
-      limits: {}
+        create: true
