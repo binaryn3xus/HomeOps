@@ -10,5 +10,4 @@ resources:
   - ./node-feature-discovery/ks.yaml
   - ./reloader/ks.yaml
   - ./snapshot-controller/ks.yaml
-  - ./kubelet-csr-approver/ks.yaml
   - ./spegel/ks.yaml
