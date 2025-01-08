@@ -140,6 +140,12 @@ spec:
           gnetId: 15038
           revision: 3
           datasource: Prometheus
+        # Ref: https://grafana.com/grafana/dashboards/21640-external-secrets/
+        external-secrets:
+          # renovate: depName="External Secrets"
+          gnetId: 21640
+          revision: 4
+          datasource: Prometheus
         minio:
           # renovate: depName="MinIO Dashboard"
           gnetId: 13502
@@ -174,9 +180,9 @@ spec:
         cert-manager:
           url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/cert-manager/dashboards/cert-manager.json
           datasource: Prometheus
-        external-secrets:
-          url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
-          datasource: Prometheus
+        # external-secrets:
+        #   url: https://raw.githubusercontent.com/external-secrets/external-secrets/main/docs/snippets/dashboard.json
+        #   datasource: Prometheus
         node-feature-discovery:
           url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/examples/grafana-dashboard.json
           datasource: Prometheus
