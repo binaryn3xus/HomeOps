@@ -19,30 +19,20 @@
     "github>binaryn3xus/HomeOps//.github/renovate/packageRules.json5",
     "github>binaryn3xus/HomeOps//.github/renovate/semanticCommits.json5"
   ],
-  "onboarding": false,
-  "requireConfig": "optional",
-  "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
+  "onboarding": false,
   "rebaseWhen": "conflicted",
-  "assigneesFromCodeOwners": true,
-  "reviewersFromCodeOwners": true,
-  "ignorePaths": ["**/archive/**"],
+  "requireConfig": "ignored",
+  "ignorePaths": ["**/archive/**", "**/*.sops.*", "**/.archive/**", "**/resources/**"],
   "ignoreDeps": ["ghcr.io/binaryn3xus/phc-highcounsel-bot"],
   "flux": {
-    "fileMatch": [
-      "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
-    ]
+    "fileMatch": ["(^|/)kubernetes/.+\\.ya?ml$"]
   },
   "helm-values": {
-    "fileMatch": [
-      "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
-    ]
+    "fileMatch": ["(^|/)kubernetes/.+\\.ya?ml$"]
   },
   "kubernetes": {
-    "fileMatch": [
-      "(^|/)\\.taskfiles/.+\\.ya?ml(\\.j2)?$",
-      "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
-    ]
+    "fileMatch": ["(^|/)\\.taskfiles/.+\\.ya?ml$", "(^|/)kubernetes/.+\\.ya?ml$"]
   }
 }
