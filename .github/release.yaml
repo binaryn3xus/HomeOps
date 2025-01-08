@@ -1,5 +1,4 @@
 changelog:
   exclude:
     authors:
-      - renovate
       - unsc-oni-ancilla
