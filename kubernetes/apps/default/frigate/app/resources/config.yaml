@@ -93,8 +93,6 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
-      width: 960
-      height: 720
       fps: 5
       stationary:
         threshold: 50
@@ -109,8 +107,6 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
-      width: 1280
-      height: 854
       fps: 5
       stationary:
         threshold: 50
@@ -127,8 +123,6 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
-      width: 1280
-      height: 854
       fps: 5
       stationary:
         threshold: 30
@@ -147,8 +141,6 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
-      width: 1280
-      height: 854
       fps: 5
       stationary:
         threshold: 30
@@ -170,8 +162,6 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
-      width: 1280
-      height: 854
       fps: 5
       stationary:
         threshold: 50
@@ -188,8 +178,6 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
-      width: 1280
-      height: 854
       fps: 5
       stationary:
         threshold: 50
@@ -207,8 +195,6 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["detect"]
     detect:
-      width: 1280
-      height: 854
       fps: 5
       stationary:
         threshold: 50
@@ -227,8 +213,6 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["detect"]
     detect:
-      width: 1280
-      height: 854
       fps: 5
       stationary:
         threshold: 50
@@ -251,8 +235,6 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["detect"]
     detect:
-      width: 1280
-      height: 854
       fps: 5
       stationary:
         threshold: 50
@@ -270,8 +252,6 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
-      width: 640
-      height: 480
       fps: 5
       stationary:
         threshold: 50
@@ -289,8 +269,6 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["detect"]
     detect:
-      width: 1280
-      height: 960
       fps: 2
       stationary:
         threshold: 50
