@@ -2,8 +2,8 @@
 # yaml-language-server: $schema=https://frigate.unscfleet.com/api/config/schema.json
 logger:
   default: info
-  # logs:
-  #   frigate.record: debug
+  logs:
+    frigate.ffmpeg: debug
 
 mqtt:
   host: emqx.default.svc.cluster.local
@@ -21,8 +21,7 @@ detectors:
 
 # Include all cameras by default in Birdseye view
 birdseye:
-  enabled: True
-  mode: continuous
+  enabled: false
 
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "warning"]
@@ -92,8 +91,8 @@ cameras:
         - path: rtsp://localhost:8554/frigate_garage_hq
           roles: ["record"]
     detect:
-      width: 1280
-      height: 960
+      width: 960
+      height: 720
       fps: 5
       stationary:
         threshold: 50
@@ -106,9 +105,9 @@ cameras:
         - path: rtsp://localhost:8554/frigate_frontporch_hq
           roles: ["record"]
     detect:
-      width: 2034
-      height: 1296
-      fps: 10
+      width: 1280
+      height: 854
+      fps: 5
       stationary:
         threshold: 50
     motion:
@@ -122,9 +121,9 @@ cameras:
         - path: rtsp://localhost:8554/frigate_backpatio_hq
           roles: ["record"]
     detect:
-      width: 2034
-      height: 1296
-      fps: 10
+      width: 1280
+      height: 854
+      fps: 5
       stationary:
         threshold: 30
     motion:
@@ -140,9 +139,9 @@ cameras:
         - path: rtsp://localhost:8554/frigate_backyard_hq
           roles: ["record"]
     detect:
-      width: 2034
-      height: 1296
-      fps: 10
+      width: 1280
+      height: 854
+      fps: 5
       stationary:
         threshold: 30
     motion:
@@ -161,9 +160,9 @@ cameras:
         - path: rtsp://localhost:8554/frigate_eastside_hq
           roles: ["record"]
     detect:
-      width: 2034
-      height: 1296
-      fps: 10
+      width: 1280
+      height: 854
+      fps: 5
       stationary:
         threshold: 50
     motion:
@@ -177,9 +176,9 @@ cameras:
         - path: rtsp://localhost:8554/frigate_driveway_hq
           roles: ["record"]
     detect:
-      width: 2034
-      height: 1296
-      fps: 10
+      width: 1280
+      height: 854
+      fps: 5
       stationary:
         threshold: 50
     motion:
@@ -195,9 +194,9 @@ cameras:
         - path: rtsp://localhost:8554/frigate_office_hq
           roles: ["detect"]
     detect:
-      width: 2034
-      height: 1296
-      fps: 10
+      width: 1280
+      height: 854
+      fps: 5
       stationary:
         threshold: 50
     # Detect something wild to hopefully never trigger
@@ -214,9 +213,9 @@ cameras:
         - path: rtsp://localhost:8554/frigate_livingroom_hq
           roles: ["detect"]
     detect:
-      width: 2034
-      height: 1296
-      fps: 10
+      width: 1280
+      height: 854
+      fps: 5
       stationary:
         threshold: 50
     snapshots:
@@ -237,9 +236,9 @@ cameras:
         - path: rtsp://localhost:8554/frigate_leoroom_hq
           roles: ["detect"]
     detect:
-      width: 2034
-      height: 1296
-      fps: 10
+      width: 1280
+      height: 854
+      fps: 5
       stationary:
         threshold: 50
     # Detect something wild to hopefully never trigger
@@ -254,9 +253,9 @@ cameras:
         - path: rtsp://localhost:8554/frigate_unifi_doorbell_hq
           roles: ["record"]
     detect:
-      width: 960
-      height: 720
-      fps: 10
+      width: 640
+      height: 480
+      fps: 5
       stationary:
         threshold: 50
     motion:
@@ -272,9 +271,9 @@ cameras:
         - path: rtsp://localhost:8554/frigate_unifi_doorbell_package
           roles: ["detect"]
     detect:
-      width: 1600
-      height: 1200
-      fps: 10
+      width: 1280
+      height: 960
+      fps: 2
       stationary:
         threshold: 50
     # Detect something wild to hopefully never trigger
