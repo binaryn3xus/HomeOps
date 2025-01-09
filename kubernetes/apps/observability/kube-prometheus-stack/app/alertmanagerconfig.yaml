@@ -15,13 +15,18 @@ spec:
       - receiver: "null"
         matchers:
           - name: alertname
+            value: Watchdog
+            matchType: "=" # Disable the Watchdog alert by routing it to the null receiver
+      - receiver: "null"
+        matchers:
+          - name: alertname
             value: InfoInhibitor
-            matchType: =
+            matchType: "="
       - receiver: discord
         matchers:
           - name: severity
             value: critical
-            matchType: =
+            matchType: "="
   inhibitRules:
     - equal: ["alertname", "namespace"]
       sourceMatch:
