@@ -96,6 +96,8 @@ cameras:
       fps: 5
       stationary:
         threshold: 50
+    live:
+      stream_name: frigate_livingroom_hq
 
   Front_Porch:
     ffmpeg:
@@ -112,6 +114,8 @@ cameras:
         threshold: 50
     #motion:
     #  mask: ["282,223,662,118,1054,241,1114,0,0,0,0,564"]
+    live:
+      stream_name: frigate_frontporch_hq
 
   Back_Patio:
     ffmpeg:
@@ -130,6 +134,8 @@ cameras:
     #  mask: ["465,78,849,88,1146,232,1280,228,1280,0,0,0"]
     #objects:
     #  track: ["person","cat"]
+    live:
+      stream_name: frigate_backpatio_hq
 
   Back_Yard:
     ffmpeg:
@@ -151,6 +157,8 @@ cameras:
     #    person:
     #      # To stop the table being triggered as a person in certain lighting
     #      mask: 193,875,385,629
+    live:
+      stream_name: frigate_backyard_hq
 
   East_Side:
     ffmpeg:
@@ -167,6 +175,8 @@ cameras:
         threshold: 50
     #motion:
     #  mask: ["1280,0,218,0,298,217,1280,328,1280,326"]
+    live:
+      stream_name: frigate_eastside_hq
 
   Driveway:
     ffmpeg:
@@ -183,6 +193,8 @@ cameras:
         threshold: 50
     #motion:
     #  mask: ["348,217,805,248,1140,854,1280,854,1280,0,377,0,0,0,0,322"]
+    live:
+      stream_name: frigate_driveway_hq
 
   Office:
     birdseye:
@@ -201,6 +213,8 @@ cameras:
     # Detect something wild to hopefully never trigger
     objects:
       track: ["giraffe"]
+    live:
+      stream_name: frigate_office_hq
 
   Living_Room:
     birdseye:
@@ -223,6 +237,8 @@ cameras:
     # Detect something wild to hopefully never trigger
     objects:
       track: ["giraffe"]
+    live:
+      stream_name: frigate_livingroom_hq
 
   Leo_Room:
     birdseye:
@@ -241,6 +257,8 @@ cameras:
     # Detect something wild to hopefully never trigger
     objects:
       track: ["giraffe"]
+    live:
+      stream_name: frigate_leoroom_hq
 
   Unifi_Doorbell:
     ffmpeg:
@@ -259,6 +277,8 @@ cameras:
     #   mask: ["0,0,773,0,778,442,420,426,0,450"]
     objects:
       track: ["person"]
+    live:
+      stream_name: frigate_unifi_doorbell_hq
 
   Unifi_Doorbell_Package:
     birdseye:
@@ -275,3 +295,5 @@ cameras:
     # Detect something wild to hopefully never trigger
     objects:
       track: ["giraffe"]
+    live:
+      stream_name: frigate_unifi_doorbell_package
