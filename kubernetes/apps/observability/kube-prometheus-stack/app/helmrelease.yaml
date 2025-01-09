@@ -33,16 +33,6 @@ spec:
       enabled: true
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
-      enabled: true
-      config:
-        global:
-          resolve_timeout: 5m
-        receivers:
-          - name: "null"
-          - name: "discord"
-            discord_configs:
-              - url_title: View in Alert Manager
-                webhook_url: "https://discord.com/api/webhooks/1108219487167189062/edrAf3VJd18qs4kvCnq_nVORNqQkK3HobQWxBfmPMA5ymZpOdrMlHAZDvgtTCzeYth15"
       ingress:
         enabled: true
         pathType: Prefix
@@ -58,6 +48,11 @@ spec:
         replicas: 2
         # useExistingSecret: true
         # configSecret: alertmanager-secret
+        alertmanagerConfiguration:
+          name: alertmanager
+          global:
+            resolveTimeout: 5m
+        externalUrl: "https://alertmanager.${SECRET_DOMAIN}"
         storage:
           volumeClaimTemplate:
             spec:
@@ -65,43 +60,36 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
-    kube-state-metrics:
-      metricLabelsAllowlist:
-        - "deployments=[*]"
-        - "persistentvolumeclaims=[*]"
-        - "pods=[*]"
+    prometheus-node-exporter:
+      fullnameOverride: node-exporter
       prometheus:
         monitor:
           enabled: true
           relabelings:
             - action: replace
-              sourceLabels: ["__meta_kubernetes_pod_node_name"]
-              regex: ^(.*)$
+              regex: (.*)
               replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
               targetLabel: kubernetes_node
-    kubelet:
-      enabled: true
-      serviceMonitor:
-        metricRelabelings:
-          # Drop high cardinality labels
-          - action: labeldrop
-            regex: (uid)
-          - action: labeldrop
-            regex: (id|name)
-          - action: drop
-            sourceLabels: ["__name__"]
-            regex: (rest_client_request_duration_seconds_bucket|rest_client_request_duration_seconds_sum|rest_client_request_duration_seconds_count)
+    kube-state-metrics:
+      fullnameOverride: kube-state-metrics
+      metricLabelsAllowlist:
+        - pods=[*]
+        - deployments=[*]
+        - persistentvolumeclaims=[*]
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              targetLabel: kubernetes_node
     kubeApiServer:
-      enabled: true
       serviceMonitor:
-        metricRelabelings:
-          # Drop high cardinality labels
-          - action: drop
-            sourceLabels: ["__name__"]
-            regex: (apiserver|etcd|rest_client)_request(|_sli|_slo)_duration_seconds_bucket
-          - action: drop
-            sourceLabels: ["__name__"]
-            regex: (apiserver_response_sizes_bucket|apiserver_watch_events_sizes_bucket)
+        selector:
+          k8s-app: kube-apiserver
     kubeControllerManager:
       enabled: true
       endpoints: &cp
@@ -117,7 +105,7 @@ spec:
       enabled: true
       endpoints: *cp
     kubeProxy:
-      enabled: false # Disabled due to eBPF
+      enabled: false
     prometheus:
       ingress:
         enabled: true
@@ -138,7 +126,15 @@ spec:
         scrapeConfigSelectorNilUsesHelmValues: false
         enableAdminAPI: true
         walCompression: true
+        enableFeatures:
+          - memory-snapshot-on-shutdown
+        retention: 14d
         retentionSize: 8GB
+        resources:
+          requests:
+            cpu: 100m
+          limits:
+            memory: 2000Mi
         storageSpec:
           volumeClaimTemplate:
             spec:
@@ -154,3 +150,24 @@ spec:
           multicluster:
             etcd:
               enabled: true
+    additionalPrometheusRulesMap:
+      dockerhub-rules:
+        groups:
+          - name: dockerhub
+            rules:
+              - alert: DockerhubRateLimitRisk
+                annotations:
+                  summary: Kubernetes cluster Dockerhub rate limit risk
+                expr: count(time() - container_last_seen{image=~"(docker.io).*",container!=""} < 30) > 100
+                labels:
+                  severity: critical
+      oom-rules:
+        groups:
+          - name: oom
+            rules:
+              - alert: OomKilled
+                annotations:
+                  summary: Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled {{ $value }} times in the last 10 minutes.
+                expr: (kube_pod_container_status_restarts_total - kube_pod_container_status_restarts_total offset 10m >= 1) and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}[10m]) == 1
+                labels:
+                  severity: critical
