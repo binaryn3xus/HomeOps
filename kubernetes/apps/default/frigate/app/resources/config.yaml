@@ -87,8 +87,10 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_garage_lq?video=copy
+          input_args: preset-rtsp-restream
           roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_garage_hq?video=copy
+          input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
       width: 960
@@ -101,8 +103,10 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_frontporch_lq?video=copy
+          input_args: preset-rtsp-restream
           roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_frontporch_hq?video=copy
+          input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
       width: 1280
@@ -117,8 +121,10 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_backpatio_lq?video=copy
+          input_args: preset-rtsp-restream
           roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_backpatio_hq?video=copy
+          input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
       width: 1280
@@ -135,8 +141,10 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_backyard_hq?video=copy
+          input_args: preset-rtsp-restream
           roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_backyard_hq?video=copy
+          input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
       width: 1280
@@ -156,8 +164,10 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_eastside_lq?video=copy
+          input_args: preset-rtsp-restream
           roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_eastside_hq?video=copy
+          input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
       width: 1280
@@ -172,8 +182,10 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_driveway_lq?video=copy
+          input_args: preset-rtsp-restream
           roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_driveway_hq?video=copy
+          input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
       width: 1280
@@ -192,6 +204,7 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_office_hq?video=copy
+          input_args: preset-rtsp-restream
           roles: ["detect"]
     detect:
       width: 1280
@@ -211,6 +224,7 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_livingroom_hq?video=copy
+          input_args: preset-rtsp-restream
           roles: ["detect"]
     detect:
       width: 1280
@@ -234,6 +248,7 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_leoroom_hq?video=copy
+          input_args: preset-rtsp-restream
           roles: ["detect"]
     detect:
       width: 1280
@@ -249,8 +264,10 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_unifi_doorbell_mq?video=copy
+          input_args: preset-rtsp-restream
           roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_unifi_doorbell_hq?video=copy
+          input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
       width: 640
@@ -269,6 +286,7 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_unifi_doorbell_package?video=copy
+          input_args: preset-rtsp-restream
           roles: ["detect"]
     detect:
       width: 1280
