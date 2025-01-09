@@ -18,12 +18,10 @@ includes:
   kubernetes: .taskfiles/Kubernetes
   flux: .taskfiles/Flux
   misc: .taskfiles/Misc
-  repo: .taskfiles/Repository
   talos: .taskfiles/Talos
   sops: .taskfiles/Sops
   rook: .taskfiles/Rook
   volsync: .taskfiles/VolSync
-  workstation: .taskfiles/Workstation
 
 tasks:
 
