@@ -1,36 +1,42 @@
-# Helpful Commands
+# Commands
 
-## Delete all evicted pods
+## Kubernetes
 
-```cli
+### Delete all evicted pods
+
+```sh
 kubectl get pods --all-namespaces --field-selector 'status.phase==Failed' -o json | kubectl delete -f -
 ```
 
 - [Source](https://stackoverflow.com/a/54648944/1322471)
 
-## Scale all deployments in a Namespace
+### Scale all deployments in a Namespace
 
-```cli
+```sh
 kubectl scale deployment -n <namespace> --replicas 0 --all
 ```
 
-## Check flux-system KS
-```cli
+### Check KS
+
+```sh
 k get ks -A
 ```
 
-## Check Flux HR
-```cli
+### Check HRs
+
+```sh
 k get hr -A
 ```
 
-## Check all backups (volsync)
-```
+### Check all backups (volsync)
+
+```sh
 kubectl get replicationsources -A
 ```
 
-## Expand PVC Storage Size for StatefulSets
-```
+### Expand PVC Storage Size for StatefulSets
+
+```sh
 flux suspend hr <thing>
 kubectl delete sts <thing> --cascade=false
 kubectl patch pvc thing -p '{"spec": {"resources": {"requests": {"storage": "50Gi"}}}}'
@@ -38,7 +44,11 @@ kubectl patch pvc thing -p '{"spec": {"resources": {"requests": {"storage": "50G
 flux resume hr <thing>
 ```
 
-## Force Reconcile
+---
+
+## Flux
+
+### Force Reconcile
 
 ```sh
 flux reconcile -n flux-system source git flux-cluster
@@ -51,13 +61,13 @@ flux reconcile -n flux-system kustomization flux-cluster
 
 ### To encrypt the file
 
-```cli
+```sh
 sops --encrypt --age $(cat $SOPS_AGE_KEY_FILE |grep -oP "public key: \K(.*)") --encrypted-regex '^(data|stringData)$' --in-place ./secret.sops.yaml
 ```
 
 ### To decrypt the file
 
-```cli
+```sh
 sops --decrypt --age $(cat $SOPS_AGE_KEY_FILE |grep -oP "public key: \K(.*)") --encrypted-regex '^(data|stringData)$' --in-place ./secret.sops.yaml
 ```
 
@@ -67,7 +77,7 @@ sops --decrypt --age $(cat $SOPS_AGE_KEY_FILE |grep -oP "public key: \K(.*)") --
 
 ### List Disks on Linux with filesystems
 
-```cli
+```sh
 lsblk -f
 ```
 
@@ -75,13 +85,13 @@ lsblk -f
 
 Example for getting the ID Path for all devices
 
-```cli
+```sh
 ls -la /dev/disk/by-id/*
 ```
 
 Example for getting the ID Path for a device with nvme in the name:
 
-```cli
+```sh
 ls -la /dev/disk/by-id/* | grep nvme
 ```
 
@@ -89,19 +99,19 @@ ls -la /dev/disk/by-id/* | grep nvme
 
 Format to ext4
 
-```cli
+```sh
 sudo mkfs -t ext4 /dev/nvme0n1
 ```
 
 Format to FAT32
 
-```cli
+```sh
 sudo mkfs -t vfat /dev/nvme0n1
 ```
 
 Format to NTFS
 
-```cli
+```sh
 sudo mkfs -t ntfs /dev/nvme0n1
 ```
 
@@ -111,6 +121,6 @@ sudo mkfs -t ntfs /dev/nvme0n1
 
 ### Copy SSH Key to Host
 
-```cli
+```sh
 ssh-copy-id -i ~/.ssh/id_rsa joshua@IP_ADDRESS
 ```
