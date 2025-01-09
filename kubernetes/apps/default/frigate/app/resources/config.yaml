@@ -268,10 +268,10 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_unifi_doorbell_mq?video=copy
-          input_args: preset-rtsp-restream
+          input_args: ["-rtsp_transport", "tcp", "-stimeout", "5000000"]
           roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_unifi_doorbell_hq?video=copy
-          input_args: preset-rtsp-restream
+          input_args: ["-rtsp_transport", "tcp", "-stimeout", "5000000"]
           roles: ["record"]
     detect:
       fps: 2
@@ -290,7 +290,7 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_unifi_doorbell_package?video=copy
-          input_args: preset-rtsp-restream
+          input_args: ["-rtsp_transport", "tcp", "-stimeout", "5000000"]
           roles: ["detect"]
     detect:
       fps: 2
