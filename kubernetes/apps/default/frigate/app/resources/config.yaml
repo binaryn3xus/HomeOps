@@ -111,7 +111,7 @@ cameras:
       stationary:
         threshold: 50
     motion:
-      mask: ["448,338,1051,179,1677,366,1772,0,0,0,0,861"]
+      mask: ["282,223,662,118,1054,241,1114,0,0,0,0,564"]
 
   Back_Patio:
     ffmpeg:
@@ -127,7 +127,7 @@ cameras:
       stationary:
         threshold: 30
     motion:
-      mask: ["739,119,1349,135,1821,352,2034,345,2034,0,0,0"]
+      mask: ["465,78,849,88,1146,232,1280,228,1280,0,0,0"]
     objects:
       track: ["person","cat"]
 
@@ -145,7 +145,7 @@ cameras:
       stationary:
         threshold: 30
     motion:
-      mask: ["1962,460,2034,1296,2034,0,1460,0"]
+      mask: ["1235,303,1280,854,1280,0,919,0"]
     objects:
       filters:
         person:
@@ -166,7 +166,7 @@ cameras:
       stationary:
         threshold: 50
     motion:
-      mask: ["2034,0,346,0,474,330,2034,499,2034,496"]
+      mask: ["1280,0,218,0,298,217,1280,328,1280,326"]
 
   Driveway:
     ffmpeg:
@@ -182,7 +182,7 @@ cameras:
       stationary:
         threshold: 50
     motion:
-      mask: ["553,330,1241,377,1813,1296,2034,1296,2034,0,600,0,0,0,0,489"]
+      mask: ["348,217,805,248,1140,854,1280,854,1280,0,377,0,0,0,0,322"]
 
   Office:
     birdseye:
