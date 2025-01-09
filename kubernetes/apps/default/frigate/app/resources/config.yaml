@@ -86,9 +86,9 @@ cameras:
       enabled: false
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_garage_lq
+        - path: rtsp://localhost:8554/frigate_garage_lq?video=copy
           roles: ["detect"]
-        - path: rtsp://localhost:8554/frigate_garage_hq
+        - path: rtsp://localhost:8554/frigate_garage_hq?video=copy
           roles: ["record"]
     detect:
       width: 960
@@ -100,9 +100,9 @@ cameras:
   Front_Porch:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_frontporch_lq
+        - path: rtsp://localhost:8554/frigate_frontporch_lq?video=copy
           roles: ["detect"]
-        - path: rtsp://localhost:8554/frigate_frontporch_hq
+        - path: rtsp://localhost:8554/frigate_frontporch_hq?video=copy
           roles: ["record"]
     detect:
       width: 1280
@@ -116,9 +116,9 @@ cameras:
   Back_Patio:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_backpatio_lq
+        - path: rtsp://localhost:8554/frigate_backpatio_lq?video=copy
           roles: ["detect"]
-        - path: rtsp://localhost:8554/frigate_backpatio_hq
+        - path: rtsp://localhost:8554/frigate_backpatio_hq?video=copy
           roles: ["record"]
     detect:
       width: 1280
@@ -134,9 +134,9 @@ cameras:
   Back_Yard:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_backyard_hq
+        - path: rtsp://localhost:8554/frigate_backyard_hq?video=copy
           roles: ["detect"]
-        - path: rtsp://localhost:8554/frigate_backyard_hq
+        - path: rtsp://localhost:8554/frigate_backyard_hq?video=copy
           roles: ["record"]
     detect:
       width: 1280
@@ -155,9 +155,9 @@ cameras:
   East_Side:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_eastside_lq
+        - path: rtsp://localhost:8554/frigate_eastside_lq?video=copy
           roles: ["detect"]
-        - path: rtsp://localhost:8554/frigate_eastside_hq
+        - path: rtsp://localhost:8554/frigate_eastside_hq?video=copy
           roles: ["record"]
     detect:
       width: 1280
@@ -171,9 +171,9 @@ cameras:
   Driveway:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_driveway_lq
+        - path: rtsp://localhost:8554/frigate_driveway_lq?video=copy
           roles: ["detect"]
-        - path: rtsp://localhost:8554/frigate_driveway_hq
+        - path: rtsp://localhost:8554/frigate_driveway_hq?video=copy
           roles: ["record"]
     detect:
       width: 1280
@@ -191,7 +191,7 @@ cameras:
       enabled: false
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_office_hq
+        - path: rtsp://localhost:8554/frigate_office_hq?video=copy
           roles: ["detect"]
     detect:
       width: 1280
@@ -200,8 +200,8 @@ cameras:
       stationary:
         threshold: 50
     # Detect something wild to hopefully never trigger
-    #objects:
-    #  track: ["giraffe"]
+    objects:
+      track: ["giraffe"]
 
   Living_Room:
     birdseye:
@@ -210,7 +210,7 @@ cameras:
       enabled: false
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_livingroom_hq
+        - path: rtsp://localhost:8554/frigate_livingroom_hq?video=copy
           roles: ["detect"]
     detect:
       width: 1280
@@ -223,8 +223,8 @@ cameras:
       retain:
         default: 10
     # Detect something wild to hopefully never trigger
-    #objects:
-    #  track: ["giraffe"]
+    objects:
+      track: ["giraffe"]
 
   Leo_Room:
     birdseye:
@@ -233,7 +233,7 @@ cameras:
     #   enabled: false
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_leoroom_hq
+        - path: rtsp://localhost:8554/frigate_leoroom_hq?video=copy
           roles: ["detect"]
     detect:
       width: 1280
@@ -242,15 +242,15 @@ cameras:
       stationary:
         threshold: 50
     # Detect something wild to hopefully never trigger
-    #objects:
-    #  track: ["giraffe"]
+    objects:
+      track: ["giraffe"]
 
   Unifi_Doorbell:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_unifi_doorbell_mq
+        - path: rtsp://localhost:8554/frigate_unifi_doorbell_mq?video=copy
           roles: ["detect"]
-        - path: rtsp://localhost:8554/frigate_unifi_doorbell_hq
+        - path: rtsp://localhost:8554/frigate_unifi_doorbell_hq?video=copy
           roles: ["record"]
     detect:
       width: 640
@@ -260,15 +260,15 @@ cameras:
         threshold: 50
     # motion:
     #   mask: ["0,0,773,0,778,442,420,426,0,450"]
-    #objects:
-    #  track: ["person"]
+    objects:
+      track: ["person"]
 
   Unifi_Doorbell_Package:
     birdseye:
       enabled: false
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_unifi_doorbell_package
+        - path: rtsp://localhost:8554/frigate_unifi_doorbell_package?video=copy
           roles: ["detect"]
     detect:
       width: 1280
@@ -277,5 +277,5 @@ cameras:
       stationary:
         threshold: 50
     # Detect something wild to hopefully never trigger
-    #objects:
-    #  track: ["giraffe"]
+    objects:
+      track: ["giraffe"]
