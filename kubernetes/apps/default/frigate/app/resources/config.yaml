@@ -112,8 +112,8 @@ cameras:
       fps: 5
       stationary:
         threshold: 50
-    #motion:
-    #  mask: ["282,223,662,118,1054,241,1114,0,0,0,0,564"]
+    motion:
+      mask: ["0.001,0.717,0.011,0.617,0.229,0.254,0.284,0.231,0.511,0.125,0.522,0.114,0.835,0.189,0.997,0.155,0.999,0.001,0,0"]
     live:
       stream_name: frigate_frontporch_hq
 
@@ -130,10 +130,12 @@ cameras:
       fps: 5
       stationary:
         threshold: 30
-    #motion:
-    #  mask: ["465,78,849,88,1146,232,1280,228,1280,0,0,0"]
-    #objects:
-    #  track: ["person","cat"]
+    motion:
+      mask:
+        - "0.974,0.697,0.905,0.272,0.649,0.105,0.462,0.1,0.456,0,1,0.002,0.998,0.701"
+        - "0.316,0.997,0.171,0.685,0.078,0.359,0.316,0.128,0.308,0,0.001,0.001,0.001,0.998"
+    objects:
+      track: ["person","cat"]
     live:
       stream_name: frigate_backpatio_hq
 
@@ -150,13 +152,15 @@ cameras:
       fps: 5
       stationary:
         threshold: 30
-    #motion:
-    #  mask: ["1235,303,1280,854,1280,0,919,0"]
-    #objects:
-    #  filters:
-    #    person:
-    #      # To stop the table being triggered as a person in certain lighting
-    #      mask: 193,875,385,629
+    motion:
+      mask: ["1,1,0.968,0.395,0.801,0.045,0.655,0.009,0.645,0.045,0.482,0.046,0.158,0.219,0.001,0.41,0,0,0.999,0"]
+    objects:
+      filters:
+        person:
+          # To stop the table/chairs being triggered as a person in certain lighting
+          mask:
+            - "0.113,0.667,0.23,0.527,0.27,0.618,0.207,0.803"
+            - "0.309,0.703,0.321,0.932,0.443,0.894,0.38,0.679"
     live:
       stream_name: frigate_backyard_hq
 
@@ -173,8 +177,8 @@ cameras:
       fps: 5
       stationary:
         threshold: 50
-    #motion:
-    #  mask: ["1280,0,218,0,298,217,1280,328,1280,326"]
+    motion:
+      mask: ["0.175,0,0.232,0.22,1,0.253,1,0"]
     live:
       stream_name: frigate_eastside_hq
 
@@ -191,8 +195,8 @@ cameras:
       fps: 5
       stationary:
         threshold: 50
-    #motion:
-    #  mask: ["348,217,805,248,1140,854,1280,854,1280,0,377,0,0,0,0,322"]
+    motion:
+      mask: ["0,0.395,0.275,0.251,0.591,0.27,1,0.707,1,0,0,0"]
     live:
       stream_name: frigate_driveway_hq
 
@@ -273,8 +277,8 @@ cameras:
       fps: 5
       stationary:
         threshold: 50
-    # motion:
-    #   mask: ["0,0,773,0,778,442,420,426,0,450"]
+    motion:
+       mask: ["0,0.424,0.001,0.582,0.327,0.598,0.43,0.585,0.775,0.585,0.78,0.47"]
     objects:
       track: ["person"]
     live:
