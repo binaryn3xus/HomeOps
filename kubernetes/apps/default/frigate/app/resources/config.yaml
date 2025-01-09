@@ -93,7 +93,7 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
-      fps: 5
+      fps: 2
       stationary:
         threshold: 50
     live:
@@ -109,7 +109,7 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
-      fps: 5
+      fps: 2
       stationary:
         threshold: 50
     motion:
@@ -127,7 +127,7 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
-      fps: 5
+      fps: 2
       stationary:
         threshold: 30
     motion:
@@ -149,7 +149,7 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
-      fps: 5
+      fps: 2
       stationary:
         threshold: 30
     motion:
@@ -174,7 +174,7 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
-      fps: 5
+      fps: 2
       stationary:
         threshold: 50
     motion:
@@ -192,7 +192,7 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
-      fps: 5
+      fps: 2
       stationary:
         threshold: 50
     motion:
@@ -211,7 +211,7 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["detect"]
     detect:
-      fps: 5
+      fps: 2
       stationary:
         threshold: 50
     # Detect something wild to hopefully never trigger
@@ -231,7 +231,7 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["detect"]
     detect:
-      fps: 5
+      fps: 2
       stationary:
         threshold: 50
     snapshots:
@@ -255,7 +255,7 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["detect"]
     detect:
-      fps: 5
+      fps: 2
       stationary:
         threshold: 50
     # Detect something wild to hopefully never trigger
@@ -274,7 +274,7 @@ cameras:
           input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
-      fps: 5
+      fps: 2
       stationary:
         threshold: 50
     motion:
