@@ -110,8 +110,8 @@ cameras:
       fps: 5
       stationary:
         threshold: 50
-    motion:
-      mask: ["282,223,662,118,1054,241,1114,0,0,0,0,564"]
+    #motion:
+    #  mask: ["282,223,662,118,1054,241,1114,0,0,0,0,564"]
 
   Back_Patio:
     ffmpeg:
@@ -126,10 +126,10 @@ cameras:
       fps: 5
       stationary:
         threshold: 30
-    motion:
-      mask: ["465,78,849,88,1146,232,1280,228,1280,0,0,0"]
-    objects:
-      track: ["person","cat"]
+    #motion:
+    #  mask: ["465,78,849,88,1146,232,1280,228,1280,0,0,0"]
+    #objects:
+    #  track: ["person","cat"]
 
   Back_Yard:
     ffmpeg:
@@ -144,13 +144,13 @@ cameras:
       fps: 5
       stationary:
         threshold: 30
-    motion:
-      mask: ["1235,303,1280,854,1280,0,919,0"]
-    objects:
-      filters:
-        person:
-          # To stop the table being triggered as a person in certain lighting
-          mask: 193,875,385,629
+    #motion:
+    #  mask: ["1235,303,1280,854,1280,0,919,0"]
+    #objects:
+    #  filters:
+    #    person:
+    #      # To stop the table being triggered as a person in certain lighting
+    #      mask: 193,875,385,629
 
   East_Side:
     ffmpeg:
@@ -165,8 +165,8 @@ cameras:
       fps: 5
       stationary:
         threshold: 50
-    motion:
-      mask: ["1280,0,218,0,298,217,1280,328,1280,326"]
+    #motion:
+    #  mask: ["1280,0,218,0,298,217,1280,328,1280,326"]
 
   Driveway:
     ffmpeg:
@@ -181,8 +181,8 @@ cameras:
       fps: 5
       stationary:
         threshold: 50
-    motion:
-      mask: ["348,217,805,248,1140,854,1280,854,1280,0,377,0,0,0,0,322"]
+    #motion:
+    #  mask: ["348,217,805,248,1140,854,1280,854,1280,0,377,0,0,0,0,322"]
 
   Office:
     birdseye:
@@ -200,8 +200,8 @@ cameras:
       stationary:
         threshold: 50
     # Detect something wild to hopefully never trigger
-    objects:
-      track: ["giraffe"]
+    #objects:
+    #  track: ["giraffe"]
 
   Living_Room:
     birdseye:
@@ -223,8 +223,8 @@ cameras:
       retain:
         default: 10
     # Detect something wild to hopefully never trigger
-    objects:
-      track: ["giraffe"]
+    #objects:
+    #  track: ["giraffe"]
 
   Leo_Room:
     birdseye:
@@ -242,8 +242,8 @@ cameras:
       stationary:
         threshold: 50
     # Detect something wild to hopefully never trigger
-    objects:
-      track: ["giraffe"]
+    #objects:
+    #  track: ["giraffe"]
 
   Unifi_Doorbell:
     ffmpeg:
@@ -258,10 +258,10 @@ cameras:
       fps: 5
       stationary:
         threshold: 50
-    motion:
-      mask: ["0,0,773,0,778,442,420,426,0,450"]
-    objects:
-      track: ["person"]
+    # motion:
+    #   mask: ["0,0,773,0,778,442,420,426,0,450"]
+    #objects:
+    #  track: ["person"]
 
   Unifi_Doorbell_Package:
     birdseye:
@@ -277,5 +277,5 @@ cameras:
       stationary:
         threshold: 50
     # Detect something wild to hopefully never trigger
-    objects:
-      track: ["giraffe"]
+    #objects:
+    #  track: ["giraffe"]
