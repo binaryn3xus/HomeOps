@@ -46,8 +46,7 @@ spec:
               - *host
       alertmanagerSpec:
         replicas: 2
-        # useExistingSecret: true
-        # configSecret: alertmanager-secret
+        secrets: ["alertmanager-secret"]
         alertmanagerConfiguration:
           name: alertmanager
           global:

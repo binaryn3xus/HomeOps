@@ -35,8 +35,17 @@ spec:
   receivers:
     - name: "null"
     - name: discord
-      webhookConfigs:
-        - urlSecret:
+      discordConfigs:
+        - apiURL:
             name: alertmanager-secret
             key: ALERTMANAGER_DISCORD_WEBHOOK_URL
           sendResolved: true
+          title: |-
+            [{{ .Status | toUpper }}] {{ .CommonLabels.alertname }}
+          message: |-
+            {{- range .Alerts -}}
+              **Alert:** {{ .Annotations.summary }}
+              **Description:** {{ .Annotations.description }}
+              **Severity:** {{ .Labels.severity }}
+              **Time:** {{ .StartsAt }}
+            {{ end }}
