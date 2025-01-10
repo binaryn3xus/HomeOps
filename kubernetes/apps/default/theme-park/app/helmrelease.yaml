@@ -29,7 +29,7 @@ spec:
   values:
     controllers:
       theme-park:
-        replicas: 2
+        replicas: 1
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
