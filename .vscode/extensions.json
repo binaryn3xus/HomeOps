@@ -5,11 +5,15 @@
         "fcrespo82.markdown-table-formatter",
         "mikestead.dotenv",
         "mitchdenny.ecdc",
-        "redhat.ansible",
         "signageos.signageos-vscode-sops",
         "will-stone.in-any-case",
         "EditorConfig.editorconfig",
         "PKief.material-icon-theme",
-        "Gruntfuggly.todo-tree"
+        "Gruntfuggly.todo-tree",
+        "davidanson.vscode-markdownlint",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "eamodio.gitlens",
+        "github.copilot",
+        "github.copilot-chat"
     ]
 }
