@@ -1,50 +1,72 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: redis
+  name: &app redis
   namespace: default
 spec:
   interval: 30m
   chart:
     spec:
-      chart: redis
-      version: 20.6.2
+      chart: app-template
+      version: 3.6.0
       sourceRef:
         kind: HelmRepository
-        name: bitnami-charts
+        name: bjw-s
         namespace: flux-system
   maxHistory: 2
   install:
-    createNamespace: true
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
     remediation:
+      strategy: rollback
       retries: 3
   uninstall:
     keepHistory: false
   values:
-    auth:
-      enabled: false
-      sentinel: false
-    master:
-      persistence:
-        enabled: false
-    replica:
-      persistence:
-        enabled: false
-    sentinel:
-      enabled: true
-      masterSet: redis-master
-      getMasterTimeout: 10
-      startupProbe:
-        failureThreshold: 2
-      persistence:
-        enabled: false
-    metrics:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-        interval: 1m
+    controllers:
+      redis:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: public.ecr.aws/docker/library/redis
+              tag: 7.4.2
+            env:
+              TZ: "${TIMEZONE}"
+              REDIS_REPLICATION_MODE: master
+            resources:
+              requests:
+                cpu: 10m
+                memory: 10Mi
+              limits:
+                memory: 100Mi
+    service:
+      app:
+        controller: redis
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
+        ports:
+          http:
+            port: 6379
+    ingress:
+      redis:
+        className: internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
+        hosts:
+          - host: &host "redis.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
