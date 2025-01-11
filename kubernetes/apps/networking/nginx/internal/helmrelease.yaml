@@ -29,6 +29,7 @@ spec:
       "32400": "default/plex:32400"
       "1883": "default/emqx:1883"
       "2333": "default/lavalink:2333"
+      "6379": "default/redis:6379"
     fullnameOverride: nginx-internal
     controller:
       replicaCount: 1
