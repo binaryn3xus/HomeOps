@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.dmfrey.com/core.k8sgpt.ai/k8sgpt_v1alpha1.json
+apiVersion: core.k8sgpt.ai/v1alpha1
+kind: K8sGPT
+metadata:
+  name: k8sgpt-ollama
+  namespace: kube-system
+spec:
+  repository: ghcr.io/k8sgpt-ai/k8sgpt
+  version: v0.3.48
+  ai:
+    anonymized: true
+    enabled: true
+    model: llama3.1
+    backend: localai
+    baseUrl: http://10.0.30.6:11434/v1
+  noCache: false
