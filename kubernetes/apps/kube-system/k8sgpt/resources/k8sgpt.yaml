@@ -11,7 +11,7 @@ spec:
   ai:
     anonymized: true
     enabled: true
-    model: llama3.3
+    model: StarCoder
     backend: localai
     baseUrl: http://10.0.30.6:11434/v1
   noCache: false
