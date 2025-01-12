@@ -25,6 +25,9 @@ spec:
     enterprise: false
 
     auth:
+      annotations:
+        deployment:
+          reloader.stakater.com/auto: "true"
       teleportConfig:
         auth_service:
           client_idle_timeout: 2h
@@ -42,7 +45,6 @@ spec:
 
     ingress:
       enabled: true
-      suppressAutomaticWildcards: true
       spec:
         ingressClassName: external
 

@@ -24,9 +24,8 @@ spec:
     proxyAddr: teleport.${SECRET_DOMAIN}:443
     joinParams:
       method: kubernetes
-      # Following must match the name of the token in token.yaml
       tokenName: "kubernetes-token"
-    kubeClusterName: home-cluster
+    kubeClusterName: HomeOpsCluster
     teleportConfig:
       discovery_service:
         kubernetes:
@@ -55,4 +54,7 @@ spec:
         - name: pikvm
           public_addr: pikvm.teleport.${SECRET_DOMAIN}
           uri: https://10.0.30.5/
+          rewrite:
+            headers:
+              - "Host: pikvm.${SECRET_DOMAIN}"
           insecure_skip_verify: true
