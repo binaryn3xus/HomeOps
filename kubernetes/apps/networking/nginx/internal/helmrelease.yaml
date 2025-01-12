@@ -82,7 +82,10 @@ spec:
             any: true
       extraArgs:
         default-ssl-certificate: "networking/${SECRET_DOMAIN/./-}-production-tls"
+        publish-status-address: *hostname
       terminationGracePeriodSeconds: 120
+      publishService:
+        enabled: false
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
