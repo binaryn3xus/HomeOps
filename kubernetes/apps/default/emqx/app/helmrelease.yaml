@@ -54,7 +54,6 @@ spec:
           - hosts:
               - *host
               - *host2
-            secretName: emqx-tls
     metrics:
       enabled: false
     persistence:
