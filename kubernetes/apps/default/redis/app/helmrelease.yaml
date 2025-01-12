@@ -58,8 +58,6 @@ spec:
     ingress:
       redis:
         className: internal
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
         hosts:
           - host: &host "redis.${SECRET_DOMAIN}"
             paths:
