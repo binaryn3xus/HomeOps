@@ -20,7 +20,6 @@ spec:
   values:
     annotations:
       ingress:
-        cert-manager.io/cluster-issuer: letsencrypt-production
         nginx.ingress.kubernetes.io/backend-protocol: "https"
         nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
         nginx.ingress.kubernetes.io/ssl-passthrough: "true"
@@ -39,11 +38,8 @@ spec:
     clusterName: teleport.${SECRET_DOMAIN}
     enterprise: false
     highAvailability:
-      certManager:
-        enabled: true
-        issuerName: letsencrypt-production
-        issuerKind: ClusterIssuer
-        issuerGroup: cert-manager.io
+      tls:
+        existingSecretName: "${SECRET_DOMAIN/./-}-production-tls"
     ingress:
       enabled: true
       spec:
@@ -67,7 +63,13 @@ spec:
       interval: 30s
     podSecurityPolicy:
       enabled: true
-    proxyAddr: teleport.${SECRET_DOMAIN}:443
+    proxy:
+      annotations:
+        deployment:
+          reloader.stakater.com/auto: "true"
+      teleportConfig:
+        proxy_service:
+          trust_x_forwarded_for: true
     proxyListenerMode: multiplex
     rbac:
       create: true
