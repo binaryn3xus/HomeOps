@@ -43,8 +43,6 @@ spec:
       dashboard:
         enabled: true
         ingressClassName: internal
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
         path: /
         pathType: Prefix
         hosts:
@@ -54,7 +52,6 @@ spec:
           - hosts:
               - *host
               - *host2
-            secretName: emqx-tls
     metrics:
       enabled: false
     persistence:

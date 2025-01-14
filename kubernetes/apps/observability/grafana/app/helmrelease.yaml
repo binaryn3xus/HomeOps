@@ -177,6 +177,11 @@ spec:
         node-feature-discovery:
           url: https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/examples/grafana-dashboard.json
           datasource: Prometheus
+        synology:
+          # renovate: depName="Synology NAS Details"
+          gnetId: 14284
+          revision: 10
+          datasource: Prometheus
         prometheus:
           # renovate: depName="Prometheus"
           gnetId: 19105
@@ -234,8 +239,6 @@ spec:
     ingress:
       enabled: true
       ingressClassName: internal
-      annotations:
-        external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
       hosts:
         - &host "grafana.${SECRET_DOMAIN}"
       tls:
