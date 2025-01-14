@@ -18,8 +18,8 @@ _... managed with Flux, SOPS and GitHub Actions_ 🤖
 
 <div align="center">
 
-[![Status-Page](https://img.shields.io/uptimerobot/status/m798346386-6bc92c6b1f9748ebbed8708b?color=brightgreeen&label=Status%20Page&style=for-the-badge&logo=statuspage&logoColor=white)](https://status.unscfleet.io)&nbsp;&nbsp;
-[![Plex](https://img.shields.io/uptimerobot/status/m792627751-0264dfd72c060e8b390e6398?logo=plex&logoColor=white&color=brightgreeen&label=Plex&style=for-the-badge)](https://plex.tv)
+[![Status-Page](https://img.shields.io/uptimerobot/status/m798346386-6bc92c6b1f9748ebbed8708b?color=brightgreeen&label=Status%20Page&style=for-the-badge&logo=statuspage&logoColor=white)](https://status.unscfleet.com)&nbsp;&nbsp;
+[![Plex](https://img.shields.io/uptimerobot/status/m792627751-0264dfd72c060e8b390e6398?logo=plex&logoColor=white&color=brightgreeen&label=Plex&style=for-the-badge)](https://plex.tv)&nbsp;&nbsp;
 [![Home-Assistant](https://img.shields.io/uptimerobot/status/m792627687-253e54a4fb0305d78f746aef?logo=homeassistant&logoColor=white&color=brightgreeen&label=Home%20Assistant&style=for-the-badge)](https://www.home-assistant.io/)
 
 </div>
