@@ -5,7 +5,7 @@ metadata:
   name: external-secrets
 spec:
   path: ./kubernetes/apps/kube-system/external-secrets/app
-  prune: false # revert to true
+  prune: true # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -20,7 +20,7 @@ metadata:
   name: external-secrets-azure
 spec:
   path: ./kubernetes/apps/kube-system/external-secrets/azure-keyvault
-  prune: false # revert to true
+  prune: true # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
