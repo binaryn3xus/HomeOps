@@ -4,16 +4,17 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: external-secrets
 resources:
-  # Pre Flux-Kustomizations
-  - ./namespace.yaml
-  # Flux-Kustomizations
   - ./external-secrets/ks.yaml
   - ./azure-keyvault
+components:
+  #- ../../flux/components/alerts
+  - ../../flux/components/sops
+  - ../../flux/components/namespace
 patches:
   - # Add the name to the namespace
     patch: |
       - op: add
         path: /metadata/name
-        value: external-secrets
+        value: default
     target:
       kind: Namespace

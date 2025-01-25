@@ -2,6 +2,17 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - namespace.yaml
   - ./teleport/ks.yaml
   - ./teleport-kube-agent/ks.yaml
+components:
+  #- ../../flux/components/alerts
+  - ../../flux/components/sops
+  - ../../flux/components/namespace
+patches:
+  - # Add the name to the namespace
+    patch: |
+      - op: add
+        path: /metadata/name
+        value: default
+    target:
+      kind: Namespace
