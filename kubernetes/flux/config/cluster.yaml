@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/gitrepository_v1.json
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
@@ -6,24 +7,67 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  url: "https://github.com/binaryn3xus/HomeOps"
+  url: ssh://git@github.com/binaryn3xus/homeops
   ref:
-    branch: "main"
+    branch: main
+  secretRef:
+    name: github-deploy-key
   ignore: |
     # exclude all
     /*
-    # include kubernetes directory
-    !/kubernetes
+    # include dirs
+    !/kubernetes/
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster
+  name: cluster-settings
   namespace: flux-system
 spec:
   interval: 30m
-  path: ./kubernetes/flux
-  prune: false # revert to true
+  path: ./kubernetes/flux/settings
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-repos
+  namespace: flux-system
+spec:
+  interval: 30m
+  path: ./kubernetes/flux/repos
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps
+  namespace: flux-system
+spec:
+  interval: 30m
+  dependsOn:
+    - name: cluster-settings
+  path: ./kubernetes/apps
+  prune: true
   wait: false
   sourceRef:
     kind: GitRepository
@@ -34,7 +78,9 @@ spec:
       name: sops-age
   postBuild:
     substituteFrom:
-      - kind: ConfigMap
-        name: cluster-settings
-      - kind: Secret
-        name: cluster-secrets
+      - name: cluster-settings
+        kind: ConfigMap
+        optional: true
+      - name: cluster-secrets
+        kind: Secret
+        optional: true

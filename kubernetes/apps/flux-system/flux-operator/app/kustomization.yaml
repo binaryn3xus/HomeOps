@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: spegel-helm-values
+  - name: flux-operator-helm-values
     files:
       - values.yaml=./helm-values.yaml
 configurations:
