@@ -37,7 +37,7 @@ releases:
       - ../../apps/cert-manager/cert-manager/app/helm-values.yaml
 
   - name: external-secrets
-    namespace: kube-system
+    namespace: external-secrets
     chart: oci://ghcr.io/external-secrets/charts/external-secrets
     version: 0.13.0
     values:

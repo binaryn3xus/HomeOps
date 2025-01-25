@@ -94,12 +94,15 @@ spec:
             provider: sops
             secretRef:
               name: sops-age
+              namespace: flux-system
           postBuild:
             substituteFrom:
               - name: cluster-settings
+                namespace: flux-system
                 kind: ConfigMap
                 optional: true
               - name: cluster-secrets
+                namespace: flux-system
                 kind: Secret
                 optional: true
       target:
