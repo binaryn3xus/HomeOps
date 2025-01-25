@@ -3,7 +3,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: external-secrets
-  namespace: flux-system
+  namespace: &namespace external-secrets
 spec:
   path: ./kubernetes/apps/external-secrets/external-secrets/app
   prune: false # revert to true
@@ -19,7 +19,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: external-secrets-azure
-  namespace: flux-system
+  namespace: &namespace external-secrets
 spec:
   path: ./kubernetes/apps/external-secrets/azure-keyvault
   prune: false # revert to true
