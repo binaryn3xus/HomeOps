@@ -13,7 +13,7 @@ spec:
     - name: volsync
     - name: intel-device-plugin-gpu
   path: ./kubernetes/apps/default/plex/app
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

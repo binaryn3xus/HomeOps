@@ -8,7 +8,7 @@ spec:
   dependsOn:
     - name: node-feature-discovery
   path: ./kubernetes/apps/kube-system/intel-device-plugin/app
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -26,7 +26,7 @@ spec:
   dependsOn:
     - name: intel-device-plugin-operator
   path: ./kubernetes/apps/kube-system/intel-device-plugin/gpu
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

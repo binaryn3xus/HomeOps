@@ -11,7 +11,7 @@ spec:
   dependsOn:
     - name: external-secrets-azure
   path: ./kubernetes/apps/default/discord/phc-high-counsel-social-bot
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -32,7 +32,7 @@ spec:
   dependsOn:
     - name: external-secrets-azure
   path: ./kubernetes/apps/default/discord/phc-high-counsel-ai-bot
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -53,7 +53,7 @@ spec:
   dependsOn:
     - name: external-secrets-azure
   path: ./kubernetes/apps/default/discord/lavalink
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

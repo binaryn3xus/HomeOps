@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/apps/kube-system/snapshot-controller/app
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

@@ -10,7 +10,7 @@ spec:
     - name: snapshot-controller
     - name: external-secrets-azure
   path: ./kubernetes/apps/volsync/volsync/app
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

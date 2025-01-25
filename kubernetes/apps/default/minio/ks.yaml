@@ -11,7 +11,7 @@ spec:
   dependsOn:
     - name: external-secrets-azure
   path: ./kubernetes/apps/default/minio/app
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

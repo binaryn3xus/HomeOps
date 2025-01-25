@@ -9,7 +9,7 @@ spec:
   dependsOn:
     - name: teleport
   path: ./kubernetes/apps/teleport/teleport-kube-agent/agent
-  prune: true
+  prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
