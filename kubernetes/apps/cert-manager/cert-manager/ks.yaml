@@ -28,7 +28,6 @@ spec:
   dependsOn:
     - name: cert-manager
     - name: external-secrets-azure
-      namespace: external-secrets
   path: ./kubernetes/apps/cert-manager/cert-manager/issuers
   prune: false # revert to true
   sourceRef:

@@ -13,7 +13,6 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-dns
-    - name: external-secrets-azure
   path: ./kubernetes/apps/networking/cloudflared/app
   prune: false
   sourceRef:
