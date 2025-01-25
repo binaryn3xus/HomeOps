@@ -1,12 +1,12 @@
 # Summary
 
-# Welcome
-
 ---
+
+# Welcome
 
 - [Introduction](introduction.md)
 
-# Basement Notes
+# Notes
 
 ---
 
