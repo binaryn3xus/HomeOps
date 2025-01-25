@@ -24,6 +24,19 @@ vars:
   ts: '{{now | date "150405"}}'
 
 tasks:
+
+  state-*:
+    desc: Suspend or resume Volsync
+    cmds:
+      - flux --namespace flux-system {{.STATE}} kustomization volsync
+      - flux --namespace volsync {{.STATE}} helmrelease volsync
+      - kubectl --namespace volsync scale deployment volsync --replicas {{if eq .STATE "suspend"}}0{{else}}1{{end}}
+    vars:
+      STATE: '{{index .MATCH 0}}'
+    preconditions:
+      - '[[ "{{.STATE}}" == "suspend" || "{{.STATE}}" == "resume" ]]'
+      - which flux kubectl
+
   list:
     desc: List snapshots for an application
     summary: |
