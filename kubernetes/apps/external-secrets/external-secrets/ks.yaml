@@ -5,7 +5,7 @@ metadata:
   name: external-secrets
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/kube-system/external-secrets/app
+  path: ./kubernetes/apps/external-secrets/external-secrets/app
   prune: false # revert to true
   sourceRef:
     kind: GitRepository
@@ -21,7 +21,7 @@ metadata:
   name: external-secrets-azure
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/kube-system/external-secrets/stores
+  path: ./kubernetes/apps/external-secrets/external-secrets/azure-keyvault
   prune: false # revert to true
   sourceRef:
     kind: GitRepository

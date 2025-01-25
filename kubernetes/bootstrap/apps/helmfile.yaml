@@ -41,7 +41,7 @@ releases:
     chart: oci://ghcr.io/external-secrets/charts/external-secrets
     version: 0.13.0
     values:
-      - ../../apps/kube-system/external-secrets/app/helm-values.yaml
+      - ../../apps/external-secrets/external-secrets/app/helm-values.yaml
 
   # - name: wipe-rook
   #   namespace: kube-system
