@@ -4,7 +4,7 @@ kind: Kustomization
 metadata:
   name: &app cilium
 spec:
-  targetNamespace: *namespace
+  targetNamespace: kube-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -24,6 +24,7 @@ kind: Kustomization
 metadata:
   name: &app cilium-config
 spec:
+  targetNamespace: kube-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -36,6 +37,5 @@ spec:
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  targetNamespace: *namespace
   timeout: 5m
   wait: false
