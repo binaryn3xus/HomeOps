@@ -6,6 +6,7 @@ resources:
   - ./helmrelease.yaml
 configMapGenerator:
   - name: external-secrets-helm-values
+    namespace: external-secrets
     files:
       - values.yaml=./helm-values.yaml
 configurations:
