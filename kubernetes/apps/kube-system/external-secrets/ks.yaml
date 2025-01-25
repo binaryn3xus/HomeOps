@@ -4,12 +4,11 @@ kind: Kustomization
 metadata:
   name: external-secrets
 spec:
-  path: ./kubernetes/apps/external-secrets/external-secrets/app
+  path: ./kubernetes/apps/kube-system/external-secrets/app
   prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-    namespace: flux-system
   wait: true
   interval: 30m
   retryInterval: 1m
@@ -20,12 +19,11 @@ kind: Kustomization
 metadata:
   name: external-secrets-azure
 spec:
-  path: ./kubernetes/apps/external-secrets/azure-keyvault
+  path: ./kubernetes/apps/kube-system/external-secrets/azure-keyvault
   prune: false # revert to true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-    namespace: flux-system
   wait: true
   interval: 30m
   retryInterval: 1m
