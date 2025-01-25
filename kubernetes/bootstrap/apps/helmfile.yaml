@@ -38,23 +38,28 @@ releases:
   #   needs:
   #     - kube-system/cilium
 
-  - name: spegel
-    namespace: kube-system
-    chart: oci://ghcr.io/spegel-org/helm-charts/spegel
-    version: v0.0.28
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: v1.16.3
     values:
-      - ../../apps/kube-system/spegel/app/helm-values.yaml
-    # needs:
-    #   - kube-system/coredns
+      - ../apps/cert-manager/cert-manager/app/helm-values.yaml
+    needs:
+      - kube-system/coredns
+
+  - name: external-secrets
+    namespace: kube-system
+    chart: oci://ghcr.io/external-secrets/charts/external-secrets
+    version: 0.13.0
+    values:
+      - ../apps/kube-system/external-secrets/app/helm-values.yaml
 
   - name: wipe-rook
     namespace: kube-system
     chart: oci://ghcr.io/bjw-s/helm/app-template
-    version: 3.6.0
+    version: 3.6.1
     values:
       - ./templates/wipe-rook.yaml.gotmpl
-    needs:
-      - kube-system/spegel
 
   - name: flux-operator
     namespace: flux-system
