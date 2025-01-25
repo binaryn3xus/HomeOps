@@ -7,11 +7,9 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
-  url: ssh://git@github.com/binaryn3xus/homeops
+  url: https://github.com/binaryn3xus/homeops
   ref:
     branch: main
-  secretRef:
-    name: github-deploy-key
   ignore: |
     # exclude all
     /*
