@@ -14,6 +14,6 @@ patches:
     patch: |
       - op: add
         path: /metadata/name
-        value: default
+        value: flux-system
     target:
       kind: Namespace

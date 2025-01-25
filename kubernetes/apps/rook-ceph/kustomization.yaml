@@ -13,6 +13,6 @@ patches:
     patch: |
       - op: add
         path: /metadata/name
-        value: default
+        value: rook-ceph
     target:
       kind: Namespace
