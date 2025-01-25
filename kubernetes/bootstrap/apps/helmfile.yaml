@@ -11,8 +11,8 @@ repositories:
   - name: cilium
     url: https://helm.cilium.io
 
-  - name: coredns
-    url: https://coredns.github.io/helm
+  # - name: coredns
+  #   url: https://coredns.github.io/helm
 
 releases:
   - name: kube-prometheus-stack-crds
@@ -44,8 +44,8 @@ releases:
     version: v0.0.28
     values:
       - ../../apps/kube-system/spegel/app/helm-values.yaml
-    needs:
-      - kube-system/coredns
+    # needs:
+    #   - kube-system/coredns
 
   - name: wipe-rook
     namespace: kube-system
