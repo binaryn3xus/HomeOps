@@ -27,6 +27,8 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
+    - name: eqmx
+      namespace: default
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync

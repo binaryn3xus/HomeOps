@@ -10,7 +10,9 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: external-secrets-azure
+      namespace: external-secrets
   path: ./kubernetes/apps/default/emqx/app
   prune: false # revert to true
   sourceRef:

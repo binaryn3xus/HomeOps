@@ -10,9 +10,13 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: emqx
+      namespace: default
     - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: volsync
+      namespace: volsync
     - name: intel-device-plugin-gpu
+      namespace: kube-system
   path: ./kubernetes/apps/default/frigate/app
   prune: false # revert to true
   sourceRef:

@@ -9,8 +9,10 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: rook-ceph-cluster
+    - name: onepassword-store
+      namespace: external-secrets
     - name: volsync
+      namespace: volsync-system
   path: ./kubernetes/apps/default/bazarr/app
   prune: false # revert to true
   sourceRef:
