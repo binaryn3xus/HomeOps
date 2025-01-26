@@ -106,7 +106,7 @@ spec:
       app:
         className: external
         hosts:
-          - host: &host "status.${SECRET_DOMAIN}"
+          - host: &host "status.unscfleet.com"
             paths:
               - path: /
                 service:

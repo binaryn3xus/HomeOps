@@ -59,7 +59,7 @@ spec:
       redis:
         className: internal
         hosts:
-          - host: &host "redis.${SECRET_DOMAIN}"
+          - host: &host "redis.unscfleet.com"
             paths:
               - path: /
                 service:

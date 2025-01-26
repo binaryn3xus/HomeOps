@@ -79,7 +79,7 @@ spec:
       app:
         className: external
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: "{{ .Release.Name }}.unscfleet.com"
             paths:
               - path: /
                 service:

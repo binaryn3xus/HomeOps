@@ -46,8 +46,8 @@ spec:
         path: /
         pathType: Prefix
         hosts:
-          - &host emqx.${SECRET_DOMAIN}
-          - &host2 mqtt.${SECRET_DOMAIN}
+          - &host emqx.unscfleet.com
+          - &host2 mqtt.unscfleet.com
         tls:
           - hosts:
               - *host

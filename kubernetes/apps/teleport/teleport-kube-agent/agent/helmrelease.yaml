@@ -21,7 +21,7 @@ spec:
       level: DEBUG
     roles: kube,app,discovery,node,windowsdesktop
     insecureSkipProxyTLSVerify: true
-    proxyAddr: teleport.${SECRET_DOMAIN}:443
+    proxyAddr: teleport.unscfleet.com:443
     joinParams:
       method: kubernetes
       tokenName: "kubernetes-token"
@@ -52,9 +52,9 @@ spec:
         enabled: "yes"
         apps:
         - name: pikvm
-          public_addr: pikvm.teleport.${SECRET_DOMAIN}
+          public_addr: pikvm.teleport.unscfleet.com
           uri: https://10.0.30.5/
           rewrite:
             headers:
-              - "Host: pikvm.${SECRET_DOMAIN}"
+              - "Host: pikvm.unscfleet.com"
           insecure_skip_verify: true

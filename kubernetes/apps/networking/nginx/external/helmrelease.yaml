@@ -34,7 +34,7 @@ spec:
       replicaCount: 1
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: &hostname "external.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/hostname: &hostname "external.unscfleet.com"
           io.cilium/lb-ipam-ips: "${NGINX_EXTERNAL}"
         externalTrafficPolicy: Cluster
       ingressClassResource:

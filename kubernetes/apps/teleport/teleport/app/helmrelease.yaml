@@ -35,7 +35,7 @@ spec:
     authentication:
       type: github
     chartMode: standalone
-    clusterName: teleport.${SECRET_DOMAIN}
+    clusterName: teleport.unscfleet.com
     enterprise: false
     highAvailability:
       tls:

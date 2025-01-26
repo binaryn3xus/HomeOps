@@ -102,7 +102,7 @@ spec:
       home-assistant:
         className: external
         hosts:
-          - host: &host "hass.${SECRET_DOMAIN}"
+          - host: &host "hass.unscfleet.com"
             paths:
               - path: /
                 service:
@@ -114,7 +114,7 @@ spec:
       code:
         className: internal
         hosts:
-          - host: &host-code "hass-code.${SECRET_DOMAIN}"
+          - host: &host-code "hass-code.unscfleet.com"
             paths:
               - path: /
                 service:

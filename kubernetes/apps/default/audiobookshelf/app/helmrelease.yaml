@@ -86,7 +86,7 @@ spec:
       audiobookshelf:
         className: external
         hosts:
-          - host: &host "audiobooks.${SECRET_DOMAIN}"
+          - host: &host "audiobooks.unscfleet.com"
             paths:
               - path: /
                 service:

@@ -64,7 +64,7 @@ spec:
       guacamole:
         className: external
         hosts:
-          - host: &host "remote.${SECRET_DOMAIN}"
+          - host: &host "remote.unscfleet.com"
             paths:
               - path: /
                 service:

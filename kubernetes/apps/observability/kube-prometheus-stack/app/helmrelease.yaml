@@ -38,7 +38,7 @@ spec:
         pathType: Prefix
         ingressClassName: internal
         hosts:
-          - &host "alertmanager.${SECRET_DOMAIN}"
+          - &host "alertmanager.unscfleet.com"
         tls:
           - hosts:
               - *host
@@ -49,7 +49,7 @@ spec:
           name: alertmanager
           global:
             resolveTimeout: 5m
-        externalUrl: "https://alertmanager.${SECRET_DOMAIN}"
+        externalUrl: "https://alertmanager.unscfleet.com"
         storage:
           volumeClaimTemplate:
             spec:
@@ -109,7 +109,7 @@ spec:
         ingressClassName: internal
         pathType: Prefix
         hosts:
-          - &host "prometheus.${SECRET_DOMAIN}"
+          - &host "prometheus.unscfleet.com"
         tls:
           - hosts:
               - *host

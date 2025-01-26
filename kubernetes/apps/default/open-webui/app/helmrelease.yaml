@@ -61,7 +61,7 @@ spec:
       open-webui:
         className: external
         hosts:
-          - host: &host "ai.${SECRET_DOMAIN}"
+          - host: &host "ai.unscfleet.com"
             paths:
               - path: /
                 service:

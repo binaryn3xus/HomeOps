@@ -45,7 +45,7 @@ spec:
                 sabnzbd.default.svc,
                 sabnzbd.default.svc.cluster,
                 sabnzbd.default.svc.cluster.local,
-                sabnzbd.${SECRET_DOMAIN}
+                sabnzbd.unscfleet.com
             resources:
               requests:
                 cpu: 10m
@@ -78,7 +78,7 @@ spec:
             sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.unscfleet.com/css/base/sabnzbd/space-gray.css"></head>';
             sub_filter_once on;
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.unscfleet.com"
             paths:
               - path: /
                 service:

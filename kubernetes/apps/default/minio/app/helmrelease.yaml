@@ -42,8 +42,8 @@ spec:
               MINIO_PROMETHEUS_URL: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
               MINIO_PROMETHEUS_JOB_ID: minio
               MINIO_PROMETHEUS_AUTH_TYPE: public
-              MINIO_BROWSER_REDIRECT_URL: "https://minio.${SECRET_DOMAIN}"
-              MINIO_SERVER_URL: "https://s3.${SECRET_DOMAIN}"
+              MINIO_BROWSER_REDIRECT_URL: "https://minio.unscfleet.com"
+              MINIO_SERVER_URL: "https://s3.unscfleet.com"
             envFrom:
               - secretRef:
                   name: minio-secret
@@ -93,13 +93,13 @@ spec:
       app:
         className: internal
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.unscfleet.com"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-          - host: &s3Host "s3.${SECRET_DOMAIN}"
+          - host: &s3Host "s3.unscfleet.com"
             paths:
               - path: /
                 service:

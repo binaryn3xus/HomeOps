@@ -86,7 +86,7 @@ spec:
             sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.unscfleet.com/css/base/sonarr/space-gray.css"></head>';
             sub_filter_once on;
         hosts:
-          - host: &host "sonarr.${SECRET_DOMAIN}"
+          - host: &host "sonarr.unscfleet.com"
             paths:
               - path: /
                 service:

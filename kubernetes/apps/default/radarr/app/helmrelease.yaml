@@ -85,7 +85,7 @@ spec:
             sub_filter '</head>' '<link rel="stylesheet" type="text/css" href="https://theme-park.unscfleet.com/css/base/radarr/space-gray.css"></head>';
             sub_filter_once on;
         hosts:
-          - host: &host "radarr.${SECRET_DOMAIN}"
+          - host: &host "radarr.unscfleet.com"
             paths:
               - path: /
                 service:
