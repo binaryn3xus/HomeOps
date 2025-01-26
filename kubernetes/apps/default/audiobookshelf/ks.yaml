@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: onepassword-store
+    - name: external-secrets-azure
       namespace: external-secrets
     - name: volsync
       namespace: volsync-system
