@@ -1,31 +1,13 @@
 ---
 installCRDs: true
-replicaCount: 1
-leaderElect: true
-image:
-  repository: ghcr.io/external-secrets/external-secrets
-webhook:
-  image:
-    repository: ghcr.io/external-secrets/external-secrets
-  serviceMonitor:
-    enabled: true
-    interval: 1m
-  certManager:
-    enabled: true
-    cert:
-      create: true
-      issuerRef:
-        group: cert-manager.io
-        kind: "ClusterIssuer"
-        name: "letsencrypt-production"
-certController:
-  image:
-    repository: ghcr.io/external-secrets/external-secrets
-  serviceMonitor:
-    enabled: true
-    interval: 1m
 serviceMonitor:
   enabled: true
   interval: 1m
-bitwarden-sdk-server:
-  enabled: true
+webhook:
+  serviceMonitor:
+    enabled: true
+    interval: 1m
+certController:
+  serviceMonitor:
+    enabled: true
+    interval: 1m
