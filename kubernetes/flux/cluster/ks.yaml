@@ -31,6 +31,7 @@ spec:
   interval: 30m
   dependsOn:
     - name: cluster-meta
+      namespace: flux-system
   path: ./kubernetes/apps
   prune: true
   wait: false
@@ -44,7 +45,7 @@ spec:
       name: sops-age
   postBuild:
     substituteFrom:
-      - name: cluster-meta
+      - name: cluster-settings
         kind: ConfigMap
         optional: false
       - name: cluster-secrets
