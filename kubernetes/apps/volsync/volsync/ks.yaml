@@ -7,8 +7,11 @@ metadata:
 spec:
   dependsOn:
     - name: minio
+      namespace: default
     - name: snapshot-controller
+      namespace: kube-system
     - name: external-secrets-azure
+      namespace: external-secrets
   path: ./kubernetes/apps/volsync/volsync/app
   prune: false # revert to true
   sourceRef:

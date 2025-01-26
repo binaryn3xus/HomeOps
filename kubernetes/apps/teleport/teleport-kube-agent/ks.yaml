@@ -8,6 +8,7 @@ metadata:
 spec:
   dependsOn:
     - name: teleport
+      namespace: teleport
   path: ./kubernetes/apps/teleport/teleport-kube-agent/agent
   prune: false # revert to true
   sourceRef:

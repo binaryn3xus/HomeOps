@@ -7,8 +7,11 @@ metadata:
 spec:
   dependsOn:
     - name: rook-ceph-cluster
+    - namespace: rook-ceph
     - name: external-secrets-azure
+    - namespace: external-secrets
     - name: volsync
+    - namespace: volsync
   path: ./kubernetes/apps/teleport/teleport/app
   prune: false # revert to true
   sourceRef:
