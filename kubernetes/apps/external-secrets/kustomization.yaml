@@ -11,11 +11,3 @@ components:
   #- ../../flux/components/alerts
   - ../../flux/components/sops
   - ../../flux/components/namespace
-patches:
-  - # Add the name to the namespace
-    patch: |
-      - op: add
-        path: /metadata/name
-        value: external-secrets
-    target:
-      kind: Namespace
