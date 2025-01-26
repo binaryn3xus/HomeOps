@@ -18,24 +18,3 @@ spec:
         selector:
           dnsZones:
             - "${SECRET_DOMAIN}"
----
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: letsencrypt-staging
-spec:
-  acme:
-    server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: "${SECRET_ACME_EMAIL}"
-    privateKeySecretRef:
-      name: letsencrypt-staging
-    solvers:
-      - dns01:
-          cloudflare:
-            email: "${SECRET_ACME_EMAIL}"
-            apiTokenSecretRef:
-              name: cert-manager-secret
-              key: cf_api_token
-        selector:
-          dnsZones:
-            - "${SECRET_DOMAIN}"
