@@ -26,13 +26,6 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: emqx
-      namespace: default
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
-    - name: volsync
-      namespace: volsync
   values:
     controllers:
       zigbee2mqtt:

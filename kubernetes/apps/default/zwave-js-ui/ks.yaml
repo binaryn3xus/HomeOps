@@ -10,8 +10,13 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: node-feature-discovery
+      namespace: kube-system
     - name: rook-ceph-cluster
+      namespace: rook-ceph
     - name: volsync
+      namespace: volsync    
+    - name: emqx
+      namespace: default
   path: ./kubernetes/apps/default/zwave-js-ui/app
   prune: false # revert to true
   sourceRef:
