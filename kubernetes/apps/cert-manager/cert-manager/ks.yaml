@@ -49,8 +49,7 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 5m
-  postBuild:
-    substituteFrom:
-      - kind: Secret
-        name: cert-manager-secret
-        optional: false
+postBuild:
+  substituteFrom:
+    - kind: Secret
+      name: azure-store-creds
