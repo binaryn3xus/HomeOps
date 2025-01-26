@@ -12,7 +12,7 @@ spec:
     - name: external-secrets-azure
       namespace: external-secrets
     - name: volsync
-      namespace: volsync-system
+      namespace: volsync
   path: ./kubernetes/apps/default/audiobookshelf/app
   prune: false # revert to true
   sourceRef:

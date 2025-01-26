@@ -6,6 +6,7 @@ namespace: external-secrets
 resources:
   - ./external-secrets/ks.yaml
   - ./azure-keyvault/ks.yaml
+  - ./bitwarden/ks.yaml
 components:
   #- ../../flux/components/alerts
   - ../../flux/components/sops

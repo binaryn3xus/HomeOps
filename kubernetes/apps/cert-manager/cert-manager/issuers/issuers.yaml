@@ -16,5 +16,4 @@ spec:
               name: cert-manager-secret
               key: cf_api_token
         selector:
-          dnsZones:
-            - "unscfleet.com"
+          dnsZones: ["unscfleet.com"]
