@@ -9,7 +9,7 @@ spec:
     - name: external-secrets-azure
       namespace: external-secrets
   path: ./kubernetes/apps/observability/gatus/app
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

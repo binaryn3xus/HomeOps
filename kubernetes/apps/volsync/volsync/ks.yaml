@@ -13,7 +13,7 @@ spec:
     - name: external-secrets-azure
       namespace: external-secrets
   path: ./kubernetes/apps/volsync/volsync/app
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

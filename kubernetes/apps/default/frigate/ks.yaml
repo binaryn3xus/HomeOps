@@ -18,7 +18,7 @@ spec:
     - name: intel-device-plugin-gpu
       namespace: kube-system
   path: ./kubernetes/apps/default/frigate/app
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes

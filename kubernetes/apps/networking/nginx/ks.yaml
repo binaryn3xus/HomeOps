@@ -10,7 +10,7 @@ spec:
     - name: cert-manager-issuers
       namespace: cert-manager
   path: ./kubernetes/apps/networking/nginx/certificates
-  prune: false # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
