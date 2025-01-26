@@ -4,7 +4,7 @@ originRequest:
 
 # https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/ingress
 ingress:
-  - hostname: "${SECRET_DOMAIN}"
+  - hostname: "unscfleet.com"
     service: https://nginx-external-controller.networking.svc.cluster.local:443
     originRequest:
       originServerName: "external.unscfleet.com"

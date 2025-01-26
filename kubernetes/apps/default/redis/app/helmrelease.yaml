@@ -37,7 +37,7 @@ spec:
               repository: public.ecr.aws/docker/library/redis
               tag: 7.4.2
             env:
-              TZ: "${TIMEZONE}"
+              TZ: "America/New_York"
               REDIS_REPLICATION_MODE: master
             resources:
               requests:

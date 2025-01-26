@@ -37,7 +37,7 @@ spec:
               repository: ghcr.io/amadejkastelic/discord-video-embed-bot
               tag: 0.22.1@sha256:0de4f4404e42f019533d95648cd70434ccebf5b9f120ab1d091411bdc7ff9f91
             env:
-              TZ: "${TIMEZONE}"
+              TZ: "America/New_York"
               COMPACT_POST: "true"
             envFrom:
               - secretRef:

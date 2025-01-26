@@ -37,7 +37,7 @@ spec:
               repository: ghcr.io/lavalink-devs/lavalink
               tag: 4.0.8
             env:
-              TZ: "${TIMEZONE}"
+              TZ: "America/New_York"
               _JAVA_OPTIONS: -Xmx8G
               SERVER_PORT: &port 2333
               SERVER_ADDRESS: "0.0.0.0"

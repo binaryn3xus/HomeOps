@@ -37,7 +37,7 @@ spec:
               repository: ghcr.io/onedr0p/radarr
               tag: 5.17.2.9580
             env:
-              TZ: "${TIMEZONE}"
+              TZ: "America/New_York"
               RADARR__INSTANCE_NAME: Radarr
               RADARR__PORT: &port 80
               RADARR__LOG_LEVEL: info

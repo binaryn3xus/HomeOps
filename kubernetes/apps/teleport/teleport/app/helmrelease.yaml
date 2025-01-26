@@ -39,7 +39,7 @@ spec:
     enterprise: false
     highAvailability:
       tls:
-        existingSecretName: "${SECRET_DOMAIN/./-}-production-tls"
+        existingSecretName: "unscfleet-com-production-tls"
     ingress:
       enabled: true
       spec:

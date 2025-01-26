@@ -37,8 +37,8 @@ spec:
               repository: ghcr.io/open-webui/open-webui
               tag: main
             env:
-              TZ: "${TIMEZONE}"
-              OLLAMA_BASE_URL: "${OLLAMA_BASE_URL}"
+              TZ: "America/New_York"
+              OLLAMA_BASE_URL: "http://10.0.30.6:11434"
             resources:
               requests:
                 cpu: 200m

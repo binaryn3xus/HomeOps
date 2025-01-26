@@ -5,16 +5,16 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: "${SECRET_ACME_EMAIL}"
+    email: "${cf_api_email}"
     privateKeySecretRef:
       name: letsencrypt-production
     solvers:
       - dns01:
           cloudflare:
-            email: "${SECRET_ACME_EMAIL}"
+            email: "${cf_api_email}"
             apiTokenSecretRef:
               name: cert-manager-secret
               key: cf_api_token
         selector:
           dnsZones:
-            - "${SECRET_DOMAIN}"
+            - "unscfleet.com"

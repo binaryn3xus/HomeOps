@@ -37,7 +37,7 @@ spec:
               repository: docker.io/nodered/node-red
               tag: 4.0.8
             env:
-              TZ: "${TIMEZONE}"
+              TZ: "America/New_York"
               FLOWS: flows.json
               NODE_RED_ENABLE_PROJECTS: "true"
               NODE_RED_ENABLE_SAFE_MODE: "false"

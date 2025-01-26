@@ -45,7 +45,7 @@ spec:
     sources: ["crd", "ingress"]
     txtOwnerId: default
     txtPrefix: k8s.
-    domainFilters: ["${SECRET_DOMAIN}"]
+    domainFilters: ["unscfleet.com"]
     serviceMonitor:
       enabled: true
     podAnnotations:

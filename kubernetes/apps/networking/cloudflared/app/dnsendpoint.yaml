@@ -8,4 +8,4 @@ spec:
   endpoints:
     - dnsName: "external.unscfleet.com"
       recordType: CNAME
-      targets: ["${CLUSTER_CLOUDFLARE_TUNNEL_ID}.cfargotunnel.com"]
+      targets: ["b9d1e81f-c1e0-4538-b153-bfe3cc327d2f.cfargotunnel.com"]

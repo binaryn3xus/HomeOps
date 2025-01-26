@@ -29,19 +29,21 @@ releases:
     needs:
       - observability/kube-prometheus-stack-crds
 
-  - name: cert-manager
-    namespace: cert-manager
-    chart: jetstack/cert-manager
-    version: v1.16.3
-    values:
-      - ../../apps/cert-manager/cert-manager/app/helm-values.yaml
-
   - name: external-secrets
     namespace: external-secrets
     chart: oci://ghcr.io/external-secrets/charts/external-secrets
     version: 0.13.0
     values:
       - ../../apps/external-secrets/external-secrets/app/helm-values.yaml
+
+  - name: cert-manager
+    namespace: cert-manager
+    chart: jetstack/cert-manager
+    version: v1.16.3
+    values:
+      - ../../apps/cert-manager/cert-manager/app/helm-values.yaml
+    needs:
+      - external-secrets/external-secrets
 
   # - name: wipe-rook
   #   namespace: kube-system

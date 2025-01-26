@@ -34,7 +34,7 @@ spec:
               repository: ghcr.io/unpoller/unpoller
               tag: v2.14.1@sha256:9ba73b1793ef332ae9b4b719ef0fc09f231d6276bc7b721cbb47961ed7792961
             env:
-              TZ: "${TIMEZONE}"
+              TZ: "America/New_York"
               UP_POLLER_DEBUG: "true"
               UP_UNIFI_DEFAULT_URL: https://10.0.30.1
               UP_PROMETHEUS_HTTP_LISTEN: 0.0.0.0:80

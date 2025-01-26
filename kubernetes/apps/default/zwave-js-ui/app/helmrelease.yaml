@@ -37,7 +37,7 @@ spec:
               repository: ghcr.io/zwave-js/zwave-js-ui
               tag: 9.29.1
             env:
-              TZ: "${TIMEZONE}"
+              TZ: "America/New_York"
             probes:
               liveness: &probes
                 enabled: true

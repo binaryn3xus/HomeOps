@@ -40,7 +40,7 @@ spec:
               repository: ghcr.io/advplyr/audiobookshelf
               tag: 2.18.1
             env:
-              TZ: "${TIMEZONE}"
+              TZ: "America/New_York"
               AUDIOBOOKSHELF_UID: 568
               AUDIOBOOKSHELF_GID: 568
               CONFIG_PATH: /config
