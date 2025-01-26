@@ -6,7 +6,6 @@ metadata:
   name: &app nginx-certificates
   namespace: flux-system
 spec:
-  targetNamespace: flux-system
   dependsOn:
     - name: cert-manager-issuers
       namespace: cert-manager
@@ -28,7 +27,6 @@ metadata:
   name: &app nginx-external
   namespace: flux-system
 spec:
-  targetNamespace: flux-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -53,7 +51,6 @@ metadata:
   name: &app nginx-internal
   namespace: flux-system
 spec:
-  targetNamespace: flux-system
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
