@@ -30,7 +30,7 @@ metadata:
 spec:
   interval: 30m
   dependsOn:
-    - name: cluster-settings
+    - name: cluster-meta
   path: ./kubernetes/apps
   prune: true
   wait: false
@@ -44,7 +44,7 @@ spec:
       name: sops-age
   postBuild:
     substituteFrom:
-      - name: cluster-settings
+      - name: cluster-meta
         kind: ConfigMap
         optional: false
       - name: cluster-secrets
