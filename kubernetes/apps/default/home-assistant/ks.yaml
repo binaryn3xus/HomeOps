@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: eqmx
+    - name: emqx
       namespace: default
     - name: rook-ceph-cluster
       namespace: rook-ceph
