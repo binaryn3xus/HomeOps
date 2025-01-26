@@ -1,5 +1,0 @@
----
-image:
-  repository: emberstack/kubernetes-reflector
-serviceAccount:
-  create: true
