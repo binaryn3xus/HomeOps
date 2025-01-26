@@ -17,3 +17,8 @@ patches:
         value: cert-manager
     target:
       kind: Namespace
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: azure-store-creds
+        
