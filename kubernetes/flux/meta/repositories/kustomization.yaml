@@ -6,3 +6,5 @@ resources:
   - ./git
   - ./helm
   - ./oci
+components:
+  - ../../flux/components/sops
