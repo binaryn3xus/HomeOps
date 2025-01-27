@@ -12,7 +12,6 @@ instance:
     - notification-controller
   sync:
     kind: GitRepository
-    name: home-kubernetes
     url: https://github.com/binaryn3xus/homeops
     ref: refs/heads/main
     path: kubernetes/flux/cluster

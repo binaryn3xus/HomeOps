@@ -8,7 +8,7 @@ spec:
   prune: true # revert to true
   sourceRef:
     kind: GitRepository
-    name: home-kubernetes
+    name: flux-system
     namespace: flux-system
   wait: true
   interval: 30m
