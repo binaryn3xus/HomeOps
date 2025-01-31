@@ -1,30 +1,33 @@
 ---
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
-version: "3"
+version: '3'
+
+set: [pipefail]
+shopt: [globstar]
 
 vars:
-  BOOTSTRAP_DIR: '{{.ROOT_DIR}}/bootstrap'
   KUBERNETES_DIR: '{{.ROOT_DIR}}/kubernetes'
-  SOPS_CONFIG_FILE: '{{.ROOT_DIR}}/.sops.yaml'
+  PRIVATE_DIR: '{{.ROOT_DIR}}/.private'
+  TALHELPER_DIR: '{{.ROOT_DIR}}/kubernetes/bootstrap/talos'
+  TALOSCONFIG: '{{.ROOT_DIR}}/kubernetes/bootstrap/talos/clusterconfig/talosconfig'
 
 env:
-  KUBECONFIG_FILE: "{{.ROOT_DIR}}/kubernetes/kubeconfig"
+  KUBECONFIG: '{{.ROOT_DIR}}/kubeconfig'
   SOPS_AGE_KEY_FILE: '{{.ROOT_DIR}}/age.key'
-  VIRTUAL_ENV: "{{.ROOT_DIR}}/.venv"
+  TALOSCONFIG: '{{.TALOSCONFIG}}'
 
 includes:
-  az: .taskfiles/AzureKeyVault
-  external-secrets: .taskfiles/ExternalSecrets
-  kubernetes: .taskfiles/Kubernetes
-  flux: .taskfiles/Flux
-  misc: .taskfiles/Misc
-  talos: .taskfiles/Talos
-  sops: .taskfiles/Sops
-  rook: .taskfiles/Rook
-  volsync: .taskfiles/VolSync
+  bootstrap: .taskfiles/bootstrap
+  talos: .taskfiles/talos
+  template: .taskfiles/template
 
 tasks:
 
-  default:
-    cmd: task --list
-    silent: true
+  default: task --list
+
+  reconcile:
+    desc: Force Flux to pull in changes from your Git repository
+    cmd: flux --namespace flux-system reconcile kustomization flux-system --with-source
+    preconditions:
+      - test -f {{.KUBECONFIG}}
+      - which flux

@@ -1,3 +1,0 @@
----
-providerRegex: ^(fleetcom-node1|fleetcom-node2|fleetcom-node3|fleetcom-node4|fleetcom-node5|fleetcom-node6)$
-bypassDnsResolution: true

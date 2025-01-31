@@ -9,11 +9,6 @@
         "will-stone.in-any-case",
         "EditorConfig.editorconfig",
         "PKief.material-icon-theme",
-        "Gruntfuggly.todo-tree",
-        "davidanson.vscode-markdownlint",
-        "ms-kubernetes-tools.vscode-kubernetes-tools",
-        "eamodio.gitlens",
-        "github.copilot",
-        "github.copilot-chat"
+        "Gruntfuggly.todo-tree"
     ]
 }
