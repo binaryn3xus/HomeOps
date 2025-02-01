@@ -6,3 +6,12 @@ resources:
   - ./cert-manager/ks.yaml
 components:
   - ../../flux/components/namespace
+  - ../../flux/components/sops # TODO: Is this really needed?
+patches:
+  - # Add the name to the namespace
+    patch: |
+      - op: add
+        path: /metadata/name
+        value: cert-manager
+    target:
+      kind: Namespace
