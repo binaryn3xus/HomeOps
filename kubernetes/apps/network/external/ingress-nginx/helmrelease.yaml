@@ -76,7 +76,7 @@ spec:
           namespaceSelector:
             any: true
       extraArgs:
-        default-ssl-certificate: "cert-manager/unscfleet-com-production-tls"
+        default-ssl-certificate: "cert-manager/unscfleet-com-staging-tls"
       resources:
         requests:
           cpu: 100m

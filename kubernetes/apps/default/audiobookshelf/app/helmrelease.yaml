@@ -82,6 +82,8 @@ spec:
     ingress:
       audiobookshelf:
         className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.unscfleet.com"
         hosts:
           - host: &host "audiobooks.unscfleet.com"
             paths:
