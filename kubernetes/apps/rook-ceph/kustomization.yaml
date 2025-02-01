@@ -5,11 +5,3 @@ resources:
   - ./rook-ceph/ks.yaml
 components:
   - ../../flux/components/namespace
-patches:
-  - # Add the name to the namespace
-    patch: |
-      - op: add
-        path: /metadata/name
-        value: rook-ceph
-    target:
-      kind: Namespace
