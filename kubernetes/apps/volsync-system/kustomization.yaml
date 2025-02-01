@@ -8,3 +8,4 @@ resources:
   - ./volsync/ks.yaml
 components:
   - ../../flux/components/namespace
+  - ../../flux/components/sops
