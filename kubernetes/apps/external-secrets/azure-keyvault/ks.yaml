@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: external-secrets-azure
+  name: &app external-secrets-azure
   namespace: &namespace external-secrets
 spec:
   commonMetadata:
