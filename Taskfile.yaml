@@ -20,6 +20,7 @@ includes:
   bootstrap: .taskfiles/bootstrap
   talos: .taskfiles/talos
   template: .taskfiles/template
+  volsync: .taskfiles/VolSync
 
 tasks:
 
