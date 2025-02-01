@@ -9,6 +9,7 @@ resources:
   - ./media-pvc.yaml
   # Apps
   - ./audiobookshelf/ks.yaml
+  - ./plex/ks.yaml
   - ./echo-server/ks.yaml
   - ./minio/ks.yaml
 components:
