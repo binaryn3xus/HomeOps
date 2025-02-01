@@ -21,9 +21,6 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  dependsOn:
-    - name: cloudflared
-      namespace: network
   values:
     controllers:
       echo-server:
@@ -85,9 +82,9 @@ spec:
       app:
         className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: "external.unscfleet.com"
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: "echo-server.unscfleet.com"
             paths:
               - path: /
                 service:
