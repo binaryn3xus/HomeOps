@@ -12,6 +12,7 @@ resources:
   - ./spegel/ks.yaml
 components:
   - ../../flux/components/namespace
+  - ../../flux/components/sops
 patches:
   - # Add the name to the namespace
     patch: |
