@@ -5,3 +5,4 @@ resources:
   - ./rook-ceph/ks.yaml
 components:
   - ../../flux/components/namespace
+  - ../../flux/components/sops
