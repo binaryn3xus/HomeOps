@@ -30,6 +30,9 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: external-secrets-azure
+      namespace: external-secrets
   interval: 30m
   path: ./kubernetes/apps/cert-manager/cert-manager/issuers
   prune: true
@@ -54,6 +57,8 @@ spec:
   dependsOn:
     - name: cert-manager-issuers
       namespace: cert-manager
+    - name: external-secrets-azure
+      namespace: external-secrets
   interval: 30m
   path: ./kubernetes/apps/cert-manager/cert-manager/tls
   prune: true
