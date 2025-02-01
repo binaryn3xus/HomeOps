@@ -7,5 +7,5 @@ resources:
   - ./external-secrets/ks.yaml
   - ./azure-keyvault/ks.yaml
 components:
-  - ../../flux/components/sops
   - ../../flux/components/namespace
+  - ../../flux/components/sops
