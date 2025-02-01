@@ -13,7 +13,8 @@ resources:
   - ./echo-server/ks.yaml
   - ./emqx/ks.yaml
   - ./minio/ks.yaml
-  - ./zwave-js-ui/ks.yaml
+  - ./zigbee/ks.yaml
+  - ./zwave/ks.yaml
 components:
   - ../../flux/components/namespace
   - ../../flux/components/sops

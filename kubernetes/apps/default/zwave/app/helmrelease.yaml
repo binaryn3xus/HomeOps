@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app zwave-js-ui
+  name: &app zwave
   namespace: default
 spec:
   interval: 30m
@@ -28,7 +28,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      zwave-js-ui:
+      zwave:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -63,7 +63,7 @@ spec:
             aeotec.feature.node.kubernetes.io/zwave: "true"
     service:
       app:
-        controller: zwave-js-ui
+        controller: zwave
         annotations:
           teleport.dev/name: *app
         labels:
