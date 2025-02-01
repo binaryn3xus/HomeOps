@@ -28,9 +28,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: azure-keyvault
-      namespace: external-secrets
   interval: 30m
   path: ./kubernetes/apps/rook-ceph/rook-ceph/cluster
   prune: true
