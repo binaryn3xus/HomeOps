@@ -7,4 +7,4 @@ resources:
   - ./cert-manager/ks.yaml
 components:
   - ../../flux/components/namespace
-  - ../../flux/components/sops # TODO: Is this really needed?
+  - ../../flux/components/sops

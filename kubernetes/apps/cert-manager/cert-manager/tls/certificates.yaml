@@ -10,6 +10,4 @@ spec:
     name: letsencrypt-production
     kind: ClusterIssuer
   commonName: "unscfleet.com"
-  dnsNames:
-    - "unscfleet.com"
-    - "*.unscfleet.com"
+  dnsNames: ["unscfleet.com", "*.unscfleet.com"]
