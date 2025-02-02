@@ -17,6 +17,7 @@ spec:
       namespace: volsync-system
     - name: intel-device-plugin-gpu
       namespace: kube-system
+  interval: 30m
   path: ./kubernetes/apps/default/frigate/app
   postBuild:
     substitute:
