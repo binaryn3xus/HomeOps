@@ -23,7 +23,7 @@ spec:
   path: ./kubernetes/apps/default/zigbee/app
   postBuild:
     substitute:
-      APP: *app
+      APP: zigbee2mqtt
       VOLSYNC_CAPACITY: 1Gi
       GATUS_PATH: /#/
   prune: true
