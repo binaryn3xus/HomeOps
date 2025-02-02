@@ -7,7 +7,6 @@ resources:
   - ./externalsecrets.yaml
   - ./frigate-mvc.yaml
   - ./helmrelease.yaml
-  - ../../../../templates/gatus/internal
 configMapGenerator:
   - name: frigate-configmap
     files:
