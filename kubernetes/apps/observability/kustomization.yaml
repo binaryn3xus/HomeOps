@@ -7,7 +7,9 @@ resources:
   - ./grafana/ks.yaml
   - ./kromgo/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
-  #- ./prometheus-operator-crds/ks.yaml TODO: Remove?
+  - ./loki/ks.yaml
+  - ./promtail/ks.yaml
+  - ./unpoller/ks.yaml
 components:
   - ../../flux/components/namespace
   - ../../flux/components/sops
