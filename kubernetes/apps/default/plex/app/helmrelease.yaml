@@ -94,7 +94,6 @@ spec:
       plex:
         className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.unscfleet.com"
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         hosts:
           - host: &host "{{ .Release.Name }}.unscfleet.com"

@@ -1,0 +1,131 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app home-assistant
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      home-assistant:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/onedr0p/home-assistant
+              tag: 2025.1.4@sha256:0d20c912e2c2a1a8f76b22f4689b575b4498c3cc334b807a91ecf82f2cd33094
+            env:
+              TZ: "America/New_York"
+            resources:
+              requests:
+                cpu: 100m
+                memory: 250Mi
+              limits:
+                memory: 1500Mi
+          code:
+            dependsOn: app
+            image:
+              repository: ghcr.io/coder/code-server
+              tag: 4.96.4
+            env:
+              TZ: America/New_York
+            args:
+              - --auth
+              - "none"
+              - --user-data-dir
+              - "/config/.vscode"
+              - --extensions-dir
+              - "/config/.vscode"
+              - "--port"
+              - "80"
+              - /config
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 512Mi
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+
+    service:
+      app:
+        nameOverride: *app
+        controller: home-assistant
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
+        ports:
+          http:
+            port: 8123
+      code:
+        controller: home-assistant
+        ports:
+          http:
+            port: 80
+
+    ingress:
+      home-assistant:
+        className: external
+        hosts:
+          - host: &host "hass.unscfleet.com"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+      code:
+        className: internal
+        hosts:
+          - host: &host-code "hass-code.unscfleet.com"
+            paths:
+              - path: /
+                service:
+                  identifier: code
+                  port: http
+        tls:
+          - hosts:
+              - *host-code
+
+    persistence:
+      config:
+        existingClaim: home-assistant
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/logs
+      tts:
+        type: emptyDir
+        globalMounts:
+          - path: /config/tts
+      tmp:
+        type: emptyDir
