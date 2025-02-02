@@ -11,6 +11,7 @@ resources:
   - ./audiobookshelf/ks.yaml
   - ./discord/ks.yaml
   - ./frigate/ks.yaml
+  - ./guacamole/ks.yaml
   - ./plex/ks.yaml
   - ./echo-server/ks.yaml
   - ./emqx/ks.yaml
