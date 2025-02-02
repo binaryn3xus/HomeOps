@@ -16,7 +16,7 @@ spec:
     - name: volsync
       namespace: volsync-system
   interval: 30m
-  path: ./kubernetes/apps/kube-system/k8sgpt/app
+  path: ./kubernetes/apps/ai-system/k8sgpt/app
   postBuild:
     substitute:
       APP: *app
@@ -44,7 +44,7 @@ spec:
     - name: k8sgpt
       namespace: ai-system
   interval: 30m
-  path: ./kubernetes/apps/kube-system/k8sgpt/resources
+  path: ./kubernetes/apps/ai-system/k8sgpt/resources
   prune: true
   sourceRef:
     kind: GitRepository
