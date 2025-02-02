@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: external-ingress-nginx
+  name: &app external-ingress-nginx
 spec:
   interval: 30m
   chart:
@@ -21,15 +21,12 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  dependsOn:
-    - name: cloudflared
-      namespace: network
   values:
-    fullnameOverride: external-ingress-nginx
+    fullnameOverride: *app
     controller:
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "external.unscfleet.com"
+          external-dns.alpha.kubernetes.io/hostname: &hostname external.unscfleet.com
           lbipam.cilium.io/ips: "10.0.30.32"
         externalTrafficPolicy: Cluster
       ingressClassResource:
@@ -45,6 +42,7 @@ spec:
       config:
         allow-snippet-annotations: true
         annotations-risk-level: Critical
+        block-user-agents: "AdsBot-Google,Amazonbot,anthropic-ai,Applebot-Extended,Bytespider,CCBot,ChatGPT-User,ClaudeBot,Claude-Web,cohere-ai,Diffbot,FacebookBot,FriendlyCrawler,Google-Extended,GoogleOther,GPTBot,img2dataset,omgili,omgilibot,peer39_crawler,peer39_crawler/1.0,PerplexityBot,YouBot," # taken from https://github.com/ai-robots-txt/ai.robots.txt
         client-body-buffer-size: 100M
         client-body-timeout: 120
         client-header-timeout: 120
@@ -76,9 +74,15 @@ spec:
           namespaceSelector:
             any: true
       extraArgs:
-        default-ssl-certificate: "cert-manager/unscfleet-com-staging-tls"
+        default-ssl-certificate: cert-manager/unscfleet-com=production-tls
+        publish-status-address: *hostname
+      terminationGracePeriodSeconds: 120
+      publishService:
+        enabled: false
       resources:
         requests:
           cpu: 100m
         limits:
           memory: 500Mi
+    defaultBackend:
+      enabled: false
