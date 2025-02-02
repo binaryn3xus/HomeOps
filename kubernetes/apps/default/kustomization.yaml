@@ -16,6 +16,7 @@ resources:
   - ./home-assistant/ks.yaml
   - ./minio/ks.yaml
   - ./node-red/ks.yaml
+  - ./sabnzbd/ks.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./zwave-js-ui/ks.yaml
 components:
