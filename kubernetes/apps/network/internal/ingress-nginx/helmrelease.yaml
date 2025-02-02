@@ -26,6 +26,7 @@ spec:
     controller:
       service:
         annotations:
+          external-dns.alpha.kubernetes.io/hostname: &hostname internal.unscfleet.com
           lbipam.cilium.io/ips: "10.0.30.33"
         externalTrafficPolicy: Cluster
       ingressClassResource:
