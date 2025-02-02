@@ -22,13 +22,13 @@ spec:
     remediation:
       retries: 3
   values:
-    fullnameOverride: internal-ingress-nginx
+    fullnameOverride: *app
     controller:
+      replicaCount: 1
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: &hostname internal.unscfleet.com
           lbipam.cilium.io/ips: "10.0.30.33"
-        externalTrafficPolicy: Cluster
       ingressClassResource:
         name: internal
         default: true
@@ -82,3 +82,5 @@ spec:
           cpu: 100m
         limits:
           memory: 500Mi
+    defaultBackend:
+      enabled: false
