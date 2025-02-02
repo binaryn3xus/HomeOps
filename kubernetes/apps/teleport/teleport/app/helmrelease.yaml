@@ -1,0 +1,79 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: teleport
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: teleport-cluster
+      version: 17.2.2
+      interval: 15m
+      sourceRef:
+        kind: HelmRepository
+        name: teleport
+        namespace: flux-system
+
+  values:
+    annotations:
+      ingress:
+        nginx.ingress.kubernetes.io/backend-protocol: "https"
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    auth:
+      annotations:
+        deployment:
+          reloader.stakater.com/auto: "true"
+      teleportConfig:
+        auth_service:
+          client_idle_timeout: 2h
+          client_idle_timeout_message: "Connection closed after 2hours without activity"
+          session_recording: "off"
+    authentication:
+      type: github
+    chartMode: standalone
+    clusterName: teleport.unscfleet.com
+    enterprise: false
+    highAvailability:
+      tls:
+        existingSecretName: "unscfleet-com-production-tls"
+    ingress:
+      enabled: true
+      spec:
+        ingressClassName: external
+    joinParams:
+      method: kubernetes
+      tokenName: kubernetes-token
+    kubeClusterName: HomeOpsCluster
+    log:
+      extraFields: ["timestamp", "level", "component", "caller"]
+      format: text
+      level: INFO
+      output: stderr
+    persistence:
+      enabled: true
+      existingClaimName: teleport
+    podMonitor:
+      additionalLabels:
+        prometheus: default
+      enabled: true
+      interval: 30s
+    podSecurityPolicy:
+      enabled: true
+    proxy:
+      annotations:
+        deployment:
+          reloader.stakater.com/auto: "true"
+      teleportConfig:
+        proxy_service:
+          trust_x_forwarded_for: true
+    proxyListenerMode: multiplex
+    rbac:
+      create: true
+    service:
+      type: ClusterIP
+    serviceAccount:
+      create: true
+    validateConfigOnDeploy: true
