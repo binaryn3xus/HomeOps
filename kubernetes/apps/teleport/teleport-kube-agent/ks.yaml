@@ -9,9 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    #- ../../../../flux/components/gatus/guarded
-    - ../../../../flux/components/volsync
   dependsOn:
     - name: teleport
       namespace: teleport
