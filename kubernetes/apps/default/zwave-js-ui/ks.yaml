@@ -20,10 +20,10 @@ spec:
     - name: emqx
       namespace: default
   interval: 30m
-  path: ./kubernetes/apps/default/zwave/app
+  path: ./kubernetes/apps/default/zwave-js-ui/app
   postBuild:
     substitute:
-      APP: zwave-js-ui
+      APP: *app
       VOLSYNC_CAPACITY: 1Gi
   prune: true
   sourceRef:

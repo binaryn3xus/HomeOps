@@ -14,7 +14,7 @@ resources:
   - ./emqx/ks.yaml
   - ./minio/ks.yaml
   - ./zigbee/ks.yaml
-  - ./zwave/ks.yaml
+  - ./zwave-js-ui/ks.yaml
 components:
   - ../../flux/components/namespace
   - ../../flux/components/sops

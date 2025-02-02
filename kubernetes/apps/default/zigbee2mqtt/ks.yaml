@@ -20,10 +20,10 @@ spec:
     - name: emqx
       namespace: default
   interval: 30m
-  path: ./kubernetes/apps/default/zigbee/app
+  path: ./kubernetes/apps/default/zigbee2mqtt/app
   postBuild:
     substitute:
-      APP: zigbee2mqtt
+      APP: *app
       VOLSYNC_CAPACITY: 1Gi
       GATUS_PATH: /#/
   prune: true
