@@ -26,7 +26,7 @@ spec:
     controller:
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: &hostname external.unscfleet.com
+          external-dns.alpha.kubernetes.io/hostname: &hostname "external.unscfleet.com"
           lbipam.cilium.io/ips: "10.0.30.32"
         externalTrafficPolicy: Cluster
       ingressClassResource:
@@ -74,7 +74,7 @@ spec:
           namespaceSelector:
             any: true
       extraArgs:
-        default-ssl-certificate: cert-manager/unscfleet-com=production-tls
+        default-ssl-certificate: cert-manager/unscfleet-com-production-tls
         publish-status-address: *hostname
       terminationGracePeriodSeconds: 120
       publishService:
