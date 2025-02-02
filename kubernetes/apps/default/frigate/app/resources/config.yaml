@@ -1,0 +1,303 @@
+---
+# yaml-language-server: $schema=https://frigate.unscfleet.com/api/config/schema.json
+logger:
+  default: info
+  logs:
+    frigate.ffmpeg: debug
+
+mqtt:
+  host: emqx.default.svc.cluster.local
+  topic_prefix: frigate
+  user: "{FRIGATE_MQTT_USER}"
+  password: "{FRIGATE_MQTT_PASSWORD}"
+
+database:
+  path: /data/frigate.db
+
+detectors:
+  coral:
+    type: edgetpu
+    device: usb
+
+# Include all cameras by default in Birdseye view
+birdseye:
+  enabled: false
+
+ffmpeg:
+  global_args: ["-hide_banner", "-loglevel", "warning"]
+  hwaccel_args: ["-hwaccel", "vaapi", "-hwaccel_device", "/dev/dri/renderD128", "-hwaccel_output_format", "yuv420p"]
+  output_args:
+    record: preset-record-generic
+
+snapshots:
+  enabled: true
+  timestamp: false
+  bounding_box: true
+  retain:
+    default: 7
+
+record:
+  enabled: true
+  retain:
+    days: 14
+    mode: all
+  events:
+    retain:
+      default: 2
+      mode: active_objects
+
+objects:
+  track: ["person"]
+  filters:
+    person:
+      min_area: 5000
+      max_area: 100000
+      min_score: 0.7
+      threshold: 0.75
+
+go2rtc:
+  streams:
+    frigate_livingroom_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.30:554/cam/realmonitor?channel=1&subtype=0
+    frigate_livingroom_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.30:554/cam/realmonitor?channel=1&subtype=1
+    frigate_leoroom_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.31:554/cam/realmonitor?channel=1&subtype=0
+    frigate_leoroom_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.31:554/cam/realmonitor?channel=1&subtype=1
+    frigate_garage_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.32:554/cam/realmonitor?channel=1&subtype=0
+    frigate_garage_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.32:554/cam/realmonitor?channel=1&subtype=1
+    frigate_frontporch_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.33:554/cam/realmonitor?channel=1&subtype=0
+    frigate_frontporch_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.33:554/cam/realmonitor?channel=1&subtype=1
+    frigate_backpatio_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.34:554/cam/realmonitor?channel=1&subtype=0
+    frigate_backpatio_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.34:554/cam/realmonitor?channel=1&subtype=1
+    frigate_backyard_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.35:554/cam/realmonitor?channel=1&subtype=0
+    frigate_backyard_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.35:554/cam/realmonitor?channel=1&subtype=1
+    frigate_eastside_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.36:554/cam/realmonitor?channel=1&subtype=0
+    frigate_eastside_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.36:554/cam/realmonitor?channel=1&subtype=1
+    frigate_driveway_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.37:554/cam/realmonitor?channel=1&subtype=0
+    frigate_driveway_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.37:554/cam/realmonitor?channel=1&subtype=1
+    frigate_office_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=0
+    frigate_office_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=1
+    frigate_unifi_doorbell_hq: rtsp://10.0.10.1:7447/w4UzOd0saveEXQqN
+    frigate_unifi_doorbell_mq: rtsp://10.0.10.1:7447/dMjvqI54GZceSviO
+    frigate_unifi_doorbell_package: rtsp://10.0.10.1:7447/CSc5p7GY9hUIiI1X
+
+cameras:
+
+  Garage:
+    birdseye:
+      enabled: false
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_garage_lq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["detect"]
+        - path: rtsp://localhost:8554/frigate_garage_hq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["record"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 50
+    live:
+      stream_name: frigate_livingroom_hq
+
+  Front_Porch:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_frontporch_lq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["detect"]
+        - path: rtsp://localhost:8554/frigate_frontporch_hq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["record"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 50
+    motion:
+      mask: ["0.001,0.717,0.011,0.617,0.229,0.254,0.284,0.231,0.511,0.125,0.522,0.114,0.835,0.189,0.997,0.155,0.999,0.001,0,0"]
+    live:
+      stream_name: frigate_frontporch_hq
+
+  Back_Patio:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_backpatio_lq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["detect"]
+        - path: rtsp://localhost:8554/frigate_backpatio_hq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["record"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 30
+    motion:
+      mask:
+        - "0.974,0.697,0.905,0.272,0.649,0.105,0.462,0.1,0.456,0,1,0.002,0.998,0.701"
+        - "0.316,0.997,0.171,0.685,0.078,0.359,0.316,0.128,0.308,0,0.001,0.001,0.001,0.998"
+    objects:
+      track: ["person","cat"]
+    live:
+      stream_name: frigate_backpatio_hq
+
+  Back_Yard:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_backyard_hq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["detect"]
+        - path: rtsp://localhost:8554/frigate_backyard_hq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["record"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 30
+    motion:
+      mask: ["1,1,0.968,0.395,0.801,0.045,0.655,0.009,0.645,0.045,0.482,0.046,0.158,0.219,0.001,0.41,0,0,0.999,0"]
+    objects:
+      filters:
+        person:
+          # To stop the table/chairs being triggered as a person in certain lighting
+          mask:
+            - "0.113,0.667,0.23,0.527,0.27,0.618,0.207,0.803"
+            - "0.309,0.703,0.321,0.932,0.443,0.894,0.38,0.679"
+    live:
+      stream_name: frigate_backyard_hq
+
+  East_Side:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_eastside_lq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["detect"]
+        - path: rtsp://localhost:8554/frigate_eastside_hq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["record"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 50
+    motion:
+      mask: ["0.175,0,0.232,0.22,1,0.253,1,0"]
+    live:
+      stream_name: frigate_eastside_hq
+
+  Driveway:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_driveway_lq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["detect"]
+        - path: rtsp://localhost:8554/frigate_driveway_hq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["record"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 50
+    motion:
+      mask: ["0,0.395,0.275,0.251,0.591,0.27,1,0.707,1,0,0,0"]
+    live:
+      stream_name: frigate_driveway_hq
+
+  Office:
+    birdseye:
+      enabled: false
+    record:
+      enabled: false
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_office_hq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["detect"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 50
+    # Detect something wild to hopefully never trigger
+    objects:
+      track: ["giraffe"]
+    live:
+      stream_name: frigate_office_hq
+
+  Living_Room:
+    birdseye:
+      enabled: false
+    record:
+      enabled: false
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_livingroom_hq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["detect"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 50
+    snapshots:
+      enabled: true
+      retain:
+        default: 10
+    # Detect something wild to hopefully never trigger
+    objects:
+      track: ["giraffe"]
+    live:
+      stream_name: frigate_livingroom_hq
+
+  Leo_Room:
+    birdseye:
+      enabled: false
+    # record:
+    #   enabled: false
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_leoroom_hq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["detect"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 50
+    # Detect something wild to hopefully never trigger
+    objects:
+      track: ["giraffe"]
+    live:
+      stream_name: frigate_leoroom_hq
+
+  Unifi_Doorbell:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_unifi_doorbell_mq?video=copy
+          input_args: ["-rtsp_transport", "tcp"]
+          roles: ["detect"]
+        - path: rtsp://localhost:8554/frigate_unifi_doorbell_hq?video=copy
+          input_args: ["-rtsp_transport", "tcp"]
+          roles: ["record"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 50
+    motion:
+       mask: ["0,0.424,0.001,0.582,0.327,0.598,0.43,0.585,0.775,0.585,0.78,0.47"]
+    objects:
+      track: ["person"]
+    live:
+      stream_name: frigate_unifi_doorbell_hq
+
+  Unifi_Doorbell_Package:
+    birdseye:
+      enabled: false
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_unifi_doorbell_package?video=copy
+          input_args: ["-rtsp_transport", "tcp"]
+          roles: ["detect"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 50
+    # Detect something wild to hopefully never trigger
+    objects:
+      track: ["giraffe"]
+    live:
+      stream_name: frigate_unifi_doorbell_package

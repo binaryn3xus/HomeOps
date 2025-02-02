@@ -1,0 +1,123 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app frigate
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.6.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: emqx
+      namespace: default
+    - name: intel-device-plugin-gpu
+      namespace: kube-system
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: volsync
+  values:
+    controllers:
+      frigate:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/blakeblackshear/frigate
+              tag: 0.14.1
+            env:
+              TZ: America/New_York
+              LIBVA_DRIVER_NAME: i965
+            envFrom:
+              - secretRef:
+                  name: frigate-secret
+            securityContext:
+              privileged: true
+            resources:
+              requests:
+                cpu: 1000m
+                memory: 2Gi
+                gpu.intel.com/i915: "1"
+              limits:
+                gpu.intel.com/i915: "1"
+                memory: 8Gi
+        pod:
+          nodeSelector:
+            google.feature.node.kubernetes.io/coral: "true"
+            intel.feature.node.kubernetes.io/gpu: "true"
+          priorityClassName: high-priority
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              accessMode: ReadWriteOnce
+              size: 5Gi
+              storageClass: ceph-block
+              globalMounts:
+                - path: /data
+    service:
+      app:
+        controller: frigate
+        annotations:
+          teleport.dev/name: *app
+        labels:
+          teleport: enabled
+        ports:
+          http:
+            port: 5000
+          rtsp:
+            port: 8554
+    ingress:
+      frigate:
+        className: internal
+        hosts:
+          - host: &host "{{ .Release.Name }}.unscfleet.com"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+    persistence:
+      config-file:
+        type: configMap
+        name: frigate-configmap
+        globalMounts:
+          - path: /config/config.yml
+            subPath: config.yaml
+            readOnly: false
+      cache:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 4Gi
+        globalMounts:
+          - path: /dev/shm
+      usb:
+        type: hostPath
+        hostPath: /dev/bus/usb
+        hostPathType: Directory
+        globalMounts:
+          - path: /dev/bus/usb
+      media:
+        existingClaim: frigate
