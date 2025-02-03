@@ -1,198 +1,100 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
 ---
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: v1.9.2
+talosVersion: v1.9.3
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.32.1
 
-clusterName: &cluster home-kubernetes
+clusterName: kubernetes
 endpoint: https://10.0.30.30:6443
+
 clusterPodNets:
   - "10.69.0.0/16"
 clusterSvcNets:
   - "10.96.0.0/16"
+
 additionalApiServerCertSans: &sans
   - "10.0.30.30"
-  - 127.0.0.1 # KubePrism
+  - "127.0.0.1"
 additionalMachineCertSans: *sans
+
+# Disable built-in Flannel to use Cilium
 cniConfig:
   name: none
 
 nodes:
   - hostname: "fleetcom-node1"
     ipAddress: "10.0.30.11"
-    installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/c6e79f26b414c5323fd87d853fd72654e3b3561d6cd1950a9c0aa2ca6e0ccf0c
+    installDiskSelector:
+      serial: "009E074C130600231951"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/c4bb4fd007801d9db1492d85067f5624d9df03e6b27ac61e5bed9837dea5cb99
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: b8:85:84:ad:fc:89
+          hardwareAddr: "58:47:ca:7a:b8:31"
+        dhcp: false
+        addresses:
+          - "10.0.30.11/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.0.30.1"
         mtu: 1500
-        dhcp: true
         vip:
-          ip: 10.0.30.30
+          ip: "10.0.30.30"
   - hostname: "fleetcom-node2"
     ipAddress: "10.0.30.12"
-    installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/c6e79f26b414c5323fd87d853fd72654e3b3561d6cd1950a9c0aa2ca6e0ccf0c
+    installDiskSelector:
+      serial: "S64ANJ0RA71998K"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/c4bb4fd007801d9db1492d85067f5624d9df03e6b27ac61e5bed9837dea5cb99
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: b8:85:84:bf:db:f3
+          hardwareAddr: "58:47:ca:7a:ae:49"
+        dhcp: false
+        addresses:
+          - "10.0.30.12/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.0.30.1"
         mtu: 1500
-        dhcp: true
         vip:
-          ip: 10.0.30.30
+          ip: "10.0.30.30"
   - hostname: "fleetcom-node3"
     ipAddress: "10.0.30.13"
-    installDisk: "/dev/nvme0n1"
-    talosImageURL: factory.talos.dev/installer/c6e79f26b414c5323fd87d853fd72654e3b3561d6cd1950a9c0aa2ca6e0ccf0c
+    installDiskSelector:
+      serial: "YT20230100813"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/c4bb4fd007801d9db1492d85067f5624d9df03e6b27ac61e5bed9837dea5cb99
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: 14:b3:1f:28:a6:b4
+          hardwareAddr: "58:47:ca:7a:b2:89"
+        dhcp: false
+        addresses:
+          - "10.0.30.13/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "10.0.30.1"
         mtu: 1500
-        dhcp: true
         vip:
-          ip: 10.0.30.30
-  - hostname: "fleetcom-node4"
-    ipAddress: "10.0.30.14"
-    installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/c6e79f26b414c5323fd87d853fd72654e3b3561d6cd1950a9c0aa2ca6e0ccf0c
-    controlPlane: false
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: ac:e2:d3:17:9d:0e
-        mtu: 1500
-        dhcp: true
-  - hostname: "fleetcom-node5"
-    ipAddress: "10.0.30.15"
-    installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/c6e79f26b414c5323fd87d853fd72654e3b3561d6cd1950a9c0aa2ca6e0ccf0c
-    controlPlane: false
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: ac:e2:d3:0d:a3:e7
-        mtu: 1500
-        dhcp: true
-  - hostname: "fleetcom-node6"
-    ipAddress: "10.0.30.16"
-    installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/c6e79f26b414c5323fd87d853fd72654e3b3561d6cd1950a9c0aa2ca6e0ccf0c
-    controlPlane: false
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: 6c:2b:59:eb:e3:be
-        mtu: 1500
-        dhcp: true
+          ip: "10.0.30.30"
 
+# Global patches
 patches:
-  # Configure containerd
-  - |-
-    machine:
-      files:
-        - op: create
-          path: /etc/cri/conf.d/20-customization.part
-          content: |-
-            [plugins."io.containerd.grpc.v1.cri"]
-              enable_unprivileged_ports = true
-              enable_unprivileged_icmp = true
-            [plugins."io.containerd.grpc.v1.cri".containerd]
-              discard_unpacked_layers = false
-            [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
-              discard_unpacked_layers = false
+  - "@./patches/global/machine-files.yaml"
+  - "@./patches/global/machine-kubelet.yaml"
+  - "@./patches/global/machine-network.yaml"
+  - "@./patches/global/machine-sysctls.yaml"
+  - "@./patches/global/machine-time.yaml"
 
-  # Enable cluster discovery
-  - |-
-    cluster:
-      discovery:
-        registries:
-          kubernetes:
-            disabled: false
-          service:
-            disabled: false
-
-  # Configure kubelet
-  - |-
-    machine:
-      kubelet:
-        nodeIP:
-          validSubnets:
-            - "10.0.30.0/24"
-
-  # Force nameserver
-  - |-
-    machine:
-      network:
-        nameservers:
-          - 10.0.30.1
-
-  # Configure NTP
-  - |-
-    machine:
-      time:
-        disabled: false
-        servers:
-          - 10.0.30.1
-
-  # Custom sysctl settings
-  - |-
-    machine:
-      sysctls:
-        fs.inotify.max_queued_events: 65536
-        fs.inotify.max_user_watches: 524288
-        fs.inotify.max_user_instances: 8192
-
-  # Mount openebs-hostpath in kubelet
-  - |-
-    machine:
-      kubelet:
-        extraMounts:
-          - destination: /var/openebs/local
-            type: bind
-            source: /var/openebs/local
-            options:
-              - bind
-              - rshared
-              - rw
-
-
+# Controller patches
 controlPlane:
   patches:
-    # Cluster configuration
-    - |-
-      cluster:
-        allowSchedulingOnMasters: true
-        controllerManager:
-          extraArgs:
-            bind-address: 0.0.0.0
-        proxy:
-          disabled: true
-        scheduler:
-          extraArgs:
-            bind-address: 0.0.0.0
-
-    # ETCD configuration
-    - |-
-      cluster:
-        etcd:
-          extraArgs:
-            listen-metrics-urls: http://0.0.0.0:2381
-          advertisedSubnets:
-            - "10.0.30.0/24"
-
-    # Disable default API server admission plugins.
-    - |-
-      - op: remove
-        path: /cluster/apiServer/admissionControl
-
-    # Enable K8s Talos API Access
-    - |-
-      machine:
-        features:
-          kubernetesTalosAPIAccess:
-            enabled: true
-            allowedRoles:
-              - os:admin
-
+    - "@./patches/controller/admission-controller-patch.yaml"
+    - "@./patches/controller/cluster.yaml"
 

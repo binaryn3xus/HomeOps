@@ -2,15 +2,19 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: external-secrets-azure
+  name: &app external-secrets-azure
+  namespace: &namespace external-secrets
 spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  interval: 30m
   path: ./kubernetes/apps/external-secrets/azure-keyvault/store
-  prune: true # revert to true
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  wait: true
-  interval: 30m
-  retryInterval: 1m
+  targetNamespace: *namespace
   timeout: 5m
+  wait: true

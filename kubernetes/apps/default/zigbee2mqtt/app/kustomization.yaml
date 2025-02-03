@@ -2,9 +2,8 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: default
 resources:
-  - ./externalsecrets.yaml
+  - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ../../../../templates/gatus/internal
-  - ../../../../templates/volsync
+generatorOptions:
+  disableNameSuffixHash: true

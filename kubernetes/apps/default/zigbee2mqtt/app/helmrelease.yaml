@@ -4,7 +4,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &app zigbee2mqtt
-  namespace: default
 spec:
   interval: 30m
   chart:
@@ -61,7 +60,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: ember
             envFrom:
               - secretRef:
-                  name: zigbee2mqtt-secret
+                  name: zigbee-secret
             probes:
               liveness:
                 enabled: true

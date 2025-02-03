@@ -93,7 +93,7 @@ spec:
       app:
         className: internal
         hosts:
-          - host: &host "{{ .Release.Name }}.unscfleet.com"
+          - host: &host "minio.unscfleet.com"
             paths:
               - path: /
                 service:

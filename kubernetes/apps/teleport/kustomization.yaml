@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: teleport
@@ -6,9 +7,8 @@ resources:
   - ./teleport/ks.yaml
   - ./teleport-kube-agent/ks.yaml
 components:
-  #- ../../flux/components/alerts
-  - ../../flux/components/sops
   - ../../flux/components/namespace
+  - ../../flux/components/sops
 patches:
   - # Add the name to the namespace
     patch: |

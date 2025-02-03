@@ -1,12 +1,13 @@
 ---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: default
 resources:
-  # Pre Flux-Kustomizations
+  # Shared PVCs
   - ./downloads-pvc.yaml
   - ./media-pvc.yaml
-  # Flux-Kustomizations
+  # Apps
   - ./audiobookshelf/ks.yaml
   - ./bazarr/ks.yaml
   - ./discord/ks.yaml
@@ -17,7 +18,6 @@ resources:
   - ./it-tools/ks.yaml
   - ./minio/ks.yaml
   - ./node-red/ks.yaml
-  - ./open-webui/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
@@ -30,9 +30,8 @@ resources:
   - ./zigbee2mqtt/ks.yaml
   - ./zwave-js-ui/ks.yaml
 components:
-  #- ../../flux/components/alerts
-  - ../../flux/components/sops
   - ../../flux/components/namespace
+  - ../../flux/components/sops
 patches:
   - # Add the name to the namespace
     patch: |

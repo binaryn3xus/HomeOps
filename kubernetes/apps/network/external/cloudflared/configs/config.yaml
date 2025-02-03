@@ -1,0 +1,14 @@
+---
+originRequest:
+  originServerName: "external.unscfleet.com"
+
+ingress:
+  - hostname: "unscfleet.com"
+    service: https://external-ingress-nginx-controller.network.svc.cluster.local:443
+    originRequest:
+      noTLSVerify: true
+  - hostname: "*.unscfleet.com"
+    service: https://external-ingress-nginx-controller.network.svc.cluster.local:443
+    originRequest:
+      noTLSVerify: true
+  - service: http_status:404

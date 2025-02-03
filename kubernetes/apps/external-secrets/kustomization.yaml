@@ -6,8 +6,6 @@ namespace: external-secrets
 resources:
   - ./external-secrets/ks.yaml
   - ./azure-keyvault/ks.yaml
-  #- ./bitwarden/ks.yaml #TODO: Fix this
 components:
-  #- ../../flux/components/alerts
-  - ../../flux/components/sops
   - ../../flux/components/namespace
+  - ../../flux/components/sops

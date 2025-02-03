@@ -1,8 +1,5 @@
 ---
 instance:
-  distribution:
-    # renovate: datasource=github-releases depName=fluxcd/flux2
-    version: 2.4.0
   cluster:
     networkPolicy: false
   components:
@@ -12,22 +9,6 @@ instance:
     - notification-controller
   sync:
     kind: GitRepository
-    url: https://github.com/binaryn3xus/homeops
-    ref: refs/heads/main
+    url: "https://github.com/binaryn3xus/HomeOps.git"
+    ref: "refs/heads/main"
     path: kubernetes/flux/cluster
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: flux
-  kustomize:
-    patches:
-      - # Add Sops decryption to 'flux-system' Kustomization
-        patch: |
-          - op: add
-            path: /spec/decryption
-            value:
-              provider: sops
-              secretRef:
-                name: sops-age
-        target:
-          group: kustomize.toolkit.fluxcd.io
-          kind: Kustomization

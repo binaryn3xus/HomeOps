@@ -4,7 +4,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: emqx
-  namespace: default
 spec:
   interval: 15m
   chart:
@@ -38,7 +37,7 @@ spec:
       type: LoadBalancer
       externalTrafficPolicy: Local
       annotations:
-        io.cilium/lb-ipam-ips: "${SVC_EMQX_ADDR}"
+        io.cilium/lb-ipam-ips: "10.0.30.35"
     ingress:
       dashboard:
         enabled: true

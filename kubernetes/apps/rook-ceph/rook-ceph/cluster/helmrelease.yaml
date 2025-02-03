@@ -4,7 +4,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: rook-ceph-cluster
-  namespace: rook-ceph
 spec:
   interval: 15m
   chart:
@@ -64,22 +63,13 @@ spec:
         nodes:
           - name: fleetcom-node1
             devices:
-              - name: "/dev/disk/by-id/nvme-SPCC_M.2_PCIe_SSD_AA221223NV01KG03817"
+              - name: "/dev/nvme1n1"
           - name: fleetcom-node2
             devices:
-              - name: "/dev/disk/by-id/nvme-SPCC_M.2_PCIe_SSD_YT20230100813"
+              - name: "/dev/nvme1n1"
           - name: fleetcom-node3
             devices:
-              - name: "/dev/disk/by-id/ata-SanDisk_SSD_PLUS_1000GB_224002803991"
-          - name: fleetcom-node4
-            devices:
-              - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_1TB_S64ANJ0RA66136P"
-          - name: fleetcom-node5
-            devices:
-              - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_1TB_S64ANJ0RA72021K"
-          - name: fleetcom-node6
-            devices:
-              - name: "/dev/disk/by-id/nvme-Samsung_SSD_980_1TB_S64ANJ0RA71998K"
+              - name: "/dev/nvme1n1"
       resources:
         mgr:
           requests:
@@ -110,7 +100,7 @@ spec:
         spec:
           failureDomain: host
           replicated:
-            size: 6
+            size: 3
         storageClass:
           enabled: true
           name: ceph-block
@@ -139,11 +129,11 @@ spec:
         spec:
           metadataPool:
             replicated:
-              size: 6
+              size: 3
           dataPools:
             - failureDomain: host
               replicated:
-                size: 6
+                size: 3
               name: data0
           metadataServer:
             activeCount: 1
