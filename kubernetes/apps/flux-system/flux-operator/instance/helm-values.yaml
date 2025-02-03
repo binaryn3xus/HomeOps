@@ -10,5 +10,5 @@ instance:
   sync:
     kind: GitRepository
     url: "https://github.com/binaryn3xus/HomeOps.git"
-    ref: "refs/heads/NewHardware"
+    ref: "refs/heads/main"
     path: kubernetes/flux/cluster
