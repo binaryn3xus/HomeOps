@@ -58,8 +58,8 @@ go2rtc:
   streams:
     frigate_livingroom_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.30:554/cam/realmonitor?channel=1&subtype=0
     frigate_livingroom_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.30:554/cam/realmonitor?channel=1&subtype=1
-    # frigate_leoroom_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.31:554/cam/realmonitor?channel=1&subtype=0
-    # frigate_leoroom_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.31:554/cam/realmonitor?channel=1&subtype=1
+    frigate_leoroom_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.31:554/cam/realmonitor?channel=1&subtype=0
+    frigate_leoroom_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.31:554/cam/realmonitor?channel=1&subtype=1
     frigate_garage_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.32:554/cam/realmonitor?channel=1&subtype=0
     frigate_garage_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.32:554/cam/realmonitor?channel=1&subtype=1
     frigate_frontporch_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.33:554/cam/realmonitor?channel=1&subtype=0
@@ -74,9 +74,9 @@ go2rtc:
     frigate_driveway_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.37:554/cam/realmonitor?channel=1&subtype=1
     # frigate_office_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=0
     # frigate_office_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=1
-    # frigate_unifi_doorbell_hq: rtsps://10.0.10.1:7441/w4UzOd0saveEXQqN?enableSrtp
-    # frigate_unifi_doorbell_mq: rtsps://10.0.10.1:7441/dMjvqI54GZceSviO?enableSrtp
-    # frigate_unifi_doorbell_package: rtsps://10.0.10.1:7441/CSc5p7GY9hUIiI1X?enableSrtp
+    frigate_unifi_doorbell_hq: rtsps://10.0.10.1:7441/w4UzOd0saveEXQqN?enableSrtp
+    frigate_unifi_doorbell_mq: rtsps://10.0.10.1:7441/dMjvqI54GZceSviO?enableSrtp
+    frigate_unifi_doorbell_package: rtsps://10.0.10.1:7441/CSc5p7GY9hUIiI1X?enableSrtp
 
 cameras:
 
@@ -243,60 +243,60 @@ cameras:
     live:
       stream_name: frigate_livingroom_hq
 
-  # Leo_Room:
-  #   birdseye:
-  #     enabled: false
-  #   # record:
-  #   #   enabled: false
-  #   ffmpeg:
-  #     inputs:
-  #       - path: rtsp://localhost:8554/frigate_leoroom_hq?video=copy
-  #         input_args: preset-rtsp-restream
-  #         roles: ["detect"]
-  #   detect:
-  #     fps: 2
-  #     stationary:
-  #       threshold: 50
-  #   # Detect something wild to hopefully never trigger
-  #   objects:
-  #     track: ["giraffe"]
-  #   live:
-  #     stream_name: frigate_leoroom_hq
+  Leo_Room:
+    birdseye:
+      enabled: false
+    # record:
+    #   enabled: false
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_leoroom_hq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["detect"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 50
+    # Detect something wild to hopefully never trigger
+    objects:
+      track: ["giraffe"]
+    live:
+      stream_name: frigate_leoroom_hq
 
-  # Unifi_Doorbell:
-  #   ffmpeg:
-  #     inputs:
-  #       - path: rtsp://localhost:8554/frigate_unifi_doorbell_mq?video=copy
-  #         input_args: ["-rtsp_transport", "tcp"]
-  #         roles: ["detect"]
-  #       - path: rtsp://localhost:8554/frigate_unifi_doorbell_hq?video=copy
-  #         input_args: ["-rtsp_transport", "tcp"]
-  #         roles: ["record"]
-  #   detect:
-  #     fps: 2
-  #     stationary:
-  #       threshold: 50
-  #   motion:
-  #      mask: ["0,0.424,0.001,0.582,0.327,0.598,0.43,0.585,0.775,0.585,0.78,0.47"]
-  #   objects:
-  #     track: ["person"]
-  #   live:
-  #     stream_name: frigate_unifi_doorbell_hq
+  Unifi_Doorbell:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_unifi_doorbell_mq?video=copy
+          input_args: ["-rtsp_transport", "tcp"]
+          roles: ["detect"]
+        - path: rtsp://localhost:8554/frigate_unifi_doorbell_hq?video=copy
+          input_args: ["-rtsp_transport", "tcp"]
+          roles: ["record"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 50
+    motion:
+       mask: ["0,0.424,0.001,0.582,0.327,0.598,0.43,0.585,0.775,0.585,0.78,0.47"]
+    objects:
+      track: ["person"]
+    live:
+      stream_name: frigate_unifi_doorbell_hq
 
-  # Unifi_Doorbell_Package:
-  #   birdseye:
-  #     enabled: false
-  #   ffmpeg:
-  #     inputs:
-  #       - path: rtsp://localhost:8554/frigate_unifi_doorbell_package?video=copy
-  #         input_args: ["-rtsp_transport", "tcp"]
-  #         roles: ["detect"]
-  #   detect:
-  #     fps: 2
-  #     stationary:
-  #       threshold: 50
-  #   # Detect something wild to hopefully never trigger
-  #   objects:
-  #     track: ["giraffe"]
-  #   live:
-  #     stream_name: frigate_unifi_doorbell_package
+  Unifi_Doorbell_Package:
+    birdseye:
+      enabled: false
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_unifi_doorbell_package?video=copy
+          input_args: ["-rtsp_transport", "tcp"]
+          roles: ["detect"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 50
+    # Detect something wild to hopefully never trigger
+    objects:
+      track: ["giraffe"]
+    live:
+      stream_name: frigate_unifi_doorbell_package
