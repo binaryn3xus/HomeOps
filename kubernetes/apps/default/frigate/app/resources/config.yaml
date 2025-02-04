@@ -56,8 +56,8 @@ objects:
 
 go2rtc:
   streams:
-    # frigate_livingroom_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.30:554/cam/realmonitor?channel=1&subtype=0
-    # frigate_livingroom_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.30:554/cam/realmonitor?channel=1&subtype=1
+    frigate_livingroom_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.30:554/cam/realmonitor?channel=1&subtype=0
+    frigate_livingroom_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.30:554/cam/realmonitor?channel=1&subtype=1
     # frigate_leoroom_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.31:554/cam/realmonitor?channel=1&subtype=0
     # frigate_leoroom_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.31:554/cam/realmonitor?channel=1&subtype=1
     # frigate_garage_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.32:554/cam/realmonitor?channel=1&subtype=0
@@ -72,8 +72,8 @@ go2rtc:
     frigate_eastside_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.36:554/cam/realmonitor?channel=1&subtype=1
     frigate_driveway_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.37:554/cam/realmonitor?channel=1&subtype=0
     frigate_driveway_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.37:554/cam/realmonitor?channel=1&subtype=1
-    # frigate_office_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=0
-    # frigate_office_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=1
+    frigate_office_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=0
+    frigate_office_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=1
     # frigate_unifi_doorbell_hq: rtsps://10.0.10.1:7441/w4UzOd0saveEXQqN?enableSrtp
     # frigate_unifi_doorbell_mq: rtsps://10.0.10.1:7441/dMjvqI54GZceSviO?enableSrtp
     # frigate_unifi_doorbell_package: rtsps://10.0.10.1:7441/CSc5p7GY9hUIiI1X?enableSrtp
@@ -199,49 +199,49 @@ cameras:
     live:
       stream_name: frigate_driveway_hq
 
-  # Office:
-  #   birdseye:
-  #     enabled: false
-  #   record:
-  #     enabled: false
-  #   ffmpeg:
-  #     inputs:
-  #       - path: rtsp://localhost:8554/frigate_office_hq?video=copy
-  #         input_args: preset-rtsp-restream
-  #         roles: ["detect"]
-  #   detect:
-  #     fps: 2
-  #     stationary:
-  #       threshold: 50
-  #   # Detect something wild to hopefully never trigger
-  #   objects:
-  #     track: ["giraffe"]
-  #   live:
-  #     stream_name: frigate_office_hq
+  Office:
+    birdseye:
+      enabled: false
+    record:
+      enabled: false
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_office_hq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["detect"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 50
+    # Detect something wild to hopefully never trigger
+    objects:
+      track: ["giraffe"]
+    live:
+      stream_name: frigate_office_hq
 
-  # Living_Room:
-  #   birdseye:
-  #     enabled: false
-  #   record:
-  #     enabled: false
-  #   ffmpeg:
-  #     inputs:
-  #       - path: rtsp://localhost:8554/frigate_livingroom_hq?video=copy
-  #         input_args: preset-rtsp-restream
-  #         roles: ["detect"]
-  #   detect:
-  #     fps: 2
-  #     stationary:
-  #       threshold: 50
-  #   snapshots:
-  #     enabled: true
-  #     retain:
-  #       default: 10
-  #   # Detect something wild to hopefully never trigger
-  #   objects:
-  #     track: ["giraffe"]
-  #   live:
-  #     stream_name: frigate_livingroom_hq
+  Living_Room:
+    birdseye:
+      enabled: false
+    record:
+      enabled: false
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_livingroom_hq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["detect"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 50
+    snapshots:
+      enabled: true
+      retain:
+        default: 10
+    # Detect something wild to hopefully never trigger
+    objects:
+      track: ["giraffe"]
+    live:
+      stream_name: frigate_livingroom_hq
 
   # Leo_Room:
   #   birdseye:
