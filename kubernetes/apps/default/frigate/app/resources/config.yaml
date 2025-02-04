@@ -25,7 +25,7 @@ birdseye:
 
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "trace"]
-  hwaccel_args: preset-intel-qsv-h264
+  hwaccel_args: ["-hwaccel", "qsv", "-qsv_device", "/dev/dri/renderD128", "-hwaccel_output_format", "qsv"]
   output_args:
     record: preset-record-generic
 

@@ -38,7 +38,6 @@ spec:
               tag: 0.14.1
             env:
               TZ: America/New_York
-              LIBVA_DRIVER_NAME: i965
             envFrom:
               - secretRef:
                   name: frigate-secret
@@ -104,6 +103,12 @@ spec:
         sizeLimit: 4Gi
         globalMounts:
           - path: /dev/shm
+      dri:
+        type: hostPath
+        hostPath: /dev/dri
+        hostPathType: Directory
+        globalMounts:
+          - path: /dev/dri
       usb:
         type: hostPath
         hostPath: /dev/bus/usb
