@@ -1,7 +1,7 @@
 ---
 # yaml-language-server: $schema=https://frigate.unscfleet.com/api/config/schema.json
 logger:
-  default: debug
+  default: info
   logs:
     frigate.ffmpeg: debug
 
@@ -24,8 +24,7 @@ birdseye:
   enabled: false
 
 ffmpeg:
-  global_args: ["-hide_banner", "-loglevel", "trace"]
-  #hwaccel_args: preset-intel-qsv-h264
+  global_args: ["-hide_banner", "-loglevel", "warning"]
   output_args:
     record: preset-record-generic
 
