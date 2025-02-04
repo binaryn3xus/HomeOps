@@ -1,7 +1,7 @@
 ---
 # yaml-language-server: $schema=https://frigate.unscfleet.com/api/config/schema.json
 logger:
-  default: info
+  default: debug
   logs:
     frigate.ffmpeg: debug
 
