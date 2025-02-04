@@ -62,10 +62,10 @@ go2rtc:
     # frigate_leoroom_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.31:554/cam/realmonitor?channel=1&subtype=1
     # frigate_garage_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.32:554/cam/realmonitor?channel=1&subtype=0
     # frigate_garage_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.32:554/cam/realmonitor?channel=1&subtype=1
-    # frigate_frontporch_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.33:554/cam/realmonitor?channel=1&subtype=0
-    # frigate_frontporch_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.33:554/cam/realmonitor?channel=1&subtype=1
-    # frigate_backpatio_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.34:554/cam/realmonitor?channel=1&subtype=0
-    # frigate_backpatio_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.34:554/cam/realmonitor?channel=1&subtype=1
+    frigate_frontporch_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.33:554/cam/realmonitor?channel=1&subtype=0
+    frigate_frontporch_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.33:554/cam/realmonitor?channel=1&subtype=1
+    frigate_backpatio_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.34:554/cam/realmonitor?channel=1&subtype=0
+    frigate_backpatio_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.34:554/cam/realmonitor?channel=1&subtype=1
     frigate_backyard_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.35:554/cam/realmonitor?channel=1&subtype=0
     frigate_backyard_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.35:554/cam/realmonitor?channel=1&subtype=1
     frigate_eastside_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.36:554/cam/realmonitor?channel=1&subtype=0
@@ -98,45 +98,45 @@ cameras:
   #   live:
   #     stream_name: frigate_livingroom_hq
 
-  # Front_Porch:
-  #   ffmpeg:
-  #     inputs:
-  #       - path: rtsp://localhost:8554/frigate_frontporch_lq?video=copy
-  #         input_args: preset-rtsp-restream
-  #         roles: ["detect"]
-  #       - path: rtsp://localhost:8554/frigate_frontporch_hq?video=copy
-  #         input_args: preset-rtsp-restream
-  #         roles: ["record"]
-  #   detect:
-  #     fps: 2
-  #     stationary:
-  #       threshold: 50
-  #   motion:
-  #     mask: ["0.001,0.717,0.011,0.617,0.229,0.254,0.284,0.231,0.511,0.125,0.522,0.114,0.835,0.189,0.997,0.155,0.999,0.001,0,0"]
-  #   live:
-  #     stream_name: frigate_frontporch_hq
+  Front_Porch:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_frontporch_lq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["detect"]
+        - path: rtsp://localhost:8554/frigate_frontporch_hq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["record"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 50
+    motion:
+      mask: ["0.001,0.717,0.011,0.617,0.229,0.254,0.284,0.231,0.511,0.125,0.522,0.114,0.835,0.189,0.997,0.155,0.999,0.001,0,0"]
+    live:
+      stream_name: frigate_frontporch_hq
 
-  # Back_Patio:
-  #   ffmpeg:
-  #     inputs:
-  #       - path: rtsp://localhost:8554/frigate_backpatio_lq?video=copy
-  #         input_args: preset-rtsp-restream
-  #         roles: ["detect"]
-  #       - path: rtsp://localhost:8554/frigate_backpatio_hq?video=copy
-  #         input_args: preset-rtsp-restream
-  #         roles: ["record"]
-  #   detect:
-  #     fps: 2
-  #     stationary:
-  #       threshold: 30
-  #   motion:
-  #     mask:
-  #       - "0.974,0.697,0.905,0.272,0.649,0.105,0.462,0.1,0.456,0,1,0.002,0.998,0.701"
-  #       - "0.316,0.997,0.171,0.685,0.078,0.359,0.316,0.128,0.308,0,0.001,0.001,0.001,0.998"
-  #   objects:
-  #     track: ["person","cat"]
-  #   live:
-  #     stream_name: frigate_backpatio_hq
+  Back_Patio:
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_backpatio_lq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["detect"]
+        - path: rtsp://localhost:8554/frigate_backpatio_hq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["record"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 30
+    motion:
+      mask:
+        - "0.974,0.697,0.905,0.272,0.649,0.105,0.462,0.1,0.456,0,1,0.002,0.998,0.701"
+        - "0.316,0.997,0.171,0.685,0.078,0.359,0.316,0.128,0.308,0,0.001,0.001,0.001,0.998"
+    objects:
+      track: ["person","cat"]
+    live:
+      stream_name: frigate_backpatio_hq
 
   Back_Yard:
     ffmpeg:
