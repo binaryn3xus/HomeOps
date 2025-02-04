@@ -74,9 +74,9 @@ go2rtc:
     frigate_driveway_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.37:554/cam/realmonitor?channel=1&subtype=1
     frigate_office_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=0
     frigate_office_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=1
-    frigate_unifi_doorbell_hq: rtsp://10.0.10.1:7447/w4UzOd0saveEXQqN
-    frigate_unifi_doorbell_mq: rtsp://10.0.10.1:7447/dMjvqI54GZceSviO
-    frigate_unifi_doorbell_package: rtsp://10.0.10.1:7447/CSc5p7GY9hUIiI1X
+    frigate_unifi_doorbell_hq: rtsps://10.0.10.1:7441/w4UzOd0saveEXQqN?enableSrtp
+    frigate_unifi_doorbell_mq: rtsps://10.0.10.1:7441/dMjvqI54GZceSviO?enableSrtp
+    frigate_unifi_doorbell_package: rtsps://10.0.10.1:7441/CSc5p7GY9hUIiI1X?enableSrtp
 
 cameras:
 
