@@ -24,7 +24,7 @@ birdseye:
   enabled: false
 
 ffmpeg:
-  global_args: ["-hide_banner", "-loglevel", "warning"]
+  global_args: ["-hide_banner", "-loglevel", "trace"]
   hwaccel_args: preset-intel-qsv-h264
   output_args:
     record: preset-record-generic
