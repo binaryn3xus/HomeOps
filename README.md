@@ -120,14 +120,11 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 
 ## 🔧 Hardware
 
-| Model                    | RAM   | OS Disk Size | Data Disk Size | Operating System | Purpose                    | Rack Location | Bios Key |
-|--------------------------|-------|--------------|----------------|------------------|----------------------------|---------------|----------|
-| Dell Optiplex 7050 Micro | 16 GB | 500GB (SSD)  | 1TB (NVMe)     | Talos            | Node 1 (K8s Control Plane) | 15U (Left)    | F2       |
-| Dell Optiplex 7050 Micro | 16 GB | 500GB (SSD)  | 1TB (NVMe)     | Talos            | Node 2 (K8s Control Plane) | 15U (Right)   | F2       |
-| Dell Optiplex 7050 Micro | 16 GB | 500GB (NVMe) | 1TB (SSD)      | Talos            | Node 3 (K8s Worker)        | 16U (Left)    | F2       |
-| HP ProDesk 600 G3 Mini   | 16 GB | 500GB (SSD)  | 1TB (NVMe)     | Talos            | Node 4 (K8s Worker)        | 17U (Right)   | F10      |
-| HP ProDesk 600 G3 Mini   | 16 GB | 500GB (SSD)  | 1TB (NVMe)     | Talos            | Node 5 (K8s Control Plane) | 17U (Left)    | F10      |
-| Dell Optiplex 3060 Micro | 16 GB | 500GB (SSD)  | 1TB (NVMe)     | Talos            | Node 6 (K8s Worker)        | 16U (Right)   | F2       |
+| Model | RAM   | OS Disk Size | Data Disk Size | OS    | Purpose           | Rack Location | Bios Key |
+|-------|-------|--------------|----------------|-------|-------------------|---------------|----------|
+| MS01  | 64 GB | 1TB (NVMe)   | 1TB (NVMe)     | Talos | K8s Control Plane | _Coming Soon_ | DEL      |
+| MS01  | 64 GB | 1TB (NVMe)   | 1TB (NVMe)     | Talos | K8s Control Plane | _Coming Soon_ | DEL      |
+| MS01  | 64 GB | 1TB (NVMe)   | 1TB (NVMe)     | Talos | K8s Control Plane | _Coming Soon_ | DEL      |
 
 <details>
   <summary>Click to see the Full Home Ops Rack!</summary>
