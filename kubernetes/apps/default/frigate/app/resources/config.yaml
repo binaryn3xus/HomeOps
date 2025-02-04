@@ -25,9 +25,22 @@ birdseye:
 
 ffmpeg:
   global_args: ["-hide_banner", "-loglevel", "trace"]
-  hwaccel_args: ["-hwaccel", "qsv", "-qsv_device", "/dev/dri/renderD128", "-hwaccel_output_format", "qsv"]
+  hwaccel_args:
+    - -init_hw_device
+    - qsv=qsv:0
+    - -filter_hw_device
+    - qsv
   output_args:
-    record: preset-record-generic
+    detect:
+      - -vf
+      - format=nv12,hwupload=extra_hw_frames=64,scale_qsv=format=nv12
+    record:
+      - -c:v
+      - h264_qsv
+      - -preset
+      - veryfast
+      - -look_ahead
+      - "0"
 
 snapshots:
   enabled: true
@@ -103,10 +116,10 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_frontporch_lq?video=copy
-          input_args: preset-rtsp-restream
+          #input_args: preset-rtsp-restream
           roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_frontporch_hq?video=copy
-          input_args: preset-rtsp-restream
+          #input_args: preset-rtsp-restream
           roles: ["record"]
     detect:
       fps: 2
