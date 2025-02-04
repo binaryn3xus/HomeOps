@@ -266,12 +266,8 @@ cameras:
   Unifi_Doorbell:
     ffmpeg:
       inputs:
-        - path: rtsp://localhost:8554/frigate_unifi_doorbell_mq?video=copy
-          input_args: ["-rtsp_transport", "tcp"]
-          roles: ["detect"]
         - path: rtsp://localhost:8554/frigate_unifi_doorbell_hq?video=copy
-          input_args: ["-rtsp_transport", "tcp"]
-          roles: ["record"]
+          roles: ["detect"]
     detect:
       fps: 2
       stationary:
@@ -289,7 +285,6 @@ cameras:
     ffmpeg:
       inputs:
         - path: rtsp://localhost:8554/frigate_unifi_doorbell_package?video=copy
-          input_args: ["-rtsp_transport", "tcp"]
           roles: ["detect"]
     detect:
       fps: 2
