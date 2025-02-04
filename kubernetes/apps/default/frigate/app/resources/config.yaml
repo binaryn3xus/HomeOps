@@ -72,8 +72,8 @@ go2rtc:
     frigate_eastside_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.36:554/cam/realmonitor?channel=1&subtype=1
     frigate_driveway_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.37:554/cam/realmonitor?channel=1&subtype=0
     frigate_driveway_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.37:554/cam/realmonitor?channel=1&subtype=1
-    # frigate_office_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=0
-    # frigate_office_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=1
+    frigate_office_hq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=0
+    frigate_office_lq: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.20.38:554/cam/realmonitor?channel=1&subtype=1
     frigate_unifi_doorbell_hq: rtspx://10.0.10.1:7441/w4UzOd0saveEXQqN
     frigate_unifi_doorbell_mq: rtspx://10.0.10.1:7441/dMjvqI54GZceSviO
     frigate_unifi_doorbell_package: rtspx://10.0.10.1:7441/CSc5p7GY9hUIiI1X
@@ -199,25 +199,25 @@ cameras:
     live:
       stream_name: frigate_driveway_hq
 
-  # Office:
-  #   birdseye:
-  #     enabled: false
-  #   record:
-  #     enabled: false
-  #   ffmpeg:
-  #     inputs:
-  #       - path: rtsp://localhost:8554/frigate_office_hq?video=copy
-  #         input_args: preset-rtsp-restream
-  #         roles: ["detect"]
-  #   detect:
-  #     fps: 2
-  #     stationary:
-  #       threshold: 50
-  #   # Detect something wild to hopefully never trigger
-  #   objects:
-  #     track: ["giraffe"]
-  #   live:
-  #     stream_name: frigate_office_hq
+  Office:
+    birdseye:
+      enabled: false
+    record:
+      enabled: false
+    ffmpeg:
+      inputs:
+        - path: rtsp://localhost:8554/frigate_office_hq?video=copy
+          input_args: preset-rtsp-restream
+          roles: ["detect"]
+    detect:
+      fps: 2
+      stationary:
+        threshold: 50
+    # Detect something wild to hopefully never trigger
+    objects:
+      track: ["giraffe"]
+    live:
+      stream_name: frigate_office_hq
 
   Living_Room:
     birdseye:
