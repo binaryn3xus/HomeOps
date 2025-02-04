@@ -103,12 +103,6 @@ spec:
         sizeLimit: 4Gi
         globalMounts:
           - path: /dev/shm
-      dri:
-        type: hostPath
-        hostPath: /dev/dri
-        hostPathType: Directory
-        globalMounts:
-          - path: /dev/dri
       usb:
         type: hostPath
         hostPath: /dev/bus/usb
