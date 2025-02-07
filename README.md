@@ -122,14 +122,14 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 
 | Model | RAM   | OS Disk Size | Data Disk Size | OS    | Purpose           | Rack Location | Bios Key |
 |-------|-------|--------------|----------------|-------|-------------------|---------------|----------|
-| MS01  | 64 GB | 1TB (NVMe)   | 1TB (NVMe)     | Talos | K8s Control Plane | _Coming Soon_ | DEL      |
-| MS01  | 64 GB | 1TB (NVMe)   | 1TB (NVMe)     | Talos | K8s Control Plane | _Coming Soon_ | DEL      |
-| MS01  | 64 GB | 1TB (NVMe)   | 1TB (NVMe)     | Talos | K8s Control Plane | _Coming Soon_ | DEL      |
+| MS01  | 64 GB | 1TB (NVMe)   | 1TB (NVMe)     | Talos | K8s Control Plane | U17 (Right)   | DEL      |
+| MS01  | 64 GB | 1TB (NVMe)   | 1TB (NVMe)     | Talos | K8s Control Plane | U15 (Left)    | DEL      |
+| MS01  | 64 GB | 1TB (NVMe)   | 1TB (NVMe)     | Talos | K8s Control Plane | U15 (Center)  | DEL      |
 
 <details>
   <summary>Click to see the Full Home Ops Rack!</summary>
 
-![ServerRack](/docs/src/assets/ServerRack_20240429.jpg)
+![ServerRack](/docs/src/assets/ServerRack_20250206.jpg)
 
 </details>
 
