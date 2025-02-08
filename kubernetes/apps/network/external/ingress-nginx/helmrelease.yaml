@@ -82,7 +82,8 @@ spec:
       resources:
         requests:
           cpu: 100m
+          memory: 1000Mi
         limits:
-          memory: 500Mi
+          memory: 1500Mi
     defaultBackend:
       enabled: false
