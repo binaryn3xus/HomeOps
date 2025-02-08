@@ -17,7 +17,7 @@ spec:
     - name: volsync
       namespace: volsync-system
   interval: 30m
-  path: ./kubernetes/apps/default/guacamole/app  
+  path: ./kubernetes/apps/default/guacamole/app
   postBuild:
     substitute:
       APP: *app
