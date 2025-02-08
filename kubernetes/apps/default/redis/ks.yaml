@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    #- ../../../../flux/components/gatus/guarded
+    - ../../../../flux/components/gatus/guarded
     - ../../../../flux/components/volsync
   interval: 30m
   path: ./kubernetes/apps/default/redis/app

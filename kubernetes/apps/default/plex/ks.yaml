@@ -9,6 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
+    - ../../../../flux/components/gatus/external
     - ../../../../flux/components/volsync
   dependsOn:
     - name: rook-ceph-cluster
@@ -23,7 +24,7 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 100Gi
-      VOLSYNC_CACHE_CAPACITY: 12Gi
+      VOLSYNC_CACHE_CAPACITY: 15Gi
       GATUS_PATH: /web/index.html
   prune: true
   sourceRef:

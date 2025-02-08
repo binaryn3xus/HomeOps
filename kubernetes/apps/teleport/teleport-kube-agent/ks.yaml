@@ -9,11 +9,16 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../flux/components/gatus/external
   dependsOn:
     - name: teleport
       namespace: teleport
   interval: 30m
   path: ./kubernetes/apps/teleport/teleport-kube-agent/agent
+  postBuild:
+    substitute:
+      APP: *app
   prune: true
   sourceRef:
     kind: GitRepository

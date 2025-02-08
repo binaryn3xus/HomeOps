@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    #- ../../../../flux/components/gatus/guarded
+    - ../../../../flux/components/gatus/external
     - ../../../../flux/components/volsync
   dependsOn:
     - name: emqx
