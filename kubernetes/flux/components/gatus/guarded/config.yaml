@@ -10,6 +10,6 @@ endpoints:
       query-name: "${GATUS_SUBDOMAIN:=${APP}}.unscfleet.com"
       query-type: A
     conditions:
-      - "[DNS_RCODE] == NOERROR"
+      - "len([BODY]) == 0"
     alerts:
       - type: discord
