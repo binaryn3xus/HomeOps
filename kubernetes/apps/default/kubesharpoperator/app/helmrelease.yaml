@@ -54,7 +54,7 @@ spec:
           teleport: enabled
         ports:
           http:
-            port: 80
+            port: 8080
     ingress:
       kubesharpoperator:
         className: external
