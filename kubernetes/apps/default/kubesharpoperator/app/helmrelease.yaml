@@ -30,6 +30,8 @@ spec:
       automountServiceAccountToken: true
     controllers:
       kubesharpoperator:
+        serviceAccount:
+          name: kubesharp-operator
         containers:
           app:
             image:
