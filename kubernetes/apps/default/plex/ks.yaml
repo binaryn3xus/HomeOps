@@ -25,7 +25,7 @@ spec:
       APP: *app
       GATUS_PATH: /web/index.html
       VOLSYNC_CACHE_CAPACITY: 50Gi
-      VOLSYNC_CAPACITY: 50Gi
+      VOLSYNC_CAPACITY: 100Gi
   prune: true
   sourceRef:
     kind: GitRepository
