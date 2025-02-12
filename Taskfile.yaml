@@ -18,10 +18,10 @@ env:
 
 includes:
   bootstrap: .taskfiles/bootstrap
-  external-secrets: .taskfiles/ExternalSecrets
-  misc: .taskfiles/Misc
+  external-secrets: .taskfiles/externalsecrets
+  misc: .taskfiles/misc
   talos: .taskfiles/talos
-  volsync: .taskfiles/VolSync
+  volsync: .taskfiles/volsync
 
 tasks:
 
