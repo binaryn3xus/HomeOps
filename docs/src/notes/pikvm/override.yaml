@@ -15,29 +15,23 @@ kvmd:
                 port: 5000
             wol_server0:
                 type: wol
-                mac: b8:85:84:ad:fc:89
+                mac: 58:47:ca:7a:b8:31
             wol_server1:
                 type: wol
-                mac: b8:85:84:bf:db:f3
+                mac: 58:47:ca:7a:ae:49
             wol_server2:
                 type: wol
-                mac: 14:b3:1f:28:a6:b4
+                mac: 58:47:ca:7a:b2:89
             wol_server3:
                 type: wol
-                mac: ac:e2:d3:17:9d:0e
+                mac: 00:1f:c6:9c:9a:99
             wol_server4:
                 type: wol
-                mac: ac:e2:d3:0d:a3:e7
+                mac: 14:d4:24:63:48:7f
             wol_server5:
                 type: wol
-                mac: 6c:2b:59:eb:e3:be
-            wol_server6:
-                type: wol
-                mac: 00:1f:c6:9c:9a:99
-            wol_server8:
-                type: wol
                 mac: b8:85:84:98:d9:6f
-            wol_server9:
+            wol_server6:
                 type: wol
                 mac: 0c:9d:92:85:5e:56
         scheme:
@@ -139,52 +133,12 @@ kvmd:
                 pin: 0
                 mode: output
                 switch: false
-            server7_led:
-                driver: tes
-                pin: 7
-                mode: input
-            server7_switch:
-                driver: tes
-                pin: 7
-                mode: output
-                switch: false
-            server8_led:
-                driver: tes
-                pin: 8
-                mode: input
-            server8_switch:
-                driver: tes
-                pin: 8
-                mode: output
-                switch: false
-            server8_wol:
-                driver: wol_server8
-                pin: 0
-                mode: output
-                switch: false
-            server9_led:
-                driver: tes
-                pin: 9
-                mode: input
-            server9_switch:
-                driver: tes
-                pin: 9
-                mode: output
-                switch: false
-            server9_wol:
-                driver: wol_server9
-                pin: 0
-                mode: output
-                switch: false
         view:
             table:
               - ["#Fleetcom-Node1", "server0_led", "server0_switch | KVM", "server0_wol | WOL"]
               - ["#Fleetcom-Node2", "server1_led", "server1_switch | KVM", "server1_wol | WOL"]
               - ["#Fleetcom-Node3", "server2_led", "server2_switch | KVM", "server2_wol | WOL"]
-              - ["#Fleetcom-Node4", "server3_led", "server3_switch | KVM", "server3_wol | WOL"]
-              - ["#Fleetcom-Node5", "server4_led", "server4_switch | KVM", "server4_wol | WOL"]
-              - ["#Fleetcom-Node6", "server5_led", "server5_switch | KVM", "server5_wol | WOL"]
-              - ["#NixOS", "server6_led", "server6_switch | KVM", "server6_wol | WOL"]
-              - ["#SteamDeck", "server7_led", "server7_switch | KVM"]
-              - ["#Proxmox", "server8_led", "server8_switch | KVM", "server8_wol | WOL"]
-              - ["#AI-Playground", "server9_led", "server9_switch | KVM", "server9_wol | WOL"]
+              - ["#NucSkullCanyon", "server3_led", "server3_switch | KVM", "server3_wol | WOL"]
+              - ["#SteamDeck", "server4_led", "server4_switch | KVM", "server4_wol | WOL"]
+              - ["#Proxmox", "server5_led", "server5_switch | KVM", "server5_wol | WOL"]
+              - ["#AI-Server", "server6_led", "server6_switch | KVM", "server6_wol | WOL"]
