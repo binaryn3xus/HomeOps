@@ -24,6 +24,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    interplex:
+      enabled: true
     serviceMonitor:
       enabled: true
     grafanaDashboard:
