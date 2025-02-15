@@ -24,12 +24,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    grafanaDashboard:
+      enabled: true
     interplex:
       enabled: true
     serviceMonitor:
       enabled: true
-    grafanaDashboard:
-      enabled: true
-      label:
-        key: "grafana.io/dashboard"
-        value: "true"
