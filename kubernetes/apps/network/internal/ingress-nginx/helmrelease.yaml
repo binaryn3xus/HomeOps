@@ -22,6 +22,11 @@ spec:
     remediation:
       retries: 3
   values:
+    tcp:
+      "32400": "default/plex:32400"
+      "1883": "default/emqx:1883"
+      "2333": "default/lavalink:2333"
+      "6379": "default/redis:6379"
     fullnameOverride: *app
     controller:
       replicaCount: 1
