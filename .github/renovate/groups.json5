@@ -22,6 +22,15 @@
       "separateMinorPatch": true
     },
     {
+      "description": ["Flux Operator Group"],
+      "groupName": "Flux Operator",
+      "matchPackagePatterns": ["flux-operator", "flux-instance"],
+      "matchDatasources": ["docker"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      }
+    },
+    {
       "description": ["Talos Group"],
       "groupName": "Talos",
       "matchPackagePatterns": ["siderolabs/talosctl", "siderolabs/installer"],
