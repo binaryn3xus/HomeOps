@@ -60,6 +60,8 @@ spec:
         useAllDevices: false
         config:
           osdsPerDevice: "1"
+          osd:
+            bluestore_rocksdb_options: "compression_type=none write_buffer_size=1073741824 cache_size=1073741824"
         nodes:
           - name: fleetcom-node1
             devices:
