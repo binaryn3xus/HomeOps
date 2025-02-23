@@ -4,7 +4,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: ai-system
 resources:
-  - ./k8sgpt/ks.yaml
   - ./open-webui/ks.yaml
 components:
   - ../../flux/components/namespace
