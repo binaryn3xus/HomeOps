@@ -138,7 +138,7 @@ kvmd:
               - ["#Fleetcom-Node1", "server0_led", "server0_switch | KVM", "server0_wol | WOL"]
               - ["#Fleetcom-Node2", "server1_led", "server1_switch | KVM", "server1_wol | WOL"]
               - ["#Fleetcom-Node3", "server2_led", "server2_switch | KVM", "server2_wol | WOL"]
-              - ["#NucSkullCanyon", "server3_led", "server3_switch | KVM", "server3_wol | WOL"]
+              - ["#Banished-Node1", "server3_led", "server3_switch | KVM", "server3_wol | WOL"]
               - ["#SteamDeck", "server4_led", "server4_switch | KVM", "server4_wol | WOL"]
               - ["#Proxmox", "server5_led", "server5_switch | KVM", "server5_wol | WOL"]
               - ["#AI-Server", "server6_led", "server6_switch | KVM", "server6_wol | WOL"]
