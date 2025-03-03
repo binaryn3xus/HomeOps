@@ -22,7 +22,6 @@ resources:
   - ./kubernetes-dashboard.yaml
   - ./metrics-server.yaml
   - ./node-feature-discovery.yaml
-  - ./oauth2-proxy.yaml
   - ./openebs.yaml
   - ./piraeus.yaml
   - ./postfinance.yaml
