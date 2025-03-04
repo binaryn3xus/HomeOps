@@ -73,13 +73,13 @@ spec:
       resources:
         mgr:
           requests:
-            cpu: 100m
-            memory: 512Mi
+            cpu: 500m
+            memory: 1Gi
           limits:
             memory: 2Gi
         mon:
           requests:
-            cpu: 50m
+            cpu: 100m
             memory: 512Mi
           limits:
             memory: 1Gi
@@ -92,10 +92,10 @@ spec:
             memory: 8Gi
         mgr-sidecar:
           requests:
-            cpu: 50m
-            memory: 128Mi
-          limits:
+            cpu: 100m
             memory: 256Mi
+          limits:
+            memory: 512Mi
     cephBlockPools:
       - name: ceph-blockpool
         spec:
@@ -151,7 +151,7 @@ spec:
                       app.kubernetes.io/part-of: *cephFileSystemName
             resources:
               requests:
-                cpu: 100m
+                cpu: 200m
                 memory: 1Gi
               limits:
                 memory: 4Gi
@@ -177,33 +177,3 @@ spec:
       isDefault: false
       deletionPolicy: Delete
     cephObjectStores: []
-      # - name: ceph-objectstore
-      #   spec:
-      #     metadataPool:
-      #       failureDomain: host
-      #       replicated:
-      #         size: 6
-      #     dataPool:
-      #       failureDomain: host
-      #       erasureCoded:
-      #         dataChunks: 4
-      #         codingChunks: 2
-      #     preservePoolsOnDelete: true
-      #     gateway:
-      #       port: 80
-      #       resources:
-      #         requests:
-      #           cpu: 100m
-      #           memory: 1Gi
-      #         limits:
-      #           memory: 2Gi
-      #       instances: 2
-      #     healthCheck:
-      #       bucket:
-      #         interval: 60s
-      #   storageClass:
-      #     enabled: true
-      #     name: ceph-bucket
-      #     reclaimPolicy: Delete
-      #     parameters:
-      #       region: us-east-1
