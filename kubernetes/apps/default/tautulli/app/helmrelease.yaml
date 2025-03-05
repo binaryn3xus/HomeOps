@@ -55,7 +55,7 @@ spec:
             port: 8181
     ingress:
       tautulli:
-        className: external
+        className: internal
         annotations:
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";

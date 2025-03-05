@@ -77,7 +77,7 @@ spec:
             port: *port
     ingress:
       radarr:
-        className: external
+        className: internal
         annotations:
           nginx.ingress.kubernetes.io/configuration-snippet: |
             proxy_set_header Accept-Encoding "";
