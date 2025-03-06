@@ -79,7 +79,7 @@ spec:
           priority: |-
             {{ if eq .Status "firing" }}1{{ else }}0{{ end }}
           sendResolved: true
-          sound: gamelan
+          sound: Intermission
           title: >-
             [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}]
             {{ .CommonLabels.alertname }}
