@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.7.1
+      version: 3.7.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: v0.5.19
+              tag: 0.5.20
             env:
               TZ: "America/New_York"
               OLLAMA_BASE_URL: "http://10.0.30.6:11434"
