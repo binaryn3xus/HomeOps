@@ -32,7 +32,8 @@ _... managed with Flux, SOPS and GitHub Actions_ 🤖
 [![Pod-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.unscfleet.com%2Fcluster_pod_count&style=flat-square&label=Pods)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
 [![CPU-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.unscfleet.com%2Fcluster_cpu_usage&style=flat-square&label=CPU)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
 [![Memory-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.unscfleet.com%2Fcluster_memory_usage&style=flat-square&label=Memory)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
-[![Alerts](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.unscfleet.com%2Fcluster_alert_count&style=flat-square&label=Alerts)](https://github.com/kashalls/kromgo)
+[![Alerts](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.unscfleet.com%2Fcluster_alert_count&style=flat-square&label=Alerts)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
+![GitHub License](https://img.shields.io/github/license/binaryn3xus/HomeOps?style=flat-square)
 
 </div>
 
@@ -137,16 +138,8 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 
 ## 🤝 Gratitude and Thanks
 
-Community member [onedr0p](https://github.com/onedr0p/) for initially creating this amazing template and providing me with additional help.
+[![home-operations-discord](https://img.shields.io/discord/673534664354430999?style=for-the-badge&label=Home-Operations%20Discord&logo=discord&logoColor=white&color=blue)](https://discord.gg/home-operations)
 
----
-
-## 📜 Changelog
-
-See _awful_ [commit history](https://github.com/binaryn3xus/HomeOps/commits/main)
-
----
-
-## 🔏 License
-
-See [LICENSE](./LICENSE)
+[![onedr0p](https://avatars.githubusercontent.com/u/213795?v=4&size=50)](https://github.com/onedr0p/)
+[![bjw-s](https://avatars.githubusercontent.com/u/6213398?v=4&size=50)](https://github.com/bjw-s/)
+[![mitchross](https://avatars.githubusercontent.com/u/6330506?v=v&size=50)](https://github.com/mitchross/)
