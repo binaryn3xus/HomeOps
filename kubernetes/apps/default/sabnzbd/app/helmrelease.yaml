@@ -93,5 +93,3 @@ spec:
           - path: /config
       media:
         existingClaim: synology-media
-      downloads:
-        existingClaim: downloads
