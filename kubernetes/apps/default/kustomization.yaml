@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: default
 resources:
   # Shared PVCs
+  - ./synology.yaml
   - ./downloads-pvc.yaml
   - ./media-pvc.yaml
   # Apps

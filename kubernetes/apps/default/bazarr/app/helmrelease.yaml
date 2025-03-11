@@ -83,7 +83,7 @@ spec:
         globalMounts:
           - path: /config
       media:
-        existingClaim: media
+        existingClaim: synology-media
       cache:
         enabled: true
         type: emptyDir
