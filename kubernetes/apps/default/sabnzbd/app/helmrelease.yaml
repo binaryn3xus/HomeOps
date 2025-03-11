@@ -92,6 +92,6 @@ spec:
         globalMounts:
           - path: /config
       media:
-        existingClaim: media
+        existingClaim: synology-media
       downloads:
         existingClaim: downloads
