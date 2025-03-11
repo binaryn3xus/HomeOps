@@ -7,6 +7,7 @@ provisioner: nfs
 parameters:
   archiveOnDelete: "false"
 ---
+# General Media PV
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -28,10 +29,46 @@ spec:
     - rsize=131072
     - wsize=131072
 ---
+# General Media PVC
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: synology-media
+  namespace: default
+spec:
+  accessModes: ["ReadWriteMany"]
+  storageClassName: synology-nfs
+  resources:
+    requests:
+      storage: 1Mi
+---
+# Frigate specific PV
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: synology-media-frigate
+spec:
+  storageClassName: synology-nfs
+  capacity:
+    storage: 1Mi
+  accessModes: ["ReadWriteMany"]
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: "10.0.30.4"
+    path: /volume1/Media/Frigate
+  mountOptions:
+    - nfsvers=4.1
+    - nconnect=8
+    - hard
+    - noatime
+    - rsize=131072
+    - wsize=131072
+---
+# Frigate specific PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: frigate
   namespace: default
 spec:
   accessModes: ["ReadWriteMany"]

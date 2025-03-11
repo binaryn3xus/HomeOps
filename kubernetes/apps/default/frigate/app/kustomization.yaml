@@ -5,7 +5,6 @@ kind: Kustomization
 resources:
   - ./high-priority-class.yaml
   - ./externalsecret.yaml
-  - ./frigate-mvc.yaml
   - ./helmrelease.yaml
 configMapGenerator:
   - name: frigate-configmap
