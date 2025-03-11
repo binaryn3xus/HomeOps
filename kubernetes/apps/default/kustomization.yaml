@@ -6,8 +6,6 @@ namespace: default
 resources:
   # Shared PVCs
   - ./synology.yaml
-  - ./downloads-pvc.yaml
-  - ./media-pvc.yaml
   # Apps
   - ./audiobookshelf/ks.yaml
   - ./bazarr/ks.yaml
