@@ -109,4 +109,4 @@ spec:
         globalMounts:
           - path: /dev/bus/usb
       media:
-        existingClaim: frigate
+        existingClaim: synology-media-frigate

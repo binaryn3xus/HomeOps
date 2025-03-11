@@ -46,7 +46,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: synology-media-fdrigate
+  name: synology-media-frigate
 spec:
   storageClassName: synology-nfs
   capacity:
@@ -68,7 +68,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: frigate
+  name: synology-media-frigate
   namespace: default
 spec:
   accessModes: ["ReadWriteMany"]
