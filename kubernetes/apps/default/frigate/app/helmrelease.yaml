@@ -55,7 +55,6 @@ spec:
           nodeSelector:
             google.feature.node.kubernetes.io/coral: "true"
             intel.feature.node.kubernetes.io/gpu: "true"
-          priorityClassName: high-priority
         statefulset:
           volumeClaimTemplates:
             - name: config

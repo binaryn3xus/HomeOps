@@ -46,7 +46,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: synology-media-frigate
+  name: synology-media-fdrigate
 spec:
   storageClassName: synology-nfs
   capacity:
