@@ -61,7 +61,7 @@ spec:
               FN_APP_API_ENABLED: "false"
               FN_APP_API_PORT: "8000"
               FN_FRIGATE_SERVER: "frigate.default.svc.cluster.local"
-              FN_FRIGATE_IGNORESSL: "false"
+              FN_FRIGATE_IGNORESSL: "true"
               FN_FRIGATE_WEBAPI_ENABLED: "true"
               FN_FRIGATE_WEBAPI_INTERVAL: "30"
               FN_FRIGATE_MQTT_ENABLED: "false"
