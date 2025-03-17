@@ -9,12 +9,13 @@ tasks:
     cmds:
       - scp root@10.0.30.5:/etc/kvmd/override.yaml ./docs/src/notes/pikvm/override.yaml
 
-  pikvm-restore:
-    desc: Restore PiKVM Override File from backup
-    cmds:
-      - ssh root@10.0.30.5 "rw"
-      - scp ./docs/src/notes/pikvm/override.yaml root@10.0.30.5:/etc/kvmd/override.yaml
-      - ssh root@10.0.30.5 "sync && reboot"
+  # Disabled - Not sure if this breaks the PiKVM database somehow
+  # pikvm-restore:
+  #   desc: Restore PiKVM Override File from backup
+  #   cmds:
+  #     - ssh root@10.0.30.5 "rw"
+  #     - scp ./docs/src/notes/pikvm/override.yaml root@10.0.30.5:/etc/kvmd/override.yaml
+  #     - ssh root@10.0.30.5 "reboot"
 
   configuration-backup:
     desc: Backup Configuration Files
