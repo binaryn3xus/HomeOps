@@ -16,10 +16,12 @@ spec:
         namespace: flux-system
   install:
     crds: CreateReplace
+    disableSchemaValidation: true # Ref: https://github.com/kubernetes-sigs/external-dns/issues/5206
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
+    disableSchemaValidation: true # Ref: https://github.com/kubernetes-sigs/external-dns/issues/5206
     crds: CreateReplace
     remediation:
       strategy: rollback
