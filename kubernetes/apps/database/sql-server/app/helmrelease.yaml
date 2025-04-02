@@ -1,0 +1,90 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app sql-server
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        type: statefulset
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            fsGroup: 10001
+        containers:
+          main:
+            image:
+              repository: mcr.microsoft.com/mssql/server
+              tag: 2022-latest
+            env:
+              TZ: "America/New_York"
+              ACCEPT_EULA: "Y"
+              MSSQL_PID: "Developer"
+              MSSQL_ENABLE_HADR: "1"
+              MSSQL_AGENT_ENABLED: "true"
+              MSSQL_DATA_DIR: "/var/opt/mssql/data"
+              MSSQL_LOG_DIR: "/var/opt/mssql/log"
+              MSSQL_BACKUP_DIR: "/var/opt/mssql/backup"
+            envFrom:
+              - secretRef:
+                  name: mssql-secret
+            securityContext:
+              runAsUser: 10001
+              runAsGroup: 10001
+            resources:
+              requests:
+                cpu: 2
+                memory: 4Gi
+              limits:
+                cpu: 4
+                memory: 6Gi
+        statefulset:
+          volumeClaimTemplates:
+            - name: data
+              accessMode: ReadWriteOnce
+              size: 20Gi
+              storageClass: ceph-block
+              globalMounts:
+                - path: /var/opt/mssql
+    service:
+      main:
+        controller: frigate
+        ports:
+          tcp:
+            port: 1433
+    ingress:
+      main:
+        className: internal
+        hosts:
+          - host: &host "{{ .Release.Name }}.unscfleet.com"
+            paths:
+              - path: /
+                service:
+                  identifier: main
+                  port: tcp
+        tls:
+          - hosts:
+              - *host
