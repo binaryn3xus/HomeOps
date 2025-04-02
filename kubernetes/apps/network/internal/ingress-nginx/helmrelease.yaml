@@ -27,6 +27,7 @@ spec:
       "1883": "default/emqx:1883"
       "2333": "default/lavalink:2333"
       "6379": "default/redis:6379"
+      "1433": "database/sql-server:1433"
     fullnameOverride: *app
     controller:
       replicaCount: 1
