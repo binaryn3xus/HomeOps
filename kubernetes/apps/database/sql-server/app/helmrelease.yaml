@@ -71,7 +71,7 @@ spec:
                 - path: /var/opt/mssql
     service:
       main:
-        controller: frigate
+        controller: main
         ports:
           tcp:
             port: 1433
