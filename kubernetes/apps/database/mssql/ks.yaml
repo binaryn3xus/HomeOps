@@ -8,8 +8,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../flux/components/volsync
+  #components:
+    #- ../../../../flux/components/volsync
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -18,7 +18,7 @@ spec:
     - name: volsync
       namespace: volsync-system
   interval: 30m
-  path: ./kubernetes/apps/database/sql-server/app
+  path: ./kubernetes/apps/database/mssql/app
   postBuild:
     substitute:
       APP: *app

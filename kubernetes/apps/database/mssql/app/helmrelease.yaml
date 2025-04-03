@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app sql-server
+  name: &app mssql
 spec:
   interval: 30m
   chart:
@@ -28,12 +28,8 @@ spec:
   values:
     controllers:
       main:
-        type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
-        pod:
-          securityContext:
-            fsGroup: 10001
         containers:
           main:
             image:
@@ -51,9 +47,6 @@ spec:
             envFrom:
               - secretRef:
                   name: mssql-secret
-            securityContext:
-              runAsUser: 10001
-              runAsGroup: 10001
             resources:
               requests:
                 cpu: 2
@@ -61,17 +54,17 @@ spec:
               limits:
                 cpu: 4
                 memory: 6Gi
-        statefulset:
-          volumeClaimTemplates:
-            - name: data
-              accessMode: ReadWriteOnce
-              size: 20Gi
-              storageClass: ceph-block
-              globalMounts:
-                - path: /var/opt/mssql
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         controller: main
+        type: LoadBalancer
         ports:
           tcp:
             port: 1433
@@ -88,3 +81,8 @@ spec:
         tls:
           - hosts:
               - *host
+    persistence:
+      config:
+        existingClaim: *app
+        globalMounts:
+          - path: /var/opt/mssql
