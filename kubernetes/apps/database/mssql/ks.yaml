@@ -2,14 +2,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app sql-server
+  name: &app mssql
   namespace: &namespace database
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  #components:
-    #- ../../../../flux/components/volsync
+  components:
+    - ../../../../flux/components/volsync
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -22,6 +22,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      VOLSYNC_CACHE_CAPACITY: 20Gi
   prune: true
   sourceRef:
     kind: GitRepository
