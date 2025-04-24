@@ -32,7 +32,7 @@ releases:
   - name: coredns
     namespace: kube-system
     chart: oci://ghcr.io/coredns/charts/coredns
-    version: 1.39.2
+    version: 1.40.0
     values:
       - ../apps/kube-system/coredns/app/helm-values.yaml
     needs:
@@ -41,7 +41,7 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: v1.17.1
+    version: v1.17.2
     values:
       - ../apps/cert-manager/cert-manager/app/helm-values.yaml
     needs:
