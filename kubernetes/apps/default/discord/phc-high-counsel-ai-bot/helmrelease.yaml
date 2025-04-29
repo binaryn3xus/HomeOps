@@ -27,7 +27,7 @@ spec:
     keepHistory: false
   values:
     defaultPodOptions:
-      imagePullSecrets: 
+      imagePullSecrets:
         - name: github-private
     controllers:
       discordbot:
@@ -37,13 +37,14 @@ spec:
           app:
             image:
               repository: ghcr.io/binaryn3xus/phc-highcounsel-bot
-              tag: 2024.11.0
+              tag: 2025.4.0
             env:
               TZ: "America/New_York"
               Bot_Ollama__Model: "wizardlm2"
               Bot_Ollama__Server: "http://10.0.30.6:11434"
               Bot_PHC__MemberRoleId: "1192231944910544996"
               Bot_PHC__AutoReactions: false
+              Bot_PHC__EnableFxLinks: true
               Bot_Links__SupportServerUrl: "https://github.com/binaryn3xus/PHC-HighCounsel-Bot"
               Bot_Links__SourceRepositoryUrl: "https://github.com/binaryn3xus/PHC-HighCounsel-Bot"
             envFrom:
