@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/amadejkastelic/discord-video-embed-bot
-              tag: 0.22.1@sha256:0de4f4404e42f019533d95648cd70434ccebf5b9f120ab1d091411bdc7ff9f91
+              tag: 0.45.5@sha256:6b1c5fcc12cc0079391bfd3582543a8cacda13a991fdf2a06299fb9e89ff6feb
             env:
               TZ: "America/New_York"
               COMPACT_POST: "true"
