@@ -34,7 +34,7 @@ spec:
           main:
             image:
               repository: mcr.microsoft.com/mssql/server
-              tag: 2022-latest
+              tag: 2025-latest
             env:
               TZ: "America/New_York"
               ACCEPT_EULA: "Y"
