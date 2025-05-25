@@ -35,8 +35,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/theme-park
-              tag: 1.18.0@sha256:6d6ad5a1c3b55b83f7441ba0346cbd60939c776a5038d34c7fb4ac1136bfa271
+              repository: docker pull ghcr.io/themepark-dev/theme.park
+              tag: 1.20.1@sha256:5f8583d51d0ca98289bc94927dcdb732c98699860a6f25033b2161a64b080976
             env:
               TZ: "America/New_York"
             resources:
