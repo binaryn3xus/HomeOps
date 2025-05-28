@@ -124,7 +124,7 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 |-------|-------|--------------|----------------|-------|-------------------|---------------|----------|
 | MS01  | 64 GB | 1TB (NVMe)   | 1TB (NVMe)     | Talos | K8s Control Plane | U17 (Right)   | DEL      |
 | MS01  | 64 GB | 1TB (NVMe)   | 1TB (NVMe)     | Talos | K8s Control Plane | U15 (Left)    | DEL      |
-| MS01  | 64 GB | 1TB (NVMe)   | 1TB (NVMe)     | Talos | K8s Control Plane | U15 (Center)  | DEL      |
+| MS01  | 64 GB | 1TB (NVMe)   | 1TB (NVMe)     | Talos | K8s Control Plane | U15 (Right)  | DEL      |
 
 <details>
   <summary>Click to see the Full Home Ops Rack!</summary>
