@@ -6,6 +6,7 @@ namespace: database
 resources:
   # Apps
   - ./mssql/ks.yaml
+  - ./mssql-2025/ks.yaml
 components:
   - ../../flux/components/namespace
   - ../../flux/components/sops

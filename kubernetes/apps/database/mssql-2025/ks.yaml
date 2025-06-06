@@ -1,0 +1,35 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app mssql-2025
+  namespace: &namespace database
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  components:
+    - ../../../../flux/components/volsync
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: external-secrets-azure
+      namespace: external-secrets
+    - name: volsync
+      namespace: volsync-system
+  interval: 30m
+  path: ./kubernetes/apps/database/mssql-2025/app
+  postBuild:
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 100Gi
+      VOLSYNC_CACHE_CAPACITY: 100Gi
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false
+
