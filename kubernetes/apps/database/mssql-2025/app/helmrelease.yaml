@@ -54,6 +54,8 @@ spec:
               limits:
                 cpu: 1
                 memory: 6Gi
+            securityContext:
+              capabilities: { add: ["SYS_PTRACE"] }
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
