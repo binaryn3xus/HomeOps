@@ -39,7 +39,7 @@ spec:
               TZ: "America/New_York"
               ACCEPT_EULA: "Y"
               MSSQL_PID: "Developer"
-              MSSQL_ENABLE_HADR: "1"
+              #MSSQL_ENABLE_HADR: "1"
               MSSQL_AGENT_ENABLED: "true"
               MSSQL_DATA_DIR: "/var/opt/mssql/data"
               MSSQL_LOG_DIR: "/var/opt/mssql/log"
@@ -49,11 +49,11 @@ spec:
                   name: mssql-2025-secret
             resources:
               requests:
-                cpu: 1
-                memory: 6Gi
+                cpu: 4
+                memory: 8Gi
               limits:
-                cpu: 1
-                memory: 6Gi
+                cpu: 4
+                memory: 8Gi
             securityContext:
               capabilities: { add: ["SYS_PTRACE"] }
     defaultPodOptions:
