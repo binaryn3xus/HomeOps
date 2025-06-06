@@ -49,9 +49,6 @@ spec:
                   name: mssql-2025-secret
             resources:
               requests:
-                cpu: 2
-                memory: 4Gi
-              limits:
                 cpu: 4
                 memory: 6Gi
     defaultPodOptions:
