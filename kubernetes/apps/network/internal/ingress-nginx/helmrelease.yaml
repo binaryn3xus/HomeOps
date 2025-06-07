@@ -28,6 +28,7 @@ spec:
       "2333": "default/lavalink:2333"
       "6379": "default/redis:6379"
       "1433": "database/mssql:1433"
+      "1434": "database/mssql-2025:1433"
     fullnameOverride: *app
     controller:
       replicaCount: 1
