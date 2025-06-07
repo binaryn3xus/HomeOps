@@ -63,6 +63,8 @@ spec:
         runAsGroup: 10001
         fsGroup: 10001
         fsGroupChangePolicy: OnRootMismatch
+      nodeSelector:
+        mssql2025-compatible: "true" # You must manually add this label to your node. E-Cores are not supported apparently in MSSQL 2025 therefore turned off in BIOS.
     service:
       main:
         controller: main
