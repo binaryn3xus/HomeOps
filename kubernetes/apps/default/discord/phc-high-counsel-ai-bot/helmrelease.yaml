@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: ghcr.io/binaryn3xus/phc-highcounsel-bot
-              tag: 2025.4.0
+              tag: 2025.5.0
             env:
               TZ: "America/New_York"
               Bot_Ollama__Model: "wizardlm2"
