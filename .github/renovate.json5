@@ -25,7 +25,6 @@
   "rebaseWhen": "conflicted",
   "requireConfig": "ignored",
   "ignorePaths": ["**/archive/**", "**/*.sops.*", "**/.archive/**", "**/resources/**"],
-  "ignoreDeps": ["ghcr.io/binaryn3xus/phc-highcounsel-bot"],
   "flux": {
     "fileMatch": ["(^|/)kubernetes/.+\\.ya?ml$"]
   },
