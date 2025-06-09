@@ -36,7 +36,7 @@ spec:
           app:
             image:
               repository: ghcr.io/themepark-dev/theme.park
-              tag: 1.20.1@sha256:5f8583d51d0ca98289bc94927dcdb732c98699860a6f25033b2161a64b080976
+              tag: 1.21.0@sha256:5501ab56af8633225800c1efee947b49037066ca5cc733bfe282a2e47ce40d1a
             env:
               TZ: "America/New_York"
             resources:
