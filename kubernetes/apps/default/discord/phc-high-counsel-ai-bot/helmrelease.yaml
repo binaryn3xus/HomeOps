@@ -44,7 +44,7 @@ spec:
               Bot_Ollama__Server: "http://10.0.30.6:11434"
               Bot_PHC__MemberRoleId: "1192231944910544996"
               Bot_PHC__AutoReactions: false
-              Bot_PHC__EnableFxLinks: true
+              Bot_PHC__EnableFxLinks: false
               Bot_Links__SupportServerUrl: "https://github.com/binaryn3xus/PHC-HighCounsel-Bot"
               Bot_Links__SourceRepositoryUrl: "https://github.com/binaryn3xus/PHC-HighCounsel-Bot"
             envFrom:
