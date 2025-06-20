@@ -47,7 +47,7 @@ spec:
             dependsOn: app
             image:
               repository: ghcr.io/coder/code-server
-              tag: 4.100.3
+              tag: 4.101.0
             env:
               TZ: America/New_York
             args:
