@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: ghcr.io/binaryn3xus/phc-highcounsel-bot
-              tag: 2025.5.0
+              tag: 2025.6.0
             env:
               TZ: "America/New_York"
               Bot_Ollama__Model: "wizardlm2"
@@ -45,6 +45,7 @@ spec:
               Bot_PHC__MemberRoleId: "1192231944910544996"
               Bot_PHC__AutoReactions: false
               Bot_PHC__EnableFxLinks: true
+              Bot_PHC__SuppressFacebookEmbed: true
               Bot_Links__SupportServerUrl: "https://github.com/binaryn3xus/PHC-HighCounsel-Bot"
               Bot_Links__SourceRepositoryUrl: "https://github.com/binaryn3xus/PHC-HighCounsel-Bot"
             envFrom:
