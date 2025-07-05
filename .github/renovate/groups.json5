@@ -49,6 +49,19 @@
         "commitMessageTopic": "{{{groupName}}} group"
       },
       "separateMinorPatch": true
+    },
+    {
+      "description": ["Mise Tools Group (aqua & uv)"],
+      "groupName": "Mise-Tools",
+      "matchPackagePatterns": [
+        "^aqua:",
+        "^uv$"
+      ],
+      "matchManagers": ["mise"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
     }
   ]
 }
