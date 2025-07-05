@@ -11,7 +11,7 @@ run = "uv pip install -r requirements.txt"
 [tools]
 # Template tools
 python = "3.13"
-uv = "0.7.17"
+uv = "0.7.18"
 # Operations tools
 "aqua:budimanjojo/talhelper" = "3.0.29"
 "aqua:cloudflare/cloudflared" = "2025.6.1"
@@ -27,6 +27,6 @@ uv = "0.7.17"
 "aqua:mikefarah/yq" = "4.45.4"
 "aqua:siderolabs/talos" = "1.10.4"
 "aqua:yannh/kubeconform" = "0.7.0"
-"aqua:derailed/k9s" = "0.50.6"
+"aqua:derailed/k9s" = "0.50.7"
 "aqua:stern/stern" = "1.32.0"
 "aqua:hidetatz/kubecolor" = "0.0.25"
