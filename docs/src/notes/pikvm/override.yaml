@@ -21,7 +21,7 @@ kvmd:
                 mac: 58:47:ca:7a:ae:49
             wol_server2:
                 type: wol
-                mac: 58:47:ca:7a:b2:89
+                mac: 58:47:ca:7f:3b:33
             wol_server3:
                 type: wol
                 mac: 00:1f:c6:9c:9a:99
