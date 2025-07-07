@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: public.ecr.aws/docker/library/redis
-              tag: 8.0.2
+              tag: 8.0.3
             env:
               TZ: "America/New_York"
               REDIS_REPLICATION_MODE: master
