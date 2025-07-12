@@ -39,6 +39,7 @@ spec:
               EULA: "TRUE"
               VERSION: "1.21.7"
               TYPE: "PAPER"
+              OPS: "BinaryNexus"
               MODRINTH_PROJECTS: "calcmod"
               MODRINTH_DATAPACKS: "veinminer"
               MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
