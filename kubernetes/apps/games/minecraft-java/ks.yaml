@@ -3,21 +3,18 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app minecraft-java
-  namespace: &namespace default
+  namespace: &namespace games
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: external-secrets-azure
-      namespace: external-secrets
   interval: 30m
-  path: ./kubernetes/apps/default/minecraft/java/app
+  path: ./kubernetes/apps/games/minecraft/app
   postBuild:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 10Gi
-      GATUS_SUBDOMAIN: minecraft
+      GATUS_SUBDOMAIN: minecraft-java
   prune: true
   sourceRef:
     kind: GitRepository
