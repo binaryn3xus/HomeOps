@@ -60,11 +60,10 @@ spec:
       enabled: false
 
     persistence:
-      storageClassName: ceph-block
       dataDir:
         enabled: true
-        size: 10Gi
+        existingClaim: *app
         accessModes:
-          - ReadWriteMany
+          - ReadWriteOnce
         globalMounts:
           - path: /data
