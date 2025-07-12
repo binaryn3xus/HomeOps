@@ -59,6 +59,9 @@ spec:
     service:
       app:
         controller: minecraft
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: "10.0.30.36"
         ports:
           http:
             port: 25565
