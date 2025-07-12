@@ -40,7 +40,7 @@ spec:
               VERSION: "1.21.7"
               TYPE: "MODRINTH"
               MODRINTH_MODPACK: "calcmod"
-              MODRINTH_PROJECTS: "https://modrinth.com/plugin/calcmod"
+              MODRINTH_PROJECTS: "calcmod"
               MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
               MEMORY: "4096M"
               MOTD: "Powered by Kubernetes"
