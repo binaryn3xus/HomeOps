@@ -14,7 +14,6 @@ resources:
   - ./frigate/ks.yaml
   - ./home-assistant/ks.yaml
   - ./it-tools/ks.yaml
-  - ./minecraft/ks.yaml
   - ./minio/ks.yaml
   - ./node-red/ks.yaml
   - ./open-webui/ks.yaml
