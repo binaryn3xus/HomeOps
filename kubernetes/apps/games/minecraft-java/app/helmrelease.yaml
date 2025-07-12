@@ -38,10 +38,9 @@ spec:
             env:
               EULA: "TRUE"
               VERSION: "1.21.7"
-              TYPE: "MODRINTH"
-              MODRINTH_MODPACK: "calcmod"
-              MODRINTH_PROJECTS: "calcmod"
-              MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
+              TYPE: "PAPER"
+              MODRINTH_PROJECTS: "calcmod" # Use the Modrinth slug for CalcMod
+              MODRINTH_DOWNLOAD_DEPENDENCIES: "required" # Good to keep for dependencies
               MEMORY: "4096M"
               MOTD: "Powered by Kubernetes"
               TZ: "America/New_York"
