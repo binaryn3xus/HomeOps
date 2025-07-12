@@ -50,9 +50,12 @@ spec:
       woldSaveName: Valley-of-Vanilla
       rcon:
         enabled: false
-    serviceAnnotations:
-      mc-router.itzg.me/externalServerName: &host minecraft.${SECRET_DOMAIN}
-      io.cilium/lb-ipam-ips: "10.0.30.37"
+    service:
+      type: ClusterIP
+      port: 25565
+      annotations:
+        mc-router.itzg.me/externalServerName: &host minecraft.${SECRET_DOMAIN}
+        io.cilium/lb-ipam-ips: "10.0.30.37"
     mcbackup:
       enabled: false
 
@@ -60,7 +63,6 @@ spec:
       storageClassName: ceph-block
       dataDir:
         enabled: true
-        existingClaim: *app
         size: 10Gi
         accessModes:
           - ReadWriteMany
