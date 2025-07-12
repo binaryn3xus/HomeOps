@@ -51,7 +51,7 @@ spec:
       rcon:
         enabled: false
     service:
-      type: ClusterIP
+      type: LoadBalancer
       port: 25565
       annotations:
         mc-router.itzg.me/externalServerName: &host minecraft.${SECRET_DOMAIN}
