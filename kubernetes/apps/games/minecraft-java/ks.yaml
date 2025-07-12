@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   interval: 30m
-  path: ./kubernetes/apps/games/minecraft/app
+  path: ./kubernetes/apps/games/minecraft-java/app
   postBuild:
     substitute:
       APP: *app
