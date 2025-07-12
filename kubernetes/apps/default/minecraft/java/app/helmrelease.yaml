@@ -48,8 +48,6 @@ spec:
       difficulty: normal
       motd: BinaryNexus is king of the nerds!
       woldSaveName: Valley-of-Vanilla
-      extraPorts:
-        - name: external-ingress
       rcon:
         enabled: false
     serviceAnnotations:
