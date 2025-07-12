@@ -30,7 +30,7 @@ spec:
       pullPolicy: IfNotPresent
     resources:
       requests:
-        memory: &memory 4Gi
+        memory: &memory 6Gi
         cpu: 4
       # limits:
       #  memory: 10Gi
@@ -42,7 +42,7 @@ spec:
       ops: BinaryNexus
       version: 1.21.7
       type: VANILLA
-      memory: *memory
+      memory: 4096M
       gameMode: survival
       maxTickTime: -1
       difficulty: normal
