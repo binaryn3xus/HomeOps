@@ -30,7 +30,7 @@ spec:
       pullPolicy: IfNotPresent
     resources:
       requests:
-        memory: &memory 8Gi
+        memory: &memory 4Gi
         cpu: 4
       # limits:
       #  memory: 10Gi
