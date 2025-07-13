@@ -39,11 +39,9 @@ spec:
               EULA: "TRUE"
               VERSION: "1.21.7"
               OPS: "BinaryNexus"
-              TYPE: "FABRIC" # MUST be FABRIC when using Fabric mods like fabric-api
-              # Remove MODRINTH_MODPACK as it's not being used for a full modpack
-              MODRINTH_PROJECTS: "calcmod,fabric-api,thizzyz-tree-feller,datapack:veinminer" # Include datapack: prefix for veinminer
-              # MODRINTH_MODPACK: "" # This line can be removed or kept as empty string
-              # MODRINTH_DATAPACKS: "veinminer" # Comment this OUT or remove, as it's now in MODRINTH_PROJECTS
+              TYPE: "FABRIC"
+              MODRINTH_PROJECTS: "calcmod,fabric-api"
+              MODRINTH_DATAPACKS: "veinminer,tree-chopping"
               MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
               MEMORY: "4096M"
               MOTD: "Powered by Kubernetes"
