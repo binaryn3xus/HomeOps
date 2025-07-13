@@ -39,7 +39,7 @@ spec:
               EULA: "TRUE"
               VERSION: "1.21.7"
               OPS: "BinaryNexus"
-              TYPE: "FABRIC"
+              TYPE: "MODRINTH"
               MODRINTH_PROJECTS: "calcmod,fabric-api,fabric-language-kotlin,silk-core,silk-commands" # Remove veinminer from here
               MODRINTH_DATAPACKS: "veinminer"
               MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
