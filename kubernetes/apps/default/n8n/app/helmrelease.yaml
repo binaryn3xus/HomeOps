@@ -45,7 +45,7 @@ spec:
               N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: false
               N8N_PROTOCOL: "https"
               N8N_PORT: &port 8080
-              N8N_HOST: &hostName n8n.unscfleet.com
+              N8N_HOST: &host n8n.unscfleet.com
               N8N_LOG_LEVEL: info
               N8N_LOG_OUTPUT: console
             resources:
@@ -74,7 +74,7 @@ spec:
       n8n:
         className: internal
         hosts:
-          - host: *hostName
+          - host: *host
             paths:
               - path: /
                 service:
