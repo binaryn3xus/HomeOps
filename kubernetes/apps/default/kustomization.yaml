@@ -14,6 +14,7 @@ resources:
   - ./home-assistant/ks.yaml
   - ./it-tools/ks.yaml
   - ./minio/ks.yaml
+  - ./n8n/ks.yaml
   - ./node-red/ks.yaml
   - ./open-webui/ks.yaml
   - ./overseerr/ks.yaml
