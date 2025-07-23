@@ -52,7 +52,7 @@
     },
     {
       "description": "Mise TOML File Updates",
-      "groupName": "Mise TOML File",
+      "groupName": "Mise",
       "fileMatch": ["(^|/)\\.mise\\.toml$"],
       "matchManagers": ["mise"],
       "group": {
