@@ -64,8 +64,10 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: "10.0.30.37"
         ports:
-          http:
+          minecraft-bedrock:
             port: 19132
+            targetPort: 19132
+            protocol: UDP
     # ingress:
     #   minecraft:
     #     className: external

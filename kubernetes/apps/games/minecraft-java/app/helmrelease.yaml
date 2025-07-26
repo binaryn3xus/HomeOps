@@ -69,8 +69,10 @@ spec:
         annotations:
           io.cilium/lb-ipam-ips: "10.0.30.36"
         ports:
-          http:
+          minecraft-java:
             port: 25565
+            targetPort: 25565
+            protocol: TCP
     # ingress:
     #   minecraft:
     #     className: external
