@@ -1,0 +1,28 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app minecraft-bedrock
+  namespace: &namespace games
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  components:
+    - ../../../../flux/components/gatus/external
+    - ../../../../flux/components/volsync
+  interval: 30m
+  path: ./kubernetes/apps/games/minecraft-bedrock/app
+  postBuild:
+    substitute:
+      APP: *app
+      VOLSYNC_CAPACITY: 10Gi
+      GATUS_SUBDOMAIN: minecraft-bedrock
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false
