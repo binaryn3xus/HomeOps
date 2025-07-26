@@ -43,11 +43,10 @@ spec:
       - --crd-source-kind=DNSEndpoint
       - --ignore-ingress-tls-spec
       - --ingress-class=external
-      - --txt-owner-id=unscfleet-k8s-cluster
     triggerLoopOnEvent: true
     policy: sync
     sources: ["crd", "ingress"]
-    txtOwnerId: default
+    txtOwnerId: unscfleet-k8s-cluster
     txtPrefix: k8s.
     domainFilters: ["unscfleet.com"]
     serviceMonitor:
