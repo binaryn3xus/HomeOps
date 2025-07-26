@@ -71,21 +71,21 @@ spec:
         ports:
           http:
             port: 25565
-    ingress:
-      minecraft:
-        className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/exclude: "true" # Exclude from external-dns
-        hosts:
-          - host: &host "minecraft-java.unscfleet.com"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
+    # ingress:
+    #   minecraft:
+    #     className: external
+    #     annotations:
+    #       external-dns.alpha.kubernetes.io/exclude: "true" # Exclude from external-dns
+    #     hosts:
+    #       - host: &host "minecraft-java.unscfleet.com"
+    #         paths:
+    #           - path: /
+    #             service:
+    #               identifier: app
+    #               port: http
+    #     tls:
+    #       - hosts:
+    #           - *host
     persistence:
       config:
         existingClaim: *app
