@@ -64,7 +64,7 @@ spec:
       - --ignore-ingress-tls-spec
     policy: sync
     sources: ["ingress", "service"]
-    txtOwnerId: default
+    txtOwnerId: unscfleet-k8s-cluster
     txtPrefix: k8s.
     domainFilters: ["unscfleet.com"]
     serviceMonitor:
