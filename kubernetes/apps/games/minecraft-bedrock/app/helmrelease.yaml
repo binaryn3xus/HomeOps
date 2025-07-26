@@ -38,7 +38,8 @@ spec:
             env:
               EULA: "TRUE"
               VERSION: "LATEST"
-              OPS: "PHC Nexus"
+              ALLOW_CHEATS: "true"
+              OPS: "2535428636477255"
               GAMEMODE: "survival"
               SERVER_NAME: "Kubernetes Bedrock Server"
               DIFFICULTY: "normal"
@@ -68,21 +69,6 @@ spec:
             port: 19132
             targetPort: 19132
             protocol: UDP
-    # ingress:
-    #   minecraft:
-    #     className: external
-    #     annotations:
-    #       external-dns.alpha.kubernetes.io/exclude: "true" # Exclude from external-dns
-    #     hosts:
-    #       - host: &host "minecraft-bedrock.unscfleet.com"
-    #         paths:
-    #           - path: /
-    #             service:
-    #               identifier: app
-    #               port: http
-    #     tls:
-    #       - hosts:
-    #           - *host
     persistence:
       config:
         existingClaim: *app
