@@ -72,8 +72,10 @@ spec:
           http:
             port: 25565
     ingress:
-      bazarr:
+      minecraft:
         className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/exclude: "true" # Exclude from external-dns
         hosts:
           - host: &host "minecraft-java.unscfleet.com"
             paths:
