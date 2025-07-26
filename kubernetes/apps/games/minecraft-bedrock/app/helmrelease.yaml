@@ -33,7 +33,7 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/itzg/minecraft-bedrock-server
+              repository: docker.io/itzg/minecraft-bedrock-server
               tag: 2025.7.0
             env:
               EULA: "TRUE"
