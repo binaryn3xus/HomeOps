@@ -39,7 +39,7 @@ spec:
               EULA: "TRUE"
               VERSION: "LATEST"
               ALLOW_CHEATS: "true"
-              OPS: "2535428636477255"
+              OPS: "2535428636477255,2535406309697008,2535416281564452"
               GAMEMODE: "survival"
               SERVER_NAME: "Kubernetes Bedrock Server"
               DIFFICULTY: "normal"
