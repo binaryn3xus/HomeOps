@@ -33,8 +33,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/home-assistant
-              tag: 2025.7.3@sha256:d232ff8396fb0e9fc869a286af12b901f93a8f585bc7dab7bdf7a3f487b3014e
+              repository: ghcr.io/home-assistant/home-assistant
+              tag: 2025.7.3@sha256:9682a29fdfde74dd67c78d724105a9c11cb2affaf350192b0a89447f958547df
             env:
               TZ: "America/New_York"
             resources:
@@ -67,10 +67,10 @@ spec:
                 memory: 512Mi
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
+            runAsUser: 1000
+            runAsGroup: 1000
             runAsNonRoot: true
-            fsGroup: 568
+            fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
 
     service:
