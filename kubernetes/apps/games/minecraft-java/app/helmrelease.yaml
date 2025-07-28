@@ -35,10 +35,14 @@ spec:
             image:
               repository: ghcr.io/itzg/minecraft-server
               tag: latest
+            envFrom:
+              - configMapRef:
+                  name: minecraft-java-env
+              - secretRef:
+                  name: minecraft-java-secret
             env:
               EULA: "TRUE"
               VERSION: "1.21.7"
-              OPS: "BinaryNexus"
               TYPE: "FABRIC"
               MODRINTH_PROJECTS: "calcmod,fabric-api"
               MODRINTH_DATAPACKS: "veinminer,tree-chopping"
