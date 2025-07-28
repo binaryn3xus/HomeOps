@@ -56,10 +56,10 @@ spec:
               PAUSE_WHEN_EMPTY_SECONDS: "90"
             resources:
               requests:
-                cpu: 4
-                memory: 6Gi
+                cpu: 2
+                memory: 4Gi
               limits:
-                memory: 8Gi
+                memory: 6Gi
         pod:
           securityContext:
             runAsUser: 1000

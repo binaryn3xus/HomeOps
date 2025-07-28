@@ -35,17 +35,11 @@ spec:
             image:
               repository: docker.io/itzg/minecraft-bedrock-server
               tag: 2025.7.0
-            env:
-              EULA: "TRUE"
-              VERSION: "LATEST"
-              ALLOW_CHEATS: "true"
-              OPS: "2535428636477255,2535406309697008,2535416281564452"
-              GAMEMODE: "survival"
-              SERVER_NAME: "Kubernetes Bedrock Server"
-              DIFFICULTY: "normal"
-              MOTD: "Powered by Kubernetes"
-              TZ: "America/New_York"
-              ONLINE_MODE: "true"
+            envFrom:
+              - configMapRef:
+                  name: minecraft-bedrock-env
+              - secretRef:
+                  name: minecraft-bedrock-secret
             resources:
               requests:
                 cpu: 2

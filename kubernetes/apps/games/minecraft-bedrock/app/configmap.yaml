@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://kubernetesjsonschema.dev/v1.18.1-standalone-strict/configmap-v1.json
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: minecraft-bedrock-env
+  namespace: games
+data:
+  EULA: "TRUE"
+  VERSION: "LATEST"
+  ALLOW_CHEATS: "true"
+  GAMEMODE: "survival"
+  SERVER_NAME: "Kubernetes Bedrock Server"
+  DIFFICULTY: "normal"
+  MOTD: "Powered by Kubernetes"
+  TZ: "America/New_York"
+  ONLINE_MODE: "true"
