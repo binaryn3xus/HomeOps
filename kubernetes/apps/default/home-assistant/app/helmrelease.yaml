@@ -92,6 +92,8 @@ spec:
     ingress:
       home-assistant:
         className: external
+        annotations:
+          io.cilium/lb-ipam-ips: "10.0.30.38"
         hosts:
           - host: &host "hass.unscfleet.com"
             paths:
