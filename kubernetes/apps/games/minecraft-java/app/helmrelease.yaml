@@ -40,20 +40,6 @@ spec:
                   name: minecraft-java-env
               - secretRef:
                   name: minecraft-java-secret
-            env:
-              EULA: "TRUE"
-              VERSION: "1.21.7"
-              TYPE: "FABRIC"
-              MODRINTH_PROJECTS: "calcmod,fabric-api"
-              MODRINTH_DATAPACKS: "veinminer,tree-chopping"
-              MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
-              MEMORY: "4096M"
-              MOTD: "Powered by Kubernetes"
-              TZ: "America/New_York"
-              DIFFICULTY: "2"
-              ENABLE_COMMAND_BLOCK: "true"
-              LEVEL: "Valley-of-Vanilla"
-              PAUSE_WHEN_EMPTY_SECONDS: "90"
             resources:
               requests:
                 cpu: 2
