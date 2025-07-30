@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: docker.io/nodered/node-red
-              tag: 4.0.9
+              tag: 4.1.0
             env:
               TZ: "America/New_York"
               FLOWS: flows.json
