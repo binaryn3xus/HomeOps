@@ -18,3 +18,6 @@ data:
   ENABLE_COMMAND_BLOCK: "true"
   LEVEL: "Valley-of-Vanilla"
   PAUSE_WHEN_EMPTY_SECONDS: "300"
+  ENABLE_WHITELIST: "true"
+  WHITELIST: "BinaryNexus,HellsOperative,THEEARIESHD,Kendrikson"
+  OVERRIDE_WHITELIST: "true"
