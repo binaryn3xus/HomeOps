@@ -6,12 +6,13 @@ metadata:
   name: minecraft-bedrock-env
   namespace: games
 data:
-  EULA: "TRUE"
-  VERSION: "LATEST"
-  ALLOW_CHEATS: "true"
-  GAMEMODE: "survival"
-  SERVER_NAME: "Kubernetes Bedrock Server"
-  DIFFICULTY: "normal"
-  MOTD: "Powered by Kubernetes"
-  TZ: "America/New_York"
-  ONLINE_MODE: "true"
+  ALLOW_CHEATS: 'true'
+  DIFFICULTY: normal
+  EULA: 'TRUE'
+  GAMEMODE: survival
+  MOTD: Powered by Kubernetes
+  ONLINE_MODE: 'true'
+  SERVER_NAME: Kubernetes Bedrock Server
+  TZ: America/New_York
+  VERSION: LATEST
+

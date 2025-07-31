@@ -6,3 +6,12 @@ resources:
   - ./helmrelease.yaml
   - ./externalsecret.yaml
   - ./configmap.yaml
+configMapGenerator:
+  - name: minecraft-java-whitelist
+    namespace: games
+    files:
+      - whitelist.json=./resources/whitelist.json
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
