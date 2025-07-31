@@ -6,18 +6,18 @@ metadata:
   name: minecraft-java-env
   namespace: games
 data:
-  EULA: "TRUE"
-  VERSION: "1.21.7"
-  TYPE: "FABRIC"
-  MODRINTH_PROJECTS: "fabric-api,fallingtree,ore-harvester,sodium,lithium"
-  MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
-  MEMORY: "4096M"
-  MOTD: "Powered by Kubernetes"
-  TZ: "America/New_York"
-  DIFFICULTY: "2"
-  ENABLE_COMMAND_BLOCK: "true"
-  LEVEL: "Valley-of-Vanilla"
-  PAUSE_WHEN_EMPTY_SECONDS: "300"
-  ENABLE_WHITELIST: "true"
-  WHITELIST: "BinaryNexus,HellsOperative,THEEARIESHD,Kendrikson"
-  OVERRIDE_WHITELIST: "true"
+  DIFFICULTY: '2'
+  ENABLE_COMMAND_BLOCK: 'true'
+  ENABLE_WHITELIST: 'true'
+  EULA: 'TRUE'
+  LEVEL: Valley-of-Vanilla
+  MEMORY: 4096M
+  MODRINTH_DOWNLOAD_DEPENDENCIES: required
+  MODRINTH_PROJECTS: fabric-api,fallingtree,ore-harvester,sodium,lithium
+  MOTD: Powered by Kubernetes
+  ONLINE_MODE: 'true'
+  OVERRIDE_WHITELIST: 'true'
+  PAUSE_WHEN_EMPTY_SECONDS: '300'
+  TYPE: FABRIC
+  TZ: America/New_York
+  VERSION: 1.21.7

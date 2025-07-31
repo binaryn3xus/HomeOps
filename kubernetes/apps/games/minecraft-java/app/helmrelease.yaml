@@ -68,3 +68,10 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /data
+      whitelist:
+        type: configMap
+        name: minecraft-java-whitelist
+        globalMounts:
+          - path: /data/whitelist.json
+            subPath: whitelist.json
+            readOnly: true

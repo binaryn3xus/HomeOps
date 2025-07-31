@@ -6,3 +6,8 @@ resources:
   - ./helmrelease.yaml
   - ./externalsecret.yaml
   - ./configmap.yaml
+configMapGenerator:
+  - name: minecraft-java-whitelist
+    namespace: games
+    files:
+      - whitelist.json=./resources/whitelist.json
