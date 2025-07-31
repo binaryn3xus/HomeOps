@@ -11,3 +11,7 @@ configMapGenerator:
     namespace: games
     files:
       - whitelist.json=./resources/whitelist.json
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
