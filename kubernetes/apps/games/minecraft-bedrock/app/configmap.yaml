@@ -8,7 +8,6 @@ metadata:
 data:
   ALLOW_CHEATS: 'true'
   ALLOW_LIST: 'true'
-  ALLOW_LIST_USERS: "PHC Nexus:2675352635798486,theearieshd7342:2535406309697008,HellsOperative:2535416281564452,krawmerax:2533274862903476"
   DIFFICULTY: normal
   EULA: 'TRUE'
   FORCE_GAMEMODE: 'false'
@@ -16,8 +15,6 @@ data:
   MAX_PLAYERS: '20'
   MOTD: Powered by Kubernetes
   ONLINE_MODE: 'true'
-  OPS: "2675352635798486,2535406309697008,2535416281564452,2533274862903476"
   SERVER_NAME: Kubernetes Bedrock Server
   TZ: America/New_York
   VERSION: LATEST
-  WHITE_LIST:   # Remember to actually setup whitelist.json
