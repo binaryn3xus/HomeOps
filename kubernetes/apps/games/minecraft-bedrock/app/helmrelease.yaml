@@ -70,7 +70,7 @@ spec:
           - path: /data
       permissions:
         type: configMap
-        name: minecraft-java-permissions
+        name: minecraft-bedrock-permissions
         globalMounts:
           - path: /data/permissions.json
             subPath: permissions.json
