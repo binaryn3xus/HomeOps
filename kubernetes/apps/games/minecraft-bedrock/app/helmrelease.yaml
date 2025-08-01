@@ -68,3 +68,10 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /data
+      permissions:
+        type: configMap
+        name: minecraft-java-permissions
+        globalMounts:
+          - path: /data/permissions.json
+            subPath: permissions.json
+            readOnly: false
