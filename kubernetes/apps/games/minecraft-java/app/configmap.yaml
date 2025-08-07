@@ -13,7 +13,7 @@ data:
   LEVEL: Valley-of-Vanilla
   MEMORY: 4096M
   MODRINTH_DOWNLOAD_DEPENDENCIES: required
-  MODRINTH_PROJECTS: fabric-api,fallingtree,ore-harvester,sodium,lithium,disconnect-packet-fix
+  MODRINTH_PROJECTS: fabric-api,fallingtree,ore-harvester,sodium,lithium,disconnect-packet-fix,essential-commands,easier-sleeping,universal-graves,ferrite-core
   MOTD: Powered by Kubernetes
   ONLINE_MODE: 'true'
   OVERRIDE_WHITELIST: 'true'
