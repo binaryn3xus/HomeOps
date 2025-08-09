@@ -27,7 +27,6 @@ spec:
       "1434": "database/mssql-2025:1433"
       "1883": "default/emqx:1883"
       "2333": "default/lavalink:2333"
-      "6379": "default/redis:6379"
       "8123": "default/home-assistant:8123"
       "25565": "games/minecraft:25565"
       "32400": "default/plex:32400"
