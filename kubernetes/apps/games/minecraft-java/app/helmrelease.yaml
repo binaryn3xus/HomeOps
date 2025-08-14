@@ -38,8 +38,6 @@ spec:
             envFrom:
               - configMapRef:
                   name: minecraft-java-env
-              - secretRef:
-                  name: minecraft-java-secret
             resources:
               requests:
                 cpu: 2
