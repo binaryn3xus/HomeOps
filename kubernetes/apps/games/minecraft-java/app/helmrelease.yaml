@@ -75,3 +75,10 @@ spec:
           - path: /data/whitelist.json
             subPath: whitelist.json
             readOnly: true
+      operators:
+        type: configMap
+        name: minecraft-java-operators
+        globalMounts:
+          - path: /data/ops.json
+            subPath: ops.json
+            readOnly: true
