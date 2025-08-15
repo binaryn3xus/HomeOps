@@ -67,6 +67,7 @@ spec:
           memory: "2Gi"
           cpu: "2"
     gateway:
+      enabled: false
       replicas: 0
     backend:
       replicas: 0
