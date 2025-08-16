@@ -6,4 +6,3 @@ resources:
   - ./rook-ceph/ks.yaml
 components:
   - ../../components/common
-  - ../../flux/components/sops

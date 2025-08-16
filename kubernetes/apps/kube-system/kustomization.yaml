@@ -13,4 +13,3 @@ resources:
   - ./spegel/ks.yaml
 components:
   - ../../components/common
-  - ../../flux/components/sops
