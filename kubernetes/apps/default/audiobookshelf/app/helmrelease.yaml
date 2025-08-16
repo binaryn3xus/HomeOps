@@ -1,31 +1,21 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &app audiobookshelf
-  namespace: default
 spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
-  maxHistory: 2
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
   install:
     remediation:
-      retries: 3
+      retries: -1
   upgrade:
     cleanupOnFail: true
     remediation:
-      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
       audiobookshelf:
@@ -63,35 +53,30 @@ spec:
                 memory: 500Mi
               limits:
                 memory: 2500Mi
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
     service:
       app:
-        controller: audiobookshelf
-        annotations:
-          teleport.dev/name: *app
-        labels:
-          teleport: enabled
         ports:
           http:
             port: *port
-    ingress:
-      audiobookshelf:
-        className: external
-        hosts:
-          - host: &host "audiobooks.unscfleet.com"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
+
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.unscfleet.com"
+          - audiobooks.unscfleet.com
+        parentRefs:
+          - name: external
+            namespace: kube-system
+            sectionName: https
+
     persistence:
       config:
         existingClaim: *app
@@ -99,8 +84,10 @@ spec:
           - path: /config
       media:
         existingClaim: synology-media
-      cache:
-        enabled: true
+      tmpfs:
         type: emptyDir
-        globalMounts:
-          - path: /.npm
+        advancedMounts:
+          home-assistant:
+            app:
+              - path: /.npm
+                subPath: .npm
