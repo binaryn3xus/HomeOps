@@ -3,16 +3,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: teleport
+components:
+  - ../../components/common
 resources:
   - ./teleport/ks.yaml
   - ./teleport-kube-agent/ks.yaml
-components:
-  - ../../components/common
-# patches:
-#   - # Add the name to the namespace
-#     patch: |
-#       - op: add
-#         path: /metadata/name
-#         value: teleport
-#     target:
-#       kind: Namespace
