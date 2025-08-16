@@ -10,11 +10,11 @@ resources:
   - ./unifi-dns/ks.yaml
 components:
   - ../../components/common
-patches:
-  - # Add the name to the namespace
-    patch: |
-      - op: add
-        path: /metadata/name
-        value: network
-    target:
-      kind: Namespace
+# patches:
+#   - # Add the name to the namespace
+#     patch: |
+#       - op: add
+#         path: /metadata/name
+#         value: network
+#     target:
+#       kind: Namespace
