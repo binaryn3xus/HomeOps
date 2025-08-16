@@ -1,0 +1,10 @@
+---
+originRequest:
+  originServerName: external.unscfleet.com
+
+ingress:
+  - hostname: unscfleet.com
+    service: &svc https://cilium-gateway-external.kube-system.svc.cluster.local
+  - hostname: "*.unscfleet.com"
+    service: *svc
+  - service: http_status:404

@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: bazarr
+  name: cloudflare-tunnel
 spec:
   interval: 1h
   chartRef:
@@ -18,25 +18,33 @@ spec:
       retries: 3
   values:
     controllers:
-      bazarr:
+      cloudflare-tunnel:
+        strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/bazarr
-              tag: 1.5.2@sha256:dbc87e5ce9e199709188e152e82b3ff5d33e6521a1b3d61e465aa75b4b739e7f
+              repository: docker.io/cloudflare/cloudflared
+              tag: 2025.8.0@sha256:eb5c9324efe3b8e8a48612423dd912f76fa93cf138923e7eda5d1a9805057757
             env:
-              BAZARR__PORT: &port 80
-              TZ: America/New_York
+              NO_AUTOUPDATE: true
+              TUNNEL_METRICS: 0.0.0.0:8080
+              TUNNEL_ORIGIN_ENABLE_HTTP2: true
+              TUNNEL_POST_QUANTUM: true
+              TUNNEL_TRANSPORT_PROTOCOL: quic
+            envFrom:
+              - secretRef:
+                  name: "{{ .Release.Name }}-secret"
+            args: ["tunnel", "run"]
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: /health
-                    port: *port
+                    path: /ready
+                    port: &port 8080
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -50,44 +58,26 @@ spec:
               requests:
                 cpu: 10m
               limits:
-                memory: 1Gi
+                memory: 256Mi
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
-
     service:
       app:
         ports:
           http:
             port: *port
-
-    route:
+    serviceMonitor:
       app:
-        hostnames: ["{{ .Release.Name }}.unscfleet.com"]
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
-
+        endpoints:
+          - port: http
     persistence:
-      config:
-        existingClaim: *app
+      config-file:
+        type: configMap
+        name: cloudflare-tunnel-configmap
         globalMounts:
-          - path: /config
-      media:
-        existingClaim: synology-media
-      tmpfs:
-        type: emptyDir
-        advancedMounts:
-          bazarr:
-            app:
-              - path: /config/cache
-                subPath: cache
-              - path: /config/log
-                subPath: log
-              - path: /tmp
-                subPath: tmp
+          - path: /etc/cloudflared/config.yaml
+            subPath: config.yaml
+            readOnly: true
