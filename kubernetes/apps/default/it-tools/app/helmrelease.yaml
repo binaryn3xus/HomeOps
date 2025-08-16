@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app it-tools
+  name: it-tools
 spec:
   interval: 1h
   chartRef:
@@ -39,10 +39,11 @@ spec:
         ports:
           http:
             port: 80
+
     route:
       app:
         hostnames:
-          - &host "{{ .Release.Name }}.unscfleet.com"
+          - "{{ .Release.Name }}.unscfleet.com"
         parentRefs:
           - name: external
             namespace: kube-system
