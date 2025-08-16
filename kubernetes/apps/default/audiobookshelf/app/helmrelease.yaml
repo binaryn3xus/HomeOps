@@ -87,7 +87,7 @@ spec:
       tmpfs:
         type: emptyDir
         advancedMounts:
-          home-assistant:
+          audiobookshelf:
             app:
               - path: /.npm
                 subPath: .npm
