@@ -88,8 +88,8 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.turbo.ac"
-          - status.turbo.ac
+          - "{{ .Release.Name }}.unscfleet.com"
+          - status.unscfleet.com
         parentRefs:
           - name: external
             namespace: kube-system
