@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../flux/components/gatus/external
+    - ../../../../components/gatus/external
     - ../../../../flux/components/volsync
   interval: 30m
   path: ./kubernetes/apps/games/minecraft-java/app

@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../flux/components/gatus/guarded
+    - ../../../../components/gatus/guarded
   dependsOn:
     - name: external-secrets-azure
       namespace: external-secrets
