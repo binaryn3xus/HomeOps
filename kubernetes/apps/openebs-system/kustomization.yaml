@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ./openebs/ks.yaml
 components:
-  - ../../flux/components/namespace
+  - ../../components/common
 patches:
   - # Add the name to the namespace
     patch: |

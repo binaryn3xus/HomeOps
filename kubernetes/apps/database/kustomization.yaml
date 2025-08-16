@@ -8,7 +8,7 @@ resources:
   - ./mssql/ks.yaml
   - ./mssql-2025/ks.yaml
 components:
-  - ../../flux/components/namespace
+  - ../../components/common
   - ../../flux/components/sops
 patches:
   - # Add the name to the namespace

@@ -13,7 +13,7 @@ resources:
   - ./promtail/ks.yaml
   - ./unpoller/ks.yaml
 components:
-  - ../../flux/components/namespace
+  - ../../components/common
   - ../../flux/components/sops
 patches:
   - # Add the name to the namespace

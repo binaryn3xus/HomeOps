@@ -5,5 +5,5 @@ namespace: rook-ceph
 resources:
   - ./rook-ceph/ks.yaml
 components:
-  - ../../flux/components/namespace
+  - ../../components/common
   - ../../flux/components/sops

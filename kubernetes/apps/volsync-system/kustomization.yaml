@@ -7,5 +7,5 @@ resources:
   - ./snapshot-controller/ks.yaml
   - ./volsync/ks.yaml
 components:
-  - ../../flux/components/namespace
+  - ../../components/common
   - ../../flux/components/sops
