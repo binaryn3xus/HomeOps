@@ -12,6 +12,12 @@
         "matchDatasources": ["docker"],
         "versioning": "regex:^RELEASE\\.(?<major>\\d+)-(?<minor>\\d+)-(?<patch>\\d+)T.*Z$",
         "matchPackagePatterns": ["minio"]
+      },
+      {
+        "description": "Prevent EMQX from upgrading to 5.9.0 license change",
+        "matchDatasources": ["helm"],
+        "matchPackageNames": ["emqx"],
+        "allowedVersions": "<5.9.0"
       }
     ]
   }
