@@ -32,8 +32,8 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: certificates-import
-      namespace: kube-system
+    - name: cert-manager
+      namespace: cert-manager
   interval: 1h
   path: ./kubernetes/apps/kube-system/cilium/gateway
   prune: true
