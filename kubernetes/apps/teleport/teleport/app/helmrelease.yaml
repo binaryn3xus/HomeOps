@@ -17,11 +17,6 @@ spec:
         namespace: flux-system
 
   values:
-    annotations:
-      ingress:
-        nginx.ingress.kubernetes.io/backend-protocol: "https"
-        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     auth:
       annotations:
         deployment:
@@ -38,11 +33,11 @@ spec:
     enterprise: false
     highAvailability:
       tls:
-        existingSecretName: "unscfleet-com-production-tls"
+        existingSecretName: "unscfleet-com-tls"
     ingress:
       enabled: true
-      spec:
-        ingressClassName: external
+      useExisting: true
+      suppressAutomaticWildcards: true
     joinParams:
       method: kubernetes
       tokenName: kubernetes-token
