@@ -35,28 +35,28 @@ spec:
               limits:
                 cpu: 500m
                 memory: 2Gi
-          code:
-            dependsOn: app
-            image:
-              repository: ghcr.io/coder/code-server
-              tag: 4.103.0
-            env:
-              TZ: America/New_York
-            args:
-              - --auth
-              - "none"
-              - --user-data-dir
-              - "/config/.vscode"
-              - --extensions-dir
-              - "/config/.vscode"
-              - "--port"
-              - "80"
-              - /config
-            resources:
-              requests:
-                cpu: 500m
-              limits:
-                memory: 1Gi
+          # code:
+          #   dependsOn: app
+          #   image:
+          #     repository: ghcr.io/coder/code-server
+          #     tag: 4.103.0
+          #   env:
+          #     TZ: America/New_York
+          #   args:
+          #     - --auth
+          #     - "none"
+          #     - --user-data-dir
+          #     - "/config/.vscode"
+          #     - --extensions-dir
+          #     - "/config/.vscode"
+          #     - "--port"
+          #     - "80"
+          #     - /config
+          #   resources:
+          #     requests:
+          #       cpu: 500m
+          #     limits:
+          #       memory: 1Gi
 
     defaultPodOptions:
       securityContext:
@@ -76,11 +76,11 @@ spec:
         ports:
           http:
             port: 8123
-      code:
-        controller: home-assistant
-        ports:
-          http:
-            port: 80
+      # code:
+      #   controller: home-assistant
+      #   ports:
+      #     http:
+      #       port: 80
 
     ingress:
       home-assistant:
@@ -106,13 +106,13 @@ spec:
             namespace: kube-system
             sectionName: https
 
-      code:
-        hostnames:
-          - hass-code.unscfleet.com
-        parentRefs:
-          - name: internal
-            namespace: kube-system
-            sectionName: https
+      # code:
+      #   hostnames:
+      #     - hass-code.unscfleet.com
+      #   parentRefs:
+      #     - name: internal
+      #       namespace: kube-system
+      #       sectionName: https
 
     persistence:
       config:
