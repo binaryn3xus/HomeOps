@@ -12,10 +12,10 @@ resources:
   - ./audiobookshelf/ks.yaml
   - ./bazarr/ks.yaml
   - ./discord/ks.yaml
-  - ./emqx/ks.yaml
   - ./home-assistant/ks.yaml
   - ./it-tools/ks.yaml
   - ./minio/ks.yaml
+  - ./mosquitto/ks.yaml
   - ./n8n/ks.yaml
   - ./node-red/ks.yaml
   - ./open-webui/ks.yaml

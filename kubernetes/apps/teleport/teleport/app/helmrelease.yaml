@@ -65,6 +65,8 @@ spec:
         proxy_service:
           trust_x_forwarded_for: true
     proxyListenerMode: multiplex
+    publicAddr:
+      - teleport.unscfleet.com
     rbac:
       create: true
     service:
