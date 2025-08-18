@@ -37,7 +37,7 @@ spec:
               tag: 11.1.0
             env:
               TZ: "America/New_York"
-              
+
             probes:
               liveness: &probes
                 enabled: true
