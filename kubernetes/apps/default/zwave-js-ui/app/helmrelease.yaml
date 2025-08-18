@@ -1,35 +1,29 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &app zwave-js-ui
 spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
-  maxHistory: 3
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
   install:
     remediation:
-      retries: 3
+      retries: -1
   upgrade:
     cleanupOnFail: true
     remediation:
-      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
       zwave-js-ui:
         annotations:
           reloader.stakater.com/auto: "true"
+        pod:
+          nodeSelector:
+            aeotec.feature.node.kubernetes.io/zwave: "true"
         containers:
           app:
             image:
@@ -37,7 +31,7 @@ spec:
               tag: 11.1.0
             env:
               TZ: "America/New_York"
-
+              PORT: &port 80
             probes:
               liveness: &probes
                 enabled: true
@@ -45,7 +39,7 @@ spec:
                 spec:
                   httpGet:
                     path: /health
-                    port: &port 8091
+                    port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -58,34 +52,25 @@ spec:
                 cpu: 50m
               limits:
                 memory: 512Mi
-        pod:
-          nodeSelector:
-            aeotec.feature.node.kubernetes.io/zwave: "true"
+
     service:
       app:
-        controller: zwave-js-ui
-        annotations:
-          teleport.dev/name: *app
-        labels:
-          teleport: enabled
         ports:
           http:
             port: *port
           websocket:
             port: 3000
-    ingress:
-      main:
-        className: internal
-        hosts:
-          - host: &host "{{ .Release.Name }}.unscfleet.com"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
+
+    route:
+      app:
+        hostnames:
+          - "{{ .Release.Name }}.unscfleet.com"
+          - "zwave.unscfleet.com"
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
+
     persistence:
       config:
         existingClaim: *app
@@ -97,3 +82,5 @@ spec:
         hostPathType: CharDevice
         globalMounts:
           - path: /dev/serial/by-id/usb-0658_0200-if00
+      tmp:
+        type: emptyDir
