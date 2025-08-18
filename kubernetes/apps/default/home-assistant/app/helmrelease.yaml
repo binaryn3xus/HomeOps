@@ -76,25 +76,6 @@ spec:
         ports:
           http:
             port: 8123
-      # code:
-      #   controller: home-assistant
-      #   ports:
-      #     http:
-      #       port: 80
-
-    ingress:
-      home-assistant:
-        className: external
-        hosts:
-          - host: &host "hass.unscfleet.com"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - *host
 
     route:
       app:
@@ -105,14 +86,6 @@ spec:
           - name: external
             namespace: kube-system
             sectionName: https
-
-      # code:
-      #   hostnames:
-      #     - hass-code.unscfleet.com
-      #   parentRefs:
-      #     - name: internal
-      #       namespace: kube-system
-      #       sectionName: https
 
     persistence:
       config:
