@@ -46,7 +46,7 @@ spec:
       app:
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: mqtt.unscfleet.com
+          internal-dns.alpha.kubernetes.io/hostname: mqtt.unscfleet.com
           lbipam.cilium.io/ips: 10.0.30.35
         ports:
           http:
