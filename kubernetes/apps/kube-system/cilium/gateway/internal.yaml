@@ -33,3 +33,9 @@ spec:
         certificateRefs:
           - kind: Secret
             name: unscfleet-com-tls
+    - name: mqtt-tcp
+      protocol: TCP
+      port: 1883
+      allowedRoutes:
+        namespaces:
+          from: All
