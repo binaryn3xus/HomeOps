@@ -12,7 +12,7 @@ spec:
     - ../../../../components/gatus/guarded
     - ../../../../flux/components/volsync
   dependsOn:
-    - name: emqx
+    - name: mosquitto
       namespace: default
     - name: rook-ceph-cluster
       namespace: rook-ceph
