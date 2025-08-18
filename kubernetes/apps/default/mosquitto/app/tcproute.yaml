@@ -13,3 +13,4 @@ spec:
     - backendRefs:
         - name: mosquitto
           port: 1883
+  hostname: ["mqtt.unscfleet.com"]
