@@ -60,15 +60,18 @@ spec:
         deployment:
           reloader.stakater.com/auto: "true"
       service:
-        port: 8080
-        targetPort: 8080
+        type: ClusterIP
+        ports:
+        - port: 443
+          targetPort: 3080
+          name: https-proxy
       teleportConfig:
         proxy_service:
-          web_listen_addr: 0.0.0.0:8080
+          web_listen_addr: 0.0.0.0:3080
           trust_x_forwarded_for: true
-    #proxyListenerMode: multiplex
+    proxyListenerMode: multiplex
     publicAddr:
-      - teleport.unscfleet.com
+      - teleport.unscfleet.com:443
     rbac:
       create: true
     service:
