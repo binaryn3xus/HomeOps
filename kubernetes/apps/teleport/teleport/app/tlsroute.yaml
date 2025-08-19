@@ -6,14 +6,13 @@ metadata:
   namespace: teleport
 spec:
   parentRefs:
-  - name: external-gateway
+  - name: external
     namespace: kube-system
-    sectionName: teleport-web-proxy
+    sectionName: https
+  hostnames:
+  - "teleport.unscfleet.com"
+  - "*.teleport.unscfleet.com"
   rules:
-  - matches:
-    - sni:
-      - "teleport.unscfleet.com"
-      - "*.teleport.unscfleet.com"
   - backendRefs:
     - name: teleport
       port: 443
