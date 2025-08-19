@@ -1,5 +1,5 @@
 apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
+kind: TLSRoute
 metadata:
   name: teleport
   namespace: teleport
@@ -8,9 +8,9 @@ spec:
     - name: external
       namespace: kube-system
       sectionName: https
-  hostnames:
-    - teleport.unscfleet.com
   rules:
     - backendRefs:
-        - name: teleport
+        - group: ""
+          kind: Service
+          name: teleport
           port: 443
