@@ -33,9 +33,48 @@ spec:
         certificateRefs:
           - kind: Secret
             name: unscfleet-com-tls
+
+    # MQTT
     - name: mqtt-tcp
       protocol: TCP
       port: 1883
       allowedRoutes:
         namespaces:
           from: All
+
+    # TELEPORT
+    - name: teleport-cluster-http
+      protocol: HTTP
+      port: 80
+      hostname: teleport.unscfleet.com
+      allowedRoutes:
+        namespaces:
+          from: All
+
+    - name: teleport-cluster-https
+      protocol: TLS
+      port: 443
+      hostname: teleport.unscfleet.com
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Passthrough
+
+    - name: teleport-cluster-wild-http
+      protocol: HTTP
+      port: 80
+      hostname: "*.teleport.unscfleet.com"
+      allowedRoutes:
+        namespaces:
+          from: All
+
+    - name: teleport-cluster-wild-https
+      protocol: TLS
+      port: 443
+      hostname: "*.teleport.unscfleet.com"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Passthrough

@@ -17,23 +17,30 @@ spec:
         namespace: flux-system
 
   values:
+    acme: false
     auth:
       annotations:
         deployment:
-          reloader.stakater.com/auto: "true"
+          reloader.stakater.com/auto: 'true'
       teleportConfig:
         auth_service:
           client_idle_timeout: 2h
-          client_idle_timeout_message: "Connection closed after 2hours without activity"
-          session_recording: "off"
+          client_idle_timeout_message: Connection closed after 2hours without activity
+          session_recording: 'off'
     authentication:
       type: github
     chartMode: standalone
     clusterName: teleport.unscfleet.com
     enterprise: false
     highAvailability:
-      tls:
-        existingSecretName: "unscfleet-com-tls"
+      replicaCount: 1
+      podDisruptionBudget:
+        enabled: true
+      certManager:
+        enabled: true
+        issuerName: letsencrypt-production
+        addCommonName: true
+        addPublicAddrs: true
     ingress:
       enabled: false
     joinParams:
@@ -58,17 +65,9 @@ spec:
     proxy:
       annotations:
         deployment:
-          reloader.stakater.com/auto: "true"
-      service:
-        type: ClusterIP
-        ports:
-        - port: 443
-          targetPort: 3080
-          name: https-proxy
-      teleportConfig:
-        proxy_service:
-          web_listen_addr: 0.0.0.0:3080
-          trust_x_forwarded_for: true
+          reloader.stakater.com/auto: 'true'
+      highAvailability:
+        replicaCount: 1
     proxyListenerMode: multiplex
     publicAddr:
       - teleport.unscfleet.com:443
