@@ -39,6 +39,8 @@ spec:
       certManager:
         enabled: true
         issuerName: letsencrypt-production
+        issuerKind: ClusterIssuer
+        issuerGroup: cert-manager.io
         addCommonName: true
         addPublicAddrs: true
     ingress:
