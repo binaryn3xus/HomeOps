@@ -1,5 +1,5 @@
 ---
-apiVersion: gateway.networking.k8s.io/v1beta1
+apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: TLSRoute
 metadata:
   name: teleport
@@ -8,11 +8,12 @@ spec:
   parentRefs:
   - name: external-gateway
     namespace: kube-system
+    sectionName: teleport-web-proxy
   rules:
   - matches:
     - sni:
       - "teleport.unscfleet.com"
       - "*.teleport.unscfleet.com"
-  - backendRefs:
+    backendRefs:
     - name: teleport
       port: 443
