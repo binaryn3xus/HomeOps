@@ -59,6 +59,9 @@ spec:
       annotations:
         deployment:
           reloader.stakater.com/auto: "true"
+      service:
+        port: 8080
+        targetPort: 8080
       teleportConfig:
         proxy_service:
           web_listen_addr: 0.0.0.0:8080
