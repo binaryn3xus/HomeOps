@@ -3,7 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - helmrelease.yaml
-  - tlsroute.yaml
+  - httproute.yaml
 commonLabels:
   app.kubernetes.io/name: teleport
   app.kubernetes.io/instance: teleport

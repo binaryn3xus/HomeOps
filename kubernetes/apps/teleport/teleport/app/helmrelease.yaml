@@ -32,8 +32,8 @@ spec:
     clusterName: teleport.unscfleet.com
     enterprise: false
     highAvailability:
-      # tls:
-      #   existingSecretName: "unscfleet-com-tls"
+      tls:
+        existingSecretName: "unscfleet-com-tls"
     ingress:
       enabled: false
     joinParams:
