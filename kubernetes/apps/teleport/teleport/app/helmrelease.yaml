@@ -35,9 +35,7 @@ spec:
       tls:
         existingSecretName: "unscfleet-com-tls"
     ingress:
-      enabled: true
-      useExisting: true
-      suppressAutomaticWildcards: true
+      enabled: false
     joinParams:
       method: kubernetes
       tokenName: kubernetes-token
