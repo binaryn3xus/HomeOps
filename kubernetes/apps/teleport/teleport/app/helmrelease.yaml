@@ -32,8 +32,8 @@ spec:
     clusterName: teleport.unscfleet.com
     enterprise: false
     highAvailability:
-      tls:
-        existingSecretName: "unscfleet-com-tls"
+      # tls:
+      #   existingSecretName: "unscfleet-com-tls"
     ingress:
       enabled: false
     joinParams:
@@ -61,8 +61,9 @@ spec:
           reloader.stakater.com/auto: "true"
       teleportConfig:
         proxy_service:
+          web_listen_addr: 0.0.0.0:8080
           trust_x_forwarded_for: true
-    proxyListenerMode: multiplex
+    #proxyListenerMode: multiplex
     publicAddr:
       - teleport.unscfleet.com
     rbac:
