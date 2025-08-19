@@ -3,7 +3,7 @@ apiVersion: gateway.networking.k8s.io/v1alpha2
 kind: TLSRoute
 metadata:
   name: teleport
-  namespace: security
+  namespace: teleport
 spec:
   parentRefs:
   - name: external-gateway
@@ -14,6 +14,6 @@ spec:
     - sni:
       - "teleport.unscfleet.com"
       - "*.teleport.unscfleet.com"
-    backendRefs:
+  - backendRefs:
     - name: teleport
       port: 443
