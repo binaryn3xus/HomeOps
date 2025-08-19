@@ -13,4 +13,4 @@ spec:
         - group: ""
           kind: Service
           name: teleport
-          port: 443
+          port: 8080
