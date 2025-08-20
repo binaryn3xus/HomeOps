@@ -70,7 +70,7 @@ spec:
 
     route:
       app:
-        hostnames: ["{{ .Release.Name }}.turbo.ac"]
+        hostnames: ["{{ .Release.Name }}.unscfleet.com"]
         parentRefs:
           - name: external
             namespace: kube-system
