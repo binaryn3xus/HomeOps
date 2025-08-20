@@ -54,4 +54,4 @@ clist
 
 # Allows you to smelt all stone blocks, like cobblestone and deepslate,
 # two times faster in a Blast Furnace.
-datapack:smelting-cobblestone-in-blast-a-furnace-fabricforge
+# datapack:smelting-cobblestone-in-blast-a-furnace-fabricforge
