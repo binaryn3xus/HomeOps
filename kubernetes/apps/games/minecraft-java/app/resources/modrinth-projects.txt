@@ -1,0 +1,57 @@
+# ===============================================================
+# Mods
+# ===============================================================
+
+# Fabric API is the library for essential hooks and interoperability
+# mechanisms for Fabric mods.
+fabric-api
+
+# Allows felling entire trees. Break down your trees by only cutting
+# one piece of it
+fallingtree
+
+# Harvest entire ore veins instantly and drop ore items at the
+# initial block position. An updated alternative to the vein
+# miner / veinminer mods.
+ore-harvester
+
+# A rendering engine optimization mod for modern Minecraft versions
+# which greatly improves frame rates and stuttering.
+sodium
+
+# A mod designed to improve the general performance of Minecraft
+# without breaking things.
+lithium
+
+# A server-side mod that works around a bug that spams the console
+# with "error sending packet" messages.
+disconnect-packet-fix
+
+# Adds configurable, permissions-backed utility commands like tpa,
+# home, warp, spawn, back, nick, and rtp.
+essential-commands
+
+# A simple, but really customizable grave/death chest mod that
+# works on Fabric and Quilt servers.
+universal-graves
+
+# A mod that reduces the memory usage of Minecraft.
+ferrite-core
+
+# Adds a proximity voice chat to your Minecraft server.
+simple-voice-chat
+
+# A mod that adds unique, wearable backpacks for extra storage and utility.
+travelersbackpack
+
+# A simple, minimalistic client-side mod for saving your coordinates
+# without a minimap.
+clist
+
+# ===============================================================
+# Data Packs
+# ===============================================================
+
+# Allows you to smelt all stone blocks, like cobblestone and deepslate,
+# two times faster in a Blast Furnace.
+datapack:smelting-cobblestone-in-blast-a-furnace-fabricforge
