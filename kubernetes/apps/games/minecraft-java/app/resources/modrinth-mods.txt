@@ -1,0 +1,16 @@
+# Mods
+fabric-api
+fallingtree
+ore-harvester
+sodium
+lithium
+disconnect-packet-fix
+essential-commands
+universal-graves
+ferrite-core
+simple-voice-chat
+travelersbackpack
+clist
+
+# Data Packs
+datapack:smelting-cobblestone-in-blast-a-furnace-fabricforge

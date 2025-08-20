@@ -75,3 +75,10 @@ spec:
           - path: /data/ops.json
             subPath: ops.json
             readOnly: true
+      modrinth-projects:
+        type: configMap
+        name: minecraft-java-modrinth-projects
+        globalMounts:
+          - path: /data/modrinth-projects.txt
+            subPath: modrinth-projects.txt
+            readOnly: true
