@@ -42,7 +42,7 @@ ferrite-core
 simple-voice-chat
 
 # A mod that adds unique, wearable backpacks for extra storage and utility.
-travelersbackpack
+# travelersbackpack
 
 # A simple, minimalistic client-side mod for saving your coordinates
 # without a minimap.
