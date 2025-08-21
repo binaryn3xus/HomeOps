@@ -46,14 +46,6 @@ spec:
                 cpu: 4
                 memory: 6Gi
 
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 10001
-        runAsGroup: 10001
-        fsGroup: 10001
-        fsGroupChangePolicy: OnRootMismatch
-
     service:
       main:
         type: LoadBalancer
