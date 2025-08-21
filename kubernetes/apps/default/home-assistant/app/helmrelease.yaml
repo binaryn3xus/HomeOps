@@ -70,7 +70,7 @@ spec:
       app:
         controller: home-assistant
         annotations:
-          io.cilium/lb-ipam-ips: "10.0.30.38"
+          lbipam.cilium.io/ips: "10.0.30.38"
         labels:
           teleport: enabled
         ports:
