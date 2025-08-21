@@ -41,3 +41,11 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+
+    # MS SQL
+    - name: mssql-stanard-tcp
+      protocol: TCP
+      port: 1433
+      allowedRoutes:
+        namespaces:
+          from: All
