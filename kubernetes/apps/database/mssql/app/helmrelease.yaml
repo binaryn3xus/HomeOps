@@ -61,8 +61,10 @@ spec:
           external-dns.alpha.kubernetes.io/hostname: mssql2022.unscfleet.com
           lbipam.cilium.io/ips: "10.0.30.39"
         ports:
-          http:
+          mssqlport:
             port: 1433
+            targetPort: 1433
+            protocol: TCP
 
     persistence:
       config:
