@@ -36,7 +36,12 @@ spec:
             envFrom:
               - secretRef:
                   name: "{{ .Release.Name }}-secret"
-            args: ["tunnel", "run"]
+            args:
+              - tunnel
+              - --no-happy-eyeballs
+              - --proxy-connect-timeout
+              - 3m
+              - run
             probes:
               liveness: &probes
                 enabled: true
