@@ -3,8 +3,17 @@ originRequest:
   originServerName: external.unscfleet.com
 
 ingress:
+  # Teleport Service
+  - hostname: teleport.unscfleet.com
+    service: https://teleport-cluster.teleport.svc.cluster.local:443
+    originRequest:
+      noTLSVerify: true
+
+  # Primary Domain
   - hostname: unscfleet.com
     service: &svc https://cilium-gateway-external.kube-system.svc.cluster.local
   - hostname: "*.unscfleet.com"
     service: *svc
+
+  # Catch-all rule.
   - service: http_status:404
