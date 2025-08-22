@@ -1,30 +1,21 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &app mssql-2025
 spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
-  maxHistory: 2
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
   install:
     remediation:
-      retries: 3
+      retries: -1
   upgrade:
     cleanupOnFail: true
     remediation:
-      strategy: rollback
       retries: 3
-  uninstall:
-    keepHistory: false
   values:
     controllers:
       main:
@@ -49,13 +40,14 @@ spec:
                   name: mssql-2025-secret
             resources:
               requests:
-                cpu: 4
-                memory: 8Gi
+                cpu: 2
+                memory: 4Gi
               limits:
                 cpu: 4
-                memory: 8Gi
+                memory: 6Gi
             securityContext:
               capabilities: { add: ["SYS_PTRACE"] }
+
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -65,26 +57,19 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       nodeSelector:
         mssql2025-compatible: "true" # You must manually add this label to your node. E-Cores are not supported apparently in MSSQL 2025 therefore turned off in BIOS.
+
     service:
       main:
-        controller: main
         type: LoadBalancer
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: mssql2025.unscfleet.com
+          lbipam.cilium.io/ips: "10.0.30.40"
         ports:
-          tcp:
+          mssqlport:
             port: 1433
-    ingress:
-      main:
-        className: internal
-        hosts:
-          - host: &host "mssql2025.unscfleet.com"
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: tcp
-        tls:
-          - hosts:
-              - *host
+            targetPort: 1433
+            protocol: TCP
+
     persistence:
       config:
         existingClaim: *app
