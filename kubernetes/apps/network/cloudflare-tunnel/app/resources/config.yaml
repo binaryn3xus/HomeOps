@@ -8,6 +8,7 @@ ingress:
     service: https://teleport-cluster.teleport.svc.cluster.local:443
     originRequest:
       noTLSVerify: true
+      proxyType: "socks"
 
   # Primary Domain
   - hostname: unscfleet.com
