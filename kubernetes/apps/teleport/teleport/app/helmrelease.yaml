@@ -59,7 +59,7 @@ spec:
       highAvailability:
         replicaCount: 1
     proxyListenerMode: multiplex
-    proxyProtocol: "on"
+    proxyProtocol: "off"
     publicAddr:
       - teleport.unscfleet.com:443
     rbac:
