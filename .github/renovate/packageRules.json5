@@ -14,15 +14,10 @@
         "matchPackagePatterns": ["minio"]
       },
       {
-        "description": "Prevent EMQX from upgrading to 5.9.0 license change",
-        "matchDatasources": ["helm"],
-        "matchPackageNames": ["emqx"],
-        "allowedVersions": "<5.9.0"
-      },
-      {
         "matchDatasources": ["docker"],
         "matchPackagePatterns": ["corentinth/it-tools"],
-        "versioning": "regex:^v(?<major>\\d{4})\\.(?<minor>\\d{2})\\.(?<patch>\\d{2})-(?<sha>[a-f0-9]{7,})$"
+        // Accepts: 2024.5.13-a0bc346 (year.month.day-sha)
+        "versioning": "regex:^(?<major>\\d{4})\\.(?<minor>\\d{1,2})\\.(?<patch>\\d{1,2})-(?<sha>[a-f0-9]{7,})$"
       }
     ]
   }
