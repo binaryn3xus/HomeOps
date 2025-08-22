@@ -18,6 +18,12 @@
         "matchDatasources": ["helm"],
         "matchPackageNames": ["emqx"],
         "allowedVersions": "<5.9.0"
+      },
+      {
+        "description": "Custom versioning for corentinth/it-tools",
+        "matchDatasources": ["docker"],
+        "matchPackagePatterns": ["corentinth/it-tools"],
+        "versioning": "regex:^v(?<year>\\d{4})\\.(?<month>\\d{2})\\.(?<day>\\d{2})-(?<sha>[a-f0-9]{7,})$"
       }
     ]
   }
