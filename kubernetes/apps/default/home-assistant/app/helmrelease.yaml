@@ -68,11 +68,8 @@ spec:
 
     service:
       app:
-        controller: home-assistant
         annotations:
           lbipam.cilium.io/ips: "10.0.30.38"
-        labels:
-          teleport: enabled
         ports:
           http:
             port: 8123
