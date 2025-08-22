@@ -1,4 +1,6 @@
 ---
+noHappyEyeballs: true
+
 originRequest:
   originServerName: external.unscfleet.com
 
