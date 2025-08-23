@@ -29,8 +29,6 @@ spec:
             envFrom:
               - configMapRef:
                   name: minecraft-bedrock-env
-              - secretRef:
-                  name: minecraft-bedrock-secret
             resources:
               requests:
                 cpu: 2
@@ -63,3 +61,17 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /data
+      allowlist:
+        type: configMap
+        name: minecraft-bedrock-allowlist
+        globalMounts:
+          - path: /data/allowlist.json
+            subPath: allowlist.json
+            readOnly: true
+      operators:
+        type: configMap
+        name: minecraft-bedrock-permissions
+        globalMounts:
+          - path: /data/permissions.json
+            subPath: permissions.json
+            readOnly: true

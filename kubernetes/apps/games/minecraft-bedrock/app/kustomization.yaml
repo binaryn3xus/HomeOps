@@ -6,3 +6,16 @@ resources:
   - ./helmrelease.yaml
   - ./externalsecret.yaml
   - ./configmap.yaml
+configMapGenerator:
+  - name: minecraft-bedrock-allowlist
+    namespace: games
+    files:
+      - allowlist.json=./resources/allowlist.json
+  - name: minecraft-bedrock-permissions
+    namespace: games
+    files:
+      - permissions.json=./resources/permissions.json
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
