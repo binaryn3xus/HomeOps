@@ -41,3 +41,17 @@ spec:
       allowedRoutes:
         namespaces:
           from: All
+
+    - name: minio-main
+      protocol: TCP
+      port: 9001
+      allowedRoutes:
+        namespaces:
+          from: All
+
+    - name: minio-s3
+      protocol: TCP
+      port: 9000
+      allowedRoutes:
+        namespaces:
+          from: All
