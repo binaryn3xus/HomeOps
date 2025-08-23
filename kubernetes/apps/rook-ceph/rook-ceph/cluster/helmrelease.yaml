@@ -35,15 +35,16 @@ spec:
     monitoring:
       enabled: true
       createPrometheusRules: true
-    ingress:
+    route:
       dashboard:
-        ingressClassName: internal
         host:
-          name: &host "rook.unscfleet.com"
+          name: rook.unscfleet.com
           path: /
-        tls:
-          - hosts:
-              - *host
+          pathType: PathPrefix
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            sectionName: https
     toolbox:
       enabled: true
     cephClusterSpec:
@@ -58,6 +59,8 @@ spec:
       csi:
         readAffinity:
           enabled: true
+          crushLocationLabels:
+            - topology.kubernetes.io/zone
       dashboard:
         enabled: true
         urlPrefix: /
@@ -75,6 +78,8 @@ spec:
             enabled: true
       network:
         provider: host
+        connections:
+          requireMsgr2: true
       storage:
         useAllNodes: false
         useAllDevices: false
