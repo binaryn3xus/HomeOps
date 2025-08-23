@@ -1,42 +1,22 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrepository-source-v1.json
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: bjw-s
-  namespace: default
-spec:
-  type: oci
-  interval: 5m
-  url: oci://ghcr.io/bjw-s/helm
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: minio
-  namespace: default
 spec:
-  interval: 15m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: default
-  maxHistory: 3
+  interval: 1h
+  timeout: 5m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
   install:
     remediation:
-      retries: 3
+      retries: -1
   upgrade:
     cleanupOnFail: true
     remediation:
-      strategy: rollback
-      retries: 3
-  uninstall:
-    keepHistory: false
+      retries: 5
   values:
     controllers:
       minio:
@@ -77,12 +57,14 @@ spec:
                 cpu: 100m
               limits:
                 memory: 2Gi
-        pod:
-          securityContext:
-            runAsUser: 1024
-            runAsGroup: 100
-            fsGroup: 100
-            fsGroupChangePolicy: OnRootMismatch
+
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 1024
+        runAsGroup: 100
+        fsGroup: 100
+        fsGroupChangePolicy: OnRootMismatch
+
     service:
       app:
         controller: minio
@@ -91,6 +73,29 @@ spec:
             port: 9001
           s3:
             port: 9000
+
+    route:
+      main:
+        hostnames: ["minio.unscfleet.com"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            port: 443
+        rules:
+          - backendRefs:
+              - name: minio
+                port: 9001
+      s3:
+        hostnames: ["s3.unscfleet.com"]
+        parentRefs:
+          - name: internal
+            namespace: kube-system
+            port: 443
+        rules:
+          - backendRefs:
+              - name: minio
+                port: 9000
+
     serviceMonitor:
       app:
         serviceName: minio
@@ -100,26 +105,7 @@ spec:
             path: /minio/v2/metrics/cluster
             interval: 1m
             scrapeTimeout: 10s
-    ingress:
-      app:
-        className: internal
-        hosts:
-          - host: &host "minio.unscfleet.com"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-          - host: &s3Host "s3.unscfleet.com"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: s3
-        tls:
-          - hosts:
-              - *host
-              - *s3Host
+
     persistence:
       media:
         existingClaim: minio-nfs
