@@ -10,7 +10,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/gatus/guarded
-    - ../../../../flux/components/volsync
+    - ../../../../components/volsync
   dependsOn:
     - name: node-feature-discovery
       namespace: kube-system

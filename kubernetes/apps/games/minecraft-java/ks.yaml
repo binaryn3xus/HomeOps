@@ -10,7 +10,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/gatus/external
-    - ../../../../flux/components/volsync
+    - ../../../../components/volsync
   interval: 30m
   path: ./kubernetes/apps/games/minecraft-java/app
   postBuild:

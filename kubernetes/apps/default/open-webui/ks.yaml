@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../flux/components/volsync
+    - ../../../../components/volsync
     - ../../../../components/gatus/external
   dependsOn:
     - name: rook-ceph-cluster
