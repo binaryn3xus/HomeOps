@@ -1,4 +1,14 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/helmrepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: teleport
+  namespace: teleport
+spec:
+  interval: 1h
+  url: https://charts.releases.teleport.dev
+---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -14,7 +24,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: teleport
-        namespace: flux-system
+        namespace: teleport
 
   values:
     acme: false
