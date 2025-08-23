@@ -14,7 +14,7 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: external-secrets-azure
+    - name: external-secrets
       namespace: external-secrets
     - name: volsync
       namespace: volsync-system

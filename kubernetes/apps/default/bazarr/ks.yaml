@@ -12,7 +12,7 @@ spec:
     - ../../../../components/gatus/guarded
     - ../../../../components/volsync
   dependsOn:
-    - name: external-secrets-azure
+    - name: external-secrets
       namespace: external-secrets
     - name: volsync
       namespace: volsync-system
