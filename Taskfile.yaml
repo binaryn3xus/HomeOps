@@ -33,3 +33,17 @@ tasks:
     preconditions:
       - test -f {{.KUBECONFIG}}
       - which flux
+
+  # Task to flux stop a kustomization and then resume it after 3 seconds to force a refresh; accepts 'name' and 'ns' as variables via CLI
+  refresh:
+    desc: Force Flux to refresh a Kustomization
+    vars:
+      name: '{{.name | default "default"}}'
+      ns: '{{.ns | default "default"}}'
+    cmds:
+      - flux --namespace {{.ns}} suspend kustomization {{.name}}
+      - sleep 3
+      - flux --namespace {{.ns}} resume kustomization {{.name}}
+    preconditions:
+      - test -f {{.KUBECONFIG}}
+      - which flux
