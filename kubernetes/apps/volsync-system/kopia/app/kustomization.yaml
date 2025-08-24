@@ -3,18 +3,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./helmrelease.yaml
   - ./externalsecret.yaml
-  - ./configmap.yaml
+  - ./helmrelease.yaml
 configMapGenerator:
-  - name: minecraft-bedrock-allowlist
-    namespace: games
+  - name: kopia-repository-configmap
     files:
-      - allowlist.json=./resources/allowlist.json
-  - name: minecraft-bedrock-permissions
-    namespace: games
-    files:
-      - permissions.json=./resources/permissions.json
+      - repository.config=./resources/repository.config
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
