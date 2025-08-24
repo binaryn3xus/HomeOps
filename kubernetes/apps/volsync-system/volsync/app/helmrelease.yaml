@@ -22,7 +22,7 @@ spec:
       version: 0.13.0
       sourceRef:
         kind: HelmRepository
-        name: backube
+        name: volsync
         namespace: volsync-system
   maxHistory: 3
   install:
