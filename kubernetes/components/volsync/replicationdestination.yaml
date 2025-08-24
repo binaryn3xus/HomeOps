@@ -9,7 +9,7 @@ metadata:
 spec:
   trigger:
     manual: restore-once
-  restic:
+  kopia:
     accessModes: ["${VOLSYNC_ACCESSMODES:=ReadWriteOnce}"]
     cacheAccessModes: ["${VOLSYNC_CACHE_ACCESSMODES:=ReadWriteOnce}"]
     cacheCapacity: "${VOLSYNC_CACHE_CAPACITY:=5Gi}"
