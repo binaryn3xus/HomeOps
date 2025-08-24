@@ -38,12 +38,12 @@ tasks:
   refresh:
     desc: Force Flux to refresh a Kustomization
     vars:
-      name: '{{.name | default "default"}}'
+      name: '{{.app | default "default"}}'
       ns: '{{.ns | default "default"}}'
     cmds:
-      - flux --namespace {{.ns}} suspend kustomization {{.name}}
+      - flux --namespace {{.ns}} suspend kustomization {{.app}}
       - sleep 3
-      - flux --namespace {{.ns}} resume kustomization {{.name}}
+      - flux --namespace {{.ns}} resume kustomization {{.app}}
     preconditions:
       - test -f {{.KUBECONFIG}}
       - which flux
