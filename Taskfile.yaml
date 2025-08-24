@@ -8,8 +8,8 @@ shopt: [globstar]
 vars:
   KUBERNETES_DIR: '{{.ROOT_DIR}}/kubernetes'
   PRIVATE_DIR: '{{.ROOT_DIR}}/.private'
-  TALHELPER_DIR: '{{.ROOT_DIR}}/kubernetes/bootstrap/talos'
-  TALOSCONFIG: '{{.ROOT_DIR}}/kubernetes/bootstrap/talos/clusterconfig/talosconfig'
+  TALHELPER_DIR: '{{.ROOT_DIR}}/bootstrap/talos'
+  TALOSCONFIG: '{{.ROOT_DIR}}/bootstrap/talos/clusterconfig/talosconfig'
 
 env:
   KUBECONFIG: '{{.ROOT_DIR}}/kubeconfig'
@@ -47,3 +47,26 @@ tasks:
     preconditions:
       - test -f {{.KUBECONFIG}}
       - which flux
+
+  refresh-all:
+    desc: Force Flux to refresh all Kustomizations in the cluster (suspend all, wait, then resume all)
+    cmds:
+      - |
+        kubectl get kustomizations --all-namespaces -o json | \
+          jq -r '.items[] | [.metadata.namespace, .metadata.name] | @tsv' | \
+          while IFS=$'\t' read ns name; do
+            echo "Suspending $name in $ns"
+            flux --namespace "$ns" suspend kustomization "$name"
+          done
+        sleep 3
+        kubectl get kustomizations --all-namespaces -o json | \
+          jq -r '.items[] | [.metadata.namespace, .metadata.name] | @tsv' | \
+          while IFS=$'\t' read ns name; do
+            echo "Resuming $name in $ns"
+            flux --namespace "$ns" resume kustomization "$name"
+          done
+    preconditions:
+      - test -f {{.KUBECONFIG}}
+      - which flux
+      - which jq
+      - which kubectl
