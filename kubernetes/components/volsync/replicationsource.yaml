@@ -16,9 +16,9 @@ spec:
     capacity: "${VOLSYNC_CAPACITY:=5Gi}"
     copyMethod: "${VOLSYNC_COPYMETHOD:=Snapshot}"
     moverSecurityContext:
-      runAsUser: ${VOLSYNC_PUID:=568}
-      runAsGroup: ${VOLSYNC_PGID:=568}
-      fsGroup: ${VOLSYNC_PGID:=568}
+      runAsUser: ${VOLSYNC_PUID:=1000}
+      runAsGroup: ${VOLSYNC_PGID:=1000}
+      fsGroup: ${VOLSYNC_PGID:=1000}
     repository: "${APP}-volsync-secret"
     retain:
       hourly: 24
