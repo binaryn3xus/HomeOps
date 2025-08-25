@@ -65,7 +65,7 @@ spec:
     policy: sync
     sources: ["gateway-httproute", "service"]
     txtOwnerId: main
-    txtPrefix: k8s.main.
+    txtPrefix: zz.k8s.main. ## zz to force TXT records to the bottom of the Unifi DNS list
     domainFilters: ["unscfleet.com"]
     serviceMonitor:
       enabled: true
