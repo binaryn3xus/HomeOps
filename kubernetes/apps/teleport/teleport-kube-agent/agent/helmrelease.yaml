@@ -14,7 +14,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: teleport
-        namespace: flux-system
+        namespace: teleport
   values:
     log:
       level: DEBUG
