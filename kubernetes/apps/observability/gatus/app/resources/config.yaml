@@ -11,8 +11,9 @@ ui:
   title: Status | Gatus
   header: Status
 alerting:
-  discord:
-    webhook-url: ${DISCORD_WEBHOOK}
+  pushover:
+    application-token: ${PUSHOVER_APP_KEY}
+    user-key: ${PUSHOVER_USER_KEY}
     default-alert:
       description: healthcheck failed
       send-on-resolved: true
@@ -32,4 +33,4 @@ endpoints:
     conditions:
       - "[STATUS] == 404"
     alerts:
-      - type: discord
+      - type: pushover
