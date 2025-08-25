@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app radarr
+  name: kopia
 spec:
   interval: 1h
   chartRef:
@@ -18,26 +18,30 @@ spec:
       retries: 3
   values:
     controllers:
-      radarr:
+      kopia:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/radarr
-              tag: 5.27.5.10184@sha256:af67ce80302e21f7228e2da671943c48b27a25faf27e19c4fcb7ad33c1c0e3c0
+              repository: ghcr.io/home-operations/kopia
+              tag: 0.21.1@sha256:f666b5f2c1ea4649cd2bd703507d4b81c2b515782e8476ba4a145b091a704a53
             env:
-              TZ: "America/New_York"
-              RADARR__INSTANCE_NAME: Radarr
-              RADARR__PORT: &port 80
-              RADARR__LOG_LEVEL: info
+              KOPIA_WEB_ENABLED: true
+              KOPIA_WEB_PORT: &port 80
+              TZ: America/New_York
+            envFrom:
+              - secretRef:
+                  name: kopia-secret
+            args:
+              - --without-password
             probes:
               liveness: &probes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
-                    path: /ping
+                    path: /
                     port: *port
                   initialDelaySeconds: 0
                   periodSeconds: 10
@@ -50,10 +54,9 @@ spec:
               capabilities: { drop: ["ALL"] }
             resources:
               requests:
-                cpu: 100m
-                memory: 1000Mi
+                cpu: 10m
               limits:
-                memory: 3000Mi
+                memory: 1Gi
 
     defaultPodOptions:
       securityContext:
@@ -72,16 +75,34 @@ spec:
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.unscfleet.com"
+          - "kopia.unscfleet.com"
         parentRefs:
-          - name: external
+          - name: internal
             namespace: kube-system
             sectionName: https
 
     persistence:
-      config:
-        existingClaim: *app
+      config-file:
+        type: configMap
+        name: kopia-repository-configmap
         globalMounts:
-          - path: /config
-      media:
-        existingClaim: synology-media
+          - path: /config/repository.config
+            subPath: repository.config
+            readOnly: true
+
+      repository:
+        type: nfs
+        server: 10.0.30.4
+        path: /volume1/Kubernetes/VolsyncKopia
+        globalMounts:
+          - path: /repository
+
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          kopia:
+            app:
+              - path: /config/cache
+                subPath: cache
+              - path: /config/logs
+                subPath: logs
