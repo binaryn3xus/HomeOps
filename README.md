@@ -54,11 +54,10 @@ My Kubernetes cluster is deploy with [Talos](https://www.talos.dev). This is a s
 ### Core Components
 
 - [cert-manager](https://github.com/cert-manager/cert-manager): Creates SSL certificates for services in my cluster.
-- [cilium](https://github.com/cilium/cilium): Internal Kubernetes container networking interface.
+- [cilium](https://github.com/cilium/cilium): eBPF-based networking for my workloads.
 - [cloudflared](https://github.com/cloudflare/cloudflared): Enables Cloudflare secure access to certain ingresses.
 - [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically syncs ingress DNS records to a DNS provider.
 - [external-secrets](https://github.com/external-secrets/external-secrets): Managed Kubernetes secrets using [Azure Keyvault](https://azure.microsoft.com/en-us/products/key-vault).
-- [ingress-nginx](https://github.com/kubernetes/ingress-nginx): Kubernetes ingress controller using NGINX as a reverse proxy and load balancer.
 - [rook](https://github.com/rook/rook): Distributed block storage for peristent storage.
 - [sops](https://github.com/getsops/sops): Managed secrets for Kubernetes and Terraform which are commited to Git.
 - [spegel](https://github.com/spegel-org/spegel): Stateless cluster local OCI registry mirror.
@@ -78,10 +77,10 @@ The way Flux works for me here is it will recursively search the [kubernetes/app
 This Git repository contains the following directories under [kubernetes](./kubernetes/).
 
 ```sh
-📁 kubernetes      # Kubernetes cluster defined as code
-├─📁 apps          # Apps deployed into my cluster grouped by namespace (see below)
-├─📁 bootstrap     # Flux installation
-├─📁 flux          # Main Flux configuration of repository
+📁 kubernetes
+├── 📁 apps       # applications
+├── 📁 components # re-useable kustomize components
+└── 📁 flux       # flux system configuration
 ```
 
 ### 📡 Networking
