@@ -67,7 +67,8 @@ spec:
 
     route:
       app:
-        hostnames: ["{{ .Release.Name }}.unscfleet.com"]
+        hostnames:
+          - "{{ .Release.Name }}.unscfleet.com"
         parentRefs:
           - name: internal
             namespace: kube-system
