@@ -68,7 +68,8 @@ spec:
           - port: http
     route:
       app:
-        hostnames: ["{{ .Release.Name }}.unscfleet.com"]
+        hostnames:
+          - "{{ .Release.Name }}.unscfleet.com"
         parentRefs:
           - name: external
             namespace: kube-system

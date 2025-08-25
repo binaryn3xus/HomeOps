@@ -45,7 +45,7 @@ spec:
     route:
       app:
         hostnames:
-          - ai.unscfleet.com
+          - "ai.unscfleet.com"
         parentRefs:
           - name: external
             namespace: kube-system
