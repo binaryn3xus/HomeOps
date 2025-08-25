@@ -34,5 +34,11 @@
     "level": 3,
     "name": "HellsOperative",
     "uuid": "d94cb7b2-5377-4a62-9b5f-c9e640178d86"
+  },
+  {
+    "bypassesPlayerLimit": false,
+    "level": 2,
+    "name": "Kendrikson",
+    "uuid": "2cee3aa7-4c37-42d3-8bf3-d56f3d615c89"
   }
 ]
