@@ -1,0 +1,17 @@
+---
+apiVersion: externaldns.k8s.io/v1alpha1
+kind: DNSEndpoint
+metadata:
+  name: mc-java
+  namespace: games
+spec:
+  endpoints:
+    - dnsName: mc-java.unscfleet.com
+      recordType: A
+      targetsFrom:
+        - secretRef:
+            name: minecraft-java-secret
+            key: HomeOpsPublicIP
+      providerSpecific:
+        - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
+          value: "false"
