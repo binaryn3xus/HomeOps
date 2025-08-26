@@ -8,10 +8,8 @@ spec:
   endpoints:
     - dnsName: mc-java.unscfleet.com
       recordType: A
-      targetsFrom:
-        - secretRef:
-            name: minecraft-java-secret
-            key: HomeOpsPublicIP
+      targets:
+        - "${PUBLIC_IP}"
       providerSpecific:
         - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
           value: "false"

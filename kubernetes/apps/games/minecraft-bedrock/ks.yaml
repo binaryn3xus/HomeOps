@@ -17,6 +17,9 @@ spec:
       APP: *app
       VOLSYNC_CAPACITY: 10Gi
       GATUS_SUBDOMAIN: mc-bedrock
+    substituteFrom:
+      - kind: Secret
+        name: minecraft-shared-secret
   prune: true
   sourceRef:
     kind: GitRepository
