@@ -54,6 +54,7 @@ spec:
       output: stderr
     operator:
       enabled: true
+      installCRDs: "dynamic"
     persistence:
       enabled: true
       existingClaimName: teleport
