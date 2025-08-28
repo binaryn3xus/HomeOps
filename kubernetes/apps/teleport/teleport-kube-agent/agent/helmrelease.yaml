@@ -26,12 +26,6 @@ spec:
       tokenName: "kubernetes-token"
     kubeClusterName: HomeOpsCluster
     teleportConfig:
-      discovery_service:
-        kubernetes:
-        - types: ["app"]
-          namespaces: [ "default" ]
-          labels:
-            teleport: enabled
       windows_desktop_service:
         enabled: yes
         static_hosts:
@@ -47,13 +41,3 @@ spec:
         - name: UNSC-GhostFlag
           addr: 10.0.20.15
           ad: false
-      app_service:
-        enabled: "yes"
-        apps:
-        - name: pikvm
-          public_addr: pikvm.teleport.unscfleet.com
-          uri: https://10.0.30.5/
-          rewrite:
-            headers:
-              - "Host: pikvm.unscfleet.com"
-          insecure_skip_verify: true
