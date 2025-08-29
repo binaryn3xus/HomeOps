@@ -81,4 +81,6 @@ spec:
       type: ClusterIP
     serviceAccount:
       create: true
+    tls:
+      existingSecretName: unscfleet-com-tls
     validateConfigOnDeploy: true
