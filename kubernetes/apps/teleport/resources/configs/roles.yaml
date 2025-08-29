@@ -1,6 +1,6 @@
 ---
-apiVersion: resources.teleport.dev/v8
-kind: TeleportRole
+apiVersion: resources.teleport.dev/v1
+kind: TeleportRoleV8
 metadata:
   name: windows-desktops
   namespace: teleport
@@ -9,8 +9,8 @@ spec:
     windows_desktop_labels:
       "*": "*"
 ---
-apiVersion: resources.teleport.dev/v8
-kind: TeleportRole
+apiVersion: resources.teleport.dev/v1
+kind: TeleportRoleV8
 metadata:
   name: cluster-admin
   namespace: teleport
