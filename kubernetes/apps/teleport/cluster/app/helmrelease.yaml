@@ -27,8 +27,6 @@ spec:
         namespace: teleport
 
   values:
-    acme: true
-    acmeEmail: joshuagarrison27@gmail.com
     auth:
       annotations:
         deployment:
@@ -45,8 +43,13 @@ spec:
     enterprise: false
     highAvailability:
       replicaCount: 1
+      podDisruptionBudget:
+        enabled: true
       certManager:
-        enabled: false
+        enabled: true
+        addPublicAddrs: true
+        issuerKind: ClusterIssuer
+        issuerName: letsencrypt-production
     kubeClusterName: HomeOpsCluster
     log:
       extraFields: ["timestamp", "level", "component", "caller"]
@@ -73,8 +76,8 @@ spec:
     proxyListenerMode: multiplex
     proxyProtocol: "off"
     publicAddr:
-      #- teleport.unscfleet.com:443
-      - localhost:8080
+      - teleport.unscfleet.com:443
+      - teleport-cluster-auth.teleport.svc.cluster.local:3025
     rbac:
       create: true
     service:
