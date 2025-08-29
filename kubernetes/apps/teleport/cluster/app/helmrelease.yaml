@@ -28,16 +28,19 @@ spec:
 
   values:
     publicAddr:
-      - localhost:8080
+      - teleport.unscfleet.com:443
+      - teleport-cluster.teleport.svc.cluster.local:443
 
     highAvailability:
       certManager:
-        enabled: false
-
-    operator:
-      enabled: true
+        enabled: true
+        issuerKind: ClusterIssuer
+        issuerName: letsencrypt-production
 
     clusterName: teleport.unscfleet.com
     kubeClusterName: HomeOpsCluster
-    log:
-      level: INFO
+
+    auth:
+      teleportConfig:
+        auth_service:
+          session_recording: 'off'
