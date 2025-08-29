@@ -7,7 +7,7 @@ ingress:
   - hostname: teleport.unscfleet.com
     service: https://teleport-cluster.teleport.svc.cluster.local:443
     originRequest:
-      noTLSVerify: true
+      noTLSVerify: false
 
   # Primary Domain
   - hostname: unscfleet.com
