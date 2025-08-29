@@ -2,45 +2,11 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: teleport-cluster-policy
+  name: teleport-allow-all-for-debugging
   namespace: teleport
 spec:
-  # Select all pods belonging to the teleport-cluster instance
-  endpointSelector:
-    matchLabels:
-      app.kubernetes.io/instance: teleport-cluster
-
-  egress:
-    # Rule 1: Allow connection from any Teleport pod to the Teleport Auth service.
-    - toEndpoints:
-        - matchLabels:
-            app.kubernetes.io/instance: teleport-cluster
-            app.kubernetes.io/component: auth
-      toPorts:
-        - ports:
-            - port: "3025"
-              protocol: TCP
-
-    # Rule 2: Allow DNS lookups to the CoreDNS pods in the kube-system namespace.
-    - toEndpoints:
-      - matchLabels:
-          "k8s:io.kubernetes.pod.namespace": kube-system
-          "k8s:k8s-app": kube-dns
-      toPorts:
-        - ports:
-            - port: "53"
-              protocol: UDP
-
-    # Rule 3: Allow connection to the Kubernetes API server.
-    - toEntities:
-      - kube-apiserver
-
+  endpointSelector: {}
   ingress:
-    # Rule 1: Allow ingress to the auth service from other Teleport pods
-    - fromEndpoints:
-      - matchLabels:
-          app.kubernetes.io/instance: teleport-cluster
-      toPorts:
-        - ports:
-            - port: "3025"
-              protocol: TCP
+    - {}
+  egress:
+    - {}
