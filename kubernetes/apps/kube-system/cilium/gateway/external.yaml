@@ -43,16 +43,19 @@ spec:
     #     namespaces:
     #       from: All
 
+    # TELEPORT
     - name: teleport-cluster-https
-      protocol: TLS
+      protocol: HTTPS
       port: 443
       hostname: teleport.unscfleet.com
       allowedRoutes:
         namespaces:
           from: All
       tls:
-        mode: Passthrough
-
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: unscfleet-com-tls
     - name: teleport-cluster-wild-https
       protocol: TLS
       port: 443
