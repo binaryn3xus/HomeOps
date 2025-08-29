@@ -5,26 +5,34 @@ metadata:
   name: teleport-operator-to-auth-policy
   namespace: teleport
 spec:
-  # This policy applies to the Teleport Operator pod.
-  # The labels are now an exact match for your operator pod.
   endpointSelector:
     matchLabels:
       app.kubernetes.io/instance: teleport-cluster
       app.kubernetes.io/name: operator
       app.kubernetes.io/component: operator
 
-  # This defines an egress (outgoing) rule.
   egress:
-    # This rule specifies the destination.
+    # Rule 1: Allow connection to the Teleport Auth service.
     - toEndpoints:
-        # It allows traffic to the Teleport Auth service pods.
-        # This selector matches your auth pod's labels.
         - matchLabels:
             app.kubernetes.io/instance: teleport-cluster
             app.kubernetes.io/name: teleport-cluster
             app.kubernetes.io/component: auth
-      # This specifies the allowed port and protocol.
       toPorts:
         - ports:
             - port: "3025"
               protocol: TCP
+
+    # Rule 2: Allow DNS lookups to the CoreDNS pods in the kube-system namespace.
+    - toEndpoints:
+      - matchLabels:
+          "k8s:io.kubernetes.pod.namespace": kube-system
+          "k8s:k8s-app": kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+
+    # Rule 3: Allow connection to the Kubernetes API server.
+    - toEntities:
+      - kube-apiserver
