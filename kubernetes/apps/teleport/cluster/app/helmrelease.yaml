@@ -42,14 +42,8 @@ spec:
     clusterName: teleport.unscfleet.com
     enterprise: false
     highAvailability:
-      replicaCount: 1
-      podDisruptionBudget:
-        enabled: true
-      certManager:
-        enabled: true
-        addPublicAddrs: true
-        issuerKind: ClusterIssuer
-        issuerName: letsencrypt-production
+      tls:
+        existingSecretName: "unscfleet-com-production-tls"
     kubeClusterName: HomeOpsCluster
     log:
       extraFields: ["timestamp", "level", "component", "caller"]
