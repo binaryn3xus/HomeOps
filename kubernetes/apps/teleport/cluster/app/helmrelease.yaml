@@ -27,7 +27,6 @@ spec:
         namespace: teleport
 
   values:
-    acme: false
     auth:
       annotations:
         deployment:
