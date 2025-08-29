@@ -57,7 +57,7 @@ spec:
       installCRDs: "dynamic"
     persistence:
       enabled: true
-      existingClaimName: teleport
+      existingClaimName: *app
     podMonitor:
       additionalLabels:
         prometheus: default
