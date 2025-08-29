@@ -67,8 +67,6 @@ spec:
         prometheus: default
       enabled: true
       interval: 30s
-    podSecurityPolicy:
-      enabled: true
     proxy:
       annotations:
         deployment:

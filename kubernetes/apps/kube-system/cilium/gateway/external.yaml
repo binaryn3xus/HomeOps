@@ -51,10 +51,7 @@ spec:
         namespaces:
           from: All
       tls:
-        mode: Terminate
-        certificateRefs:
-          - kind: Secret
-            name: unscfleet-com-tls
+        mode: Passthrough
 
     - name: teleport-cluster-wild-https
       protocol: TLS
