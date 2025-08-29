@@ -30,8 +30,6 @@ spec:
     auth:
       teleportConfig:
         auth_service:
-          auth_servers:
-            - "teleport-cluster-auth.teleport.svc.cluster.local:3025"
           session_recording: 'off'
 
     publicAddr:
