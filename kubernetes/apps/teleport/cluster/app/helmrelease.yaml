@@ -44,12 +44,8 @@ spec:
     enterprise: false
     highAvailability:
       replicaCount: 1
-      podDisruptionBudget:
-        enabled: true
       certManager:
-        enabled: true
-        issuerKind: ClusterIssuer
-        issuerName: letsencrypt-production
+        enabled: false
     kubeClusterName: HomeOpsCluster
     log:
       extraFields: ["timestamp", "level", "component", "caller"]
@@ -76,7 +72,8 @@ spec:
     proxyListenerMode: multiplex
     proxyProtocol: "off"
     publicAddr:
-      - teleport.unscfleet.com:443
+      #- teleport.unscfleet.com:443
+      - localhost:8080
     rbac:
       create: true
     service:
