@@ -46,6 +46,10 @@ spec:
       replicaCount: 1
       podDisruptionBudget:
         enabled: true
+      certManager:
+        enabled: true
+        issuerKind: ClusterIssuer
+        issuerName: letsencrypt-production
     kubeClusterName: HomeOpsCluster
     log:
       extraFields: ["timestamp", "level", "component", "caller"]
@@ -81,6 +85,4 @@ spec:
       type: ClusterIP
     serviceAccount:
       create: true
-    tls:
-      existingSecretName: unscfleet-com-tls
     validateConfigOnDeploy: true
