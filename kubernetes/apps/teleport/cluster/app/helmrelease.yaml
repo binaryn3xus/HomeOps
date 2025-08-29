@@ -27,6 +27,13 @@ spec:
         namespace: teleport
 
   values:
+    auth:
+      teleportConfig:
+        auth_service:
+          auth_servers:
+            - "teleport-cluster-auth.teleport.svc.cluster.local:3025"
+          session_recording: 'off'
+
     publicAddr:
       - teleport.unscfleet.com:443
       - teleport-cluster.teleport.svc.cluster.local:443
@@ -34,13 +41,11 @@ spec:
     highAvailability:
       certManager:
         enabled: true
-        issuerKind: ClusterIssuer
         issuerName: letsencrypt-production
+        issuerKind: ClusterIssuer
 
     clusterName: teleport.unscfleet.com
     kubeClusterName: HomeOpsCluster
 
-    auth:
-      teleportConfig:
-        auth_service:
-          session_recording: 'off'
+    log:
+      level: INFO
