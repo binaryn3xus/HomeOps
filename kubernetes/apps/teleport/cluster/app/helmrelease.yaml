@@ -27,6 +27,7 @@ spec:
         namespace: teleport
 
   values:
+    acme: false
     auth:
       annotations:
         deployment:
@@ -36,53 +37,44 @@ spec:
           client_idle_timeout: 2h
           client_idle_timeout_message: Connection closed after 2hours without activity
           session_recording: 'off'
-
     authentication:
       type: github
-
     chartMode: standalone
     clusterName: teleport.unscfleet.com
     enterprise: false
-
     highAvailability:
       replicaCount: 1
-      certManager:
-        enabled: false
-
+      podDisruptionBudget:
+        enabled: true
     kubeClusterName: HomeOpsCluster
-
     log:
       extraFields: ["timestamp", "level", "component", "caller"]
       format: text
-      level: DEBUG
+      level: INFO
       output: stderr
-
     operator:
       enabled: true
       installCRDs: "dynamic"
-
     persistence:
       enabled: true
-      existingClaimName: *app
-
+      existingClaimName: teleport
     podMonitor:
       additionalLabels:
         prometheus: default
       enabled: true
       interval: 30s
-
+    podSecurityPolicy:
+      enabled: true
     proxy:
       annotations:
         deployment:
           reloader.stakater.com/auto: 'true'
       highAvailability:
         replicaCount: 1
-
     proxyListenerMode: multiplex
     proxyProtocol: "off"
     publicAddr:
       - teleport.unscfleet.com:443
-
     rbac:
       create: true
     service:
