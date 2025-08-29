@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: teleport-kube-agent
+  name: teleport-agent
 spec:
   interval: 15m
   chart:
@@ -23,11 +23,17 @@ spec:
     proxyAddr: teleport.unscfleet.com:443
     joinParams:
       method: kubernetes
-      tokenName: "kubernetes-token"
+      tokenName: "teleport-agent-join-token"
     kubeClusterName: HomeOpsCluster
     teleportConfig:
+      discovery_service:
+        enabled: true
+        kubernetes:
+          - types: ["app"]
+            labels:
+              "teleport.dev/discover": "true"
       windows_desktop_service:
-        enabled: yes
+        enabled: true
         static_hosts:
         - name: UNSC-PillarOfAutumn
           addr: 10.0.20.10

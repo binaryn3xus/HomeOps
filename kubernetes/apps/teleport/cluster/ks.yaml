@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app teleport
+  name: &app teleport-cluster
   namespace: &namespace teleport
 spec:
   commonMetadata:
@@ -14,8 +14,6 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: external-secrets
-      namespace: external-secrets
     - name: volsync
       namespace: volsync-system
   healthChecks:
@@ -24,11 +22,11 @@ spec:
       name: *app
       namespace: *namespace
   interval: 30m
-  path: ./kubernetes/apps/teleport/teleport/app
+  path: ./kubernetes/apps/teleport/cluster/app
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 10Gi
+      VOLSYNC_CAPACITY: 5Gi
   prune: true
   sourceRef:
     kind: GitRepository
