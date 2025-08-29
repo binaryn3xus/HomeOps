@@ -28,6 +28,7 @@ spec:
 
   values:
     acme: true
+    acmeEmail: joshuagarrison27@gmail.com
     auth:
       annotations:
         deployment:
