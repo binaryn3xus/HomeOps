@@ -1,0 +1,26 @@
+---
+apiVersion: resources.teleport.dev/v1
+kind: TeleportRoleV8
+metadata:
+  name: windows-desktops
+  namespace: teleport
+spec:
+  allow:
+    windows_desktop_labels:
+      "*": "*"
+---
+apiVersion: resources.teleport.dev/v1
+kind: TeleportRoleV8
+metadata:
+  name: cluster-admin
+  namespace: teleport
+spec:
+  allow:
+    logins: ['{{internal.logins}}', 'root']
+    node_labels:
+      "*": "*"
+    windows_desktop_labels:
+      "*": "*"
+    rules:
+      - resources: ["*"]
+        verbs: ["*"]
