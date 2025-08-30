@@ -5,7 +5,7 @@ originRequest:
 ingress:
   # Teleport Service
   - hostname: teleport.unscfleet.com
-    service: https://teleport-cluster.teleport.svc.cluster.local:443
+    service: https://teleport.teleport.svc.cluster.local:443
     originRequest:
       noTLSVerify: false
 
