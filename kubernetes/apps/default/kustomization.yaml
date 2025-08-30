@@ -26,6 +26,4 @@ resources:
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
   - ./zigbee/ks.yaml
-  - ./zigbee2mqtt/ks.yaml
-  - ./zwave-js-ui/ks.yaml
   - ./zwave/ks.yaml
