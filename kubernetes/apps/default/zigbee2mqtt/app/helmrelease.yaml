@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: zigbee
+  name: &app zigbee2mqtt
 spec:
   interval: 1h
   chartRef:
@@ -18,7 +18,7 @@ spec:
       retries: 3
   values:
     controllers:
-      zigbee:
+      zigbee2mqtt:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -35,8 +35,8 @@ spec:
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_ACTIVE_TIMEOUT: 60
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_PASSIVE_TIMEOUT: 2000
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
-              ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &httpPort 8080
-              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee.unscfleet.com
+              ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 80
+              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: "https://{{ .Release.Name }}.unscfleet.com"
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_DISCOVERY_TOPIC: homeassistant
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_STATUS_TOPIC: homeassistant/status
               ZIGBEE2MQTT_CONFIG_MQTT_INCLUDE_DEVICE_INFORMATION: "true"
@@ -65,12 +65,14 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: {drop: ["ALL"]}
+              capabilities:
+                drop: ["ALL"]
+                add: ["NET_BIND_SERVICE"]
             resources:
               requests:
                 cpu: 10m
               limits:
-                memory: 1Gi
+                memory: 512Mi
 
     defaultPodOptions:
       securityContext:
@@ -84,12 +86,13 @@ spec:
       app:
         ports:
           http:
-            port: *httpPort
+            port: 80
 
     route:
       app:
         hostnames:
           - "{{ .Release.Name }}.unscfleet.com"
+          - zigbee.unscfleet.com
         parentRefs:
           - name: internal
             namespace: kube-system
@@ -97,4 +100,4 @@ spec:
 
     persistence:
       config:
-        existingClaim: "{{ .Release.Name }}"
+        existingClaim: *app
