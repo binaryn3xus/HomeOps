@@ -92,7 +92,6 @@ spec:
       app:
         hostnames:
           - "{{ .Release.Name }}.unscfleet.com"
-          - zigbee.unscfleet.com
         parentRefs:
           - name: internal
             namespace: kube-system
