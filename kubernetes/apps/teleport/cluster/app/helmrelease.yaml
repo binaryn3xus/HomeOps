@@ -27,83 +27,83 @@ spec:
         namespace: teleport
 
   values:
-acme: false
+    acme: false
 
-auth:
-  annotations:
-    deployment:
-      reloader.stakater.com/auto: 'true'
-  teleportConfig:
-    auth_service:
-      client_idle_timeout: 2h
-      client_idle_timeout_message: Connection closed after 2hours without activity
-      session_recording: 'off'
-    kubernetes_service:
+    auth:
+      annotations:
+        deployment:
+          reloader.stakater.com/auto: 'true'
+      teleportConfig:
+        auth_service:
+          client_idle_timeout: 2h
+          client_idle_timeout_message: Connection closed after 2hours without activity
+          session_recording: 'off'
+        kubernetes_service:
+          enabled: false
+
+    authentication:
+      type: github
+
+    chartMode: standalone
+    clusterName: teleport.unscfleet.com
+    enterprise: false
+
+    highAvailability:
+      replicaCount: 1
+      podDisruptionBudget:
+        enabled: true
+      certManager:
+        enabled: true
+        issuerName: "letsencrypt-production"
+        issuerKind: "ClusterIssuer"
+
+    kubeClusterName: "HomeOpsCluster"
+
+    log:
+      extraFields: ["timestamp", "level", "component", "caller"]
+      format: text
+      level: INFO
+      output: stderr
+
+    operator:
+      enabled: true
+      installCRDs: "dynamic"
+
+    persistence:
       enabled: false
 
-authentication:
-  type: github
+    podMonitor:
+      additionalLabels:
+        prometheus: default
+      enabled: true
+      interval: 30s
 
-chartMode: standalone
-clusterName: teleport.unscfleet.com
-enterprise: false
+    podSecurityPolicy:
+      enabled: true
 
-highAvailability:
-  replicaCount: 1
-  podDisruptionBudget:
-    enabled: true
-  certManager:
-    enabled: true
-    issuerName: "letsencrypt-production"
-    issuerKind: "ClusterIssuer"
+    proxy:
+      annotations:
+        deployment:
+          reloader.stakater.com/auto: 'true'
+      highAvailability:
+        replicaCount: 1
+      teleportConfig:
+        kubernetes_service:
+          enabled: false
 
-kubeClusterName: "HomeOpsCluster"
+    proxyListenerMode: multiplex
+    proxyProtocol: "off"
 
-log:
-  extraFields: ["timestamp", "level", "component", "caller"]
-  format: text
-  level: INFO
-  output: stderr
+    publicAddr:
+      - teleport.unscfleet.com:443
 
-operator:
-  enabled: true
-  installCRDs: "dynamic"
+    rbac:
+      create: true
 
-persistence:
-  enabled: false
+    service:
+      type: ClusterIP
 
-podMonitor:
-  additionalLabels:
-    prometheus: default
-  enabled: true
-  interval: 30s
+    serviceAccount:
+      create: true
 
-podSecurityPolicy:
-  enabled: true
-
-proxy:
-  annotations:
-    deployment:
-      reloader.stakater.com/auto: 'true'
-  highAvailability:
-    replicaCount: 1
-  teleportConfig:
-    kubernetes_service:
-      enabled: false
-
-proxyListenerMode: multiplex
-proxyProtocol: "off"
-
-publicAddr:
-  - teleport.unscfleet.com:443
-
-rbac:
-  create: true
-
-service:
-  type: ClusterIP
-
-serviceAccount:
-  create: true
-
-validateConfigOnDeploy: true
+    validateConfigOnDeploy: true
