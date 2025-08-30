@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: teleport-cluster
+    - name: teleport
       namespace: teleport
     - name: external-secrets
       namespace: external-secrets
