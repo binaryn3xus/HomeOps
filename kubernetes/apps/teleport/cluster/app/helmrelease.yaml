@@ -18,7 +18,7 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: teleport
+      chart: teleport-cluster
       version: 18.1.6
       interval: 15m
       sourceRef:
