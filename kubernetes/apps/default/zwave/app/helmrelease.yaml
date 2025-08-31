@@ -32,6 +32,9 @@ spec:
             env:
               TZ: "America/New_York"
               PORT: &port 80
+            envFrom:
+              - secretRef:
+                  name: zwave-secret
             probes:
               liveness: &probes
                 enabled: true
