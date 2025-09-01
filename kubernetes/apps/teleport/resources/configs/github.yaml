@@ -6,8 +6,8 @@ metadata:
   name: github
   namespace: teleport
 spec:
-  client_id: "secret://teleport-github-connector/GITHUB_CLIENT_ID"
-  client_secret: "secret://teleport-github-connector/GITHUB_CLIENT_SECRET"
+  client_id: "secret://teleport-github-connector-secret/GITHUB_CLIENT_ID"
+  client_secret: "secret://teleport-github-connector-secret/GITHUB_CLIENT_SECRET"
   display: "GitHub"
   redirect_url: "https://teleport.unscfleet.com/v1/webapi/github/callback"
   teams_to_roles:
