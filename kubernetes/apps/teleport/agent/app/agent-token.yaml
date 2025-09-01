@@ -1,5 +1,5 @@
 ---
-apiVersion: resources.teleport.dev/v1
+apiVersion: resources.teleport.dev/v2
 kind: TeleportProvisionToken
 metadata:
   name: teleport-agent-join-token
