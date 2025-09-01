@@ -54,6 +54,7 @@ spec:
         enabled: true
       certManager:
         enabled: true
+        addPublicAddrs: true
         issuerName: "letsencrypt-production"
         issuerKind: "ClusterIssuer"
 
