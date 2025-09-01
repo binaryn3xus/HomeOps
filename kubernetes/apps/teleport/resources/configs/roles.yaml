@@ -2,10 +2,11 @@
 apiVersion: resources.teleport.dev/v1
 kind: TeleportRoleV8
 metadata:
-  name: desktop-user
+  name: windows-desktops
   namespace: teleport
 spec:
   allow:
+    windows_desktop_logins: ['{{internal.logins}}', 'joshua', 'jimmy']
     windows_desktop_labels:
       "*": "*"
 ---
