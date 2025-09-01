@@ -22,6 +22,7 @@ spec:
       "*": "*"
     windows_desktop_labels:
       "*": "*"
+    windows_desktop_logins: ['joshua', 'jimmy']
     rules:
       - resources: ["*"]
         verbs: ["*"]

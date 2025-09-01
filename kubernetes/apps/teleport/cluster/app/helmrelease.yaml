@@ -96,6 +96,8 @@ spec:
 
     publicAddr:
       - teleport.unscfleet.com:443
+      - teleport.teleport.svc:443
+      - teleport.teleport.svc.cluster.local:443
 
     rbac:
       create: true
