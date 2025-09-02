@@ -48,15 +48,15 @@ spec:
     clusterName: teleport.unscfleet.com
     enterprise: false
 
-    highAvailability:
-      replicaCount: 1
-      podDisruptionBudget:
-        enabled: true
-      certManager:
-        enabled: true
-        addPublicAddrs: true
-        issuerName: "letsencrypt-production"
-        issuerKind: "ClusterIssuer"
+    # highAvailability:
+    #   replicaCount: 1
+    #   podDisruptionBudget:
+    #     enabled: true
+    #   certManager:
+    #     enabled: true
+    #     addPublicAddrs: true
+    #     issuerName: "letsencrypt-production"
+    #     issuerKind: "ClusterIssuer"
 
     kubeClusterName: "HomeOpsCluster"
 
@@ -89,14 +89,33 @@ spec:
       highAvailability:
         replicaCount: 1
       teleportConfig:
+        proxy_service:
+          https_keypairs:
+            # Public cert (from your existing cert-manager setup)
+            - cert_file: /etc/teleport-certs/public/tls.crt
+              key_file: /etc/teleport-certs/public/tls.key
+            # Internal cert (from the new CA)
+            - cert_file: /etc/teleport-certs/internal/tls.crt
+              key_file: /etc/teleport-certs/internal/tls.key
         kubernetes_service:
           enabled: false
+      extraVolumes:
+        - name: public-cert
+          secret:
+            secretName: unscfleet-com-tls # The secret for your existing public cert
+        - name: internal-cert
+          secret:
+            secretName: teleport-internal-tls-secret # The secret for your new internal cert
+      extraVolumeMounts:
+        - name: public-cert
+          mountPath: /etc/teleport-certs/public
+        - name: internal-cert
+          mountPath: /etc/teleport-certs/internal
 
     proxyListenerMode: multiplex
     proxyProtocol: "off"
 
-    publicAddr:
-      - teleport.unscfleet.com:443
+    publicAddr: ["teleport.unscfleet.com:443"]
 
     rbac:
       create: true

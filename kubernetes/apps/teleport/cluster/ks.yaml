@@ -12,6 +12,8 @@ spec:
     - ../../../../components/gatus/external
     - ../../../../components/volsync
   dependsOn:
+    - name: cert-manager
+      namespace: cert-manager
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync

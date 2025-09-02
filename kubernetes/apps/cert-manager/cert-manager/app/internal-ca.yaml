@@ -1,0 +1,39 @@
+---
+# In kubernetes/apps/cert-manager/cert-manager/app/internal-ca.yaml
+
+# This is your self-signed root CA. It lives in the cert-manager namespace.
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned-ca
+spec:
+  selfSigned: {}
+---
+# This is the certificate for the root CA itself.
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: internal-ca
+  namespace: cert-manager
+spec:
+  isCA: true
+  commonName: internal-ca
+  secretName: internal-ca-secret
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  issuerRef:
+    name: selfsigned-ca
+    kind: ClusterIssuer
+    group: cert-manager.io
+---
+# This is the issuer that will use your new root CA to sign certificates for services.
+# It lives in the teleport namespace.
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: internal-ca-issuer
+  namespace: teleport
+spec:
+  ca:
+    secretName: internal-ca-secret

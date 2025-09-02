@@ -1,0 +1,17 @@
+---
+# In kubernetes/apps/teleport/cluster/app/internal-cert.yaml
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: teleport-internal-tls
+  namespace: teleport
+spec:
+  secretName: teleport-internal-tls-secret
+  # Use the internal issuer you just created
+  issuerRef:
+    name: internal-ca-issuer
+    kind: Issuer
+  # List all the internal service names Teleport uses
+  dnsNames:
+    - "teleport.teleport.svc.cluster.local"
+    - "teleport.teleport.svc"

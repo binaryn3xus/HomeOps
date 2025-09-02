@@ -7,6 +7,7 @@ resources:
   - ./clusterissuer.yaml
   - ./helmrelease.yaml
   - ./prometheusrule.yaml
+  - ./internal-ca.yaml
 configMapGenerator:
   - name: cert-manager-values
     files:
