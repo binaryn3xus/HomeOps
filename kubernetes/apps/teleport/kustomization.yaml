@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: teleport
 components:
   - ../../components/common
-resources:
-  - ./agent/ks.yaml
-  - ./cluster/ks.yaml
-  - ./resources/ks.yaml
+resources: []
+  # - ./agent/ks.yaml
+  # - ./cluster/ks.yaml
+  # - ./resources/ks.yaml
