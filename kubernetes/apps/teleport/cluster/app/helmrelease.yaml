@@ -40,6 +40,14 @@ spec:
           session_recording: 'off'
         kubernetes_service:
           enabled: false
+      extraVolumes:
+        - name: internal-ca-cert
+          secret:
+            secretName: internal-ca-secret
+      extraVolumeMounts:
+        - name: internal-ca-cert
+          mountPath: /etc/ssl/certs/internal-ca.crt
+          subPath: tls.crt
 
     authentication:
       type: github
@@ -91,10 +99,8 @@ spec:
       teleportConfig:
         proxy_service:
           https_keypairs:
-            # Public cert (from your existing cert-manager setup)
             - cert_file: /etc/teleport-certs/public/tls.crt
               key_file: /etc/teleport-certs/public/tls.key
-            # Internal cert (from the new CA)
             - cert_file: /etc/teleport-certs/internal/tls.crt
               key_file: /etc/teleport-certs/internal/tls.key
         kubernetes_service:
@@ -102,15 +108,21 @@ spec:
       extraVolumes:
         - name: public-cert
           secret:
-            secretName: unscfleet-com-tls # The secret for your existing public cert
+            secretName: unscfleet-com-tls
         - name: internal-cert
           secret:
-            secretName: teleport-internal-tls-secret # The secret for your new internal cert
+            secretName: teleport-internal-tls-secret
+        - name: internal-ca-cert
+          secret:
+            secretName: internal-ca-secret
       extraVolumeMounts:
         - name: public-cert
           mountPath: /etc/teleport-certs/public
         - name: internal-cert
           mountPath: /etc/teleport-certs/internal
+        - name: internal-ca-cert
+          mountPath: /etc/ssl/certs/internal-ca.crt
+          subPath: tls.crt
 
     proxyListenerMode: multiplex
     proxyProtocol: "off"
