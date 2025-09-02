@@ -20,7 +20,7 @@ spec:
       level: DEBUG
     roles: kube,app,discovery,node,windowsdesktop
     insecureSkipProxyTLSVerify: true
-    proxyAddr: teleport.unscfleet.com:443
+    proxyAddr: teleport.teleport.svc.cluster.local:443
     joinParams:
       method: kubernetes
       tokenName: "teleport-agent-join-token"
