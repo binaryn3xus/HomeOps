@@ -10,7 +10,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: internal-ca
-  namespace: cert-manager
+  namespace: teleport
 spec:
   isCA: true
   commonName: internal-ca
@@ -29,4 +29,4 @@ metadata:
   name: internal-ca-clusterissuer
 spec:
   ca:
-    secretName: internal-ca-secret # This secret is in the cert-manager namespace
+    secretName: teleport/internal-ca-secret
