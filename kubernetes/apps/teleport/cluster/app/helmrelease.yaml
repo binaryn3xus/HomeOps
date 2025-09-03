@@ -101,28 +101,15 @@ spec:
           https_keypairs:
             - cert_file: /etc/teleport-certs/public/tls.crt
               key_file: /etc/teleport-certs/public/tls.key
-            - cert_file: /etc/teleport-certs/internal/tls.crt
-              key_file: /etc/teleport-certs/internal/tls.key
         kubernetes_service:
           enabled: false
       extraVolumes:
         - name: public-cert
           secret:
             secretName: unscfleet-com-tls
-        - name: internal-cert
-          secret:
-            secretName: teleport-internal-tls-secret
-        - name: internal-ca-cert
-          secret:
-            secretName: internal-ca-secret
       extraVolumeMounts:
         - name: public-cert
           mountPath: /etc/teleport-certs/public
-        - name: internal-cert
-          mountPath: /etc/teleport-certs/internal
-        - name: internal-ca-cert
-          mountPath: /etc/pki/tls/certs/internal-ca.crt
-          subPath: tls.crt
 
     proxyListenerMode: multiplex
     proxyProtocol: "off"
