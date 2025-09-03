@@ -71,7 +71,7 @@ spec:
     log:
       extraFields: ["timestamp", "level", "component", "caller"]
       format: text
-      level: INFO
+      level: DEBUG
       output: stderr
 
     operator:
