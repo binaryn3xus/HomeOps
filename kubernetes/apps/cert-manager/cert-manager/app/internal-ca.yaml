@@ -24,9 +24,11 @@ spec:
     group: cert-manager.io
 ---
 apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
+kind: Issuer
 metadata:
-  name: internal-ca-clusterissuer
+  name: internal-ca-issuer
+  namespace: teleport
 spec:
   ca:
-    secretName: teleport/internal-ca-secret
+    secretName: internal-ca-secret
+

@@ -7,8 +7,8 @@ metadata:
 spec:
   secretName: teleport-internal-tls-secret
   issuerRef:
-    name: internal-ca-clusterissuer
-    kind: ClusterIssuer
+    name: internal-ca-issuer
+    kind: Issuer
   dnsNames:
     - "teleport.teleport.svc.cluster.local"
     - "teleport.teleport.svc"
