@@ -19,7 +19,6 @@ spec:
     log:
       level: DEBUG
     roles: kube,app,discovery,node,windowsdesktop
-    #insecureSkipProxyTLSVerify: true
     proxyAddr: teleport.teleport.svc.cluster.local:443
     joinParams:
       method: kubernetes
@@ -49,3 +48,11 @@ spec:
           ad: false
     tls:
       existingCASecretName: internal-ca-secret
+    extraVolumes:
+      - name: internal-ca-cert
+        secret:
+          secretName: internal-ca-secret
+    extraVolumeMounts:
+      - name: internal-ca-cert
+        mountPath: /etc/ssl/certs/internal-ca.crt
+        subPath: tls.crt
