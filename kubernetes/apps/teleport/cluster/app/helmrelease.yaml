@@ -48,6 +48,9 @@ spec:
         - name: internal-ca-cert
           mountPath: /etc/ssl/certs/internal-ca.crt
           subPath: tls.crt
+        - name: internal-ca-cert
+          mountPath: /etc/pki/tls/certs/internal-ca.crt
+          subPath: tls.crt
 
     authentication:
       type: github
@@ -122,6 +125,9 @@ spec:
           mountPath: /etc/teleport-certs/internal
         - name: internal-ca-cert
           mountPath: /etc/ssl/certs/internal-ca.crt
+          subPath: tls.crt
+        - name: internal-ca-cert
+          mountPath: /etc/pki/tls/certs/internal-ca.crt
           subPath: tls.crt
 
     proxyListenerMode: multiplex
