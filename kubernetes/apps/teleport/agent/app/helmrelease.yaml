@@ -19,7 +19,7 @@ spec:
     log:
       level: DEBUG
     roles: kube,app,discovery,node,windowsdesktop
-    insecureSkipProxyTLSVerify: true
+    #insecureSkipProxyTLSVerify: true
     proxyAddr: teleport.teleport.svc.cluster.local:443
     joinParams:
       method: kubernetes
@@ -47,3 +47,5 @@ spec:
         - name: UNSC-GhostFlag
           addr: 10.0.20.15
           ad: false
+    tls:
+      existingCASecretName: internal-ca-secret
