@@ -53,7 +53,7 @@ spec:
       type: github
 
     chartMode: standalone
-    clusterName: teleport.unscfleet.com
+    clusterName: teleport.teleport.svc.cluster.local
     enterprise: false
 
     # highAvailability:
