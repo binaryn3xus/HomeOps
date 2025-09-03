@@ -46,9 +46,6 @@ spec:
             secretName: internal-ca-secret
       extraVolumeMounts:
         - name: internal-ca-cert
-          mountPath: /etc/ssl/certs/internal-ca.crt
-          subPath: tls.crt
-        - name: internal-ca-cert
           mountPath: /etc/pki/tls/certs/internal-ca.crt
           subPath: tls.crt
 
@@ -123,9 +120,6 @@ spec:
           mountPath: /etc/teleport-certs/public
         - name: internal-cert
           mountPath: /etc/teleport-certs/internal
-        - name: internal-ca-cert
-          mountPath: /etc/ssl/certs/internal-ca.crt
-          subPath: tls.crt
         - name: internal-ca-cert
           mountPath: /etc/pki/tls/certs/internal-ca.crt
           subPath: tls.crt
