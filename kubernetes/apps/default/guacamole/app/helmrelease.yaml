@@ -31,10 +31,10 @@ spec:
               EXTENSIONS: auth-totp
             resources:
               requests:
-                cpu: 200m
-                memory: 200Mi
+                cpu: 500m
+                memory: 1Gi
               limits:
-                memory: 500Mi
+                memory: 2Mi
 
     service:
       app:
