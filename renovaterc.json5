@@ -22,6 +22,9 @@
     'prEditedNotification',
     'prIgnoreNotification',
   ],
+  onboarding: false,
+  rebaseWhen: 'conflicted',
+  requireConfig: 'ignored',
   ignorePaths: [
     '**/archive/**',
     '**/*.sops.*',
