@@ -3,7 +3,8 @@ name: Image Pull
 
 on:
   pull_request:
-    branches: ["main"]
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
@@ -32,7 +33,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: ["default", "pull"]
+        branch:
+          - default
+          - pull
       fail-fast: false
     outputs:
       default: ${{ steps.extract.outputs.default }}
@@ -58,7 +61,7 @@ jobs:
 
       - name: Extract Images
         id: extract
-        run: |
+        run: |-
           echo "${{ matrix.branch }}=$(jq --compact-output '.' images.json)" >> $GITHUB_OUTPUT
 
           echo '## Branch ${{ matrix.branch }} images' >> $GITHUB_STEP_SUMMARY
@@ -76,7 +79,7 @@ jobs:
     steps:
       - name: Diff Images
         id: diff
-        run: |
+        run: |-
           images=$(jq --compact-output --null-input \
               --argjson f1 '${{ needs.extract.outputs.default }}' \
               --argjson f2 '${{ needs.extract.outputs.pull }}' \
@@ -89,28 +92,9 @@ jobs:
           echo $images | jq >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
 
-  pull:
-    if: ${{ needs.diff.outputs.images != '[]' }}
-    needs: diff
-    name: Image Pull - Pull Images
-    runs-on: home-ops-runner
-    strategy:
-      matrix:
-        image: ${{ fromJSON(needs.diff.outputs.images) }}
-      max-parallel: 4
-      fail-fast: false
-    env:
-      MATRIX_IMAGE: ${{ matrix.image }}
-    steps:
-      - name: Install talosctl
-        run: curl -fsSL https://talos.dev/install | sh
-
-      - name: Pull Image
-        run: talosctl --nodes $NODE image pull "${MATRIX_IMAGE}"
-
   success:
     if: ${{ !cancelled() }}
-    needs: pull
+    needs: diff
     name: Image Pull - Success
     runs-on: ubuntu-latest
     steps:
