@@ -1,0 +1,13 @@
+name: Trigger Test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test_job:
+    name: I am testing the trigger
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Workflow was triggered successfully!"
