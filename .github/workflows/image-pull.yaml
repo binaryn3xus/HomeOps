@@ -92,25 +92,6 @@ jobs:
           echo $images | jq >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
 
-  pull:
-    if: ${{ needs.diff.outputs.images != '[]' }}
-    needs: diff
-    name: Image Pull - Pull Images
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        image: ${{ fromJSON(needs.diff.outputs.images) }}
-      max-parallel: 4
-      fail-fast: false
-    env:
-      MATRIX_IMAGE: ${{ matrix.image }}
-    steps:
-      - name: Install talosctl
-        run: curl -fsSL https://talos.dev/install | sh
-
-      - name: Pull Image
-        run: talosctl --nodes $NODE image pull "${MATRIX_IMAGE}"
-
   success:
     if: ${{ !cancelled() }}
     needs: pull
