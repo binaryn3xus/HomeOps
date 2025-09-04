@@ -94,7 +94,7 @@ jobs:
 
   success:
     if: ${{ !cancelled() }}
-    needs: pull
+    needs: diff
     name: Image Pull - Success
     runs-on: ubuntu-latest
     steps:
