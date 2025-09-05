@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app sabnzbd
+  name: &app guacamole
 spec:
   interval: 1h
   chartRef:
@@ -18,51 +18,36 @@ spec:
       retries: 3
   values:
     controllers:
-      sabnzbd:
+      guacamole:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/home-operations/sabnzbd
-              tag: 4.5.3@sha256:ecb57bd6257fbfbd9aee70d8ef3df8814b7270ae793fd1f44219ae73cacd519a
+              repository: docker.io/flcontainers/guacamole
+              tag: 1.6.0
             env:
               TZ: "America/New_York"
-              SABNZBD__PORT: &port 80
-              SABNZBD__HOST_WHITELIST_ENTRIES: >-
-                sabnzbd,
-                sabnzbd.default,
-                sabnzbd.default.svc,
-                sabnzbd.default.svc.cluster,
-                sabnzbd.default.svc.cluster.local,
-                sabnzbd.unscfleet.com
+              EXTENSIONS: auth-totp
             resources:
               requests:
-                cpu: 10m
-                memory: 250Mi
+                cpu: 500m
+                memory: 1Gi
               limits:
-                memory: 8000Mi
-
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
+                memory: 2Gi
 
     service:
       app:
         ports:
           http:
-            port: *port
+            port: 8080
 
     route:
       app:
         hostnames:
-          - "{{ .Release.Name }}.unscfleet.com"
+          - "remote.unscfleet.com"
         parentRefs:
-          - name: internal
+          - name: external
             namespace: kube-system
             sectionName: https
 
@@ -71,5 +56,3 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /config
-      media:
-        existingClaim: synology-media
