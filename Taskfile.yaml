@@ -8,8 +8,8 @@ shopt: [globstar]
 vars:
   KUBERNETES_DIR: '{{.ROOT_DIR}}/kubernetes'
   PRIVATE_DIR: '{{.ROOT_DIR}}/.private'
-  TALHELPER_DIR: '{{.ROOT_DIR}}/bootstrap/talos'
-  TALOSCONFIG: '{{.ROOT_DIR}}/bootstrap/talos/clusterconfig/talosconfig'
+  TALHELPER_DIR: '{{.ROOT_DIR}}/talos'
+  TALOSCONFIG: '{{.ROOT_DIR}}/talos/clusterconfig/talosconfig'
 
 env:
   KUBECONFIG: '{{.ROOT_DIR}}/kubeconfig'
