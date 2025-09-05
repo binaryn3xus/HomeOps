@@ -36,8 +36,8 @@ spec:
                 memory: 2Gi
               limits:
                 memory: 4Gi
-        serviceAccount:
-          identifier: *app
+    serviceAccount:
+      capacitor: {}
 
     defaultPodOptions:
       securityContext:
