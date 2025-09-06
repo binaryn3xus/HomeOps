@@ -125,6 +125,13 @@ spec:
           secret:
             secretName: teleport-proxy-internal-cert
             defaultMode: 0440
+        - name: intermediary-ca-cert
+          secret:
+            secretName: teleport-intermediary-ca-secret
+            defaultMode: 0440
+            items:
+              - key: ca.crt
+                path: ca.crt
       extraVolumeMounts:
         - name: teleport-proxy-public-cert
           mountPath: /etc/teleport/secrets/serving-certs/public
