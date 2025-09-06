@@ -104,7 +104,7 @@ spec:
         replicaCount: 1
       teleportConfig:
         proxy_service:
-          trust_x_forwarded_ip: true
+          trust_x_forwarded_for: true
           https_keypairs:
             - cert_file: /etc/teleport/secrets/serving-certs/public/tls.crt
               key_file: /etc/teleport/secrets/serving-certs/public/tls.key
