@@ -29,8 +29,17 @@ spec:
       enabled: false
     podMonitor:
       enabled: true
-    tls:
-      existingCASecretName: teleport-intermediary-ca-secret
+    extraVolumes:
+      - name: proxy-cert-ca
+        secret:
+          secretName: teleport-intermediary-ca-secret
+    extraVolumeMounts:
+      - name: proxy-cert-ca
+        mountPath: /etc/teleport-proxy-cert
+        readOnly: true
+    extraEnv:
+      - name: SSL_CERT_FILE
+        value: /etc/teleport-proxy-cert/tls.crt
     teleportConfig:
       discovery_service:
         enabled: true
