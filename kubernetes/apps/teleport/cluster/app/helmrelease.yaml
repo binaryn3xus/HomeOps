@@ -51,9 +51,6 @@ spec:
       extraVolumeMounts:
         - name: intermediary-ca-cert
           mountPath: /etc/teleport-backend/secrets/core/server
-        - name: intermediary-ca-cert
-          mountPath: /etc/pki/tls/certs/teleport-intermediary-ca.crt
-          subPath: ca.crt
 
     authentication:
       type: github
@@ -130,9 +127,8 @@ spec:
           mountPath: /etc/teleport/secrets/serving-certs/public
         - name: teleport-proxy-internal-cert
           mountPath: /etc/teleport/secrets/serving-certs/internal
-        # THIS IS THE FIX: Mount the intermediary CA into the proxy's system trust store
         - name: intermediary-ca-cert
-          mountPath: /etc/pki/tls/certs/teleport-intermediary-ca.crt
+          mountPath: /etc/ssl/certs/ca.crt
           subPath: ca.crt
 
     proxyListenerMode: multiplex
