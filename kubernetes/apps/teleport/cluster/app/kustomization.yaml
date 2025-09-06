@@ -6,7 +6,6 @@ resources:
   - intermediary-ca.yaml
   - networkpolicy.yaml
   - podmonitor.yaml
-  - proxy-cert-crp.yaml
   - proxy-cert.yaml
 commonLabels:
   app.kubernetes.io/name: teleport
