@@ -42,10 +42,9 @@ spec:
 ---
 # Create an intermediary CA using the root CA
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
   name: root-ca-issuer
-  namespace: cert-manager
 spec:
   ca:
     secretName: root-ca-secret

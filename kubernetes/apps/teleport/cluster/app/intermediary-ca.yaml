@@ -10,7 +10,7 @@ spec:
   secretName: teleport-intermediary-ca-secret
   issuerRef:
     name: root-ca-issuer
-    kind: Issuer
+    kind: ClusterIssuer
     group: cert-manager.io
 ---
 apiVersion: cert-manager.io/v1
