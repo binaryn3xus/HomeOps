@@ -27,11 +27,6 @@ spec:
     updater:
       # Make absolutely certain that the auto updater is never enabled
       enabled: false
-    highAvailability:
-      podDisruptionBudget:
-        enabled: true
-        minAvailable: 1
-      replicaCount: 2
     podMonitor:
       enabled: true
     tls:
