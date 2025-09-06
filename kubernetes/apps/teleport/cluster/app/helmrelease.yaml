@@ -151,4 +151,7 @@ spec:
     serviceAccount:
       create: true
 
+    tls:
+      existingSecretName: unscfleet-com-tls
+
     validateConfigOnDeploy: true
