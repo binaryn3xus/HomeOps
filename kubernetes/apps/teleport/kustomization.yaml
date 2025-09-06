@@ -6,6 +6,6 @@ namespace: teleport
 components:
   - ../../components/common
 resources:
-  #- ./agent/ks.yaml
+  - ./agent/ks.yaml
   - ./cluster/ks.yaml
-  #- ./resources/ks.yaml
+  - ./resources/ks.yaml
