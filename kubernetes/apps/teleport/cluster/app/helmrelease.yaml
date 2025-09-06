@@ -51,6 +51,9 @@ spec:
       extraVolumeMounts:
         - name: intermediary-ca-cert
           mountPath: /etc/teleport-backend/secrets/core/server
+        - name: intermediary-ca-cert
+          mountPath: /etc/pki/tls/certs/teleport-intermediary-ca.crt
+          subPath: ca.crt
 
     authentication:
       type: github
