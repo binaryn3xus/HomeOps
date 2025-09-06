@@ -130,9 +130,8 @@ spec:
           mountPath: /etc/teleport/secrets/serving-certs/public
         - name: teleport-proxy-internal-cert
           mountPath: /etc/teleport/secrets/serving-certs/internal
-        # Proxy will fail to start when the serving cert is not inherently trusted
-        - name: teleport-proxy-internal-cert
-          mountPath: /etc/ssl/certs/ca.crt
+        - name: intermediary-ca-cert
+          mountPath: /etc/pki/tls/certs/teleport-intermediary-ca.crt
           subPath: ca.crt
 
     proxyListenerMode: multiplex
