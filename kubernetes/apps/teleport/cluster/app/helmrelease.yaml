@@ -89,8 +89,6 @@ spec:
           coredns.io/hostname: teleport.unscfleet.com
         deployment:
           reloader.stakater.com/auto: 'true'
-      highAvailability:
-        replicaCount: 1
       teleportConfig:
         proxy_service:
           trust_x_forwarded_for: true
