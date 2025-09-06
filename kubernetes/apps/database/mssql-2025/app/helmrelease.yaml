@@ -63,7 +63,7 @@ spec:
         type: LoadBalancer
         annotations:
           external-dns.alpha.kubernetes.io/hostname: mssql2025.unscfleet.com
-          lbipam.cilium.io/ips: "10.0.30.40"
+          lbipam.cilium.io/ips: "10.0.30.41"
         ports:
           mssqlport:
             port: 1433
