@@ -25,3 +25,27 @@ metadata:
   name: selfsigned-ca
 spec:
   selfSigned: {}
+---
+# Create the root certificate
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: root-ca
+  namespace: cert-manager
+spec:
+  isCA: true
+  commonName: root-ca
+  secretName: root-ca-secret
+  issuerRef:
+    name: selfsigned-ca
+    kind: ClusterIssuer
+---
+# Create an intermediary CA using the root CA
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: root-ca-issuer
+  namespace: cert-manager
+spec:
+  ca:
+    secretName: root-ca-secret

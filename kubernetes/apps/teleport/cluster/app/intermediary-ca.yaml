@@ -1,0 +1,23 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: teleport-intermediary-ca
+  namespace: teleport
+spec:
+  isCA: true
+  commonName: "HomeOps Intermediary CA"
+  secretName: teleport-intermediary-ca-secret
+  issuerRef:
+    name: root-ca-issuer
+    kind: Issuer
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: teleport-intermediary-ca-issuer
+  namespace: teleport
+spec:
+  ca:
+    secretName: teleport-intermediary-ca-secret

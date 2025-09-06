@@ -38,16 +38,25 @@ spec:
           client_idle_timeout: 2h
           client_idle_timeout_message: Connection closed after 2hours without activity
           session_recording: 'off'
+          tunnel_strategy:
+            type: proxy_peering
+            # When operating in proxy peering mode (instead of mesh mode), agents don't have to connect to
+            # all proxies. This tells agents that they should attempt to connect to two or more proxies,
+            # so that service is not impacted when one fails.
+            agent_connection_count: 2
         kubernetes_service:
           enabled: false
       extraVolumes:
-        - name: internal-ca-cert
+        - name: intermediary-ca-cert
           secret:
-            secretName: internal-ca-secret
+            secretName: teleport-intermediary-ca-secret
+            defaultMode: 0440
+            items:
+              - key: ca.crt
+                path: ca.crt
       extraVolumeMounts:
-        - name: internal-ca-cert
-          mountPath: /etc/pki/tls/certs/internal-ca.crt
-          subPath: tls.crt
+        - name: intermediary-ca-cert
+          mountPath: /etc/teleport-backend/secrets/core/server
 
     authentication:
       type: github
@@ -56,15 +65,12 @@ spec:
     clusterName: teleport.unscfleet.com
     enterprise: false
 
-    # highAvailability:
-    #   replicaCount: 1
-    #   podDisruptionBudget:
-    #     enabled: true
-    #   certManager:
-    #     enabled: true
-    #     addPublicAddrs: true
-    #     issuerName: "letsencrypt-production"
-    #     issuerKind: "ClusterIssuer"
+    highAvailability:
+      replicaCount: 2
+      requireAntiAffinity: true
+      podDisruptionBudget:
+        enabled: true
+        minAvailable: 1
 
     kubeClusterName: "HomeOpsCluster"
 
@@ -98,29 +104,57 @@ spec:
         replicaCount: 1
       teleportConfig:
         proxy_service:
+          trust_x_forwarded_ip: true
           https_keypairs:
-            - cert_file: /etc/teleport-certs/public/tls.crt
-              key_file: /etc/teleport-certs/public/tls.key
+            - cert_file: /etc/teleport/secrets/serving-certs/public/tls.crt
+              key_file: /etc/teleport/secrets/serving-certs/public/tls.key
+            - cert_file: /etc/teleport/secrets/serving-certs/internal/tls.crt
+              key_file: /etc/teleport/secrets/serving-certs/internal/tls.key
         kubernetes_service:
           enabled: false
       extraVolumes:
-        - name: public-cert
+        # Access from outside the cluster
+        - name: teleport-proxy-public-cert
           secret:
-            secretName: unscfleet-com-tls
+            secretName: teleport-proxy-public-cert
+            defaultMode: 0440
+            items:
+              - key: tls.crt
+                path: tls.crt
+              - key: tls.key
+                path: tls.key
+        # Access from inside the cluster
+        - name: teleport-proxy-internal-cert
+          secret:
+            secretName: teleport-proxy-internal-cert
+            defaultMode: 0440
       extraVolumeMounts:
-        - name: public-cert
-          mountPath: /etc/teleport-certs/public
+        - name: teleport-proxy-public-cert
+          mountPath: /etc/teleport/secrets/serving-certs/public
+        - name: teleport-proxy-internal-cert
+          mountPath: /etc/teleport/secrets/serving-certs/internal
+        # Proxy will fail to start when the serving cert is not inherently trusted
+        - name: teleport-proxy-internal-cert
+          mountPath: /etc/ssl/certs/ca.crt
+          subPath: ca.crt
 
     proxyListenerMode: multiplex
     proxyProtocol: "off"
 
-    publicAddr: ["teleport.unscfleet.com:443"]
+    publicAddr:
+      - teleport.unscfleet.com:443
+      - teleport.teleport.svc:443
+      - teleport.teleport.svc.cluster.local:443
 
     rbac:
       create: true
 
     service:
-      type: ClusterIP
+      type: LoadBalancer
+      # annotations:
+      #   lbipam.cilium.io/ips: "10.0.30.42"
+      spec:
+        loadBalancerIP: 10.0.30.42
 
     serviceAccount:
       create: true

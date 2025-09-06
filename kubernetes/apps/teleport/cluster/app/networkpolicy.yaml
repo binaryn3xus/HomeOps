@@ -1,23 +1,28 @@
 ---
-# In kubernetes/apps/teleport/cluster/app/networkpolicy.yaml
-apiVersion: "cilium.io/v2"
+apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: "teleport-cluster-ingress"
-  namespace: teleport
-spec:
-  # Apply this policy to the teleport-cluster pods
-  endpointSelector:
-    matchLabels:
-      app.kubernetes.io/instance: teleport
-      app.kubernetes.io/name: teleport
-  ingress:
-    # Allow ingress traffic from the teleport-agent pods
-    - fromEndpoints:
-        - matchLabels:
-            app.kubernetes.io/name: teleport-agent
-      # On TCP port 443
-      toPorts:
-        - ports:
-            - port: "443"
-              protocol: TCP
+  name: teleport-cluster
+specs:
+  - description: teleport-full-access
+    endpointSelector:
+      matchLabels:
+        app.kubernetes.io/instance: teleport
+    ingress:
+      - fromEntities:
+          - all
+        toPorts:
+          - ports:
+              - port: "0-65535"
+                protocol: TCP
+              - port: "0-65535"
+                protocol: UDP
+    egress:
+      - toEntities:
+          - all
+        toPorts:
+          - ports:
+              - port: "0-65535"
+                protocol: TCP
+              - port: "0-65535"
+                protocol: UDP

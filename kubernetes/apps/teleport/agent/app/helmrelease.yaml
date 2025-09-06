@@ -22,8 +22,20 @@ spec:
     proxyAddr: teleport.teleport.svc.cluster.local:443
     joinParams:
       method: kubernetes
-      tokenName: "teleport-agent-join-token"
+      tokenName: agent-join-token
     kubeClusterName: HomeOpsCluster
+    updater:
+      # Make absolutely certain that the auto updater is never enabled
+      enabled: false
+    highAvailability:
+      podDisruptionBudget:
+        enabled: true
+        minAvailable: 1
+      replicaCount: 2
+    podMonitor:
+      enabled: true
+    tls:
+      existingCASecretName: teleport-intermediary-ca-secret
     teleportConfig:
       discovery_service:
         enabled: true
@@ -46,5 +58,3 @@ spec:
         - name: UNSC-GhostFlag
           addr: 10.0.20.15
           ad: false
-    tls:
-      existingCASecretName: internal-ca-secret
