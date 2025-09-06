@@ -52,13 +52,3 @@ spec:
         static_hosts:
         - name: UNSC-PillarOfAutumn
           addr: 10.0.20.10
-          ad: false
-        - name: UNSC-AllUnderHeaven
-          addr: 10.0.20.11
-          ad: false
-        - name: UNSC-Rubicon
-          addr: 10.0.20.14
-          ad: false
-        - name: UNSC-GhostFlag
-          addr: 10.0.20.15
-          ad: false
