@@ -59,13 +59,6 @@ spec:
     clusterName: teleport.unscfleet.com
     enterprise: false
 
-    highAvailability:
-      replicaCount: 2
-      requireAntiAffinity: true
-      podDisruptionBudget:
-        enabled: true
-        minAvailable: 1
-
     kubeClusterName: "HomeOpsCluster"
 
     log:
