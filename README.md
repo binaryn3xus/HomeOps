@@ -139,8 +139,16 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 [![home-operations-discord](https://img.shields.io/discord/673534664354430999?style=for-the-badge&label=Home-Operations%20Discord&logo=discord&logoColor=white&color=blue)](https://discord.gg/home-operations)
 
 <div>
-  <img alt="onedr0p" height="50" width="50" src="https://avatars.githubusercontent.com/u/213795?v=4&size=50"/>
-  <img alt="bjw-s" height="50" width="50" src="https://avatars.githubusercontent.com/u/6213398?v=4&size=50"/>
-  <img alt="mitchross" height="50" width="50" src="https://avatars.githubusercontent.com/u/6330506?v=4&size=50"/>
-  <img alt="solidDoWant" height="50" width="50" src="https://avatars.githubusercontent.com/u/16456946?v=4&size=50"/>
+  <a href="https://github.com/onedr0p" target="_blank">
+    <img alt="onedr0p" height="50" width="50" src="https://avatars.githubusercontent.com/u/213795?v=4&size=50"/>
+  </a>
+  <a href="https://github.com/bjw-s" target="_blank">
+    <img alt="bjw-s" height="50" width="50" src="https://avatars.githubusercontent.com/u/6213398?v=4&size=50"/>
+  </a>
+  <a href="https://github.com/mitchross" target="_blank">
+    <img alt="mitchross" height="50" width="50" src="https://avatars.githubusercontent.com/u/6330506?v=4&size=50"/>
+  </a>
+  <a href="https://github.com/solidDoWant" target="_blank">
+    <img alt="solidDoWant" height="50" width="50" src="https://avatars.githubusercontent.com/u/16456946?v=4&size=50"/>
+  </a>
 </div>
