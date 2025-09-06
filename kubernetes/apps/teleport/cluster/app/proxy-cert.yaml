@@ -17,9 +17,6 @@ spec:
     kind: ClusterIssuer
     name: letsencrypt-production
   secretName: teleport-proxy-public-cert
-  secretTemplate:
-    labels:
-      kyverno.home.arpa/reload: "true"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -41,6 +38,3 @@ spec:
     kind: Issuer
     name: teleport-intermediary-ca-issuer
   secretName: teleport-proxy-internal-cert
-  secretTemplate:
-    labels:
-      kyverno.home.arpa/reload: "true"
