@@ -36,3 +36,24 @@ spec:
     manager:
       devices:
         gpu: true
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+              name: inteldeviceplugins-controller-manager
+            patch: |
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: inteldeviceplugins-controller-manager
+              spec:
+                template:
+                  spec:
+                    containers:
+                      - name: manager
+                        readinessProbe:
+                          initialDelaySeconds: 15
+                          timeoutSeconds: 5
+                          periodSeconds: 10
+                          failureThreshold: 3
