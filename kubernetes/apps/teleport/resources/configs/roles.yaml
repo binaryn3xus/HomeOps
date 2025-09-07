@@ -17,7 +17,7 @@ metadata:
   namespace: teleport
 spec:
   allow:
-    logins: ['{{internal.logins}}', 'root']
+    logins: ['{{internal.logins}}', 'root', 'joshua', 'jimmy']
     node_labels:
       "*": "*"
     windows_desktop_labels:
