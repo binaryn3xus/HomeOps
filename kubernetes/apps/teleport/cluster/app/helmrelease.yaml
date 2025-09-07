@@ -72,7 +72,8 @@ spec:
       installCRDs: "dynamic"
 
     persistence:
-      enabled: false
+      enabled: true
+      existingClaimName: teleport
 
     podMonitor:
       additionalLabels:
