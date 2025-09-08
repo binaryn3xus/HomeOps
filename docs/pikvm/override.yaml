@@ -1,17 +1,11 @@
 kvmd:
-    streamer:
-        forever: true
-        cmd_append:
-            - "--format=rgb24"
-            - "--encoder=cpu"
-            - "--v4p"
     auth:
         enabled: false
     gpio:
         drivers:
             tes:
                 type: tesmart
-                host: 10.0.30.40
+                host: 10.0.30.90
                 port: 5000
             wol_server0:
                 type: wol
@@ -21,7 +15,7 @@ kvmd:
                 mac: 58:47:ca:7a:ae:49
             wol_server2:
                 type: wol
-                mac: 58:47:ca:7f:3b:33
+                mac: 58:47:ca:7a:b2:89
             wol_server3:
                 type: wol
                 mac: 00:1f:c6:9c:9a:99

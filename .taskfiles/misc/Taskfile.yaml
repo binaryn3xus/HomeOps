@@ -7,7 +7,7 @@ tasks:
   pikvm-backup:
     desc: Backup PiKVM Override File
     cmds:
-      - scp root@10.0.30.5:/etc/kvmd/override.yaml ./docs/src/notes/pikvm/override.yaml
+      - scp root@10.0.30.5:/etc/kvmd/override.yaml ./docs/pikvm/override.yaml
 
   # Disabled - Not sure if this breaks the PiKVM database somehow
   # pikvm-restore:
