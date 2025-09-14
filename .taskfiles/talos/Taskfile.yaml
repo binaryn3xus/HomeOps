@@ -46,12 +46,13 @@ tasks:
       - which kubectl talhelper talosctl yq
 
   upgrade-k8s:
-    desc: Upgrade Kubernetes
+    desc: Upgrade Kubernetes [IP=required] [K8SVERSION=required] [DRYRUN=required (default 'true')]
     dir: '{{.TALHELPER_DIR}}'
-    cmd: talhelper gencommand upgrade-k8s --extra-flags "--to '{{.KUBERNETES_VERSION}}'" | bash
+    cmd: talosctl --nodes {{.IP}} upgrade-k8s --to {{.K8SVERSION}} {{if eq .DRYRUN "true"}}--dry-run{{end}}
     vars:
-      KUBERNETES_VERSION:
-        sh: yq '.kubernetesVersion' {{.TALHELPER_DIR}}/talconfig.yaml
+      DRYRUN: '{{.DRYRUN | default "true"}}'
+    requires:
+      vars: [IP, K8SVERSION]
     preconditions:
       - talosctl config info
       - test -f {{.TALOSCONFIG}}

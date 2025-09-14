@@ -1,17 +1,9 @@
 [env]
-_.python.venv = { path = "{{config_root}}/.venv", create = true }
 KUBECONFIG = "{{config_root}}/kubeconfig"
 SOPS_AGE_KEY_FILE = "{{config_root}}/age.key"
 TALOSCONFIG = "{{config_root}}/talos/clusterconfig/talosconfig"
 
-[tasks.deps]
-description = "Install dependencies"
-run = "uv pip install -r requirements.txt"
-
 [tools]
-# Template tools
-python = "3.13"
-uv = "0.8.15"
 # Operations tools
 "aqua:budimanjojo/talhelper" = "3.0.34"
 "aqua:cilium/cilium-cli" = "0.18.7"
