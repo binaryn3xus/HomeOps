@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/binaryn3xus/HomeOps/refs/heads/main/docs/assets/logo.png" align="center" width="144px" height="144px"/>
+<img src="https://raw.githubusercontent.com/binaryn3xus/HomeOps/refs/heads/main/docs/assets/logo.png" align="center" width="250px" height="337px"/>
 
 ### My Home Operations Repository :octocat:
 
