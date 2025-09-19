@@ -1,30 +1,18 @@
 ---
-# This might be causing some problems with CNI.
-#
-# apiVersion: cilium.io/v2
-# kind: CiliumNetworkPolicy
-# metadata:
-#   name: teleport-cluster
-# specs:
-#   - description: teleport-full-access
-#     endpointSelector:
-#       matchLabels:
-#         app.kubernetes.io/instance: teleport
-#     ingress:
-#       - fromEntities:
-#           - all
-#         toPorts:
-#           - ports:
-#               - port: "0-65535"
-#                 protocol: TCP
-#               - port: "0-65535"
-#                 protocol: UDP
-#     egress:
-#       - toEntities:
-#           - all
-#         toPorts:
-#           - ports:
-#               - port: "0-65535"
-#                 protocol: TCP
-#               - port: "0-65535"
-#                 protocol: UDP
+apiVersion: "cilium.io/v2"
+kind: CiliumNetworkPolicy
+metadata:
+  name: "allow-all-teleport"
+  namespace: teleport
+spec:
+  endpointSelector: {}
+  ingress:
+    - fromEndpoints:
+        - matchExpressions:
+            - key: io.kubernetes.pod.namespace
+              operator: Exists
+  egress:
+    - toEndpoints:
+        - matchExpressions:
+            - key: io.kubernetes.pod.namespace
+              operator: Exists
