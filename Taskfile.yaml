@@ -63,7 +63,7 @@ tasks:
           jq -r '.items[] | [.metadata.namespace, .metadata.name] | @tsv' | \
           while IFS=$'\t' read ns name; do
             echo "Resuming $name in $ns"
-            flux --namespace "$ns" resume kustomization "$name"
+            flux --namespace "$ns" resume kustomization "$name" --timeout=10s
           done
     preconditions:
       - test -f {{.KUBECONFIG}}
