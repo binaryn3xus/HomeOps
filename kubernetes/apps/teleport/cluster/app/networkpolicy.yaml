@@ -2,17 +2,17 @@
 apiVersion: "cilium.io/v2"
 kind: CiliumNetworkPolicy
 metadata:
-  name: "teleport-internode-communication"
+  name: "allow-all-teleport"
   namespace: teleport
 spec:
-  endpointSelector:
-    matchLabels:
-      app.kubernetes.io/instance: teleport
+  endpointSelector: {}
   ingress:
     - fromEndpoints:
-        - matchLabels:
-            app.kubernetes.io/instance: teleport
+        - matchExpressions:
+            - key: io.kubernetes.pod.namespace
+              operator: Exists
   egress:
     - toEndpoints:
-        - matchLabels:
-            app.kubernetes.io/instance: teleport
+        - matchExpressions:
+            - key: io.kubernetes.pod.namespace
+              operator: Exists
