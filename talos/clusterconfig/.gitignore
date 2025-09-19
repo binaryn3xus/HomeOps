@@ -1,5 +1,1 @@
-kubernetes-fleetcom-node1.yaml
-kubernetes-fleetcom-node2.yaml
-kubernetes-fleetcom-node3.yaml
-talosconfig
-wipe-rook-node.yaml
+*
