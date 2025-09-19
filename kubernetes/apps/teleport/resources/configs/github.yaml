@@ -1,5 +1,4 @@
 ---
-# kubernetes/apps/teleport/teleport/app/resources/github.yaml
 apiVersion: resources.teleport.dev/v3
 kind: TeleportGithubConnector
 metadata:
@@ -13,9 +12,7 @@ spec:
   teams_to_roles:
     - organization: "unscfleet"
       team: "teleport-admins"
-      roles:
-        - cluster-admin
+      roles: ["cluster-admin"]
     - organization: "unscfleet"
       team: "teleport-desktop-users"
-      roles:
-        - desktop-user
+      roles: ["desktop-user"]
