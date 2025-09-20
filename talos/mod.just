@@ -20,3 +20,12 @@ upgrade-k8s version:
 [doc('Dryrun Upgrade Kubernetes version on the cluster')]
 upgrade-k8s-dryrun version:
     talosctl -n "{{ controller }}" upgrade-k8s --to {{ version }} --dry-run
+
+[doc('Reboot a node by name')]
+reboot node:
+    talosctl reboot -n "{{node}}"
+
+[doc('Shutdown a node by name')]
+shutdown node:
+    talosctl shutdown -n "{{node}}"
+
