@@ -5,6 +5,7 @@ resources:
   - helmrelease.yaml
   - intermediary-ca.yaml
   - networkpolicy.yaml
+  - ocirepository.yaml
   - podmonitor.yaml
   - proxy-cert.yaml
 commonLabels:

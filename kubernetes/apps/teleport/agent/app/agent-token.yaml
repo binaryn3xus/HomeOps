@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/CustomResourceDefinition/catalog/07ac84a6ed3c827e98a8b329a9a32d9b3d5964b8/schema/resources.teleport.dev/teleportprovisiontoken_v2.json
 apiVersion: resources.teleport.dev/v2
 kind: TeleportProvisionToken
 metadata:

@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ./helmrelease.yaml
+  - ./ocirepository.yaml
 labels:
   - pairs:
       app.kubernetes.io/name: intel-gpu-exporter
