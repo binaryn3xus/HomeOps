@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: azure-keyvault-secret
+  namespace: external-secrets
+stringData:
+  ClientID: azkv://K8sHomeOpsKeyVault/Azure-Keyvault-Client-Id
+  ClientSecret: azkv://K8sHomeOpsKeyVault/Azure-Keyvault-Client-Secret

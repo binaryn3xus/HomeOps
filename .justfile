@@ -2,6 +2,7 @@
 set quiet := true
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
+mod bootstrap
 mod kubernetes
 mod talos
 
