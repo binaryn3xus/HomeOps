@@ -1,0 +1,21 @@
+---
+machine:
+  install:
+    diskSelector:
+      wwid: "nvme.126f-59543230323330313030383133-53504343204d2e32205043496520535344-00000001"
+  network:
+    hostname: fleetcom-node3
+    interfaces:
+      - deviceSelector:
+          hardwareAddr: 58:47:ca:7f:3b:33
+        addresses:
+          - 10.0.30.13/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 10.0.30.1
+        mtu: 1500
+        dhcp: false
+        vip:
+          ip: 10.0.30.30
+  nodeLabels:
+    mssql2025-compatible: "true"

@@ -1,0 +1,14 @@
+context: kubernetes
+contexts:
+    kubernetes:
+        endpoints:
+            - 10.0.30.11
+            - 10.0.30.12
+            - 10.0.30.13
+        nodes:
+            - 10.0.30.11
+            - 10.0.30.12
+            - 10.0.30.13
+        ca: azkv://K8sHomeOpsKeyVault/Talos-Machine-CA-Crt
+        crt: azkv://K8sHomeOpsKeyVault/Talos-Config-Crt
+        key: azkv://K8sHomeOpsKeyVault/Talos-Config-Key

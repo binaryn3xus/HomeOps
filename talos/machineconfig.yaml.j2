@@ -1,0 +1,185 @@
+version: v1alpha1
+debug: false
+persist: true
+machine:
+  token: azkv://K8sHomeOpsKeyVault/Talos-Machine-Token
+  ca:
+    crt: azkv://K8sHomeOpsKeyVault/Talos-Machine-CA-Crt
+    key: azkv://K8sHomeOpsKeyVault/Talos-Machine-CA-Key
+  certSANs:
+    - 127.0.0.1
+    - 10.0.30.30
+  features:
+    apidCheckExtKeyUsage: true
+    diskQuotaSupport: true
+    hostDNS:
+      enabled: true
+      forwardKubeDNSToHost: false
+      resolveMemberNames: true
+    kubePrism:
+      enabled: true
+      port: 7445
+    rbac: true
+    stableHostname: true
+  files:
+    - op: create
+      path: /etc/cri/conf.d/20-customization.part
+      content: |
+        [plugins."io.containerd.cri.v1.images"]
+          discard_unpacked_layers = false
+        [plugins."io.containerd.cri.v1.runtime"]
+          device_ownership_from_security_context = true
+    - op: overwrite
+      path: /etc/nfsmount.conf
+      permissions: 0o644
+      content: |
+        [ NFSMount_Global_Options ]
+        nfsvers=4.1
+        hard=True
+        nconnect=16
+        noatime=True
+  install:
+    diskSelector: []
+    image: factory.talos.dev/installer/c4bb4fd007801d9db1492d85067f5624d9df03e6b27ac61e5bed9837dea5cb99:v1.11.1
+    wipe: false
+  kernel:
+    modules:
+      - name: nbd
+      - name: thunderbolt
+      - name: thunderbolt_net
+  kubelet:
+    defaultRuntimeSeccompProfileEnabled: true
+    disableManifestsDirectory: true
+    extraConfig:
+      featureGates:
+        ImageVolume: true
+      serializeImagePulls: false
+    extraMounts:
+      - destination: /var/mnt/local-hostpath
+        type: bind
+        source: /var/mnt/local-hostpath
+        options:
+          - bind
+          - rshared
+          - rw
+    image: ghcr.io/siderolabs/kubelet:v1.34.1
+    nodeIP:
+      validSubnets:
+        - 10.0.30.0/24
+  network:
+    interfaces:
+      - deviceSelector: []
+        addresses: []
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 10.0.30.1
+        mtu: 1500
+        dhcp: false
+        vip:
+          ip: 10.0.30.30
+    nameservers:
+      - 1.1.1.1
+      - 1.0.0.1
+    disableSearchDomain: true
+  sysctls:
+    fs.inotify.max_user_instances: "8192"
+    fs.inotify.max_user_watches: "1048576"
+    net.core.default_qdisc: fq
+    net.core.rmem_max: "67108864"
+    net.core.wmem_max: "67108864"
+    net.ipv4.neigh.default.gc_thresh1: "4096"
+    net.ipv4.neigh.default.gc_thresh2: "8192"
+    net.ipv4.neigh.default.gc_thresh3: "16384"
+    net.ipv4.tcp_congestion_control: bbr
+    net.ipv4.tcp_fastopen: "3"
+    net.ipv4.tcp_mtu_probing: "1"
+    net.ipv4.tcp_rmem: 4096 87380 33554432
+    net.ipv4.tcp_window_scaling: "1"
+    net.ipv4.tcp_wmem: 4096 65536 33554432
+    sunrpc.tcp_max_slot_table_entries: "128"
+    sunrpc.tcp_slot_table_entries: "128"
+    user.max_user_namespaces: "11255"
+    vm.nr_hugepages: "1024"
+  time:
+    disabled: false
+    servers:
+      - 162.159.200.1
+      - 162.159.200.123
+  type: controlplane
+cluster:
+  ca:
+    crt: azkv://K8sHomeOpsKeyVault/Talos-Cluster-CA-Crt
+    key: azkv://K8sHomeOpsKeyVault/Talos-Cluster-CA-Key
+  clusterName: kubernetes
+  controlPlane:
+    endpoint: https://10.0.30.30:6443
+  id: azkv://K8sHomeOpsKeyVault/Talos-Cluster-Id
+  network:
+    cni:
+      name: none
+    dnsDomain: cluster.local
+    podSubnets:
+      - 10.69.0.0/16
+    serviceSubnets:
+      - 10.96.0.0/16
+  secret: azkv://K8sHomeOpsKeyVault/Talos-Cluster-Secret
+  token: azkv://K8sHomeOpsKeyVault/Talos-Cluster-Token
+  aggregatorCA:
+    crt: azkv://K8sHomeOpsKeyVault/Talos-Cluster-AggregatorCA-Crt
+    key: azkv://K8sHomeOpsKeyVault/Talos-Cluster-AggregatorCA-Key
+  allowSchedulingOnControlPlanes: true
+  apiServer:
+    auditPolicy:
+      apiVersion: audit.k8s.io/v1
+      kind: Policy
+      rules:
+        - level: Metadata
+    certSANs:
+      - 127.0.0.1
+      - 10.0.30.30
+    disablePodSecurityPolicy: true
+    extraArgs:
+      feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true
+      runtime-config: admissionregistration.k8s.io/v1beta1=true
+    image: registry.k8s.io/kube-apiserver:v1.34.1
+  controllerManager:
+    extraArgs:
+      bind-address: 0.0.0.0
+    image: registry.k8s.io/kube-controller-manager:v1.34.1
+  coreDNS:
+    disabled: true
+  etcd:
+    advertisedSubnets:
+      - 10.0.30.0/24
+    ca:
+      crt: azkv://K8sHomeOpsKeyVault/Talos-Cluster-Etcd-Crt
+      key: azkv://K8sHomeOpsKeyVault/Talos-Cluster-Etcd-Key
+    extraArgs:
+      listen-metrics-urls: http://0.0.0.0:2381
+  proxy:
+    disabled: true
+    image: registry.k8s.io/kube-proxy:v1.34.1
+  scheduler:
+    config:
+      apiVersion: kubescheduler.config.k8s.io/v1
+      kind: KubeSchedulerConfiguration
+      profiles:
+        - schedulerName: default-scheduler
+          plugins:
+            score:
+              disabled:
+                - name: ImageLocality
+          pluginConfig:
+            - name: PodTopologySpread
+              args:
+                defaultingType: List
+                defaultConstraints:
+                  - maxSkew: 1
+                    topologyKey: kubernetes.io/hostname
+                    whenUnsatisfiable: ScheduleAnyway
+    extraArgs:
+      bind-address: 0.0.0.0
+    image: registry.k8s.io/kube-scheduler:v1.34.1
+  secretboxEncryptionSecret: azkv://K8sHomeOpsKeyVault/Talos-Cluster-SecretboxEncryptionSecret
+  serviceAccount:
+    key: azkv://K8sHomeOpsKeyVault/Talos-Cluster-ServiceAccount-Key
