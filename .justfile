@@ -46,3 +46,13 @@ refresh-all:
 [doc('Read a secret from Azure Key Vault')]
 read-az-secret secret_name:
     @az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "{{secret_name}}" --query 'value' -o tsv
+
+[doc('Sort a YAML file at .spec level')]
+sort-spec file:
+    yq -i '.spec |= sort_keys(..)' "{{ file }}"
+    @echo "Sorted .spec keys in '{{ file }}'"
+
+[doc('Sort a YAML file at .resource level')]
+sort-resources file:
+    yq '.resources |= sort' -i "{{ file }}"
+    @echo "Sorted .resources keys in '{{ file }}'"
