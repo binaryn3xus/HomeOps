@@ -27,14 +27,13 @@ spec:
               repository: mcr.microsoft.com/mssql/server
               tag: 2025-latest
             env:
-              TZ: "America/New_York"
               ACCEPT_EULA: "Y"
               MSSQL_PID: "Developer"
-              #MSSQL_ENABLE_HADR: "1"
               MSSQL_AGENT_ENABLED: "true"
               MSSQL_DATA_DIR: "/var/opt/mssql/data"
               MSSQL_LOG_DIR: "/var/opt/mssql/log"
               MSSQL_BACKUP_DIR: "/var/opt/mssql/backup"
+              TZ: "America/New_York"
             envFrom:
               - secretRef:
                   name: mssql-2025-secret

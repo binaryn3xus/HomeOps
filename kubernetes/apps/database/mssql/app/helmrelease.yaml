@@ -27,7 +27,6 @@ spec:
               repository: mcr.microsoft.com/mssql/server
               tag: 2022-latest
             env:
-              TZ: "America/New_York"
               ACCEPT_EULA: "Y"
               MSSQL_PID: "Developer"
               MSSQL_ENABLE_HADR: "1"
@@ -35,9 +34,10 @@ spec:
               MSSQL_DATA_DIR: "/var/opt/mssql/data"
               MSSQL_LOG_DIR: "/var/opt/mssql/log"
               MSSQL_BACKUP_DIR: "/var/opt/mssql/backup"
+              TZ: "America/New_York"
             envFrom:
               - secretRef:
-                  name: mssql-secret
+                  name: mssql-2022-secret
             resources:
               requests:
                 cpu: 2
