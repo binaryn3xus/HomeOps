@@ -23,10 +23,6 @@
     "prIgnoreNotification"
   ],
   "rebaseWhen": "conflicted",
-  "ignorePaths": [
-    "**/archive/**",
-    "**/*.sops.*"
-  ],
   "flux": {
     "managerFilePatterns": ["/\\.yaml(?:\\.j2)?$/"]
   },
