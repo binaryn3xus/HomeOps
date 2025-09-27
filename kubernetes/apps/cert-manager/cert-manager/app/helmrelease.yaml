@@ -5,13 +5,13 @@ kind: HelmRelease
 metadata:
   name: cert-manager
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: cert-manager
   install:
     remediation:
       retries: -1
+  interval: 1h
   upgrade:
     cleanupOnFail: true
     remediation:
@@ -19,10 +19,10 @@ spec:
   values:
     crds:
       enabled: true
-    replicaCount: 1
     dns01RecursiveNameservers: https://1.1.1.1:443/dns-query,https://1.0.0.1:443/dns-query
     dns01RecursiveNameserversOnly: true
     prometheus:
       enabled: true
       servicemonitor:
         enabled: true
+    replicaCount: 1

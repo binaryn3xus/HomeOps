@@ -6,15 +6,15 @@ metadata:
   name: letsencrypt-production
 spec:
   acme:
-    server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-production
+    server: https://acme-v02.api.letsencrypt.org/directory
     solvers:
       - dns01:
           cloudflare:
             apiTokenSecretRef:
-              name: cloudflare-issuer-secret
               key: CLOUDFLARE_DNS_TOKEN
+              name: cloudflare-issuer-secret
         selector:
           dnsZones: ["unscfleet.com"]
 ---
@@ -33,12 +33,12 @@ metadata:
   name: root-ca
   namespace: cert-manager
 spec:
-  isCA: true
   commonName: root-ca
-  secretName: root-ca-secret
+  isCA: true
   issuerRef:
-    name: selfsigned-ca
     kind: ClusterIssuer
+    name: selfsigned-ca
+  secretName: root-ca-secret
 ---
 # Create an intermediary CA using the root CA
 apiVersion: cert-manager.io/v1
