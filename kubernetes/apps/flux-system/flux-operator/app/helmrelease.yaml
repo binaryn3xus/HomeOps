@@ -5,13 +5,13 @@ kind: HelmRelease
 metadata:
   name: flux-operator
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: flux-operator
   install:
     remediation:
       retries: -1
+  interval: 1h
   upgrade:
     cleanupOnFail: true
     remediation:

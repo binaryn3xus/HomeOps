@@ -5,7 +5,6 @@ kind: HelmRelease
 metadata:
   name: &app headlamp
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: headlamp
@@ -13,34 +12,35 @@ spec:
   install:
     remediation:
       retries: -1
+  interval: 1h
   upgrade:
     cleanupOnFail: true
     remediation:
       retries: 3
   values:
-    podAnnotations:
-      reloader.stakater.com/auto: "true"
+    clusterRoleBinding:
+      create: false
+    config:
+      pluginsDir: /build/plugins
     fullnameOverride: headlamp
     initContainers:
-      - image: ghcr.io/headlamp-k8s/headlamp-plugin-flux:v0.4.0@sha256:8d14174a166e2ccb2080a9f745b2ce8e19587ff8a2f41753eb1294875e650474
-        command:
+      - command:
           - /bin/sh
           - -c
           - mkdir -p /build/plugins && cp -r /plugins/* /build/plugins/
+        image: ghcr.io/headlamp-k8s/headlamp-plugin-flux:v0.4.0@sha256:8d14174a166e2ccb2080a9f745b2ce8e19587ff8a2f41753eb1294875e650474
         name: headlamp-plugins
         volumeMounts:
           - mountPath: /build/plugins
             name: headlamp-plugins
-    config:
-      pluginsDir: /build/plugins
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
     serviceAccount:
       create: false
       name: headlamp-admin
-    clusterRoleBinding:
-      create: false
     volumeMounts:
       - mountPath: /build/plugins
         name: headlamp-plugins
     volumes:
-      - name: headlamp-plugins
-        emptyDir: {}
+      - emptyDir: {}
+        name: headlamp-plugins

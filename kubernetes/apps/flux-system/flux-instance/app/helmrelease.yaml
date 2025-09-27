@@ -5,38 +5,32 @@ kind: HelmRelease
 metadata:
   name: flux-instance
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: flux-instance
   install:
     remediation:
       retries: -1
+  interval: 1h
   upgrade:
     cleanupOnFail: true
     remediation:
       retries: 3
   values:
     instance:
-      distribution:
-        # renovate: datasource=github-releases depName=controlplaneio-fluxcd/distribution
-        version: 2.6.4
       cluster:
         networkPolicy: false
+      commonMetadata:
+        labels:
+          app.kubernetes.io/name: flux
       components:
         - source-controller
         - kustomize-controller
         - helm-controller
         - notification-controller
-      sync:
-        kind: GitRepository
-        url: https://github.com/binaryn3xus/HomeOps/
-        ref: refs/heads/main
-        path: kubernetes/flux/cluster
-        interval: 1h
-      commonMetadata:
-        labels:
-          app.kubernetes.io/name: flux
+      distribution:
+        # renovate: datasource=github-releases depName=controlplaneio-fluxcd/distribution
+        version: 2.6.4
       kustomize:
         patches:
           - # Increase the number of workers
@@ -117,3 +111,9 @@ spec:
             target:
               kind: Deployment
               name: helm-controller
+      sync:
+        interval: 1h
+        kind: GitRepository
+        path: kubernetes/flux/cluster
+        ref: refs/heads/main
+        url: https://github.com/binaryn3xus/HomeOps/
