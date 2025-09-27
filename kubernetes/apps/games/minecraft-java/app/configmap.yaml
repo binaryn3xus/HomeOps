@@ -18,7 +18,7 @@ data:
   MOTD: Powered by BinaryNexus
   ONLINE_MODE: 'true'
   OVERRIDE_WHITELIST: 'true'
-  PAUSE_WHEN_EMPTY_SECONDS: '300'
+  PAUSE_WHEN_EMPTY_SECONDS: '600'
   TYPE: FABRIC
   TZ: America/New_York
   VERSION: 1.21.7

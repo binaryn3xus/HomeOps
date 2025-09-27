@@ -7,9 +7,9 @@ metadata:
 spec:
   endpoints:
     - dnsName: mc-java.unscfleet.com
-      recordType: A
-      targets:
-        - "${HomeOpsPublicIP}"
       providerSpecific:
         - name: external-dns.alpha.kubernetes.io/cloudflare-proxied
           value: "false"
+      recordType: A
+      targets:
+        - "${HomeOpsPublicIP}"

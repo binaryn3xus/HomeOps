@@ -15,8 +15,8 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      VOLSYNC_CAPACITY: 10Gi
       GATUS_SUBDOMAIN: mc-bedrock
+      VOLSYNC_CAPACITY: 10Gi
     substituteFrom:
       - kind: Secret
         name: minecraft-shared-secret
