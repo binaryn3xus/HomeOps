@@ -1,6 +1,6 @@
 {
-  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
-  extends: [
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
     "config:recommended",
     "docker:enableMajor",
     "helpers:pinGitHubActionDigests",
@@ -17,23 +17,23 @@
     ":semanticCommits",
     ":timezone(America/New_York)"
   ],
-  dependencyDashboardTitle: 'Renovate Dashboard 🤖',
-  suppressNotifications: [
-    'prEditedNotification',
-    'prIgnoreNotification',
+  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
+  "suppressNotifications": [
+    "prEditedNotification",
+    "prIgnoreNotification"
   ],
-  rebaseWhen: 'conflicted',
-  ignorePaths: [
-    '**/archive/**',
-    '**/*.sops.*',
+  "rebaseWhen": "conflicted",
+  "ignorePaths": [
+    "**/archive/**",
+    "**/*.sops.*"
   ],
-  flux: {
-    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
+  "flux": {
+    "managerFilePatterns": ["/\\.yaml(?:\\.j2)?$/"]
   },
   "helm-values": {
-    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
+    "managerFilePatterns": ["/\\.yaml(?:\\.j2)?$/"]
   },
-  kubernetes: {
-    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
-  },
+  "kubernetes": {
+    "managerFilePatterns": ["/\\.yaml(?:\\.j2)?$/"]
+  }
 }
