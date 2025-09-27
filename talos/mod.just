@@ -1,6 +1,8 @@
 set quiet := true
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
+talos_dir := justfile_dir() + '/talos'
+
 # --- Private Recipes ---
 [private]
 default:
@@ -30,14 +32,8 @@ backup-config ip:
 
 # --- Cluster and Node Upgrades ---
 [doc('Upgrade Kubernetes version on the cluster')]
-upgrade-k8s version:
-    controller := `talosctl config info -o yaml | yq -e '.endpoints[0]'`
-    talosctl -n "$controller" upgrade-k8s --to {{ version }}
-
-[doc('Dryrun Upgrade Kubernetes version on the cluster')]
-upgrade-k8s-dryrun version:
-    controller := `talosctl config info -o yaml | yq -e '.endpoints[0]'`
-    talosctl -n "$controller" upgrade-k8s --to {{ version }} --dry-run
+upgrade-k8s ip version:
+    talosctl -n "{{ ip }}" upgrade-k8s --to {{ version }}
 
 [doc('Upgrade Talos version on a node')]
 upgrade-node ip:
@@ -46,30 +42,20 @@ upgrade-node ip:
 # --- Node Power Management ---
 [doc('Reboot a node')]
 reboot-node ip:
-    @printf "Reboot node {{ip}}? [y/N] "
-    @read -r response; \
-    if [[ "$$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then \
-        talosctl -n {{ ip }} reboot -m powercycle; \
-    fi
+    gum confirm "Reboot node {{ ip }}?" --default="No" && \
+        talosctl -n {{ ip }} reboot -m powercycle || exit 0
 
 [doc('Reset a node')]
 reset-node ip:
-    @printf "Reset node {{ip}}? [y/N] "
-    @read -r response; \
-    if [[ "$$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then \
-        talosctl -n {{ ip }} reset --graceful=false; \
-    fi
+    gum confirm "Reset node {{ ip }}?" --default="No" && \
+        talosctl -n "{{ ip }}" reset --graceful=false || exit 0
 
 [doc('Shutdown a node')]
 shutdown-node ip:
-    @printf "Shutdown node {{ip}}? [y/N] "
-    @read -r response; \
-    if [[ "$$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then \
-        talosctl -n {{ ip }} shutdown --force; \
-    fi
-
+    gum confirm "Shutdown node {{ ip }}?" --default="No" && \
+        talosctl -n "{{ ip }}" shutdown --force || exit 0
 
 # --- Private Helper Recipes ---
 [private]
 machine-image:
-    just talos render-config fleetcom-node1 | yq -e 'select(.machine) | .machine.install.image'
+    just template "{{ talos_dir }}/machineconfig.yaml.j2" | yq -e 'select(.machine) | .machine.install.image'

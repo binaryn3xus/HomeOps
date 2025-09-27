@@ -19,6 +19,12 @@ machine:
     kubePrism:
       enabled: true
       port: 7445
+    kubernetesTalosAPIAccess:
+      allowedKubernetesNamespaces:
+        - system-upgrade
+      allowedRoles:
+        - os:admin
+      enabled: true
     rbac: true
     stableHostname: true
   files:
