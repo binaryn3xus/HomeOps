@@ -5,7 +5,6 @@ kind: HelmRelease
 metadata:
   name: tuppr
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: tuppr
@@ -13,6 +12,7 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
+  interval: 1h
   upgrade:
     cleanupOnFail: true
     crds: CreateReplace
