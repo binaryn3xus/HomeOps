@@ -22,6 +22,8 @@ spec:
       repository: mirror.gcr.io/coredns/coredns
     replicaCount: 2
     k8sAppLabelOverride: kube-dns
+    rbac:
+      create: true
     serviceAccount:
       create: true
     service:
