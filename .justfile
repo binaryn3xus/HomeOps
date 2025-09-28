@@ -34,7 +34,7 @@ reconcile:
     flux --namespace flux-system reconcile kustomization flux-system --with-source
 
 [doc('Force Flux to refresh a Kustomization')]
-reconcile namespace name:
+reconcile-app namespace name:
     flux --namespace "{{namespace}}" suspend kustomization "{{name}}"
     sleep 2
     flux --namespace "{{namespace}}" resume kustomization "{{name}}"
