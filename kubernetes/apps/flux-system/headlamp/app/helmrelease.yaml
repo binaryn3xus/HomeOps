@@ -21,15 +21,6 @@ spec:
     clusterRoleBinding:
       create: false
     config:
-      oidc:
-        issuerURL: "https://github.com"
-        scopes: "read:user,user:email,read:org"
-        callbackURL: "https://headlamp.unscfleet.com/oidc-callback"
-        secret:
-          create: false
-        externalSecret:
-          enabled: true
-          name: headlamp-oidc-secret
       pluginsDir: /build/plugins
     fullnameOverride: headlamp
     initContainers:
