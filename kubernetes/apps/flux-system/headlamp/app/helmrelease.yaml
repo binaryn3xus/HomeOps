@@ -27,7 +27,7 @@ spec:
         callbackURL: "https://headlamp.unscfleet.com/oidc-callback"
         secret:
           create: false
-        ExternalSecret:
+        externalSecret:
           enabled: true
           name: headlamp-oidc-secret
       pluginsDir: /build/plugins
