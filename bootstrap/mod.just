@@ -9,7 +9,7 @@ default:
 
 [doc('Apply Kubernetes resources')]
 resources:
-    minijinja-cli resources.yaml.j2 | ./scripts/az-inject.sh | kubectl apply --server-side -f -
+    minijinja-cli resources.yaml.j2 | ../scripts/az-inject.sh | kubectl apply --server-side -f -
 
 [doc('Apply Helmfile CRDs')]
 crds:
