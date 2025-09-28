@@ -15,21 +15,23 @@ default:
 template file *args:
     minijinja-cli "{{ file }}" {{ args }} | ./scripts/az-inject.sh
 
-# --- Utility Recipes ---
-[doc('Force Flux reconcile Git repository changes')]
-reconcile:
-    flux --namespace flux-system reconcile kustomization flux-system --with-source
-
+# --- PikVM Backup ---
 [doc('Backup PiKVM Override File')]
 pikvm-backup:
     scp root@10.0.30.5:/etc/kvmd/override.yaml ./docs/pikvm/override.yaml
 
+# --- Configuration Backups ---
 [doc('Backup Configuration Files')]
 configuration-backup backup_datetime=`date +%Y%m%d-%H%M`:
     mkdir -p ./.private/backups/"{{backup_datetime}}"
-    cp -r ./talos/clusterconfig/ ./.private/backups/"{{backup_datetime}}"/
+    cp -r ./talos/ ./.private/backups/"{{backup_datetime}}"/
     cp ./kubeconfig ./.private/backups/"{{backup_datetime}}"/
     cp ./age.key ./.private/backups/"{{backup_datetime}}"/
+
+# --- Flux Management ---
+[doc('Force Flux reconcile Git repository changes')]
+reconcile:
+    flux --namespace flux-system reconcile kustomization flux-system --with-source
 
 [doc('Force Flux to refresh a Kustomization')]
 refresh namespace name:
@@ -43,10 +45,12 @@ refresh-all:
     sleep 3
     kubectl get kustomizations --all-namespaces -o json | jq -r '.items[] | [.metadata.namespace, .metadata.name] | @tsv' | while IFS=$'\t' read ns name; do flux --namespace "$ns" resume kustomization "$name" --timeout=10s; done
 
+# --- Azure Key Vault Integration ---
 [doc('Read a secret from Azure Key Vault')]
 read-az-secret secret_name:
     @az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "{{secret_name}}" --query 'value' -o tsv
 
+# --- YAML Sorting ---
 [doc('Sort a YAML file at .spec level')]
 sort-spec file:
     yq -i '.spec |= sort_keys(..)' "{{ file }}"

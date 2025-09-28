@@ -51,3 +51,8 @@ sync-oci:
     kubectl get ocirepo --no-headers -A | while read -r ns name _; do \
         kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite ocirepo "$name" reconcile.fluxcd.io/requestedAt="$(date +%s)"; \
     done
+
+[doc('Clear Rook Ceph Crash Reports')]
+clear-ceph-crashes:
+    kubectl -n rook-ceph exec deploy/rook-ceph-tools -- ceph crash archive-all
+    kubectl -n rook-ceph exec deploy/rook-ceph-tools -- ceph status
