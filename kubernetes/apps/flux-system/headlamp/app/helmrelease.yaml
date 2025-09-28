@@ -21,6 +21,20 @@ spec:
     clusterRoleBinding:
       create: false
     config:
+      oidc:
+        clientID:
+          valueFrom:
+            secretKeyRef:
+              name: headlamp-oidc-secret
+              key: client-id
+        clientSecret:
+          valueFrom:
+            secretKeyRef:
+              name: headlamp-oidc-secret
+              key: client-secret
+        callbackURL: "https://headlamp.unscfleet.com/oidc-callback"
+        secret:
+          create: false
       pluginsDir: /build/plugins
     fullnameOverride: headlamp
     initContainers:
