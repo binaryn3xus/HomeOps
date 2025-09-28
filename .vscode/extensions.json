@@ -10,6 +10,6 @@
         "EditorConfig.editorconfig",
         "PKief.material-icon-theme",
         "Gruntfuggly.todo-tree",
-        "skellock.just"
+        "nefrob.vscode-just-syntax"
     ]
 }
