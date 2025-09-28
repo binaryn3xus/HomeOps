@@ -18,6 +18,10 @@ prune-pods:
         kubectl delete pods -A --field-selector status.phase="$phase" --ignore-not-found=true; \
     done
 
+[doc('Read secret value from secret in plaintext')]
+read-secret namespace secret key:
+    kubectl get secret '{{secret}}' -n '{{namespace}}' -o jsonpath='{.data.{{key}}}' | base64 --decode
+
 [doc('Sync a single ExternalSecret')]
 sync-es namespace secret:
     @kubectl -n '{{namespace}}' annotate externalsecret '{{secret}}' force-sync="$(date +%s)" --overwrite
