@@ -34,16 +34,22 @@ reconcile:
     flux --namespace flux-system reconcile kustomization flux-system --with-source
 
 [doc('Force Flux to refresh a Kustomization')]
-refresh namespace name:
+reconcile namespace name:
     flux --namespace "{{namespace}}" suspend kustomization "{{name}}"
-    sleep 3
+    sleep 2
     flux --namespace "{{namespace}}" resume kustomization "{{name}}"
 
 [doc('Force Flux to refresh all Kustomizations in the cluster')]
-refresh-all:
+reconcile-all:
     kubectl get kustomizations --all-namespaces -o json | jq -r '.items[] | [.metadata.namespace, .metadata.name] | @tsv' | while IFS=$'\t' read ns name; do flux --namespace "$ns" suspend kustomization "$name"; done
-    sleep 3
+    sleep 2
     kubectl get kustomizations --all-namespaces -o json | jq -r '.items[] | [.metadata.namespace, .metadata.name] | @tsv' | while IFS=$'\t' read ns name; do flux --namespace "$ns" resume kustomization "$name" --timeout=10s; done
+
+[doc('List all Kustomizations with suspended and ready status')]
+reconcile-status:
+    kubectl get kustomizations --all-namespaces -o json | \
+    jq -r '.items[] | "\(.metadata.namespace)\t\(.metadata.name)\tSuspended: \(.spec.suspend // false)\tReady: \(.status.conditions[]? | select(.type=="Ready") | .status // "Unknown")"' | \
+    column -t
 
 # --- Azure Key Vault Integration ---
 [doc('Read a secret from Azure Key Vault')]
