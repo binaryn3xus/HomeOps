@@ -35,6 +35,9 @@ spec:
             name: headlamp-plugins
     podAnnotations:
       reloader.stakater.com/auto: "true"
+    service:
+      port: 80
+      type: ClusterIP
     serviceAccount:
       create: false
       name: headlamp-admin
