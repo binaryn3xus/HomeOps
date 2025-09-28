@@ -9,21 +9,12 @@ spec:
   chartRef:
     kind: OCIRepository
     name: coredns
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   values:
     fullnameOverride: coredns
     image:
       repository: mirror.gcr.io/coredns/coredns
     replicaCount: 2
     k8sAppLabelOverride: kube-dns
-    rbac:
-      create: true
     serviceAccount:
       create: true
     service:
