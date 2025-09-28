@@ -21,7 +21,6 @@ spec:
     clusterRoleBinding:
       create: false
     config:
-      inCluster: true
       pluginsDir: /build/plugins
     fullnameOverride: headlamp
     initContainers:
