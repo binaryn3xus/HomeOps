@@ -1,7 +1,7 @@
 set quiet := true
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
-bootstrap_dir := justfile_dir()
+bootstrap_dir := justfile_dir() + '/bootstrap'
 
 [private]
 default:
