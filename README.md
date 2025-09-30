@@ -59,7 +59,6 @@ My Kubernetes cluster is deploy with [Talos](https://www.talos.dev). This is a s
 - [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically syncs ingress DNS records to a DNS provider.
 - [external-secrets](https://github.com/external-secrets/external-secrets): Managed Kubernetes secrets using [Azure Keyvault](https://azure.microsoft.com/en-us/products/key-vault).
 - [rook](https://github.com/rook/rook): Distributed block storage for peristent storage.
-- [sops](https://github.com/getsops/sops): Managed secrets for Kubernetes and Terraform which are commited to Git.
 - [spegel](https://github.com/spegel-org/spegel): Stateless cluster local OCI registry mirror.
 - [teleport](https://goteleport.com/): Manage some network resources remotely
 - [volsync](https://github.com/backube/volsync): Backup and recovery of persistent volume claims.
@@ -128,7 +127,7 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 <details>
   <summary>Click to see the Full Home Ops Rack!</summary>
 
-![ServerRack](/docs/assets/ServerRack_20250206.jpg)
+![ServerRack](/docs/assets/ServerRack_20250930.jpg)
 
 </details>
 
