@@ -60,3 +60,7 @@ sync-oci:
 clear-ceph-crashes:
     kubectl -n rook-ceph exec deploy/rook-ceph-tools -- ceph crash archive-all
     kubectl -n rook-ceph exec deploy/rook-ceph-tools -- ceph status
+
+[doc('Open a bash shell in the Rook Ceph tools pod')]
+rook-console:
+    kubectl -n rook-ceph exec -it deploy/rook-ceph-tools -- /bin/bash
