@@ -37,6 +37,7 @@ spec:
       cephConfig:
         global:
           bdev_enable_discard: "true"
+          bdev_async_discard: "true"
           bdev_async_discard_threads: "1"
           bluestore_slow_ops_warn_lifetime: "0"
           osd_class_update_on_start: "false"
