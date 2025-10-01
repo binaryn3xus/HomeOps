@@ -73,11 +73,28 @@ spec:
       app:
         endpoints:
           - port: http
+    configMaps:
+      config:
+        data:
+          config.yaml: |-
+            ingress:
+              - hostname: teleport.unscfleet.com
+                service: https://teleport.teleport.svc.cluster.local:443
+                originRequest:
+                  noTLSVerify: true
+              - hostname: unscfleet.com
+                originRequest:
+                  originServerName: unscfleet.com
+                service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local:443
+              - hostname: "*.unscfleet.com"
+                originRequest:
+                  originServerName: external.unscfleet.com
+                service: https://envoy-external.{{ .Release.Namespace }}.svc.cluster.local:443
+              - service: http_status:404
     persistence:
       config-file:
         type: configMap
-        name: cloudflare-tunnel-configmap
+        identifier: config
         globalMounts:
           - path: /etc/cloudflared/config.yaml
             subPath: config.yaml
-            readOnly: true

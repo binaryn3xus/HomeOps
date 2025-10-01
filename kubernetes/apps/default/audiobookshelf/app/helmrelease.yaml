@@ -73,8 +73,8 @@ spec:
           - "{{ .Release.Name }}.unscfleet.com"
           - audiobooks.unscfleet.com
         parentRefs:
-          - name: external
-            namespace: kube-system
+          - name: envoy-external
+            namespace: network
             sectionName: https
 
     persistence:
