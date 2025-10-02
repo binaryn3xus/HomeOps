@@ -40,7 +40,7 @@ reconcile-app namespace name:
     flux --namespace "{{namespace}}" resume kustomization "{{name}}"
 
 [doc('Force Flux to refresh all Kustomizations in the cluster')]
-reconcile-all:
+force-reconcile-all:
     kubectl get kustomizations --all-namespaces -o json | jq -r '.items[] | [.metadata.namespace, .metadata.name] | @tsv' | while IFS=$'\t' read ns name; do flux --namespace "$ns" suspend kustomization "$name"; done
     sleep 2
     kubectl get kustomizations --all-namespaces -o json | jq -r '.items[] | [.metadata.namespace, .metadata.name] | @tsv' | while IFS=$'\t' read ns name; do flux --namespace "$ns" resume kustomization "$name" --timeout=10s; done
