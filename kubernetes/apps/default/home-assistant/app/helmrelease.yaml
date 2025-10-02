@@ -70,6 +70,7 @@ spec:
       app:
         annotations:
           lbipam.cilium.io/ips: "10.0.30.38"
+        type: LoadBalancer
         ports:
           http:
             port: 8123
