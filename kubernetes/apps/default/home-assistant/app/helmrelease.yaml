@@ -92,6 +92,10 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: 8123
       code:
         hostnames:
           - hass-code.unscfleet.com
