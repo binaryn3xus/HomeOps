@@ -12,7 +12,6 @@ resources:
   - ./audiobookshelf/ks.yaml
   - ./bazarr/ks.yaml
   - ./discord/ks.yaml
-  - ./guacamole/ks.yaml
   - ./home-assistant/ks.yaml
   - ./it-tools/ks.yaml
   - ./mosquitto/ks.yaml
