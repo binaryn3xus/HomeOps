@@ -2,10 +2,16 @@ set quiet := true
 set shell := ['bash', '-euo', 'pipefail', '-c']
 
 bootstrap_dir := justfile_dir() + '/bootstrap'
+kubernetes_apps_dir := justfile_dir() + '/kubernetes/apps'
 
 [private]
 default:
     just -l bootstrap
+
+# Bootstrap Step 0 - Create Namespaces
+[doc('Create Kubernetes Namespaces')]
+namespaces:
+    find {{kubernetes_apps_dir}} -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | xargs -r -I{} sh -c 'kubectl create namespace "$1" --dry-run=client -o yaml; echo "---"' _ {} | kubectl apply -f -
 
 # Bootstrap Step 1 - Apply Initial Manifests
 [doc('Apply Kubernetes resources')]
