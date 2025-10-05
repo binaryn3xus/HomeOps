@@ -73,7 +73,7 @@ spec:
         nodes:
           - name: fleetcom-node1
             devices:
-              - name: "nvme.10ec-41413232313232334e5630314b473033383137-53504343204d2e32205043496520535344-00000001"
+              - name: "eui.6479a79f0ad000f0"
           - name: fleetcom-node2
             devices:
               - name: "eui.002538da11446b18"
