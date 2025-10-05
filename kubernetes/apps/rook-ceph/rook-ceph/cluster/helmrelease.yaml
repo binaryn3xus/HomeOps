@@ -79,7 +79,7 @@ spec:
               - name: "/dev/nvme1n1"
           - name: fleetcom-node3
             devices:
-              - name: "/dev/nvme1n1"
+              - name: "eui.002538da114551c2"
     cephBlockPools:
       - name: ceph-blockpool
         spec:
