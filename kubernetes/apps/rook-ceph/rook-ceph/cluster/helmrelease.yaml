@@ -73,13 +73,13 @@ spec:
         nodes:
           - name: fleetcom-node1
             devices:
-              - name: "nvme-eui.6479a79f0ad000f0"
+              - name: "/dev/disk/by-id/nvme-eui.6479a79f0ad000f0"
           - name: fleetcom-node2
             devices:
-              - name: "eui.002538da11446b18"
+              - name: "/dev/disk/by-id/nvme-eui.002538da11446b18"
           - name: fleetcom-node3
             devices:
-              - name: "eui.002538da114551c2"
+              - name: "/dev/disk/by-id/nvme-eui.002538da114551c2"
     cephBlockPools:
       - name: ceph-blockpool
         spec:
