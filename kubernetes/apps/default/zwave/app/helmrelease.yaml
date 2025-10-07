@@ -21,9 +21,6 @@ spec:
       zwave:
         annotations:
           reloader.stakater.com/auto: "true"
-        pod:
-          nodeSelector:
-            aeotec.feature.node.kubernetes.io/zwave: "true"
         containers:
           app:
             image:
