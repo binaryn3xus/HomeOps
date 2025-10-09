@@ -5,27 +5,11 @@
       "description": "Flux Operator Group",
       "groupName": "flux-operator",
       "matchDatasources": ["docker"],
-      "matchPackageNames": [
-        "/flux-operator/",
-        "/flux-instance/"
-      ],
+      "matchPackageNames": ["/flux-operator/", "/flux-instance/", "/flux-operator-manifests/"],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
-      "minimumGroupSize": 2
-    },
-    {
-      "description": "Intel Device Plugins Group",
-      "groupName": "intel-device-plugins",
-      "matchDatasources": ["docker"],
-      "matchPackageNames": [
-        "/intel-device-plugins-operator/",
-        "/intel-device-plugins-gpu/"
-      ],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group"
-      },
-      "minimumGroupSize": 2
+      "minimumGroupSize": 3
     },
     {
       "description": "Kubernetes Group",
@@ -34,22 +18,20 @@
       "matchPackageNames": [
         "/kube-apiserver/",
         "/kube-controller-manager/",
+        "/kube-proxy/",
         "/kube-scheduler/",
         "/kubelet/"
       ],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
-      "minimumGroupSize": 4
+      "minimumGroupSize": 5
     },
     {
       "description": "Rook-Ceph Group",
       "groupName": "rook-ceph",
       "matchDatasources": ["docker"],
-      "matchPackageNames": [
-        "/rook-ceph/",
-        "/rook-ceph-cluster/"
-      ],
+      "matchPackageNames": ["/rook-ceph/","/rook-ceph-cluster/"],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
@@ -59,10 +41,7 @@
       "description": "Talos Group",
       "groupName": "talos",
       "matchDatasources": ["docker"],
-      "matchPackageNames": [
-        "/metal-installer/",
-        "/talosctl/"
-      ],
+      "matchPackageNames": ["/installer/"],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
@@ -71,10 +50,7 @@
     {
       "description": "Teleport Group",
       "groupName": "Teleport",
-      "matchPackagePatterns": [
-        "teleport-cluster",
-        "teleport-kube-agent"
-      ],
+      "matchPackagePatterns": [ "teleport-cluster","teleport-kube-agent"],
       "matchDatasources": ["helm"],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
