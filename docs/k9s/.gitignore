@@ -1,0 +1,13 @@
+# Ignore K9s runtime and sensitive files
+screen-dumps/
+benchmarks/
+config/
+clusters/
+skins/
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+.env
+.env.*

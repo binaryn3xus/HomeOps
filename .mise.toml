@@ -2,6 +2,7 @@
 KUBECONFIG = "{{config_root}}/kubeconfig"
 SOPS_AGE_KEY_FILE = "{{config_root}}/age.key"
 TALOSCONFIG = "{{config_root}}/talos/talosconfig"
+K9S_CONFIG_DIR = "{{config_root}}/docs/k9s"
 
 [tools]
 # Operations tools
