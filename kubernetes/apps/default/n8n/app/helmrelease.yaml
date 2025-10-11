@@ -36,6 +36,7 @@ spec:
               N8N_PROTOCOL: "https"
               N8N_PORT: &port 8080
               N8N_HOST: &host n8n.unscfleet.com
+              WEBHOOK_URL: "https://n8n.unscfleet.com"
               N8N_LOG_LEVEL: info
               N8N_LOG_OUTPUT: console
             resources:
