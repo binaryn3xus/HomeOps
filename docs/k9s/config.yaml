@@ -9,7 +9,7 @@ k9s:
   noExitOnCtrlC: false
   portForwardAddress: localhost
   ui:
-    enableMouse: true
+    enableMouse: false
     headless: false
     logoless: false
     crumbsless: false
