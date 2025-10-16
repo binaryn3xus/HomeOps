@@ -3,15 +3,15 @@ name: "Release"
 on:
   workflow_dispatch:
   schedule:
-    # Run every Monday at 12:00am
-    - cron: '0 0 * * 1'
+    # First of the month at 2am
+    - cron: '0 2 1 * *'
 
 jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
     steps:
-    
+
       - name: Generate Token
         uses: actions/create-github-app-token@67018539274d69449ef7c02e8e71183d1719ab42 # v2
         id: app-token
