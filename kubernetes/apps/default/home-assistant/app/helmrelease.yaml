@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-assistant/home-assistant
-              tag: 2025.10.2@sha256:5ae78cf2e6d8b53439cac50ed184ff1336cfbbb878fce16f75589e048fcdcdd9
+              tag: 2025.10.3@sha256:22376034bddcb952cfd3f3b4101b932b5a561f050acccd16ef879e88c7ff8233
             env:
               TZ: "America/New_York"
             resources:
@@ -39,7 +39,7 @@ spec:
           code-server:
             image:
               repository: ghcr.io/coder/code-server
-              tag: 4.104.3@sha256:8a4f9ec985bcb022de1ae70fab74e3a2c3199b2bc44665df6da203c3ada1643a
+              tag: 4.105.0@sha256:b54261ccfb29a6680a0fbce13f83d37487157f1b9b30390bb8ddca1929f49b4e
             env:
               TZ: America/New_York
             args:
