@@ -24,5 +24,6 @@ resources:
   - ./sabnzbd/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
+  - ./wizarr/ks.yaml
   - ./zigbee/ks.yaml
   - ./zwave/ks.yaml
