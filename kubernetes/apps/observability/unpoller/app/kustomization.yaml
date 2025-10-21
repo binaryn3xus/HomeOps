@@ -5,3 +5,4 @@ namespace: observability
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./ocirepository.yaml

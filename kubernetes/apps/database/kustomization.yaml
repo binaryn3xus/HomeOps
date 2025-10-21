@@ -3,8 +3,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: database
-components:
-  - ../../components/common
 resources:
+  - ./namespace.yaml
   - ./mssql/ks.yaml
   - ./mssql-2025/ks.yaml
