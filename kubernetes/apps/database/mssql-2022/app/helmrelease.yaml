@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app mssql
+  name: &app mssql-2022
 spec:
   interval: 1h
   chartRef:

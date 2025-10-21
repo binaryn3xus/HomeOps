@@ -5,5 +5,5 @@ kind: Kustomization
 namespace: database
 resources:
   - ./namespace.yaml
-  - ./mssql/ks.yaml
+  - ./mssql-2022/ks.yaml
   - ./mssql-2025/ks.yaml
