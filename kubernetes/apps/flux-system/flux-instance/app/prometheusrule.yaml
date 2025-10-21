@@ -11,7 +11,7 @@ spec:
       rules:
         - alert: FluxInstanceAbsent
           expr: |-
-            absent(flux_instance_info{exported_namespace="flux-system", name="flux-operator"})
+            absent(flux_instance_info{exported_namespace="flux-system", name="flux"})
           for: 5m
           annotations:
             summary: >-
