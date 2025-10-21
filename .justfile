@@ -18,7 +18,7 @@ template file *args:
 # --- PikVM Backup ---
 [doc('Backup PiKVM Override File')]
 pikvm-backup:
-    scp root@10.0.30.5:/etc/kvmd/override.yaml ./docs/pikvm/override.yaml
+    scp root@10.0.30.5:/etc/kvmd/override.yaml ./resources/pikvm/override.yaml
 
 # --- Configuration Backups ---
 [doc('Backup Configuration Files')]

@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/binaryn3xus/HomeOps/refs/heads/main/docs/assets/logo.png" align="center" width="200px" height="269px"/>
+<img src="https://raw.githubusercontent.com/binaryn3xus/HomeOps/refs/heads/main/resources/assets/logo.png" align="center" width="200px" height="269px"/>
 
 ### My Home Operations Repository :octocat:
 
@@ -127,7 +127,7 @@ Outside the `external-dns` instance mentioned above another instance is deployed
 <details>
   <summary>Click to see the Full Home Ops Rack!</summary>
 
-![ServerRack](/docs/assets/ServerRack_20250930.jpg)
+![ServerRack](/resources/assets/ServerRack_20250930.jpg)
 
 </details>
 

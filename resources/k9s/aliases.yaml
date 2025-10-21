@@ -1,4 +1,5 @@
 aliases:
+  dep: apps/v1/deployments
   dp: deployments
   sec: v1/secrets
   jo: jobs
@@ -7,3 +8,5 @@ aliases:
   ro: roles
   rb: rolebindings
   np: networkpolicies
+  pods: v1/pods
+  pp: v1/pods
