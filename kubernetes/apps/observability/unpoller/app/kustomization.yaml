@@ -4,5 +4,6 @@ kind: Kustomization
 namespace: observability
 resources:
   - ./externalsecret.yaml
+  - ./grafanadashboard.yaml
   - ./helmrelease.yaml
   - ./ocirepository.yaml
