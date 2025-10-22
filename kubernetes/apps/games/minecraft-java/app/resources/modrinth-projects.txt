@@ -39,14 +39,13 @@ universal-graves
 ferrite-core
 
 # Adds a proximity voice chat to your Minecraft server.
-simple-voice-chat
-
-# A mod that adds unique, wearable backpacks for extra storage and utility.
-# travelersbackpack
+# REMOVE: Not compatible with Minecraft 1.21.9. Do not include in mods folder.
+# simple-voice-chat
 
 # A simple, minimalistic client-side mod for saving your coordinates
 # without a minimap.
-clist
+# REMOVE: Not compatible with Minecraft 1.21.9. Do not include in mods folder.
+# clist
 
 # ===============================================================
 # Data Packs
