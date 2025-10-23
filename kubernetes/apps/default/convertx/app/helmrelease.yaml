@@ -28,7 +28,7 @@ spec:
               tag: v0.15.1@sha256:53f2c04ebe63fdfb4d812ee66b78a5db9360c729f3defe3dcc864256ff91a7cb
             env:
               TZ: America/New_York
-              ACCOUNT_REGISTRATION: true
+              ACCOUNT_REGISTRATION: false
               HTTP_ALLOWED: false
               ALLOW_UNAUTHENTICATED: false
               AUTO_DELETE_EVERY_N_HOURS: 1
