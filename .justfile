@@ -66,3 +66,14 @@ sort-spec file:
 sort-resources file:
     yq '.resources |= sort' -i "{{ file }}"
     @echo "Sorted .resources keys in '{{ file }}'"
+
+# --- Fish ---
+[doc('Backup current config.fish to repo')]
+fish-backup:
+    mkdir -p ./resources/fish
+    cp ~/.config/fish/config.fish ./resources/fish/config.fish
+
+[doc('Restore config.fish to system')]
+fish-restore:
+    mkdir -p ~/.config/fish
+    cp ./resources/fish/config.fish ~/.config/fish/config.fish
