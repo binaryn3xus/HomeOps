@@ -48,6 +48,13 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: mqtt.unscfleet.com
           lbipam.cilium.io/ips: 10.0.30.35
+          gatus.home-operations.com/enabled: "true"
+          gatus.home-operations.com/endpoint: |-
+            conditions: ["len([BODY]) == 0"]
+            dns:
+              query-name: mqtt.unscfleet.com
+              query-type: A
+            url: 1.1.1.1
         ports:
           http:
             port: 1883

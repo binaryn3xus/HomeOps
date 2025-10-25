@@ -54,6 +54,14 @@ spec:
 
     route:
       app:
+        annotations:
+          gatus.home-operations.com/enabled: "true"
+          gatus.home-operations.com/endpoint: |-
+            conditions: ["len([BODY]) == 0"]
+            dns:
+              query-name: {{ .Release.Name }}.unscfleet.com
+              query-type: A
+            url: 1.1.1.1
         hostnames:
           - "{{ .Release.Name }}.unscfleet.com"
         parentRefs:
