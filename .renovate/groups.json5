@@ -65,7 +65,7 @@
       "group": {
         "commitMessageTopic": "{{{groupName}}} file"
       },
-      "minimumGroupSize": 2
+      "minimumGroupSize": 1
     }
   ]
 }
