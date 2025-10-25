@@ -105,6 +105,14 @@ spec:
               - identifier: app
                 port: 8123
       code:
+        annotations:
+          gatus.home-operations.com/enabled: "true"
+          gatus.home-operations.com/endpoint: |-
+            conditions: ["len([BODY]) == 0"]
+            dns:
+              query-name: hass-code.unscfleet.com
+              query-type: A
+            url: 1.1.1.1
         hostnames:
           - hass-code.unscfleet.com
         parentRefs:

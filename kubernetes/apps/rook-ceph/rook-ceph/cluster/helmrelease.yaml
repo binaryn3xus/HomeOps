@@ -25,6 +25,14 @@ spec:
       enabled: true
     route:
       dashboard:
+        annotations:
+          gatus.home-operations.com/enabled: "true"
+          gatus.home-operations.com/endpoint: |-
+            conditions: ["len([BODY]) == 0"]
+            dns:
+              query-name: rook.unscfleet.com
+              query-type: A
+            url: 1.1.1.1
         host:
           name: rook.unscfleet.com
           path: /
