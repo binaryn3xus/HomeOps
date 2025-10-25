@@ -9,7 +9,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/gatus/external
     - ../../../../components/volsync
   dependsOn:
     - name: external-secrets
@@ -22,7 +21,6 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 2Gi
-      GATUS_SUBDOMAIN: audiobooks
   prune: true
   sourceRef:
     kind: GitRepository

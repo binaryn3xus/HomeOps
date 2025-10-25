@@ -9,12 +9,10 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/gatus/external
   path: ./kubernetes/apps/default/it-tools/app
   postBuild:
     substitute:
       APP: *app
-      GATUS_SUBDOMAIN: it-tools
   interval: 30m
   prune: true
   sourceRef:

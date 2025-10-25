@@ -9,7 +9,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/gatus/guarded
     - ../../../../components/volsync
   dependsOn:
     - name: node-feature-discovery
@@ -26,7 +25,6 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 1Gi
-      GATUS_PATH: /#/
   prune: true
   sourceRef:
     kind: GitRepository

@@ -10,7 +10,6 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/volsync
-    - ../../../../components/gatus/external
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -22,7 +21,6 @@ spec:
     substitute:
       APP: *app
       VOLSYNC_CAPACITY: 2Gi
-      GATUS_SUBDOMAIN: ai
   prune: true
   sourceRef:
     kind: GitRepository
