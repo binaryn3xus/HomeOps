@@ -8,6 +8,10 @@ talos_dir := justfile_dir() + '/talos'
 default:
     just -l talos
 
+[doc("Show Talos Dashboard")]
+dashboard ip:
+    talosctl dashboard -n "{{ ip }}"
+
 [doc('Apply Talos config to a node')]
 apply-node ip *args:
     talosctl -n "{{ ip }}" apply-config -f "./generated/{{ip}}.yaml" {{ args }}
