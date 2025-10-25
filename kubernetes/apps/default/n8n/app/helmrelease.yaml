@@ -62,6 +62,9 @@ spec:
 
     route:
       app:
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            group: external
         hostnames:
           - *host
         parentRefs:

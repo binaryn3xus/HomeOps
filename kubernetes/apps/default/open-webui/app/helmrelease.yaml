@@ -44,6 +44,9 @@ spec:
 
     route:
       app:
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            group: external
         hostnames:
           - "{{ .Release.Name }}.unscfleet.com"
           - "ai.unscfleet.com"
