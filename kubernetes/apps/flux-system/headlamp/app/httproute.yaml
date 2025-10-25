@@ -9,7 +9,7 @@ metadata:
     gatus.home-operations.com/endpoint: |-
       conditions: ["len([BODY]) == 0"]
       dns:
-        query-name: {{ .Release.Name }}.unscfleet.com
+        query-name: headlamp.unscfleet.com
         query-type: A
       url: 1.1.1.1
 spec:
