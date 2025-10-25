@@ -64,19 +64,22 @@ spec:
         ports:
           http:
             port: *port
-
     route:
       app:
         annotations:
           gatus.home-operations.com/enabled: "true"
-          gatus.home-operations.com/endpoint: |
-            url: 1.1.1.1
-            interval: 1m
+          gatus.home-operations.com/endpoint: |-
+            conditions: ["len([BODY]) == 0"]
             dns:
-              query-name: guarded.unscfleet.com
+              query-name: {{ .Release.Name }}.unscfleet.com
               query-type: A
-            conditions:
-              - "len([BODY]) == 0"
+            url: 1.1.1.1
+        hostnames:
+          - "{{ .Release.Name }}.unscfleet.com"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
 
     persistence:
       config:
