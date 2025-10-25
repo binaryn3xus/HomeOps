@@ -52,6 +52,7 @@ metadata:
     external-dns.alpha.kubernetes.io/target: &hostname external.unscfleet.com
     gatus.home-operations.com/endpoint: |-
       client:
+      group: external
 spec:
   gatewayClassName: envoy
   infrastructure:

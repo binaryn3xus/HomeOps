@@ -71,6 +71,7 @@ spec:
         annotations:
           gatus.home-operations.com/endpoint: |-
             conditions: ["[STATUS] == 200"]
+            group: external
         hostnames:
           - "{{ .Release.Name }}.unscfleet.com"
         parentRefs:
