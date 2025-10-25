@@ -30,8 +30,8 @@ metrics: true
 
 storage:
   type: sqlite
-  path: /config/sqlite.db
   caching: true
+  path: ${GATUS_CONFIG_PATH}/gatus.db
 
 ui:
   title: Status | Gatus

@@ -50,6 +50,8 @@ metadata:
   name: envoy-external
   annotations:
     external-dns.alpha.kubernetes.io/target: &hostname external.unscfleet.com
+    gatus.home-operations.com/endpoint: |-
+      client:
 spec:
   gatewayClassName: envoy
   infrastructure:
@@ -81,6 +83,8 @@ metadata:
   name: envoy-internal
   annotations:
     external-dns.alpha.kubernetes.io/target: &hostname internal.unscfleet.com
+    gatus.home-operations.com/endpoint: |-
+      group: internal
 spec:
   gatewayClassName: envoy
   infrastructure:
