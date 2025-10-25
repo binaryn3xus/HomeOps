@@ -3,16 +3,24 @@
   "packageRules": [
     {
       "description": "Auto-merge trusted container digests",
-      "matchDatasources": ["docker"],
+      "matchDatasources": [
+        "docker"
+      ],
       "automerge": true,
       "automergeType": "pr",
-      "matchUpdateTypes": ["digest"],
-      "matchPackageNames": ["/home-operations/"],
+      "matchUpdateTypes": [
+        "digest"
+      ],
+      "matchPackageNames": [
+        "/home-operations/"
+      ],
       "ignoreTests": false
     },
     {
       "description": "Auto-merge OCI Charts",
-      "matchDatasources": ["docker"],
+      "matchDatasources": [
+        "docker"
+      ],
       "automerge": true,
       "automergeType": "pr",
       "matchUpdateTypes": [
@@ -20,39 +28,55 @@
         "patch"
       ],
       "matchPackageNames": [
-        "/kube-prometheus-stack/",
-        "/grafana/"
+        "/kube-prometheus-stack/"
       ],
       "ignoreTests": false
     },
     {
       "description": "Auto-merge GitHub Actions",
-      "matchManagers": ["github-actions"],
+      "matchManagers": [
+        "github-actions"
+      ],
       "automerge": true,
       "automergeType": "branch",
-      "matchUpdateTypes": ["minor","patch","digest"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest"
+      ],
       "minimumReleaseAge": "3 days",
       "ignoreTests": true
     },
     {
       "description": "Auto-merge trusted GitHub Actions",
-      "matchManagers": ["github-actions"],
+      "matchManagers": [
+        "github-actions"
+      ],
       "matchPackageNames": [
         "/^actions//",
         "/^renovatebot//"
       ],
       "automerge": true,
       "automergeType": "branch",
-      "matchUpdateTypes": ["minor","patch","digest"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest"
+      ],
       "minimumReleaseAge": "1 minute",
       "ignoreTests": true
     },
     {
       "description": "Auto-merge GitHub Releases",
-      "matchDatasources": ["github-releases"],
+      "matchDatasources": [
+        "github-releases"
+      ],
       "automerge": true,
       "automergeType": "branch",
-      "matchUpdateTypes": ["minor","patch"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
       "matchPackageNames": [
         "/external-dns/",
         "/gateway-api/",

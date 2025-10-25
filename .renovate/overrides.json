@@ -14,7 +14,7 @@
       "overridePackageName": "ghcr.io/siderolabs/installer"
     },
     {
-      "description": "Override Talos Installer Package Name",
+      "description": "Override docker versioning for corentinth/it-tools",
       "matchDatasources": ["docker"],
       "matchPackageNames": ["corentinth/it-tools"],
       "versioning": "regex:^(?<major>\\d{4})\\.(?<minor>\\d{1,2})\\.(?<patch>\\d{1,2})-(?<sha>[a-f0-9]{7,})$"
