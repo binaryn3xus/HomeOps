@@ -4,7 +4,7 @@ kind: Service
 metadata:
   name: postgres-lb
   annotations:
-    lbipam.cilium.io/ips: "10.0.30.34"
+    lbipam.cilium.io/ips: "10.0.30.43"
 spec:
   externalTrafficPolicy: Local
   ports:
