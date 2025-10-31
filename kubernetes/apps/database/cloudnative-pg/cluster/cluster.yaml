@@ -30,3 +30,19 @@ spec:
     storageClass: ceph-block
   superuserSecret:
     name: cloudnative-pg-secret
+
+  backup:
+    barmanObjectStore:
+      destinationPath: "s3://cloudnativepg-app-backups"
+      endpointURL: "https://542984caaa7dbec621de30100e1e7b23.r2.cloudflarestorage.com"
+      s3Credentials:
+        accessKeyId:
+          name: cloudnative-pg-secret
+          key: backupAccessKeyId
+        secretAccessKey:
+          name: cloudnative-pg-secret
+          key: backupAccessSecret
+      wal:
+        compression: gzip
+      data:
+        compression: gzip
