@@ -6,13 +6,14 @@ metadata:
   annotations:
     lbipam.cilium.io/ips: "10.0.30.43"
 spec:
-  externalTrafficPolicy: Local
+  internalTrafficPolicy: Cluster
+  ipFamilyPolicy: SingleStack
   ports:
-    - name: postgres
-      port: 5432
-      protocol: TCP
-      targetPort: 5432
+  - name: postgres
+    port: 5432
+    protocol: TCP
+    targetPort: 5432
   selector:
-    cnpg.io/cluster: postgres-v17
-    role: primary
+    cnpg.io/cluster: home-ops
+    cnpg.io/instanceRole: primary
   type: LoadBalancer
