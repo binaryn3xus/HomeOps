@@ -40,8 +40,17 @@ spec:
         barmanObjectName: *name
 
   bootstrap:
-    initdb:
-      database: app
-      owner: postgres
-      secret:
-        name: cloudnative-pg-secret
+    # initdb:
+    #   database: app
+    #   owner: postgres
+    #   secret:
+    #     name: cloudnative-pg-secret
+    recovery:
+      source: origin
+
+  externalClusters:
+    - name: origin
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: *name
