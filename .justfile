@@ -77,3 +77,8 @@ fish-backup:
 fish-restore:
     mkdir -p ~/.config/fish
     cp ./resources/fish/config.fish ~/.config/fish/config.fish
+
+# --- Gemini ---
+[doc('Open Gemini Settings Json in Editor')]
+gemini-settings:
+    nano "~/.gemini/settings.json"
