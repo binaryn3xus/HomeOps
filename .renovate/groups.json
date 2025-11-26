@@ -62,11 +62,6 @@
       "groupName": "Mise",
       "fileMatch": ["(^|/)\\.mise\\.toml$"],
       "matchManagers": ["mise"],
-      "excludePackageNames": [
-        "npm:@github/copilot",
-        "npm:@google/gemini-cli",
-        "aqua:sst/opencode"
-      ],
       "group": {
         "commitMessageTopic": "{{{groupName}}} file"
       },
@@ -77,8 +72,7 @@
       "matchManagers": ["mise"],
       "matchPackageNames": [
         "npm:@github/copilot",
-        "npm:@google/gemini-cli",
-        "aqua:sst/opencode"
+        "npm:@google/gemini-cli"
       ],
       "groupName": "ai-cli-tools",
       "automerge": true,
