@@ -21,4 +21,4 @@ data:
   PAUSE_WHEN_EMPTY_SECONDS: '600'
   TYPE: FABRIC
   TZ: America/New_York
-  VERSION: 1.21.9
+  VERSION: 1.21.10

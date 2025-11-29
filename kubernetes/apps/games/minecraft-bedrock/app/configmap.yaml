@@ -17,4 +17,4 @@ data:
   ONLINE_MODE: 'true'
   SERVER_NAME: Kubernetes Bedrock Server
   TZ: America/New_York
-  VERSION: LATEST
+  VERSION: 1.21.124.2
