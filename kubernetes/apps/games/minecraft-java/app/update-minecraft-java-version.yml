@@ -1,0 +1,33 @@
+name: Update Minecraft Java Version
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Every day at 6:00 UTC
+  workflow_dispatch:
+
+jobs:
+  update-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Run update script
+        run: python scripts/update_minecraft_java_version.py
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 'chore: update Minecraft Java VERSION in configmap'
+          title: 'chore: update Minecraft Java VERSION in configmap'
+          body: 'Automated PR to update the Minecraft Java VERSION in the configmap to the latest release.'
+          branch: 'auto/update-minecraft-java-version'
+          delete-branch: true
