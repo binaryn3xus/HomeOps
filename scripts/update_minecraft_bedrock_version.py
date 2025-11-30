@@ -39,4 +39,4 @@ def update_configmap(version):
 if __name__ == "__main__":
     latest = get_latest_bedrock_version()
     changed = update_configmap(latest)
-    sys.exit(0 if changed else 2)
+    sys.exit(0)
