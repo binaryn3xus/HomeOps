@@ -66,17 +66,6 @@
         "commitMessageTopic": "{{{groupName}}} file"
       },
       "minimumGroupSize": 1
-    },
-    {
-      "description": "Auto-update AI CLI tools in mise.toml",
-      "matchManagers": ["mise"],
-      "matchPackageNames": [
-        "npm:@github/copilot",
-        "npm:@google/gemini-cli"
-      ],
-      "groupName": "ai-cli-tools",
-      "automerge": true,
-      "automergeType": "pr"
     }
   ]
 }
