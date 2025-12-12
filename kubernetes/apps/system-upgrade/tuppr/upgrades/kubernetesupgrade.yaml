@@ -16,4 +16,4 @@ spec:
       kind: CephCluster
   kubernetes:
     # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-    version: v1.34.2
+    version: v1.34.3
