@@ -24,3 +24,4 @@ resources:
   - ./tautulli/ks.yaml
   - ./zigbee/ks.yaml
   - ./zwave/ks.yaml
+  - ./vert/ks.yaml
