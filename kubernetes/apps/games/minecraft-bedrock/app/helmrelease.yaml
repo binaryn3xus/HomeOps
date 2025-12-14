@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: docker.io/itzg/minecraft-bedrock-server
-              tag: 2025.11.3@sha256:191605f3fa3ca158c3206e99ed33e9bab193b244dafaa880b462e5e6718a1c69
+              tag: 2025.12.0@sha256:83a5ba4f9211a072bf12999ab23d79069a5159a077623fa5244d9ad69313d967
             envFrom:
               - configMapRef:
                   name: minecraft-bedrock-env
