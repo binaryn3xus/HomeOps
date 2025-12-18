@@ -5,6 +5,5 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./httproute.yaml
-  - ./networkpolicy.yaml
   - ./ocirepository.yaml
   - ./rbac.yaml
