@@ -22,21 +22,9 @@ spec:
       create: false
     config:
       pluginsDir: /build/plugins
-    env:
-      - name: HEADLAMP_CONFIG_OIDC_CLIENT_ID
-        valueFrom:
-          secretKeyRef:
-            name: headlamp-oidc-secret
-            key: HEADLAMP_CONFIG_OIDC_CLIENT_ID
-      - name: HEADLAMP_CONFIG_OIDC_CLIENT_SECRET
-        valueFrom:
-          secretKeyRef:
-            name: headlamp-oidc-secret
-            key: HEADLAMP_CONFIG_OIDC_CLIENT_SECRET
-      - name: HEADLAMP_CONFIG_OIDC_IDP_ISSUER_URL
-        value: "https://github.com"
-      - name: HEADLAMP_CONFIG_OIDC_SCOPES
-        value: "openid,profile,email,read:org"
+    envFrom:
+      - secretRef:
+          name: headlamp-oidc-secret
     fullnameOverride: headlamp
     initContainers:
       - command:
