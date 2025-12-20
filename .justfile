@@ -83,11 +83,6 @@ fish-restore:
 gemini-settings:
     nano "~/.gemini/settings.json"
 
-# --- Headlamp ---
-
-[doc('Extract and export Headlamp admin token')]
-headlamp-token:
-    @token=$(kubectl get secret headlamp-admin -n flux-system -o jsonpath='{.data.token}' | base64 --decode) && \
-    export HEADLAMP_TOKEN="$token" && \
-    echo "Token exported to HEADLAMP_TOKEN:" && \
-    echo "$token"
+[doc('Report Key Vault secret usage in repo')]
+kv-usage-report vault_name="K8sHomeOpsKeyVault":
+    ./scripts/kv_usage_report.sh "{{vault_name}}"
