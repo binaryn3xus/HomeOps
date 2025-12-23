@@ -36,6 +36,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_ACTIVE_TIMEOUT: 60
               ZIGBEE2MQTT_CONFIG_AVAILABILITY_PASSIVE_TIMEOUT: 2000
               ZIGBEE2MQTT_CONFIG_DEVICE_OPTIONS_RETAIN: "true"
+              ZIGBEE2MQTT_CONFIG_FRONTEND_ENABLED: "true"
               ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: &port 80
               ZIGBEE2MQTT_CONFIG_FRONTEND_URL: "https://{{ .Release.Name }}.unscfleet.com"
               ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_DISCOVERY_TOPIC: homeassistant
@@ -45,14 +46,15 @@ spec:
               ZIGBEE2MQTT_CONFIG_MQTT_REJECT_UNAUTHORIZED: "true"
               ZIGBEE2MQTT_CONFIG_MQTT_SERVER: mqtt://mosquitto.default.svc.cluster.local:1883
               ZIGBEE2MQTT_CONFIG_MQTT_VERSION: 5
+              ZIGBEE2MQTT_CONFIG_ONBOARDING: "false"
               ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: "false"
               ZIGBEE2MQTT_CONFIG_SERIAL_BAUDRATE: 115200
               ZIGBEE2MQTT_CONFIG_SERIAL_DISABLE_LED: "false"
               ZIGBEE2MQTT_CONFIG_SERIAL_PORT: tcp://10.0.30.8:7638
               ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: zstack
-            envFrom:
-              - secretRef:
-                  name: zigbee-secret
+            #envFrom:
+            #  - secretRef:
+            #      name: zigbee-secret
             probes:
               liveness:
                 enabled: true
