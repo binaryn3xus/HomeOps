@@ -4,17 +4,19 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: &name home-ops
+  annotations:
+    # Required for seamless bootstrap to avoid empty WAL archive check issues
+    # cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   instances: 1
   imageName: ghcr.io/cloudnative-pg/postgresql:18.0
   primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover
-  storage:
-    size: 10Gi
-    storageClass: ceph-block
+
+  enableSuperuserAccess: true
   superuserSecret:
     name: cloudnative-pg-secret
-  enableSuperuserAccess: true
+
   postgresql:
     parameters:
       max_connections: "600"
@@ -24,32 +26,56 @@ spec:
   resources:
     requests:
       cpu: 500m
+      memory: 512Mi
     limits:
       memory: 4Gi
+
+  storage:
+    size: 10Gi
+    storageClass: ceph-block
 
   monitoring:
     enablePodMonitor: true
 
   plugins:
-    - enabled: true
+    - name: barman-cloud.cloudnative-pg.io
+      enabled: true
       isWALArchiver: true
-      name: barman-cloud.cloudnative-pg.io
       parameters: &barmanParameters
         barmanObjectName: *name
 
+  # ============================================================================
+  # BOOTSTRAP CONFIGURATION - Choose ONE section below
+  # ============================================================================
+
+  # OPTION 1: Initial setup - Create fresh database
   bootstrap:
     initdb:
       database: app
       owner: postgres
       secret:
         name: cloudnative-pg-secret
-    # For DR recovery, comment out initdb above and uncomment below:
-    # recovery:
-    #   source: origin
 
+  # OPTION 2: Restore from S3/R2 backup (uncomment to use)
+  # bootstrap:
+  #   recovery:
+  #     source: origin
+  #     recoveryTarget:
+  #       # Omit targetTime for latest WAL, or specify for PITR:
+  #       # targetTime: "2025-12-27 16:05:00+00"  # RFC3339 format
+
+  # External cluster reference for recovery
   externalClusters:
     - name: origin
       plugin:
         name: barman-cloud.cloudnative-pg.io
-        parameters:
-          barmanObjectName: *name
+        parameters: *barmanParameters
+
+  affinity:
+    enablePodAntiAffinity: true
+    podAntiAffinityType: preferred
+    topologyKey: kubernetes.io/hostname
+
+  nodeMaintenanceWindow:
+    inProgress: false
+    reusePVC: false
