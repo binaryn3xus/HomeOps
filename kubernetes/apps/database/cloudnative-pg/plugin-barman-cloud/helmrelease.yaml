@@ -23,7 +23,7 @@ spec:
     image:
       registry: ghcr.io
       repository: cloudnative-pg/plugin-barman-cloud
-      tag: v0.7.0@sha256:641877c4dc6b879542bf7c6997ac4ae5db57e7543fc6ccced78b5b20e144880d
+      tag: v0.9.0@sha256:9081f3a4f9227cd3a87eb160300997c3dc1ec7aed56cd77b0cd78a508bfcbc68
     sidecarImage:
       registry: ghcr.io
       repository: cloudnative-pg/plugin-barman-cloud-sidecar
