@@ -21,17 +21,26 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 3
-  values:
+values:
     image:
       repository: nvcr.io/nvidia/k8s-device-plugin
       tag: v0.18.1
     runtimeClassName: nvidia
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: sku
+                  operator: In
+                  values:
+                    - gpu
     nfd:
       enabled: false
+    nodeSelector:
+      sku: "gpu"
     tolerations:
       - key: "sku"
         operator: "Equal"
         value: "gpu"
         effect: "NoSchedule"
-    nodeSelector:
-      sku: "gpu"
