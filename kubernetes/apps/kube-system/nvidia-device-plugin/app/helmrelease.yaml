@@ -21,7 +21,7 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 3
-values:
+  values:
     image:
       repository: nvcr.io/nvidia/k8s-device-plugin
       tag: v0.18.1
