@@ -9,6 +9,10 @@ machine:
     image: factory.talos.dev/installer/1a45a19fd1e3d4eba81a2dc53c8874f5a92d1dc5184d29615bef438479f2ec61:v1.12.0
     diskSelector:
       wwid: "eui.0025388a81b3ccee"
+    # Needed for NVIDIA GPU Gen 3+ support
+    extraKernelArgs:
+      - pcie_aspm=off
+      - nvidia.NVreg_RegistryDwords="PowerMizerEnable=0x1; PerfLevelSrc=0x2222; PowerMizerDefaultAC=0x1"
   network:
     hostname: fleetcom-node4
     interfaces:
