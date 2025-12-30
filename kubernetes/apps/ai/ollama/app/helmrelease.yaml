@@ -57,7 +57,7 @@ spec:
 
     persistence:
       models:
-        existingClaim: ollama
+        existingClaim: ollama-openebs-pvc
         globalMounts:
           - path: /models
 
