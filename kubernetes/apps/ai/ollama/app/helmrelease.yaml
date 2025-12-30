@@ -32,15 +32,15 @@ spec:
               limits:
                 memory: 12Gi
                 nvidia.com/gpu: 1
-        pod:
-          nodeSelector:
-            nvidia.com/gpu.present: "true"
-          tolerations:
-            - key: sku
-              operator: Equal
-              value: gpu
-              effect: NoSchedule
-          runtimeClassName: nvidia
+    defaultPodOptions:
+      nodeSelector:
+        nvidia.com/gpu.present: "true"
+      tolerations:
+        - key: sku
+          operator: Equal
+          value: gpu
+          effect: NoSchedule
+      runtimeClassName: nvidia
 
     service:
       app:
