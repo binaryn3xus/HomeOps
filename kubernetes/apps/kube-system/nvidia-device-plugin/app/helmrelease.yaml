@@ -6,7 +6,7 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: k8s-device-plugin
+      chart: nvidia-device-plugin
       version: "0.17.0"
       sourceRef:
         kind: HelmRepository
