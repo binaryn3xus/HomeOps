@@ -6,3 +6,4 @@ namespace: ai
 resources:
   - ./namespace.yaml
   - ./ollama/ks.yaml
+  - ./open-webui/ks.yaml
