@@ -34,7 +34,12 @@ spec:
                 nvidia.com/gpu: 1
         pod:
           nodeSelector:
-            nvidia.feature.node.kubernetes.io/gpu: "true"
+            nvidia.com/gpu.present: "true"
+          tolerations:
+            - key: sku
+              operator: Equal
+              value: gpu
+              effect: NoSchedule
           runtimeClassName: nvidia
 
     service:
