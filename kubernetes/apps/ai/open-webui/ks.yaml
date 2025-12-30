@@ -16,7 +16,7 @@ spec:
     - name: volsync
       namespace: volsync-system
   interval: 30m
-  path: ./kubernetes/apps/default/open-webui/app
+  path: ./kubernetes/apps/ai/open-webui/app
   postBuild:
     substitute:
       APP: *app
