@@ -31,6 +31,7 @@ spec:
               WEBUI_URL: "https://ai.unscfleet.com"
               WEBUI_AUTH: "True"
               ENABLE_SIGNUP: "False"
+              OAUTH_MERGE_ACCOUNTS_BY_EMAIL: true
               GITHUB_CLIENT_ID:
                 valueFrom:
                   secretKeyRef:
