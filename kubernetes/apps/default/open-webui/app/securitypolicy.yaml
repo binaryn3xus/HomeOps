@@ -1,0 +1,20 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: open-webui-oidc
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: open-webui
+  oidc:
+    provider:
+      issuer: "https://github.com"
+      authorizationEndpoint: "https://github.com/login/oauth/authorize"
+      tokenEndpoint: "https://github.com/login/oauth/access_token"
+    clientIDRef:
+      name: github-fleet-auth-secret
+    clientSecret:
+      name: github-fleet-auth-secret
+    redirectURL: "https://ai.unscfleet.com/oauth2/callback"
+    logoutPath: "/logout"
