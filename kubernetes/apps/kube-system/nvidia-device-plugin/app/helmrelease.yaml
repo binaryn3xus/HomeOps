@@ -1,4 +1,4 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta2
+apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: nvidia-device-plugin
@@ -6,7 +6,6 @@ spec:
   interval: 15m
   chart:
     spec:
-      # renovate: registryUrl=https://nvidia.github.io/k8s-device-plugin
       chart: k8s-device-plugin
       version: "0.17.0"
       sourceRef:
