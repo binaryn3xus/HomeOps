@@ -8,7 +8,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: *app
-  dependsOn: []
   interval: 1h
   values:
     controllers:
@@ -24,7 +23,7 @@ spec:
               TZ: ${TIMEZONE}
               OLLAMA_HOST: 0.0.0.0
               OLLAMA_ORIGINS: "*"
-              OLLAMA_MODELS: /root/.ollama/models
+              OLLAMA_MODELS: /models
             resources:
               requests:
                 cpu: 200m
@@ -50,28 +49,8 @@ spec:
     persistence:
       models:
         existingClaim: ollama
-        advancedMounts:
-          ollama:
-            app:
-              - path: /root/.ollama
-                subPath: .ollama
-          sync-models:
-            - path: /root/.ollama
-              subPath: .ollama
-
-      model-list:
-        type: configMap
-        name: ollama-models
         globalMounts:
-          - path: /config/models.txt
-            subPath: models.txt
-
-      sync-script:
-        type: configMap
-        name: ollama-sync-script
-        globalMounts:
-          - path: /scripts/sync-models.sh
-            subPath: sync-models.sh
+          - path: /models
 
       dev:
         type: hostPath

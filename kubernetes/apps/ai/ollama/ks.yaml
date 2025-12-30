@@ -8,11 +8,22 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/volsync
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: volsync-system
+    - name: nvidia-device-plugin
+      namespace: kube-system
   interval: 30m
   path: ./kubernetes/apps/ai/ollama/app
   postBuild:
     substitute:
       APP: *app
+      VOLSYNC_CACHE_CAPACITY: 50Gi
+      VOLSYNC_CAPACITY: 50Gi
   prune: true
   sourceRef:
     kind: GitRepository
