@@ -35,5 +35,10 @@ spec:
       config:
         core:
           labelSources: ["pci", "system", "usb"]
+      tolerations:
+        - key: sku
+          operator: Equal
+          value: gpu
+          effect: NoSchedule
     prometheus:
       enable: true
