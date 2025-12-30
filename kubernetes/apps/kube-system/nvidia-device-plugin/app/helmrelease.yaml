@@ -25,6 +25,15 @@ spec:
     image:
       repository: nvcr.io/nvidia/k8s-device-plugin
       tag: v0.18.1
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: sku
+                  operator: In
+                  values:
+                    - gpu
     runtimeClassName: nvidia
     nfd:
       enabled: false
