@@ -60,9 +60,3 @@ spec:
         existingClaim: ollama-openebs-pvc
         globalMounts:
           - path: /models
-
-      dev:
-        type: hostPath
-        hostPath: /dev/dri
-        globalMounts:
-          - readOnly: true
