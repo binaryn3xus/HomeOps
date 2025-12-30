@@ -26,6 +26,8 @@ spec:
       repository: nvcr.io/nvidia/k8s-device-plugin
       tag: v0.18.1
     runtimeClassName: nvidia
+    nfd:
+      enabled: false
     tolerations:
       - key: "sku"
         operator: "Equal"
