@@ -32,16 +32,9 @@ spec:
               WEBUI_AUTH: "True"
               ENABLE_SIGNUP: "False"
               OAUTH_MERGE_ACCOUNTS_BY_EMAIL: true
-              GITHUB_CLIENT_ID:
-                valueFrom:
-                  secretKeyRef:
-                    name: github-fleet-auth-secret
-                    key: client-id
-              GITHUB_CLIENT_SECRET:
-                valueFrom:
-                  secretKeyRef:
-                    name: github-fleet-auth-secret
-                    key: client-secret
+            envFrom:
+              - secretRef:
+                  name: github-fleet-auth-secret
             resources:
               requests:
                 cpu: 200m
@@ -61,7 +54,6 @@ spec:
           gatus.home-operations.com/endpoint: |-
             group: external
         hostnames:
-          - "{{ .Release.Name }}.unscfleet.com"
           - "ai.unscfleet.com"
         parentRefs:
           - name: envoy-external
