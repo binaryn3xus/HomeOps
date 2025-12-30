@@ -1,0 +1,41 @@
+---
+machine:
+  certSANs:
+    - 127.0.0.1
+    - 10.0.30.30
+    - 10.0.30.6
+  install:
+    # Using your custom NVIDIA/Intel schematic
+    image: factory.talos.dev/installer/1a45a19fd1e3d4eba81a2dc53c8874f5a92d1dc5184d29615bef438479f2ec61:v1.12.0
+    diskSelector:
+      wwid: "eui.0025388a81b3ccee"
+  network:
+    hostname: fleetcom-node4
+    interfaces:
+      - deviceSelector:
+          hardwareAddr: "0c:9d:92:85:5e:56"
+        addresses:
+          - 10.0.30.6/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 10.0.30.1
+        mtu: 1500
+        dhcp: false
+  kernel:
+      modules:
+        - name: nvidia
+        - name: nvidia_uvm
+        - name: nvidia_drm
+  nodeLabels:
+    node-role.kubernetes.io/worker: ""
+    sku: gpu
+    hardware-type: nvidia-gpu
+    gpu-model: rtx2070
+  kubelet:
+    extraConfig:
+      registerWithTaints:
+        - key: sku
+          value: gpu
+          effect: NoSchedule
+
+

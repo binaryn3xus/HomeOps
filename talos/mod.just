@@ -19,9 +19,7 @@ apply-node ip *args:
 [doc('Render Talos config for a node')]
 render-config ip:
     mkdir -p ./generated
-    just template talos/machineconfig.yaml.j2 | \
-      yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' - "./nodes/{{ip}}.yaml.j2" | \
-      yq 'select(documentIndex == 0) | with(.machine; sort_keys(.)) | with(.cluster; sort_keys(.))' > "./generated/{{ip}}.yaml"
+    @if [ -f "./nodes/control/{{ip}}.yaml.j2" ]; then node_file="./nodes/control/{{ip}}.yaml.j2"; base_template="talos/machineconfig.yaml.j2"; elif [ -f "./nodes/worker/{{ip}}.yaml.j2" ]; then node_file="./nodes/worker/{{ip}}.yaml.j2"; base_template="talos/workerconfig.yaml.j2"; else echo "Error: Node config not found for {{ip}}" >&2; exit 1; fi; just template "$base_template" | yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' - "$node_file" | yq 'select(documentIndex == 0) | with(.machine; sort_keys(.)) | with(.cluster; sort_keys(.))' > "./generated/{{ip}}.yaml"
     @echo "Rendered config for '{{ip}}' written to ./generated/{{ip}}.yaml"
 
 [doc('Render Talos client config with secrets injected')]
@@ -62,4 +60,4 @@ shutdown-node ip:
 # --- Private Helper Recipes ---
 [private]
 machine-image:
-    just template "{{ talos_dir }}/machineconfig.yaml.j2" | yq -e 'select(.machine) | .machine.install.image'
+    just template "{{ talos_dir }}/controlnodeconfig.yaml.j2" | yq -e 'select(.machine) | .machine.install.image'
