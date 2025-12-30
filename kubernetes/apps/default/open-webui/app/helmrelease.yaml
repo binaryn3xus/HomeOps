@@ -28,7 +28,19 @@ spec:
               tag: 0.6.43
             env:
               TZ: "America/New_York"
-              OLLAMA_BASE_URL: "http://10.0.30.6:11434"
+              WEBUI_URL: "https://ai.unscfleet.com"
+              WEBUI_AUTH: "True"
+              ENABLE_SIGNUP: "False"
+              GITHUB_CLIENT_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: github-fleet-auth-secret
+                    key: client-id
+              GITHUB_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: github-fleet-auth-secret
+                    key: client-secret
             resources:
               requests:
                 cpu: 200m
@@ -54,7 +66,6 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
-
     persistence:
       config:
         existingClaim: *app
