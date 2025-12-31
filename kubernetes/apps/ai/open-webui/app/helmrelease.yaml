@@ -43,7 +43,7 @@ spec:
                 memory: 500Mi
               limits:
                 cpu: 2
-                memory: 1Gi
+                memory: 4Gi
 
     service:
       app:
