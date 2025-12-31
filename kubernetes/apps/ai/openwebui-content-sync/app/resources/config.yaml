@@ -10,3 +10,7 @@ github:
   mappings:
     - repository: "binaryn3xus/HomeOps"
       knowledge_id: "5d24c9d4-75b2-4d90-bf5d-5f839303312d"
+    - repository: "onedr0p/home-ops"
+      knowledge_id: "198ba1fb-3d8a-4753-8e9e-89e59c1dc2ae"
+    - repository: "MudBlazor/MudBlazor"
+      knowledge_id: "282b3e26-556d-4814-a755-2b892abc318c"
