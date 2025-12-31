@@ -39,9 +39,10 @@ spec:
                   name: github-fleet-auth-secret
             resources:
               requests:
-                cpu: 200m
+                cpu: 250m
                 memory: 1000Mi
               limits:
+                cpu: 500m
                 memory: 1500Mi
 
     service:
