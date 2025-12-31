@@ -53,13 +53,6 @@ spec:
                 cpu: 10m
               limits:
                 memory: 1Gi
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
 
     service:
       app:
@@ -86,6 +79,6 @@ spec:
         type: configMap
         name: openwebui-content-sync-configmap
         globalMounts:
-          - path: /app/config.yaml
+          - path: /config.yaml
             subPath: config.yaml
             readOnly: true
