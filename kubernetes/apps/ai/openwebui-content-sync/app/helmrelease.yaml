@@ -26,6 +26,8 @@ spec:
             image:
               repository: ghcr.io/castai/openwebui-content-sync
               tag: latest
+            command: ["/root/main"]
+            args: ["--config","/app/config.yaml"]
             env:
               TZ: America/New_York
             envFrom:
@@ -82,3 +84,7 @@ spec:
           - path: /config.yaml
             subPath: config.yaml
             readOnly: true
+      data:
+        type: emptyDir
+        globalMounts:
+          - path: /data
