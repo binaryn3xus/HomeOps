@@ -31,6 +31,7 @@ spec:
               WEBUI_URL: "https://ai.unscfleet.com"
               WEBUI_AUTH: "True"
               ENABLE_SIGNUP: "False"
+              ENABLE_API_KEY: "True"
               OAUTH_MERGE_ACCOUNTS_BY_EMAIL: true
               ENABLE_RAG_LOCAL_WEB_FETCH: true
             envFrom:
