@@ -25,9 +25,7 @@ link_token = false
 # an IP is in the pass_ip list, it has unrestricted access and it is also not
 # checked if e.g. the "user agent" suggests a bot (e.g. curl).
 
-block_ip = [
-]
-
+block_ip = []
 pass_ip = [
   '10.0.0.0/8',
   '10.96.0.0/12',   # K8s Service CIDR

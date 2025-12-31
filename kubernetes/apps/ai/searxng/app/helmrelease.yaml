@@ -31,6 +31,7 @@ spec:
               SEARXNG_BASE_URL: https://search.unscfleet.com
               SEARXNG_URL: https://search.unscfleet.com
               SEARXNG_PORT: &httpPort 8080
+              LIMITER: "0"
             envFrom:
               - secretRef:
                   name: searxng-secret
@@ -135,5 +136,4 @@ spec:
         enabled: true
         type: emptyDir
         globalMounts:
-          - path: /etc/searxng
           - path: /tmp

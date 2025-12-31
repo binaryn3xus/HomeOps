@@ -32,6 +32,7 @@ spec:
               WEBUI_AUTH: "True"
               ENABLE_SIGNUP: "False"
               OAUTH_MERGE_ACCOUNTS_BY_EMAIL: true
+              ENABLE_RAG_LOCAL_WEB_FETCH: true
             envFrom:
               - secretRef:
                   name: github-fleet-auth-secret
