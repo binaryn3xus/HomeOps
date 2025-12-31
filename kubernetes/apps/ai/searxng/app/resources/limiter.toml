@@ -29,8 +29,10 @@ block_ip = [
 ]
 
 pass_ip = [
-  '192.168.0.0/16',      # IPv4 private network
-  '10.0.0.0/8',          # IPv4 private network
+  '10.0.0.0/8',
+  '10.96.0.0/12',   # K8s Service CIDR
+  '10.68.0.0/14',   # K8s Pod CIDR
+  '127.0.0.1',      # Localhost just in case
 ]
 
 # Activate passlist of (hardcoded) IPs from the SearXNG organization,
