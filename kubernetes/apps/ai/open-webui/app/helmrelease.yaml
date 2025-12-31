@@ -59,6 +59,7 @@ spec:
           - name: envoy-external
             namespace: network
             sectionName: https
+
     persistence:
       config:
         existingClaim: *app
