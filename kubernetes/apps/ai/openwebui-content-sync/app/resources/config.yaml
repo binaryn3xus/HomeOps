@@ -9,4 +9,4 @@ github:
   enabled: true
   mappings:
     - repository: "binaryn3xus/HomeOps"
-      knowledge_id: "HomeOps-Context"
+      knowledge_id: "5d24c9d4-75b2-4d90-bf5d-5f839303312d"
