@@ -2,7 +2,7 @@
 use_default_settings: true
 
 server:
-  limiter: true
+  limiter: false
   image_proxy: true
   method: GET # https://github.com/searxng/searxng/pull/3619
   public_instance: false
