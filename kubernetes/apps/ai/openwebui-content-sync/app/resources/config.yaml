@@ -1,0 +1,13 @@
+log_level: info
+schedule:
+  interval: 1h
+storage:
+  path: /data
+openwebui:
+  base_url: "http://open-webui.ai.svc.cluster.local:8080"
+github:
+  enabled: true
+  token: "${GITHUB_TOKEN}"
+  mappings:
+    - repository: "binaryn3xus/homeops"
+      knowledge_id: "HomeOps-Context"
