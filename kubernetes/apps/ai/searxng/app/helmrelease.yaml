@@ -109,8 +109,7 @@ spec:
 
     route:
       app:
-        hostnames:
-          - "search.unscfleet.com"
+        hostnames: ["search.unscfleet.com"]
         parentRefs:
           - name: envoy-internal
             namespace: network
@@ -121,8 +120,8 @@ spec:
         type: configMap
         name: searxng-configmap
         globalMounts:
-          - path: /etc/searxng/settings.yml
-            subPath: settings.yml
+          - path: /etc/searxng/settings.yaml
+            subPath: settings.yaml
             readOnly: true
           - path: /etc/searxng/limiter.toml
             subPath: limiter.toml
