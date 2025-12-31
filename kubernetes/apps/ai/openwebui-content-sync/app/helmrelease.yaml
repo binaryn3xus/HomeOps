@@ -27,7 +27,7 @@ spec:
               repository: ghcr.io/castai/openwebui-content-sync
               tag: latest
             command: ["/root/main"]
-            args: ["--config","/app/config.yaml"]
+            args: ["--config","/config.yaml"]
             env:
               TZ: America/New_York
             envFrom:
