@@ -21,6 +21,9 @@ search:
 general:
   instance_name: UNSC Search
 
+valkey:
+  url: redis://searxng-redis.ai.svc.cluster.local:6379/0
+
 ui:
   default_theme: simple
   infinite_scroll: true

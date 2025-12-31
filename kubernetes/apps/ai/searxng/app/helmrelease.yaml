@@ -31,7 +31,6 @@ spec:
               SEARXNG_BASE_URL: https://search.unscfleet.com
               SEARXNG_URL: https://search.unscfleet.com
               SEARXNG_PORT: &httpPort 8080
-              SEARXNG_VALKEY_URL: redis://searxng-redis.ai.svc.cluster.local:6379/0
             envFrom:
               - secretRef:
                   name: searxng-secret
