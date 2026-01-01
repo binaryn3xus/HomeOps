@@ -1,4 +1,4 @@
-log_level: debug #info
+log_level: info
 schedule:
   interval: 1h
   timeout: 5m
