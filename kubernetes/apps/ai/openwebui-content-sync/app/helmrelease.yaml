@@ -30,7 +30,6 @@ spec:
             args: ["--config","/config.yaml"]
             env:
               TZ: America/New_York
-              SYNC_TIMEOUT: "300"
             envFrom:
               - secretRef:
                   name: openwebui-content-sync-secret
