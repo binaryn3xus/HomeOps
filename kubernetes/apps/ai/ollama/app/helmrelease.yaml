@@ -14,6 +14,44 @@ spec:
       ollama:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          pull-models:
+            image:
+              repository: docker.io/ollama/ollama
+              tag: 0.13.5
+            command:
+              - /bin/sh
+              - -c
+              - |
+                echo "Starting Ollama server for model pulling..."
+                ollama serve &
+                OLLAMA_PID=$!
+                
+                # Wait for Ollama to be ready
+                echo "Waiting for Ollama to start..."
+                for i in $(seq 1 30); do
+                  if ollama list >/dev/null 2>&1; then
+                    echo "Ollama is ready!"
+                    break
+                  fi
+                  sleep 2
+                done
+                
+                # Pull required models
+                echo "Pulling llama3.2..."
+                ollama pull llama3.2:latest
+                
+                echo "Pulling nomic-embed-text for embeddings..."
+                ollama pull nomic-embed-text
+                
+                echo "All models pulled successfully!"
+                kill $OLLAMA_PID
+                wait $OLLAMA_PID 2>/dev/null || true
+            env:
+              - name: OLLAMA_MODELS
+                value: /models
+              - name: OLLAMA_HOST
+                value: 0.0.0.0
         containers:
           app:
             image:
