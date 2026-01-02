@@ -7,5 +7,4 @@ resources:
   - ./namespace.yaml
   - ./ollama/ks.yaml
   - ./open-webui/ks.yaml
-  - ./openwebui-content-sync/ks.yaml
   - ./searxng/ks.yaml
