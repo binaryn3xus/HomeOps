@@ -1,0 +1,73 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app esphome
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: *app
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      esphome:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/esphome/esphome
+              tag: 2025.12.4
+            env:
+              TZ: America/New_York
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"], add: ["NET_ADMIN", "NET_RAW"] }
+            resources:
+              requests:
+                cpu: 20m
+                memory: 1G1
+              limits:
+                memory: 2Gi
+
+    service:
+      app:
+        ports:
+          http:
+            port: 6052
+
+    route:
+      app:
+        annotations:
+          gatus.home-operations.com/enabled: "true"
+          gatus.home-operations.com/endpoint: |-
+            conditions: ["len([BODY]) == 0"]
+            group: internal
+            dns:
+              query-name: {{ .Release.Name }}.unscfleet.com
+              query-type: A
+            url: 1.1.1.1
+        hostnames:
+          - "{{ .Release.Name }}.unscfleet.com"
+        parentRefs:
+          - name: envoy-internal
+            namespace: network
+            sectionName: https
+
+    persistence:
+      config:
+        existingClaim: *app
+
+      esphome-cache:
+        type: emptyDir
+        globalMounts:
+          - path: /config/.esphome

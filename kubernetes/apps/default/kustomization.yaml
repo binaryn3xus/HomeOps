@@ -10,6 +10,7 @@ resources:
   # Apps
   - ./audiobookshelf/ks.yaml
   - ./bazarr/ks.yaml
+  - ./esphome/ks.yaml
   - ./home-assistant/ks.yaml
   - ./it-tools/ks.yaml
   - ./mosquitto/ks.yaml
