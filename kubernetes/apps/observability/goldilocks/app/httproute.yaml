@@ -23,4 +23,4 @@ spec:
     - backendRefs:
         - name: goldilocks-dashboard
           namespace: observability
-          port: 8080
+          port: 80
