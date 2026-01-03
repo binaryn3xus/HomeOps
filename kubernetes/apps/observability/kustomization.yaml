@@ -6,6 +6,7 @@ namespace: observability
 resources:
   - ./namespace.yaml
   - ./gatus/ks.yaml
+  - ./goldilocks/ks.yaml
   - ./grafana/ks.yaml
   - ./kromgo/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
