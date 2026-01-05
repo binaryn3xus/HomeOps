@@ -53,9 +53,9 @@ spec:
               - --disable-telemetry
               - --disable-update-check
               - --user-data-dir
-              - /config/.code-server
+              - /config/.code-server/data
               - --extensions-dir
-              - /config/.code-server
+              - /config/.code-server/extensions
               - --port
               - "12321"
               - /config
