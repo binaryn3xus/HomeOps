@@ -48,6 +48,8 @@ spec:
             args:
               - --auth
               - none
+              - --bind-addr
+              - 0.0.0.0:12321
               - --disable-telemetry
               - --disable-update-check
               - --user-data-dir
@@ -57,6 +59,8 @@ spec:
               - --port
               - "12321"
               - /config
+            securityContext:
+              runAsUser: 0
             resources:
               requests:
                 cpu: 10m
@@ -127,3 +131,11 @@ spec:
         type: emptyDir
         globalMounts:
           - path: /config/.esphome
+
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          esphome:
+            code-server:
+              - path: /tmp
+                subPath: code-server-tmp
