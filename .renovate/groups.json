@@ -9,7 +9,7 @@
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
-      "minimumGroupSize": 3
+      "minimumGroupSize": 1
     },
     {
       "description": "Kubernetes Group",
@@ -25,7 +25,7 @@
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
-      "minimumGroupSize": 5
+      "minimumGroupSize": 1
     },
     {
       "description": "Rook-Ceph Group",
@@ -35,7 +35,7 @@
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
-      "minimumGroupSize": 2
+      "minimumGroupSize": 1
     },
     {
       "description": "Talos Group",
@@ -45,7 +45,7 @@
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
-      "minimumGroupSize": 2
+      "minimumGroupSize": 1
     },
     {
       "description": "Teleport Group",
@@ -55,7 +55,7 @@
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
-      "minimumGroupSize": 2
+      "minimumGroupSize": 1
     },
     {
       "description": "Mise TOML File Updates",
