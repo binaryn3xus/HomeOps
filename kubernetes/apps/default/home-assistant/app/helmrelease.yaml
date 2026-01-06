@@ -77,6 +77,10 @@ spec:
         ports:
           http:
             port: 8123
+          coiot:
+            enabled: true
+            port: 5683
+            protocol: UDP
         primary: true
       code-server:
         ports:
