@@ -28,6 +28,7 @@ spec:
               tag: 2025.12.5
             env:
               TZ: America/New_York
+              PLATFORMIO_CORE_DIR:  /config/.esphome/platformio
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
