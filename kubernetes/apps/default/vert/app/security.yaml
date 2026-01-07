@@ -16,5 +16,5 @@ spec:
       name: github-fleet-auth-secret
     clientSecret:
       name: github-fleet-auth-secret
-    redirectURL: "https://ai.unscfleet.com/oauth2/callback"
+    redirectURL: "https://vert.unscfleet.com/oauth2/callback"
     logoutPath: "/logout"
