@@ -9,4 +9,3 @@ resources:
   - ./helmrelease.yaml
   - ./observability.yaml
   - ./ocirepository.yaml
-  - ./security.yaml
