@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: ai
 resources:
   - ./namespace.yaml
-  #- ./comfyui/ks.yaml
+  - ./comfyui/ks.yaml
   - ./kokoro-fastapi-gpu/ks.yaml
   - ./ollama/ks.yaml
   - ./open-webui/ks.yaml

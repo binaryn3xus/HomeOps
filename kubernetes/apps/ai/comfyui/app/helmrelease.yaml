@@ -1,0 +1,59 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app comfyui
+  namespace: ai
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: *app
+  values:
+    controllers:
+      comfyui:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/comfyanonymous/comfyui
+              tag: latest
+            env:
+              TZ: America/New_York
+            args:
+              - --listen
+              - 0.0.0.0
+              - --port
+              - "8188"
+              - --medvram
+            resources:
+              requests:
+                cpu: 1
+                memory: 2Gi
+                nvidia.com/gpu: 1
+              limits:
+                memory: 4Gi
+                nvidia.com/gpu: 1
+
+    defaultPodOptions:
+      nodeSelector:
+        nvidia.com/gpu.present: "true"
+      tolerations:
+        - key: sku
+          operator: Equal
+          value: gpu
+          effect: NoSchedule
+      runtimeClassName: nvidia
+
+    service:
+      app:
+        controller: comfyui
+        ports:
+          http:
+            port: 8188
+
+    persistence:
+      data:
+        type: emptyDir
+        globalMounts:
+          - path: /home/user/ComfyUI/models
