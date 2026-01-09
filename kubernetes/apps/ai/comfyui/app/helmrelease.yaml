@@ -26,17 +26,24 @@ spec:
               - /bin/sh
               - -c
               - |
-                MODEL_PATH="/opt/comfyui/models/checkpoints/sd_xl_turbo_1.0_fp16.safetensors"
+                set -e
+                MODEL_DIR="/opt/comfyui/models/checkpoints"
+                MODEL_PATH="$MODEL_DIR/sd_xl_turbo_1.0_fp16.safetensors"
+                mkdir -p "$MODEL_DIR"
                 if [ ! -f "$MODEL_PATH" ]; then
                   echo "Downloading SDXL Turbo model..."
                   curl -L --progress-bar -o "$MODEL_PATH" \
                     https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0_fp16.safetensors
-                  echo "Download complete! Model size:"
-                  ls -lh "$MODEL_PATH"
+                  chown 1000:1000 "$MODEL_PATH"
+                  echo "Download complete!"
                 else
                   echo "Model already exists, skipping download."
-                  ls -lh "$MODEL_PATH"
                 fi
+                ls -lh "$MODEL_PATH"
+            volumeMounts:
+              - name: data
+                mountPath: /opt/comfyui/models
+                subPath: models
         containers:
           app:
             image:
