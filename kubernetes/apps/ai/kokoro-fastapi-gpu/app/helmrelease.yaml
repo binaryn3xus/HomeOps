@@ -18,10 +18,12 @@ spec:
   values:
     controllers:
       kokoro:
+        nodeSelector:
+          sku: "gpu"
         containers:
           app:
             image:
-              repository: ghcr.io/remsky/kokoro-fastapi-cpu
+              repository: ghcr.io/remsky/kokoro-fastapi-gpu
               tag: latest
             env:
               TZ: America/New_York
