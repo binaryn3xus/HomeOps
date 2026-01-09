@@ -8,15 +8,16 @@ data:
   JWT_EXPIRES_IN: "4w"
   WEBUI_URL: "https://ai.unscfleet.com"
 
-  # --- ZERO TELEMETRY & HARDENING ---
+  # --- ZERO TELEMETRY & PRIVACY ---
   SCARF_NO_ANALYTICS: "True"
   ANONYMIZED_TELEMETRY: "False"
   DO_NOT_TRACK: "True"
   CORS_ALLOW_ORIGIN: "https://ai.unscfleet.com"
 
-  # --- WEB SEARCH (SEARXNG) ---
+  # --- WEB SEARCH (v0.6.43 SPEC) ---
   ENABLE_WEB_SEARCH: "True"
   WEB_SEARCH_ENGINE: "searxng"
+  RAG_SEARXNG_QUERY_URL: "http://searxng-app.ai.svc.cluster.local:8080/search?q=<query>&format=json"
   SEARXNG_QUERY_URL: "http://searxng-app.ai.svc.cluster.local:8080/search?q=<query>&format=json"
   SEARXNG_LANGUAGE: "all"
   WEB_SEARCH_RESULT_COUNT: "3"
@@ -36,6 +37,7 @@ data:
   ENABLE_API_KEY: "True"
   OAUTH_MERGE_ACCOUNTS_BY_EMAIL: "True"
   OAUTH_UPDATE_PICTURE_ON_LOGIN: "True"
+  OPENID_PROVIDER_URL: "https://github.com/login/oauth/authorize"
 
   # --- RAG & LOCAL INTELLIGENCE ---
   OLLAMA_BASE_URL: "http://ollama.ai.svc.cluster.local:11434"
