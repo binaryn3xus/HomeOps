@@ -18,6 +18,8 @@ spec:
   values:
     controllers:
       speaches:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:

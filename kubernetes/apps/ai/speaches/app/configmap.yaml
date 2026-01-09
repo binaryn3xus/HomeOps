@@ -8,7 +8,5 @@ data:
   HF_HUB_CACHE: /home/ubuntu/.cache/huggingface/hub
   TEMP: /home/ubuntu/.cache
   TMPDIR: /home/ubuntu/.cache
-  WHISPER__MODEL: "base" # Options: tiny, base, small, medium, large-v3
+  WHISPER__MODEL: "base"
   WHISPER__COMPUTE_TYPE: "int8"
-  WHISPER__INFERENCE_DEVICE: "cuda"
-  WHISPER__TTL: "300"
