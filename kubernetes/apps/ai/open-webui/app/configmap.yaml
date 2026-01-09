@@ -17,7 +17,8 @@ data:
   # --- WEB SEARCH (SEARXNG) ---
   ENABLE_WEB_SEARCH: "True"
   WEB_SEARCH_ENGINE: "searxng"
-  WEB_SEARCH_SEARXNG_URL: "http://searxng-app.ai.svc.cluster.local:8080/search?q=<query>&format=json"
+  SEARXNG_QUERY_URL: "http://searxng-app.ai.svc.cluster.local:8080/search?q=<query>&format=json"
+  SEARXNG_LANGUAGE: "all"
   WEB_SEARCH_RESULT_COUNT: "3"
 
   # --- OPENAI / GEMINI API BRIDGE ---
