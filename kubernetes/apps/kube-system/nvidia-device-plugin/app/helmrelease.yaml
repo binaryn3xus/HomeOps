@@ -26,6 +26,7 @@ spec:
       repository: nvcr.io/nvidia/k8s-device-plugin
       tag: v0.18.1
     config:
+      default: "default"
       map:
         default: |-
           version: v1
