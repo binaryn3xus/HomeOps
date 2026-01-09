@@ -1,0 +1,52 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app speaches
+  namespace: ai
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: *app
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      speaches:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/remsky/speaches
+              tag: latest-gpu
+            env:
+              TZ: America/New_York
+              WHISPER__MODEL: "base" # Options: tiny, base, small, medium, large-v3
+            resources:
+              requests:
+                cpu: "500m"
+                memory: 2Gi
+              limits:
+                memory: 4Gi
+                nvidia.com/gpu: 1
+
+    defaultPodOptions:
+      nodeSelector:
+        nvidia.com/gpu.present: "true"
+      tolerations:
+        - key: sku
+          operator: Equal
+          value: gpu
+          effect: NoSchedule
+      runtimeClassName: nvidia
+
+    service:
+      app:
+        controller: speaches
+        ports:
+          http:
+            port: 8000
