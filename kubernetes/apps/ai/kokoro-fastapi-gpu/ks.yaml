@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app audio
+  name: &app kokoro-fastapi-gpu
   namespace: flux-system
 spec:
   targetNamespace: ai
