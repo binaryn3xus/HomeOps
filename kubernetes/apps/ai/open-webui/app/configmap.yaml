@@ -14,7 +14,7 @@ data:
   DO_NOT_TRACK: "True"
   CORS_ALLOW_ORIGIN: "https://ai.unscfleet.com"
 
-  # --- WEB SEARCH (v0.6.43 SPEC) ---
+  # --- WEB SEARCH ---
   ENABLE_WEB_SEARCH: "True"
   WEB_SEARCH_ENGINE: "searxng"
   RAG_SEARXNG_QUERY_URL: "http://searxng-app.ai.svc.cluster.local:8080/search?q=<query>&format=json"
@@ -44,6 +44,24 @@ data:
   RAG_EMBEDDING_ENGINE: "ollama"
   RAG_EMBEDDING_MODEL: "nomic-embed-text"
   ENABLE_RAG_LOCAL_WEB_FETCH: "True"
+  
+  # --- AUDIO: SPEECH-TO-TEXT (The Ears) ---
+  AUDIO_STT_ENGINE: "openai"
+  AUDIO_STT_OPENAI_API_BASE_URL: "http://speaches.ai.svc.cluster.local:8000/v1"
+  AUDIO_STT_OPENAI_API_KEY: "sk-123" # Placeholder required
+  AUDIO_STT_MODEL: "base" # Matches Speaches WHISPER__MODEL
 
+  # --- AUDIO: TEXT-TO-SPEECH (The Mouth) ---
+  AUDIO_TTS_ENGINE: "openai"
+  AUDIO_TTS_OPENAI_API_BASE_URL: "http://kokoro-fastapi-gpu.ai.svc.cluster.local:8000/v1"
+  AUDIO_TTS_OPENAI_API_KEY: "sk-123"
+  AUDIO_TTS_MODEL: "kokoro"
+  AUDIO_TTS_VOICE: "af_sarah" # Tactical choice for clarity
+
+# --- IMAGE GENERATION (The Eyes) ---
+  ENABLE_IMAGE_GENERATION: "True"
+  IMAGE_GENERATION_ENGINE: "comfyui"
+  COMFYUI_BASE_URL: "http://comfyui.ai.svc.cluster.local:8188"
+    
   # --- SYSTEM LOCALIZATION ---
   TZ: "America/New_York"
