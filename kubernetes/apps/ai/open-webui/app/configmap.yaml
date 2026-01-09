@@ -53,7 +53,7 @@ data:
 
   # --- AUDIO: TEXT-TO-SPEECH (The Mouth) ---
   AUDIO_TTS_ENGINE: "openai"
-  AUDIO_TTS_OPENAI_API_BASE_URL: "http://kokoro-fastapi-gpu.ai.svc.cluster.local:8000"
+  AUDIO_TTS_OPENAI_API_BASE_URL: "http://kokoro-fastapi-gpu.ai.svc.cluster.local:8000/v1"
   AUDIO_TTS_OPENAI_API_KEY: "sk-123"
   AUDIO_TTS_MODEL: "kokoro"
   AUDIO_TTS_VOICE: "af_sarah" # Tactical choice for clarity

@@ -13,6 +13,26 @@ spec:
       comfyui:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          download-model:
+            image:
+              repository: curlimages/curl
+              tag: latest
+            command:
+              - /bin/sh
+              - -c
+              - |
+                MODEL_PATH="/opt/comfyui/models/checkpoints/sd_xl_turbo_1.0_fp16.safetensors"
+                if [ ! -f "$MODEL_PATH" ]; then
+                  echo "Downloading SDXL Turbo model..."
+                  curl -L --progress-bar -o "$MODEL_PATH" \
+                    https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0_fp16.safetensors
+                  echo "Download complete! Model size:"
+                  ls -lh "$MODEL_PATH"
+                else
+                  echo "Model already exists, skipping download."
+                  ls -lh "$MODEL_PATH"
+                fi
         containers:
           app:
             image:
