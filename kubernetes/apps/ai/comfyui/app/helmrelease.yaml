@@ -19,6 +19,7 @@ spec:
               repository: curlimages/curl
               tag: latest
             securityContext:
+              runAsNonRoot: false
               runAsUser: 0
               runAsGroup: 0
               allowPrivilegeEscalation: false
@@ -27,23 +28,29 @@ spec:
               - -c
               - |
                 set -e
-                MODEL_DIR="/opt/comfyui/models/checkpoints"
+                ROOT="/mnt/data"
+                MODEL_DIR="$ROOT/models/checkpoints"
                 MODEL_PATH="$MODEL_DIR/sd_xl_turbo_1.0_fp16.safetensors"
+
                 mkdir -p "$MODEL_DIR"
+                chown 1000:1000 "$ROOT" "$ROOT/models" "$MODEL_DIR"
+                chmod 0775 "$ROOT" "$ROOT/models" "$MODEL_DIR"
+
                 if [ ! -f "$MODEL_PATH" ]; then
                   echo "Downloading SDXL Turbo model..."
                   curl -L --progress-bar -o "$MODEL_PATH" \
                     https://huggingface.co/stabilityai/sdxl-turbo/resolve/main/sd_xl_turbo_1.0_fp16.safetensors
                   chown 1000:1000 "$MODEL_PATH"
+                  chmod 0664 "$MODEL_PATH"
                   echo "Download complete!"
                 else
                   echo "Model already exists, skipping download."
                 fi
                 ls -lh "$MODEL_PATH"
             volumeMounts:
+              # Mount the PVC root (no subPath) for init only
               - name: data
-                mountPath: /opt/comfyui/models
-                subPath: models
+                mountPath: /mnt/data
         containers:
           app:
             image:
