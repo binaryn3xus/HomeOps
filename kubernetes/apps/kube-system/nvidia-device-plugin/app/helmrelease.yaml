@@ -25,6 +25,15 @@ spec:
     image:
       repository: nvcr.io/nvidia/k8s-device-plugin
       tag: v0.18.1
+    config:
+      map:
+        default: |-
+          version: v1
+          sharing:
+            timeSlicing:
+              resources:
+              - name: nvidia.com/gpu
+                replicas: 5 # Allows 5 pods to share the same GPU
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
