@@ -4,9 +4,11 @@ metadata:
   name: speaches-config
 data:
   TZ: America/New_York
-  HF_HOME: /home/ubuntu/.cache/huggingface
-  HF_HUB_CACHE: /home/ubuntu/.cache/huggingface/hub
-  TEMP: /home/ubuntu/.cache
-  TMPDIR: /home/ubuntu/.cache
   WHISPER__MODEL: "base"
   WHISPER__COMPUTE_TYPE: "int8"
+  WHISPER__INFERENCE_DEVICE: "cpu"
+  WHISPER__CPU_THREADS: "2"
+  # Disable the problematic duplicate library check for now
+  KMP_DUPLICATE_LIB_OK: "FALSE" 
+  HF_HOME: /home/ubuntu/.cache/huggingface
+  PRELOAD_MODELS: '["Systran/faster-whisper-base"]'

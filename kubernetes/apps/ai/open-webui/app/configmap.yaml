@@ -47,9 +47,9 @@ data:
   
   # --- AUDIO: SPEECH-TO-TEXT (The Ears) ---
   AUDIO_STT_ENGINE: "openai"
-  AUDIO_STT_OPENAI_API_BASE_URL: "http://speaches.ai.svc.cluster.local:8000"
+  AUDIO_STT_OPENAI_API_BASE_URL: "http://speaches.ai.svc.cluster.local:8000/v1"
   AUDIO_STT_OPENAI_API_KEY: "sk-123" # Placeholder required
-  AUDIO_STT_MODEL: "base" # Matches Speaches WHISPER__MODEL
+  AUDIO_STT_MODEL: "Systran/faster-whisper-base" # Matches Speaches WHISPER__MODEL
 
   # --- AUDIO: TEXT-TO-SPEECH (The Mouth) ---
   AUDIO_TTS_ENGINE: "openai"
