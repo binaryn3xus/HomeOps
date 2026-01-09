@@ -21,8 +21,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/remsky/speaches
-              tag: latest-gpu
+              repository: ghcr.io/speaches-ai/speaches
+              tag: latest-cuda
             env:
               TZ: America/New_York
               WHISPER__MODEL: "base" # Options: tiny, base, small, medium, large-v3
