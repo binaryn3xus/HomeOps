@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/ai/audio/app
+  path: ./kubernetes/apps/ai/kokoro-fastapi-gpu/app
   prune: true
   sourceRef:
     kind: GitRepository
