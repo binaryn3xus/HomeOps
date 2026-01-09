@@ -54,7 +54,7 @@ spec:
 
     persistence:
       data:
-        existingClaim: *app
+        existingClaim: comfyui-openebs-pvc
         globalMounts:
           - path: /opt/comfyui/models
             subPath: models
