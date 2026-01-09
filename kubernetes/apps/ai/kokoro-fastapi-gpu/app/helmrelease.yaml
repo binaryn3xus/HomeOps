@@ -18,8 +18,6 @@ spec:
   values:
     controllers:
       kokoro:
-        nodeSelector:
-          sku: "gpu"
         containers:
           app:
             image:
@@ -39,6 +37,8 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
+      nodeSelector:
+        sku: "gpu"
     service:
       app:
         controller: kokoro
