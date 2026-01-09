@@ -54,6 +54,11 @@ spec:
 
     persistence:
       data:
-        type: emptyDir
+        existingClaim: *app
         globalMounts:
-          - path: /home/user/ComfyUI/models
+          - path: /opt/comfyui/models
+            subPath: models
+          - path: /opt/comfyui/custom_nodes
+            subPath: custom_nodes
+          - path: /opt/comfyui/output
+            subPath: output
