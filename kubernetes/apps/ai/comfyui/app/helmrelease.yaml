@@ -47,9 +47,6 @@ spec:
                   echo "Model already exists, skipping download."
                 fi
                 ls -lh "$MODEL_PATH"
-            extraVolumeMounts:
-              - name: data          # matches persistence.data
-                mountPath: /mnt/data
         containers:
           app:
             image:
