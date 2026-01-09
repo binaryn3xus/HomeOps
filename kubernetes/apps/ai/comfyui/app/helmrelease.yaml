@@ -16,7 +16,7 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/comfyanonymous/comfyui
+              repository: ghcr.io/lecode-official/comfyui-docker
               tag: latest
             env:
               TZ: America/New_York
