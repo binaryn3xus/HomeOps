@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: open-webui-env
+data:
+  # --- SESSION & CORE STABILITY ---
+  ENABLE_PERSISTENT_CONFIG: "False"
+  JWT_EXPIRES_IN: "2419200" # 4 weeks
+  WEBUI_URL: "https://ai.unscfleet.com"
+
+  # --- ZERO TELEMETRY & HARDENING ---
+  SCARF_NO_ANALYTICS: "True"
+  ANONYMIZED_TELEMETRY: "False"
+  DO_NOT_TRACK: "True"
+  CORS_ALLOW_ORIGIN: "https://ai.unscfleet.com"
+
+  # --- WEB SEARCH (SEARXNG) ---
+  ENABLE_RAG_WEB_SEARCH: "True"
+  RAG_WEB_SEARCH_ENGINE: "searxng"
+  SEARXNG_QUERY_URL: "http://searxng-app.ai.svc.cluster.local:8080/search?q=<query>&format=json"
+
+  # --- OPENAI / GEMINI API BRIDGE ---
+  ENABLE_OPENAI_API: "True"
+  OPENAI_API_BASE_URL: "https://generativelanguage.googleapis.com/v1beta/openai"
+  MODELS_CACHE_TTL: "3600"
+
+  # --- CODE EXECUTION ---
+  ENABLE_CODE_INTERPRETER: "True"
+  CODE_INTERPRETER_ENGINE: "pyodide"
+
+  # --- AUTHENTICATION & ACCESS (MERGED) ---
+  WEBUI_AUTH: "True"
+  ENABLE_SIGNUP: "False"
+  ENABLE_API_KEY: "True"
+  OAUTH_MERGE_ACCOUNTS_BY_EMAIL: "True"
+  OAUTH_UPDATE_PICTURE_ON_LOGIN: "True"
+
+  # --- RAG & LOCAL INTELLIGENCE ---
+  OLLAMA_BASE_URL: "http://ollama.ai.svc.cluster.local:11434"
+  RAG_EMBEDDING_ENGINE: "ollama"
+  RAG_EMBEDDING_MODEL: "nomic-embed-text"
+  ENABLE_RAG_LOCAL_WEB_FETCH: "True"
+
+  # --- SYSTEM LOCALIZATION ---
+  TZ: "America/New_York"

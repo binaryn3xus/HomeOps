@@ -26,19 +26,9 @@ spec:
             image:
               repository: ghcr.io/open-webui/open-webui
               tag: 0.6.43
-            env:
-              ENABLE_API_KEY: "True"
-              ENABLE_RAG_LOCAL_WEB_FETCH: true
-              ENABLE_SIGNUP: "False"
-              OAUTH_MERGE_ACCOUNTS_BY_EMAIL: true
-              OAUTH_UPDATE_PICTURE_ON_LOGIN: true
-              OLLAMA_BASE_URL: "http://ollama.ai.svc.cluster.local:11434"
-              RAG_EMBEDDING_ENGINE: "ollama"
-              RAG_EMBEDDING_MODEL: "nomic-embed-text"
-              TZ: "America/New_York"
-              WEBUI_AUTH: "True"
-              WEBUI_URL: "https://ai.unscfleet.com"
             envFrom:
+              - configMapRef:
+                  name: open-webui-env
               - secretRef:
                   name: github-fleet-auth-secret
             resources:
