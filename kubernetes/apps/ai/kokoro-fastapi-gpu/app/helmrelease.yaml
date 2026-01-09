@@ -33,12 +33,14 @@ spec:
                 memory: 1.5Gi
                 nvidia.com/gpu: 1
     defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
       nodeSelector:
-        sku: "gpu"
+        nvidia.com/gpu.present: "true"
+      tolerations:
+        - key: sku
+          operator: Equal
+          value: gpu
+          effect: NoSchedule
+      runtimeClassName: nvidia
     service:
       app:
         controller: kokoro
