@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: speaches-config
+data:
+  TZ: America/New_York
+  HF_HOME: /home/ubuntu/.cache/huggingface
+  HF_HUB_CACHE: /home/ubuntu/.cache/huggingface/hub
+  TEMP: /home/ubuntu/.cache
+  TMPDIR: /home/ubuntu/.cache
+  WHISPER__MODEL: "base" # Options: tiny, base, small, medium, large-v3
+  WHISPER__COMPUTE_TYPE: "int8"
+  WHISPER__INFERENCE_DEVICE: "cuda"
+  WHISPER__TTL: "300"
