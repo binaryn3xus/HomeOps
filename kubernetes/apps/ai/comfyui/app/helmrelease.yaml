@@ -19,7 +19,7 @@ spec:
               repository: curlimages/curl
               tag: latest
             securityContext:
-              runAsNonRoot: false
+              runAsNonRoot: false   # override main pod
               runAsUser: 0
               runAsGroup: 0
               allowPrivilegeEscalation: false
@@ -47,9 +47,8 @@ spec:
                   echo "Model already exists, skipping download."
                 fi
                 ls -lh "$MODEL_PATH"
-            volumeMounts:
-              # Mount the PVC root (no subPath) for init only
-              - name: data
+            extraVolumeMounts:
+              - name: data          # matches persistence.data
                 mountPath: /mnt/data
         containers:
           app:
