@@ -16,6 +16,9 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           runtimeClassName: nvidia
+          securityContext:
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
           tolerations:
             - key: sku
               operator: Equal
@@ -23,6 +26,18 @@ spec:
               effect: NoSchedule
           nodeSelector:
             nvidia.com/gpu.present: "true"
+        initContainers:
+          fix-perms:
+            image:
+              repository: busybox
+              tag: latest
+            command:
+              - sh
+              - -c
+              - |
+                chown -R 1000:1000 /workspace
+                chmod -R 755 /workspace
+                echo "Fixed permissions on /workspace"
         containers:
           app:
             image:
@@ -80,13 +95,3 @@ spec:
         existingClaim: comfyui-openebs-pvc
         globalMounts:
           - path: /workspace/ComfyUI/output
-
-      # config:
-      #   type: configMap
-      #   name: comfyui-configmap
-      #   advancedMounts:
-      #     comfyui:
-      #       app:
-      #         - path: /workspace/ComfyUI/custom_nodes/ComfyUI-Manager/config.ini
-      #           subPath: config.ini
-      #           readOnly: true
