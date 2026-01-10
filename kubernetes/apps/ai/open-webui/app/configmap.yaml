@@ -56,11 +56,16 @@ data:
   AUDIO_TTS_OPENAI_API_BASE_URL: "http://kokoro-fastapi-gpu.ai.svc.cluster.local:8000/v1"
   AUDIO_TTS_OPENAI_API_KEY: "sk-123"
   AUDIO_TTS_MODEL: "kokoro"
-  AUDIO_TTS_VOICE: "af_sarah" # Tactical choice for clarity
+  AUDIO_TTS_VOICE: "af_heart"
 
 # --- IMAGE GENERATION (The Eyes) ---
-  ENABLE_IMAGE_GENERATION: "True"
+  ENABLE_IMAGE_GENERATION: "true"
+  ENABLE_IMAGE_PROMPT_GENERATION: "true"
+  IMAGE_PROMPT_GENERATION_PROMPT_TEMPLATE: '{"prompt": "Generate a detailed prompt for an image generation task based on the given language and context. Describe the image as if you were explaining it to someone who cannot see it. Include relevant details, colors, shapes, and any other important elements."}'
   IMAGE_GENERATION_ENGINE: "comfyui"
+  IMAGE_GENERATION_MODEL: "model.safetensors"
+  IMAGE_SIZE: "512x512"
+  IMAGE_STEPS: "50"
   COMFYUI_BASE_URL: "http://comfyui.ai.svc.cluster.local:8188"
   COMFYUI_WORKFLOW_NODES: '[{"text": "6", "ckpt_name": "4", "width": "5", "height": "5", "steps": "3", "seed": "3"}]'
 
