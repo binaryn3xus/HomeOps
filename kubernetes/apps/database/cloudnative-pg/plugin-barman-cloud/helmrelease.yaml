@@ -20,6 +20,9 @@ spec:
       retries: 1
   values:
     namespaceOverride: database
+    certificate:
+      duration: 8760h
+      renewBefore: 720h
     image:
       registry: ghcr.io
       repository: cloudnative-pg/plugin-barman-cloud
