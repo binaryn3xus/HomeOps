@@ -51,6 +51,7 @@ data:
 
   AUDIO_TTS_ENGINE: "azure"
   AUDIO_TTS_AZURE_SPEECH_REGION: "eastus"
+  AUDIO_TTS_VOICE: "en-US-JennyNeural"
 
   # --- AUDIO: SPEECH-TO-TEXT (Speaches) ---
   # AUDIO_STT_ENGINE: "openai"
