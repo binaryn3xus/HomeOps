@@ -65,8 +65,6 @@ spec:
 
     service:
       app:
-        annotations:
-          gatus.home-operations.com/enabled: "false"
         controller: comfyui
         ports:
           http:
@@ -74,6 +72,8 @@ spec:
 
     route:
       main:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
         hostnames:
           - "{{ .Release.Name }}.unscfleet.com"
         parentRefs:
