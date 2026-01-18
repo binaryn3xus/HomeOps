@@ -10,3 +10,5 @@ configMapGenerator:
     namespace: apps
     files:
       - demo-01.yaml=./resources/demo-01.yaml
+generatorOptions:
+  disableNameSuffixHash: true

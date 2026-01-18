@@ -160,7 +160,7 @@ spec:
 
       gitops-demo:
         type: configMap
-        name: esphome-gitops-configs
+        name: esphome-device-configs
         globalMounts:
           - path: /config/demo-01.yaml
             subPath: demo-01.yaml
