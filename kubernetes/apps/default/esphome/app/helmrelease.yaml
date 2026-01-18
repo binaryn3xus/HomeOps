@@ -40,37 +40,6 @@ spec:
               limits:
                 memory: 4Gi
 
-          code-server:
-            image:
-              repository: ghcr.io/coder/code-server
-              tag: 4.108.1@sha256:867b9a9dedd68f1b46e308cad9525e419db7b0ce0c83831f6a350f37ee7ff6fd
-            env:
-              TZ: America/New_York
-            args:
-              - --auth
-              - none
-              - --bind-addr
-              - 0.0.0.0:12321
-              - --disable-telemetry
-              - --disable-update-check
-              - --user-data-dir
-              - /config/.code-server/data
-              - --extensions-dir
-              - /config/.code-server/extensions
-              - --port
-              - "12321"
-              - /config
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
-            resources:
-              requests:
-                cpu: 10m
-                memory: 128Mi
-              limits:
-                memory: 1Gi
-
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -84,10 +53,6 @@ spec:
         ports:
           http:
             port: 6052
-      code-server:
-        ports:
-          code-server:
-            port: 12321
 
     route:
       app:
@@ -111,32 +76,22 @@ spec:
               - identifier: app
                 port: 6052
 
-      code:
-        annotations:
-          gatus.home-operations.com/enabled: "true"
-          gatus.home-operations.com/endpoint: |-
-            conditions: ["len([BODY]) == 0"]
-            group: internal
-            dns:
-              query-name: esphome-code.unscfleet.com
-              query-type: A
-            url: 1.1.1.1
-        hostnames:
-          - esphome-code.unscfleet.com
-        parentRefs:
-          - name: envoy-internal
-            namespace: network
-            sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: code-server
-                port: 12321
-
     persistence:
       config:
         existingClaim: *app
         globalMounts:
           - path: /config
+
+      esphome-cache:
+        existingClaim: *app
+        globalMounts:
+          - path: /config/.esphome
+            subPath: esphome
+
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
 
       esphome-secrets-file:
         type: secret
@@ -208,18 +163,3 @@ spec:
           - path: /config/packages/common_wifi.yaml
             subPath: packages/common_wifi.yaml
             readOnly: false
-      esphome-cache:
-        type: emptyDir
-        globalMounts:
-          - path: /config/.esphome
-
-      coder-home:
-        type: emptyDir
-        globalMounts:
-          - path: /home/coder
-
-      tmp:
-        type: emptyDir
-        globalMounts:
-          - path: /tmp
-
