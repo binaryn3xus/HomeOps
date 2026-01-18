@@ -1,0 +1,60 @@
+substitutions:
+  node_name: "master-bedroom-athom-bulb"
+  friendly_name: "Master Bedroom Athom Bulb"
+  static_ip: "10.0.20.121"
+
+esphome:
+  name: ${node_name}
+  friendly_name: ${friendly_name}
+  comment: "Athom LB01-15W (RGBCCT) | IP: ${static_ip} | ${friendly_name} (Facing Outside)"
+  on_boot:
+    priority: -10
+    then:
+      - text_sensor.template.publish:
+          id: esphome_version_sensor
+          state: !lambda 'return ESPHOME_VERSION;'
+
+packages:
+  device_base: !include packages/base_diagnostics.yaml
+  network_base: !include packages/common_wifi.yaml
+
+esp8266:
+  board: esp8285
+  restore_from_flash: true
+
+wifi:
+  use_address: ${static_ip}
+
+# --- PWM Outputs ---
+output:
+  - platform: esp8266_pwm
+    id: output_red
+    pin: GPIO4
+  - platform: esp8266_pwm
+    id: output_green
+    pin: GPIO12
+  - platform: esp8266_pwm
+    id: output_blue
+    pin: GPIO14
+  - platform: esp8266_pwm
+    id: output_white
+    pin: GPIO5
+  - platform: esp8266_pwm
+    id: output_ct
+    pin: GPIO13
+    inverted: true
+
+# --- Light Logic ---
+light:
+  - platform: rgbct
+    name: "${friendly_name}"
+    id: bulb_light
+    restore_mode: ALWAYS_OFF
+    red: output_red
+    green: output_green
+    blue: output_blue
+    white_brightness: output_white
+    color_temperature: output_ct
+    cold_white_color_temperature: 6000K
+    warm_white_color_temperature: 3000K
+    default_transition_length: 0s

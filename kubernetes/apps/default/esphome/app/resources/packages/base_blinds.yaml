@@ -1,0 +1,239 @@
+# packages/base_blinds.yaml
+stepper:
+  - platform: a4988
+    id: blinds_stepper
+    step_pin: ${step_pin}
+    dir_pin:
+      number: ${dir_pin}
+      inverted: true
+    max_speed: ${max_speed}
+    acceleration: ${acceleration}
+    deceleration: ${acceleration}
+
+switch:
+  - platform: gpio
+    pin: ${sleep_pin}
+    id: stepper_sleep_pin
+    name: "Motor Power"
+    inverted: true
+    restore_mode: ALWAYS_OFF
+    icon: mdi:engine-off
+    entity_category: diagnostic
+
+  - platform: template
+    name: "Maintenance Lockout"
+    id: maintenance_lock
+    optimistic: true
+    icon: mdi:wrench
+    entity_category: config
+
+button:
+  - platform: template
+    name: "Set Current as Open (Flat)"
+    icon: mdi:home-edit
+    entity_category: config
+    on_press:
+      then:
+        - lambda: 'id(blinds_stepper).report_position(${max_steps} / 2);'
+        - number.set:
+            id: blind_tilt_slider
+            value: 50
+        - cover.template.publish:
+            id: blind_entity
+            state: OPEN
+
+  - platform: template
+    name: "Set Current as Closed (Down)"
+    icon: mdi:form-select
+    entity_category: config
+    on_press:
+      then:
+        - lambda: 'id(blinds_stepper).report_position(0);'
+        - number.set:
+            id: blind_tilt_slider
+            value: 0
+        - cover.template.publish:
+            id: blind_entity
+            state: CLOSED
+
+  - platform: template
+    name: "Force Close and Sync"
+    icon: mdi:arrow-collapse-down
+    entity_category: config
+    on_press:
+      then:
+        - switch.turn_on: stepper_sleep_pin
+        - stepper.set_target:
+            id: blinds_stepper
+            target: -100
+        - wait_until:
+            lambda: 'return id(blinds_stepper).current_position == id(blinds_stepper).target_position;'
+        - lambda: 'id(blinds_stepper).report_position(0);'
+        - switch.turn_off: stepper_sleep_pin
+        - number.set:
+            id: blind_tilt_slider
+            value: 0
+        - cover.template.publish:
+            id: blind_entity
+            state: CLOSED
+
+  - platform: template
+    name: "Restore Default Dynamics"
+    icon: mdi:factory
+    entity_category: config
+    on_press:
+      then:
+        - stepper.set_speed:
+            id: blinds_stepper
+            speed: ${max_speed}
+        - stepper.set_acceleration:
+            id: blinds_stepper
+            acceleration: ${acceleration}
+        - stepper.set_deceleration:
+            id: blinds_stepper
+            deceleration: ${acceleration}
+        - number.set:
+            id: blinds_speed_control
+            value: ${max_speed}
+        - number.set:
+            id: blinds_accel_control
+            value: ${acceleration}
+
+cover:
+  - platform: template
+    name: ${friendly_name}
+    id: blind_entity
+    device_class: blind
+    optimistic: true
+    open_action:
+      - if:
+          condition:
+            switch.is_off: maintenance_lock
+          then:
+            - switch.turn_on: stepper_sleep_pin
+            - stepper.set_target:
+                id: blinds_stepper
+                target: !lambda "return ${max_steps} / 2;"
+            - wait_until:
+                lambda: 'return id(blinds_stepper).current_position == (${max_steps} / 2);'
+            - switch.turn_off: stepper_sleep_pin
+            - number.set:
+                id: blind_tilt_slider
+                value: 50
+            - cover.template.publish:
+                id: blind_entity
+                state: OPEN
+    close_action:
+      - if:
+          condition:
+            switch.is_off: maintenance_lock
+          then:
+            - switch.turn_on: stepper_sleep_pin
+            - stepper.set_target:
+                id: blinds_stepper
+                target: 0
+            - wait_until:
+                lambda: 'return id(blinds_stepper).current_position == 0;'
+            - switch.turn_off: stepper_sleep_pin
+            - number.set:
+                id: blind_tilt_slider
+                value: 0
+            - cover.template.publish:
+                id: blind_entity
+                state: CLOSED
+    position_action:
+      - if:
+          condition:
+            switch.is_off: maintenance_lock
+          then:
+            - switch.turn_on: stepper_sleep_pin
+            - stepper.set_target:
+                id: blinds_stepper
+                target: !lambda "return pos * ${max_steps};"
+            - wait_until:
+                lambda: 'return id(blinds_stepper).current_position == id(blinds_stepper).target_position;'
+            - switch.turn_off: stepper_sleep_pin
+            - number.set:
+                id: blind_tilt_slider
+                value: !lambda "return pos * 100.0;"
+            - if:
+                condition:
+                  lambda: 'return pos > 0.4 && pos < 0.6;'
+                then:
+                  - cover.template.publish:
+                      id: blind_entity
+                      state: OPEN
+                else:
+                  - cover.template.publish:
+                      id: blind_entity
+                      state: CLOSED
+
+number:
+  - platform: template
+    name: "Max Speed"
+    id: blinds_speed_control
+    min_value: 50
+    max_value: 1000
+    step: 10
+    initial_value: ${max_speed}
+    optimistic: true
+    set_action:
+      then:
+        - stepper.set_speed:
+            id: blinds_stepper
+            speed: !lambda "return x;"
+
+  - platform: template
+    name: "Acceleration"
+    id: blinds_accel_control
+    min_value: 10
+    max_value: 2000
+    step: 10
+    initial_value: ${acceleration}
+    optimistic: true
+    set_action:
+      then:
+        - stepper.set_acceleration:
+            id: blinds_stepper
+            acceleration: !lambda "return x;"
+        - stepper.set_deceleration:
+            id: blinds_stepper
+            deceleration: !lambda "return x;"
+
+  - platform: template
+    name: "Tilt Position"
+    id: blind_tilt_slider
+    unit_of_measurement: "%"
+    min_value: 0
+    max_value: 100
+    step: 10
+    initial_value: 50
+    optimistic: true
+    set_action:
+      then:
+        - switch.turn_on: stepper_sleep_pin
+        - stepper.set_target:
+            id: blinds_stepper
+            target: !lambda "return (x / 100.0) * ${max_steps};"
+        - wait_until:
+            lambda: 'return id(blinds_stepper).current_position == id(blinds_stepper).target_position;'
+        - switch.turn_off: stepper_sleep_pin
+        - if:
+            condition:
+              lambda: 'return x > 40 && x < 60;'
+            then:
+              - cover.template.publish:
+                  id: blind_entity
+                  state: OPEN
+            else:
+              - cover.template.publish:
+                  id: blind_entity
+                  state: CLOSED
+
+binary_sensor:
+  - platform: template
+    name: "Motor Energized"
+    id: motor_energized
+    device_class: running
+    lambda: 'return id(stepper_sleep_pin).state;'
+    icon: mdi:lightning-bolt

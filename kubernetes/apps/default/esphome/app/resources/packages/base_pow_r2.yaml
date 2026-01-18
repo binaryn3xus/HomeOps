@@ -1,0 +1,73 @@
+# packages/base_pow_r2.yaml
+logger:
+  baud_rate: 0 # Disables serial logging to prevent interference with CSE7766
+  level: DEBUG
+
+uart:
+  rx_pin: RX
+  baud_rate: 4800
+  parity: EVEN
+
+sensor:
+  - platform: cse7766
+    voltage:
+      name: "Voltage"
+      id: v
+      entity_category: diagnostic
+      filters:
+        - throttle_average: ${update_interval} # Add this
+    current:
+      name: "Current"
+      id: c
+      entity_category: diagnostic
+      filters:
+        - throttle_average: ${update_interval} # Add this
+    power:
+      name: "Active Power"
+      id: p
+      filters:
+        - throttle_average: ${update_interval} # This was already here
+    energy:
+      name: "Energy Total"
+      id: e_total
+      unit_of_measurement: "kWh"
+      filters:
+        - multiply: 0.001
+        - throttle_average: ${update_interval}
+
+  - platform: template
+    name: "Apparent Power"
+    id: apparent_p
+    lambda: return id(v).state * id(c).state;
+    unit_of_measurement: "VA"
+    accuracy_decimals: 1
+
+  - platform: template
+    name: "Power Factor"
+    lambda: |-
+      if (id(apparent_p).state > 1.0) return id(p).state / id(apparent_p).state;
+      return 1.0;
+    accuracy_decimals: 2
+    entity_category: diagnostic
+
+  - platform: total_daily_energy
+    name: "Energy Today"
+    power_id: p
+    filters:
+      - multiply: 0.001
+    unit_of_measurement: "kWh"
+
+status_led:
+  pin:
+    number: GPIO13
+    inverted: true
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode: INPUT_PULLUP
+      inverted: true
+    name: "Physical Button"
+    on_press:
+      - switch.toggle: pow_relay

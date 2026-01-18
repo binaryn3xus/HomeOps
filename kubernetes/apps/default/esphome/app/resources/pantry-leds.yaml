@@ -1,0 +1,55 @@
+substitutions:
+  node_name: "pantry-leds"
+  friendly_name: "Pantry LEDs"
+  static_ip: "10.0.20.81"
+
+esphome:
+  name: ${node_name}
+  comment: "ESP8266 | IP: ${static_ip} | ${friendly_name}"
+  on_boot:
+    priority: -10
+    then:
+      - text_sensor.template.publish:
+          id: esphome_version_sensor
+          state: !lambda 'return ESPHOME_VERSION;'
+
+packages:
+  device_base: !include packages/base_diagnostics.yaml
+  network_base: !include packages/common_wifi.yaml
+
+esp8266:
+  board: nodemcuv2
+
+wifi:
+  use_address: ${static_ip}
+
+# --- Hardware Control Logic ---
+light:
+  - platform: neopixelbus
+    type: GRB
+    variant: WS2812
+    pin: GPIO12
+    num_leds: 84
+    name: "${friendly_name} Strip"
+    id: pantry_strip
+    default_transition_length: 0s
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO5
+      mode: INPUT_PULLUP
+    name: "${friendly_name} Door Sensor"
+    id: pantry_door
+    device_class: door
+    on_press: # Door Opens (Reed sensor breaks contact)
+      then:
+        - light.turn_on:
+            id: pantry_strip
+            brightness: 100%
+            transition_length: 0s
+    on_release: # Door Closes (Reed sensor makes contact)
+      then:
+        - light.turn_off:
+            id: pantry_strip
+            transition_length: 0s

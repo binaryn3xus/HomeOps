@@ -1,0 +1,17 @@
+# packages/common_wifi.yaml
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  min_auth_mode: WPA2
+  fast_connect: true
+
+time:
+  - platform: homeassistant
+    id: home_time
+
+api:
+  port: 6053
+  reboot_timeout: 15min
+
+ota:
+  - platform: esphome

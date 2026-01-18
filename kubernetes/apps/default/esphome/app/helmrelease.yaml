@@ -149,10 +149,65 @@ spec:
         type: configMap
         name: esphome-device-configs
         globalMounts:
+          # --- Blinds ---
           - path: /config/blinds-001.yaml
             subPath: blinds-001.yaml
             readOnly: false
+          - path: /config/blinds-002.yaml
+            subPath: blinds-002.yaml
+            readOnly: false
+          - path: /config/blinds-003.yaml
+            subPath: blinds-003.yaml
+            readOnly: false
+          - path: /config/blinds-004.yaml
+            subPath: blinds-004.yaml
+            readOnly: false
+          - path: /config/blinds-005.yaml
+            subPath: blinds-005.yaml
+            readOnly: false
+          - path: /config/blinds-006.yaml
+            subPath: blinds-006.yaml
+            readOnly: false
+          - path: /config/blinds-007.yaml
+            subPath: blinds-007.yaml
+            readOnly: false
+          - path: /config/blinds-008.yaml
+            subPath: blinds-008.yaml
+            readOnly: false
+          - path: /config/blinds-009.yaml
+            subPath: blinds-009.yaml
+            readOnly: false
+          - path: /config/blinds-010.yaml
+            subPath: blinds-010.yaml
+            readOnly: false
 
+          # --- Standalone Devices ---
+          - path: /config/pantry-leds.yaml
+            subPath: pantry-leds.yaml
+            readOnly: false
+          - path: /config/washer.yaml
+            subPath: washer.yaml
+            readOnly: false
+          - path: /config/holiday-lights-main.yaml
+            subPath: holiday-lights-main.yaml
+            readOnly: false
+          - path: /config/master-bedroom-athom-bulb.yaml
+            subPath: master-bedroom-athom-bulb.yaml
+            readOnly: false
+
+          # --- Packages Sub-directory ---
+          - path: /config/packages/base_blinds.yaml
+            subPath: packages/base_blinds.yaml
+            readOnly: false
+          - path: /config/packages/base_diagnostics.yaml
+            subPath: packages/base_diagnostics.yaml
+            readOnly: false
+          - path: /config/packages/base_pow_r2.yaml
+            subPath: packages/base_pow_r2.yaml
+            readOnly: false
+          - path: /config/packages/common_wifi.yaml
+            subPath: packages/common_wifi.yaml
+            readOnly: false
       esphome-cache:
         type: emptyDir
         globalMounts:

@@ -10,7 +10,29 @@ configMapGenerator:
   - name: esphome-device-configs
     namespace: apps
     files:
+      # --- Blinds ---
       - blinds-001.yaml=./resources/blinds-001.yaml
+      - blinds-002.yaml=./resources/blinds-002.yaml
+      - blinds-003.yaml=./resources/blinds-003.yaml
+      - blinds-004.yaml=./resources/blinds-004.yaml
+      - blinds-005.yaml=./resources/blinds-005.yaml
+      - blinds-006.yaml=./resources/blinds-006.yaml
+      - blinds-007.yaml=./resources/blinds-007.yaml
+      - blinds-008.yaml=./resources/blinds-008.yaml
+      - blinds-009.yaml=./resources/blinds-009.yaml
+      - blinds-010.yaml=./resources/blinds-010.yaml
+
+      # --- Standalone Devices ---
+      - pantry-leds.yaml=./resources/pantry-leds.yaml
+      - washer.yaml=./resources/washer.yaml
+      - holiday-lights-main.yaml=./resources/holiday-lights-main.yaml
+      - master-bedroom-athom-bulb.yaml=./resources/master-bedroom-athom-bulb.yaml
+
+      # --- Packages (Mapped to sub-folder) ---
+      - packages/base_blinds.yaml=./resources/packages/base_blinds.yaml
+      - packages/base_diagnostics.yaml=./resources/packages/base_diagnostics.yaml
+      - packages/base_pow_r2.yaml=./resources/packages/base_pow_r2.yaml
+      - packages/common_wifi.yaml=./resources/packages/common_wifi.yaml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

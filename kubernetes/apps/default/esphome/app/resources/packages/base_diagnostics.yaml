@@ -1,0 +1,87 @@
+# packages/base_diagnostics.yaml
+logger:
+  level: DEBUG
+
+esphome:
+  on_boot:
+    priority: -10
+    then:
+      - text_sensor.template.publish:
+          id: esphome_version_sensor
+          state: !lambda 'return ESPHOME_VERSION;'
+
+sensor:
+  - platform: uptime
+    name: "Uptime"
+    id: uptime_sensor
+    type: timestamp
+    entity_category: diagnostic
+
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    update_interval: 60s
+    entity_category: diagnostic
+
+  - platform: template
+    name: "Free Heap"
+    unit_of_measurement: "B"
+    lambda: "return ESP.getFreeHeap();"
+    icon: "mdi:memory"
+    update_interval: 60s
+    entity_category: diagnostic
+    disabled_by_default: true
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: "IP Address"
+      entity_category: diagnostic
+    ssid:
+      name: "Connected SSID"
+      entity_category: diagnostic
+    bssid:
+      name: "BSSID"
+      disabled_by_default: true
+    mac_address:
+      name: "MAC Address"
+      entity_category: diagnostic
+      disabled_by_default: true
+
+  - platform: template
+    name: "Primary DNS"
+    id: dns_primary
+    icon: mdi:dns
+    entity_category: diagnostic
+    # Only update every 5 minutes to save heap
+    update_interval: 5min
+    disabled_by_default: true
+    lambda: |-
+      return { WiFi.dnsIP(0).toString().c_str() };
+
+  - platform: template
+    name: "Secondary DNS"
+    id: dns_secondary
+    icon: mdi:dns-wrapper
+    entity_category: diagnostic
+    update_interval: 5min
+    disabled_by_default: true
+    lambda: |-
+      return { WiFi.dnsIP(1).toString().c_str() };
+
+  - platform: version
+    name: "ESPHome Version"
+    id: esphome_version_sensor
+    entity_category: diagnostic
+    disabled_by_default: true
+
+  - platform: template
+    name: "Last Compiled"
+    icon: mdi:clock-check
+    entity_category: diagnostic
+    lambda: 'return { __DATE__ " " __TIME__ };'
+    disabled_by_default: true
+
+button:
+  - platform: restart
+    name: "Restart"
+    entity_category: config
