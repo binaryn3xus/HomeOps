@@ -1,0 +1,46 @@
+substitutions:
+  node_name: "blinds-001"
+  friendly_name: "Kitchen Blind Left"
+  static_ip: "10.0.20.111"
+  # Motor Hardware Config
+  step_pin: GPIO13
+  dir_pin: GPIO12
+  sleep_pin: GPIO14
+  # Calibration Settings
+  max_steps: "1800"
+  max_speed: "800"
+  acceleration: "1500"
+  deceleration: "1500"
+
+packages:
+  device_base: !include packages/base_diagnostics.yaml
+  network_base: !include packages/common_wifi.yaml
+  blind_logic: !include packages/base_blinds.yaml
+
+wifi:
+  use_address: ${static_ip}
+
+esphome:
+  name: ${node_name}
+  friendly_name: ${friendly_name}
+  comment: "ESP8266 | IP: ${static_ip} | ${friendly_name} (Facing Outside)"
+  project:
+    name: "unsc.blinds"
+    version: "1.0"
+  on_boot:
+    priority: -100
+    then:
+      - cover.template.publish:
+          id: blind_entity
+          state: !lambda |-
+            float mid = ${max_steps} / 2.0;
+            float pos = id(blinds_stepper).current_position;
+            if (pos >= (mid - 50) && pos <= (mid + 50)) {
+              return COVER_OPEN;
+            } else {
+              return COVER_CLOSED;
+            }
+
+esp8266:
+  board: nodemcuv2
+  restore_from_flash: true

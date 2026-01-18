@@ -10,6 +10,6 @@ configMapGenerator:
   - name: esphome-device-configs
     namespace: apps
     files:
-      - demo-01.yaml=./resources/demo-01.yaml
+      - blinds-001.yaml=./resources/blinds-001.yaml
 generatorOptions:
   disableNameSuffixHash: true

@@ -145,6 +145,14 @@ spec:
           - path: /config/secrets.yaml
             subPath: secrets.yaml
 
+      esphome-configs:
+        type: configMap
+        name: esphome-device-configs
+        globalMounts:
+          - path: /config/blinds-001.yaml
+            subPath: blinds-001.yaml
+            readOnly: false
+
       esphome-cache:
         type: emptyDir
         globalMounts:
@@ -160,10 +168,3 @@ spec:
         globalMounts:
           - path: /tmp
 
-      gitops-demo:
-        type: configMap
-        name: esphome-device-configs
-        globalMounts:
-          - path: /config/demo-01.yaml
-            subPath: demo-01.yaml
-            readOnly: true
