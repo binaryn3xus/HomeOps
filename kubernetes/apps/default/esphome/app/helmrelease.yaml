@@ -139,7 +139,7 @@ spec:
           - path: /config
 
       esphome-cache:
-        existingClaim: *app
+        type: emptyDir
         globalMounts:
           - path: /config/.esphome
             subPath: esphome
