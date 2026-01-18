@@ -157,3 +157,11 @@ spec:
             code-server:
               - path: /tmp
                 subPath: code-server-tmp
+
+      gitops-demo:
+        type: configMap
+        name: esphome-gitops-configs
+        globalMounts:
+          - path: /config/demo-01.yaml
+            subPath: demo-01.yaml
+            readOnly: true

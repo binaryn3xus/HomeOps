@@ -1,0 +1,17 @@
+# demo-01.yaml
+substitutions:
+  node_name: "demo-01"
+  friendly_name: "GitOps Demo Blind"
+  static_ip: "10.0.20.200" # Using your device VLAN
+
+packages:
+  # We can still reference the local PVC packages or Git-injected ones
+  device_base: !include packages/base_diagnostics.yaml
+  blind_logic: !include packages/base_blinds.yaml
+
+esphome:
+  name: ${node_name}
+  friendly_name: ${friendly_name}
+
+esp8266:
+  board: nodemcuv2

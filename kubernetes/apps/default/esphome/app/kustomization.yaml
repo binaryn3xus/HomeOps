@@ -5,3 +5,8 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./ocirepository.yaml
+configMapGenerator:
+  - name: esphome-device-configs
+    namespace: apps
+    files:
+      - demo-01.yaml=./resources/demo-01.yaml
