@@ -138,6 +138,13 @@ spec:
         globalMounts:
           - path: /config
 
+      esphome-secrets-file:
+        type: secret
+        name: esphome-secrets-file
+        globalMounts:
+          - path: /config/secrets.yaml
+            subPath: secrets.yaml
+
       esphome-cache:
         type: emptyDir
         globalMounts:
