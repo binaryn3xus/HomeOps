@@ -138,25 +138,25 @@ spec:
         globalMounts:
           - path: /config
 
-    esphome-cache:
-      type: emptyDir
-      globalMounts:
-        - path: /config/.esphome
+      esphome-cache:
+        type: emptyDir
+        globalMounts:
+          - path: /config/.esphome
 
-    coder-config:
-      type: emptyDir
-      globalMounts:
-        - path: /home/coder/.config
+      coder-home:
+        type: emptyDir
+        globalMounts:
+          - path: /home/coder
 
-    tmp:
-      type: emptyDir
-      globalMounts:
-        - path: /tmp
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
 
-    gitops-demo:
-      type: configMap
-      name: esphome-device-configs
-      globalMounts:
-        - path: /config/demo-01.yaml
-          subPath: demo-01.yaml
-          readOnly: true
+      gitops-demo:
+        type: configMap
+        name: esphome-device-configs
+        globalMounts:
+          - path: /config/demo-01.yaml
+            subPath: demo-01.yaml
+            readOnly: true
