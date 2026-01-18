@@ -138,30 +138,25 @@ spec:
         globalMounts:
           - path: /config
 
-      esphome-cache:
-        type: emptyDir
-        globalMounts:
-          - path: /config/.esphome
-            subPath: esphome
+    esphome-cache:
+      type: emptyDir
+      globalMounts:
+        - path: /config/.esphome
 
-      platformio:
-        existingClaim: *app
-        globalMounts:
-          - path: /root/.platformio
-            subPath: platformio
+    coder-config:
+      type: emptyDir
+      globalMounts:
+        - path: /home/coder/.config
 
-      tmpfs:
-        type: emptyDir
-        advancedMounts:
-          esphome:
-            code-server:
-              - path: /tmp
-                subPath: code-server-tmp
+    tmp:
+      type: emptyDir
+      globalMounts:
+        - path: /tmp
 
-      gitops-demo:
-        type: configMap
-        name: esphome-device-configs
-        globalMounts:
-          - path: /config/demo-01.yaml
-            subPath: demo-01.yaml
-            readOnly: true
+    gitops-demo:
+      type: configMap
+      name: esphome-device-configs
+      globalMounts:
+        - path: /config/demo-01.yaml
+          subPath: demo-01.yaml
+          readOnly: true
