@@ -152,14 +152,14 @@ spec:
 
           # --- Packages Sub-directory ---
           - path: /config/packages/base_blinds.yaml
-            subPath: packages/base_blinds.yaml
+            subPath: base_blinds.yaml
             readOnly: false
           - path: /config/packages/base_diagnostics.yaml
-            subPath: packages/base_diagnostics.yaml
+            subPath: base_diagnostics.yaml
             readOnly: false
           - path: /config/packages/base_pow_r2.yaml
-            subPath: packages/base_pow_r2.yaml
+            subPath: base_pow_r2.yaml
             readOnly: false
           - path: /config/packages/common_wifi.yaml
-            subPath: packages/common_wifi.yaml
+            subPath: common_wifi.yaml
             readOnly: false
