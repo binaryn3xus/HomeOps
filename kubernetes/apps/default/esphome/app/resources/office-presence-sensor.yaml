@@ -1,0 +1,25 @@
+substitutions:
+  name: "presence-sensor"
+  friendly_name: "Office Presence Sensor"
+  room: "office"
+  device_description: "Athom PS01 | SoC: ESP8285 (2MB Flash) | Radar: HLK-LD2410 | UART: 115200"
+
+packages:
+  athom_hardware: !include packages/athom-presence-sensor.yaml
+  cluster_logic: !include packages/common_wifi.yaml
+
+wifi:
+  manual_ip:
+    static_ip: 10.0.20.91
+    gateway: 10.0.20.1
+    subnet: 255.255.255.0
+  ap:
+    ap_timeout: 0s
+
+captive_portal: !remove
+
+api:
+  reboot_timeout: 0s
+
+ota:
+  - platform: esphome

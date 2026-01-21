@@ -149,6 +149,9 @@ spec:
           - path: /config/master-bedroom-athom-bulb.yaml
             subPath: master-bedroom-athom-bulb.yaml
             readOnly: false
+          - path: /config/office-presence-sensor.yaml
+            subPath: office-presence-sensor.yaml
+            readOnly: false
 
           # --- Packages Sub-directory ---
           - path: /config/packages/base_blinds.yaml
@@ -162,4 +165,7 @@ spec:
             readOnly: false
           - path: /config/packages/common_wifi.yaml
             subPath: common_wifi.yaml
+            readOnly: false
+          - path: /config/packages/athom-presence-sensor.yaml
+            subPath: athom-presence-sensor.yaml
             readOnly: false

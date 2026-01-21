@@ -27,12 +27,14 @@ configMapGenerator:
       - washer.yaml=./resources/washer.yaml
       - holiday-lights-main.yaml=./resources/holiday-lights-main.yaml
       - master-bedroom-athom-bulb.yaml=./resources/master-bedroom-athom-bulb.yaml
+      - office-presence-sensor.yaml=./resources/office-presence-sensor.yaml
 
       # --- Packages (Mapped to sub-folder) ---
       - base_blinds.yaml=./resources/packages/base_blinds.yaml
       - base_diagnostics.yaml=./resources/packages/base_diagnostics.yaml
       - base_pow_r2.yaml=./resources/packages/base_pow_r2.yaml
       - common_wifi.yaml=./resources/packages/common_wifi.yaml
+      - athom-presence-sensor.yaml=./resources/packages/athom-presence-sensor.yaml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
