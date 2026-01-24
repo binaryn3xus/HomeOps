@@ -7,5 +7,12 @@
     },
     "vs-kubernetes": {
       "vs-kubernetes.kubeconfig": "/home/joshua/HomeOps/kubeconfig"
+    },
+    "chat.tools.terminal.autoApprove": {
+        "kubectl get": true,
+        "kubectl describe": true,
+        "kubectl logs": true,
+        "base64": true,
+        "openssl": true
     }
 }
