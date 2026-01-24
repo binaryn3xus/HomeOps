@@ -13,6 +13,7 @@ router bgp 64513
   neighbor 10.0.30.11 peer-group k8s
   neighbor 10.0.30.12 peer-group k8s
   neighbor 10.0.30.13 peer-group k8s
+  neighbor 10.0.30.6 peer-group k8s
 
   address-family ipv4 unicast
     neighbor k8s next-hop-self
