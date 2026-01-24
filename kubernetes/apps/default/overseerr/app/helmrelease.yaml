@@ -32,10 +32,10 @@ spec:
               PORT: &port 80
             resources:
               requests:
-                cpu: 10m
-                memory: 250Mi
+                cpu: 50m
+                memory: 1Gi
               limits:
-                memory: 500Mi
+                memory: 2Gi
 
     defaultPodOptions:
       securityContext:
