@@ -26,3 +26,4 @@ resources:
   - ./zigbee/ks.yaml
   - ./zwave/ks.yaml
   - ./vert/ks.yaml
+  - ./tdarr/ks.yaml
