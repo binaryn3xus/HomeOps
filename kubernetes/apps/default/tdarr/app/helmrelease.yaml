@@ -34,9 +34,9 @@ spec:
               - name: PGID
                 value: "1000"
               - name: serverPort
-                value: "8266"
+                value: &serverPort 8266
               - name: webUIPort
-                value: "8265"
+                value: &port 8265
               - name: internalNode
                 value: "true"
               - name: nodeName
@@ -50,8 +50,8 @@ spec:
                 spec:
                   httpGet:
                     path: /
-                    port: 8265
-                  initialDelaySeconds: 0
+                    port: *port
+                  initialDelaySeconds: 3
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
@@ -61,8 +61,8 @@ spec:
                 spec:
                   httpGet:
                     path: /
-                    port: 8265
-                  initialDelaySeconds: 0
+                    port: *port
+                  initialDelaySeconds: 3
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
