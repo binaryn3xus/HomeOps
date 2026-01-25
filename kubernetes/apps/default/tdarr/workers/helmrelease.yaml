@@ -67,8 +67,9 @@ spec:
                     operator: NotIn
                     values:
                       - fleetcom-node4
-      fsGroup: 1000
-      fsGroupChangePolicy: OnRootMismatch
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
 
     persistence:
       media:
