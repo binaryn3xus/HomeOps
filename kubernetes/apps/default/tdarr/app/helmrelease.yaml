@@ -27,12 +27,22 @@ spec:
               repository: ghcr.io/haveagitgat/tdarr
               tag: 2.58.02@sha256:20a5656c4af4854e1877046294f77113f949d27e35940a9a65f231423d063207
             env:
-              TZ: "America/New_York"
-              PUID: "1000"
-              PGID: "1000"
-              serverPort: &serverPort 8266
-              webUIPort: &port 8265
-              internalNode: "true"
+              - name: TZ
+                value: "America/New_York"
+              - name: PUID
+                value: "1000"
+              - name: PGID
+                value: "1000"
+              - name: serverPort
+                value: &serverPort "8266"
+              - name: webUIPort
+                value: &port "8265"
+              - name: internalNode
+                value: "true"
+              - name: nodeName
+                valueFrom:
+                  fieldRef:
+                    fieldPath: spec.nodeName
             probes:
               liveness: &probes
                 enabled: true
