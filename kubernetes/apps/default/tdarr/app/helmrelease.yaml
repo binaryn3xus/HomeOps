@@ -28,6 +28,8 @@ spec:
               tag: 2.58.02@sha256:20a5656c4af4854e1877046294f77113f949d27e35940a9a65f231423d063207
             env:
               TZ: "America/New_York"
+              PUID: "1000"
+              PGID: "1000"
               serverPort: &serverPort 8266
               webUIPort: &port 8265
               internalNode: "true"
@@ -52,10 +54,8 @@ spec:
                 memory: 2Gi
                 gpu.intel.com/i915: 1
     defaultPodOptions:
+    defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
 
