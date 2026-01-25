@@ -21,6 +21,7 @@ spec:
       kind: CustomResourceDefinition
       name: teleportgithubconnectors.resources.teleport.dev
   interval: 30m
+  retryInterval: 1m
   path: ./kubernetes/apps/teleport/resources/configs
   prune: true
   sourceRef:
