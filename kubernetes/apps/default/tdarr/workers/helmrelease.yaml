@@ -29,12 +29,22 @@ spec:
               repository: ghcr.io/haveagitgat/tdarr_node
               tag: 2.58.02
             env:
-              TZ: "America/New_York"
-              PUID: "1000"
-              PGID: "1000"
-              nodeID: "tdarr-node"
-              serverIP: "tdarr.default.svc.cluster.local"
-              serverPort: "8266"
+              - name: TZ
+                value: "America/New_York"
+              - name: PUID
+                value: "1000"
+              - name: PGID
+                value: "1000"
+              - name: nodeID
+                value: "tdarr-node"
+              - name: serverIP
+                value: "tdarr.default.svc.cluster.local"
+              - name: serverPort
+                value: "8266"
+              - name: nodeName
+                valueFrom:
+                  fieldRef:
+                    fieldPath: spec.nodeName
             probes:
               liveness:
                 enabled: false
