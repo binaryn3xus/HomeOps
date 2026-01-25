@@ -68,10 +68,10 @@ spec:
                   failureThreshold: 3
             resources:
               requests:
-                cpu: 100m
-                memory: 512Mi
-              limits:
+                cpu: 250m
                 memory: 2Gi
+              limits:
+                memory: 4Gi
                 gpu.intel.com/i915: 1
     defaultPodOptions:
       securityContext:
