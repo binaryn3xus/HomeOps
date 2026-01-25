@@ -34,9 +34,9 @@ spec:
               - name: PGID
                 value: "1000"
               - name: serverPort
-                value: &serverPort "8266"
+                value: "8266"
               - name: webUIPort
-                value: &port "8265"
+                value: "8265"
               - name: internalNode
                 value: "true"
               - name: nodeName
@@ -44,18 +44,28 @@ spec:
                   fieldRef:
                     fieldPath: spec.nodeName
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /
-                    port: *port
+                    port: 8265
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
                   failureThreshold: 3
-              readiness: *probes
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: 8265
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
             resources:
               requests:
                 cpu: 100m

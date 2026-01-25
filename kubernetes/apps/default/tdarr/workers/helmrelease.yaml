@@ -37,9 +37,9 @@ spec:
               serverPort: "8266"
             probes:
               liveness:
-                enabled: true
+                enabled: false
               readiness:
-                enabled: true
+                enabled: false
             resources:
               requests:
                 cpu: 100m
