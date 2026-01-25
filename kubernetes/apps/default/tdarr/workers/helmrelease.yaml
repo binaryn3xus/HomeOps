@@ -1,0 +1,81 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tdarr-node
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: tdarr
+    namespace: default
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      tdarr-node:
+        replicas: 2
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/haveagitgat/tdarr_node
+              tag: 2.58.02
+            env:
+              TZ: "America/New_York"
+              PUID: "1000"
+              PGID: "1000"
+              nodeID: "tdarr-node"
+              serverIP: "tdarr.default.svc.cluster.local"
+              serverPort: "8266"
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                memory: 2Gi
+                gpu.intel.com/i915: 1
+    defaultPodOptions:
+      affinity:
+        # Ensure that tdarr nodes are not scheduled on the same node
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values: ["tdarr", "tdarr-node"]
+              topologyKey: kubernetes.io/hostname
+        # Ensure that tdarr nodes are scheduled on nodes that are not AI Workloads
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: NotIn
+                    values:
+                      - fleetcom-node4
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+
+    persistence:
+      media:
+        existingClaim: synology-media
+        globalMounts:
+          - path: /media
+      temp:
+        type: emptyDir
+        globalMounts:
+          - path: /temp
