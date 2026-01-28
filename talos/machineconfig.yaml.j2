@@ -31,6 +31,8 @@ machine:
     - op: create
       path: /etc/cri/conf.d/20-customization.part
       content: |
+        [plugins."io.containerd.grpc.v1.cri".registry]
+           max_concurrent_downloads = 10
         [plugins."io.containerd.cri.v1.images"]
           discard_unpacked_layers = false
         [plugins."io.containerd.cri.v1.runtime"]
@@ -45,7 +47,7 @@ machine:
         nconnect=16
         noatime=True
   install:
-    diskSelector: []
+    diskSelector: {}
     image: factory.talos.dev/installer/c4bb4fd007801d9db1492d85067f5624d9df03e6b27ac61e5bed9837dea5cb99:v1.12.2
     wipe: false
   kernel:
@@ -74,12 +76,12 @@ machine:
         - 10.0.30.0/24
   network:
     interfaces:
-      - deviceSelector: []
+      - deviceSelector: {}
         addresses: []
         routes:
           - network: 0.0.0.0/0
             gateway: 10.0.30.1
-        mtu: 1500
+        mtu: 9000
         dhcp: false
         vip:
           ip: 10.0.30.30
@@ -102,6 +104,8 @@ machine:
     net.ipv4.tcp_rmem: 4096 87380 33554432
     net.ipv4.tcp_window_scaling: "1"
     net.ipv4.tcp_wmem: 4096 65536 33554432
+    net.ipv4.tcp_slow_start_after_idle: "0"
+    net.ipv4.tcp_notsent_lowat: "131072"
     sunrpc.tcp_max_slot_table_entries: "128"
     sunrpc.tcp_slot_table_entries: "128"
     user.max_user_namespaces: "11255"
