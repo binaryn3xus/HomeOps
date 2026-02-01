@@ -23,7 +23,7 @@ spec:
           app:
             image:
               repository: ghcr.io/unpoller/unpoller
-              tag: v2.29.0@sha256:b556eb45802bc01c4e53c51292b9629e2131870a45b9890f8adebcadf2ae4bcb
+              tag: v2.31.0@sha256:f4f1e080489dc91e9f7d1d92c7848c9872a8394575be137deb445b63b56b36ca
             env:
               TZ: "America/New_York"
               UP_POLLER_DEBUG: "true"
