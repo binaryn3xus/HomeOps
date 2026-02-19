@@ -25,7 +25,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
             },
             "gridPos": {
                 "h": 8,
@@ -53,7 +53,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "prometheus"
                     },
                     "editorMode": "code",
                     "expr": "tuppr_talos_upgrade_phase",
@@ -64,7 +64,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "prometheus"
                     },
                     "editorMode": "code",
                     "expr": "tuppr_kubernetes_upgrade_phase",
@@ -80,7 +80,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -131,7 +131,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "prometheus"
                     },
                     "editorMode": "code",
                     "expr": "tuppr_talos_upgrade_nodes_completed / tuppr_talos_upgrade_nodes_total * 100",
@@ -146,7 +146,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -226,7 +226,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "prometheus"
                     },
                     "editorMode": "code",
                     "expr": "rate(tuppr_health_check_failures_total[5m])",
@@ -241,7 +241,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -322,7 +322,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "prometheus"
                     },
                     "editorMode": "code",
                     "expr": "histogram_quantile(0.95, rate(tuppr_health_check_duration_seconds_bucket[5m]))",
@@ -337,7 +337,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
             },
             "fieldConfig": {
                 "defaults": {
@@ -417,7 +417,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "prometheus"
                     },
                     "editorMode": "code",
                     "expr": "rate(tuppr_upgrade_job_duration_seconds_count{result=\"success\"}[5m])",
@@ -432,7 +432,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
             },
             "gridPos": {
                 "h": 8,
@@ -460,7 +460,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "prometheus"
                     },
                     "editorMode": "code",
                     "expr": "sum(tuppr_upgrade_jobs_active) by (upgrade_type)",
@@ -475,7 +475,7 @@
         {
             "datasource": {
                 "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
+                "uid": "prometheus"
             },
             "gridPos": {
                 "h": 8,
@@ -500,7 +500,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "prometheus"
                     },
                     "editorMode": "code",
                     "expr": "max(kube_node_info) by (node, kubelet_version)",
@@ -514,7 +514,7 @@
                 {
                     "datasource": {
                         "type": "prometheus",
-                        "uid": "${DS_PROMETHEUS}"
+                        "uid": "prometheus"
                     },
                     "editorMode": "code",
                     "expr": "label_replace(max(kube_node_info) by (node, os_image), \"talos_version\", \"$1\", \"os_image\", \"Talos \\\\((.*)\\\\)\")",
