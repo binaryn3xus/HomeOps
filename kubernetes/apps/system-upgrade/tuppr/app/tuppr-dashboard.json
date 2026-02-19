@@ -471,6 +471,93 @@
             ],
             "title": "Active Jobs by Type",
             "type": "stat"
+        },
+        {
+            "datasource": {
+                "type": "prometheus",
+                "uid": "prometheus"
+            },
+            "gridPos": {
+                "h": 8,
+                "w": 24,
+                "x": 0,
+                "y": 24
+            },
+            "id": 7,
+            "options": {
+                "footer": {
+                    "fields": "",
+                    "reducer": [
+                        "sum"
+                    ],
+                    "show": false
+                },
+                "showHeader": true,
+                "sortBy": []
+            },
+            "pluginVersion": "10.1.0",
+            "targets": [
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "prometheus"
+                    },
+                    "editorMode": "code",
+                    "expr": "max(kube_node_info) by (node, kubelet_version)",
+                    "format": "table",
+                    "hide": false,
+                    "instant": true,
+                    "legendFormat": "",
+                    "range": false,
+                    "refId": "A"
+                },
+                {
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "prometheus"
+                    },
+                    "editorMode": "code",
+                    "expr": "label_replace(max(kube_node_info) by (node, os_image), \"talos_version\", \"$1\", \"os_image\", \"Talos \\\\((.*)\\\\)\")",
+                    "format": "table",
+                    "hide": false,
+                    "instant": true,
+                    "legendFormat": "",
+                    "range": false,
+                    "refId": "B"
+                }
+            ],
+            "title": "Node Versions",
+            "transformations": [
+                {
+                    "id": "joinByField",
+                    "options": {
+                        "byField": "node",
+                        "mode": "outer"
+                    }
+                },
+                {
+                    "id": "organize",
+                    "options": {
+                        "excludeByName": {
+                            "Time": true,
+                            "Value #A": true,
+                            "Value #B": true,
+                            "os_image": true
+                        },
+                        "indexByName": {
+                            "node": 0,
+                            "talos_version": 1,
+                            "kubelet_version": 2
+                        },
+                        "renameByName": {
+                            "kubelet_version": "Kubernetes Version",
+                            "node": "Node",
+                            "talos_version": "Talos Version"
+                        }
+                    }
+                }
+            ],
+            "type": "table"
         }
     ],
     "schemaVersion": 38,
