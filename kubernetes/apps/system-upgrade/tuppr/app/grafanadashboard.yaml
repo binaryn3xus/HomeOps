@@ -9,6 +9,9 @@ spec:
   instanceSelector:
     matchLabels:
       grafana.internal/instance: grafana
+  datasources:
+    - datasourceName: prometheus
+      inputName: DS_PROMETHEUS
   configMapRef:
     name: tuppr-dashboard
     key: tuppr-dashboard.json
