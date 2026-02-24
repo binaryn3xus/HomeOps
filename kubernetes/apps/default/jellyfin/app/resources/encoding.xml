@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EncodingOptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <!-- Use QSV for best Intel performance -->
+  <HardwareAccelerationType>qsv</HardwareAccelerationType>
+  <QSVDevice>/dev/dri/renderD128</QSVDevice>
+  
+  <!-- Enable Tone Mapping for HDR Content -->
+  <EnableTonemapping>true</EnableTonemapping>
+  <EnableVppTonemapping>true</EnableVppTonemapping>
+  
+  <EnableHardwareEncoding>true</EnableHardwareEncoding>
+  
+  <!-- "Low Power" is mandatory for Alder Lake QuickSync -->
+  <EnableIntelLowPowerH264HwEncoder>true</EnableIntelLowPowerH264HwEncoder>
+  <EnableIntelLowPowerHevcHwEncoder>true</EnableIntelLowPowerHevcHwEncoder>
+
+  <!-- Hardware Decoding Codecs (Alder Lake supports all of these) -->
+  <HardwareDecodingCodecs>
+    <string>mpeg2video</string>
+    <string>mpeg4</string>
+    <string>vp8</string>
+    <string>vp9</string>
+    <string>h264</string>
+    <string>vc1</string>
+    <string>hevc</string>
+    <string>av1</string>
+  </HardwareDecodingCodecs>
+
+  <!-- High bit-depth support -->
+  <EnableDecodingColorDepth10Hevc>true</EnableDecodingColorDepth10Hevc>
+  <EnableDecodingColorDepth10Vp9>true</EnableDecodingColorDepth10Vp9>
+  <EnableDecodingColorDepth10HevcRext>true</EnableDecodingColorDepth10HevcRext>
+</EncodingOptions>

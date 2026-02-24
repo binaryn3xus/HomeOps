@@ -67,6 +67,7 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [107]
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
 
@@ -105,6 +106,12 @@ spec:
         existingClaim: synology-media
         globalMounts:
           - path: /media
+      encoding-xml:
+        type: configMap
+        name: jellyfin-config
+        globalMounts:
+          - path: /config/config/encoding.xml
+            subPath: encoding.xml
       cache:
         type: emptyDir
         globalMounts:

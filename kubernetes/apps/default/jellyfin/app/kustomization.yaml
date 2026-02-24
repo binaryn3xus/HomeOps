@@ -4,5 +4,9 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./ocirepository.yaml
+configMapGenerator:
+  - name: jellyfin-config
+    files:
+      - encoding.xml=./resources/encoding.xml
 generatorOptions:
   disableNameSuffixHash: true
