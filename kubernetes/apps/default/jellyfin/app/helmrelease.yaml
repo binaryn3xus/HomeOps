@@ -21,6 +21,17 @@ spec:
       jellyfin:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-config:
+            image:
+              repository: public.ecr.aws/docker/library/busybox
+              tag: latest
+            command: ["/bin/sh", "-c"]
+            args:
+              - |
+                mkdir -p /config/config
+                cp /tmp/encoding.xml /config/config/encoding.xml
+                chown 1000:1000 /config/config/encoding.xml
         containers:
           app:
             image:
@@ -100,8 +111,12 @@ spec:
     persistence:
       config:
         existingClaim: *app
-        globalMounts:
-          - path: /config
+        advancedMounts:
+          jellyfin:
+            app:
+              - path: /config
+            init-config:
+              - path: /config
       media:
         existingClaim: synology-media
         globalMounts:
@@ -109,9 +124,11 @@ spec:
       encoding-xml:
         type: configMap
         name: jellyfin-config
-        globalMounts:
-          - path: /config/config/encoding.xml
-            subPath: encoding.xml
+        advancedMounts:
+          jellyfin:
+            init-config:
+              - path: /tmp/encoding.xml
+                subPath: encoding.xml
       cache:
         type: emptyDir
         globalMounts:
