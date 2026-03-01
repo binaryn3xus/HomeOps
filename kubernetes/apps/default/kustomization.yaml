@@ -24,7 +24,8 @@ resources:
   - ./sabnzbd/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
+  - ./tdarr/ks.yaml
+  - ./vert/ks.yaml
+  - ./watchstate/ks.yaml
   - ./zigbee/ks.yaml
   - ./zwave/ks.yaml
-  - ./vert/ks.yaml
-  - ./tdarr/ks.yaml
