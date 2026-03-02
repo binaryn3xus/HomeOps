@@ -124,15 +124,23 @@ spec:
       config:
         type: configMap
         name: searxng-configmap
-        globalMounts:
-          - path: /etc/searxng/settings.yml
-            subPath: settings.yml
-            readOnly: true
-          - path: /etc/searxng/limiter.toml
-            subPath: limiter.toml
-            readOnly: true
+        advancedMounts:
+          searxng:
+            main:
+              - path: /etc/searxng/settings.yml
+                subPath: settings.yml
+                readOnly: true
+              - path: /etc/searxng/limiter.toml
+                subPath: limiter.toml
+                readOnly: true
       tmpfs:
         enabled: true
         type: emptyDir
         globalMounts:
           - path: /tmp
+      redis-data:
+        type: emptyDir
+        advancedMounts:
+          redis:
+            redis:
+              - path: /data
