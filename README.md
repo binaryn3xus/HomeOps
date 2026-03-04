@@ -14,10 +14,10 @@ _... managed with Flux, SOPS and GitHub Actions_ 🤖
 graph LR
     A[Internet] --> B[Cloudflare]
     B -->|Tunnel| C[cloudflared]
-    C --> D[Gateway API (Envoy)]
-    D --> E[Internal Services]
-    D --> F[Home Assistant]
-    D --> G[SearXNG]
+    C --> D["Gateway API (Envoy)"]
+    D --> E["Internal Services"]
+    D --> F["Home Assistant"]
+    D --> G["SearXNG"]
 ```
 
 </div>
