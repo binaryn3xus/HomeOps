@@ -28,7 +28,6 @@ jobs:
           docker run --rm -v ${{ github.workspace }}:/github/workspace ghcr.io/allenporter/flux-local:v8.1.0 \
             build ks \
             --path /github/workspace/kubernetes/flux/cluster \
-            --enable-helm \
             > manifests.yaml
 
       - name: Run kubeconform
