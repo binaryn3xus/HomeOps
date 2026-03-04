@@ -2,11 +2,26 @@
 
 <img src="https://raw.githubusercontent.com/binaryn3xus/HomeOps/refs/heads/main/resources/assets/logo.png" align="center" width="200px" height="269px"/>
 
-### My Home Operations Repository :octocat:
+### Fleetcom Operations :octocat:
 
 _... managed with Flux, SOPS and GitHub Actions_ 🤖
 
 </div>
+
+<div align="center">
+
+```mermaid
+graph LR
+    A[Internet] --> B[Cloudflare]
+    B -->|Tunnel| C[cloudflared]
+    C --> D[Gateway API (Envoy)]
+    D --> E[Internal Services]
+    D --> F[Home Assistant]
+    D --> G[SearXNG]
+```
+
+</div>
+
 
 <div align="center">
 

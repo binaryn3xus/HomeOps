@@ -52,7 +52,7 @@ spec:
                 cpu: 10m
                 memory: 256Mi
               limits:
-                memory: 24Gi
+                memory: 2Gi
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -103,7 +103,7 @@ spec:
       redis:
         controller: redis
         ports:
-          http:
+          redis:
             port: 6379
 
     route:
