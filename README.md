@@ -8,20 +8,6 @@ _... managed with Flux, SOPS and GitHub Actions_ 🤖
 
 </div>
 
-<div align="center">
-
-```mermaid
-graph LR
-    A[Internet] --> B[Cloudflare]
-    B -->|Tunnel| C[cloudflared]
-    C --> D["Gateway API (Envoy)"]
-    D --> E["Internal Services"]
-    D --> F["Home Assistant"]
-    D --> G["SearXNG"]
-```
-
-</div>
-
 
 <div align="center">
 
@@ -98,6 +84,22 @@ This Git repository contains the following directories under [kubernetes](./kube
 ```
 
 ### 📡 Networking
+ 
+ <div align="center">
+ 
+ ```mermaid
+ graph LR
+     A[Internet] --> B[Cloudflare]
+     B -->|Tunnel| C[cloudflared]
+     C --> D["Gateway API (Envoy)"]
+     D --> E["Internal Services"]
+     D --> F["Home Assistant"]
+     D --> G["SearXNG"]
+ ```
+ 
+ </div>
+ 
+
 
 | Name                | CIDR           |
 |---------------------|----------------|
