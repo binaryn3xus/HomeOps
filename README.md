@@ -83,7 +83,7 @@ This Git repository contains the following directories under [kubernetes](./kube
 └── 📁 flux       # flux system configuration
 ```
 
-### 📡 Networking
+## 📡 Networking
  
  <div align="center">
  
