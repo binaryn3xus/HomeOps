@@ -27,7 +27,7 @@ jobs:
         uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
         with:
           args: >-
-            build cluster
+            build all
             --path /github/workspace/kubernetes/flux/cluster
             --all-namespaces
             --enable-helm
