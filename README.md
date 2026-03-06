@@ -161,6 +161,9 @@ Outside the `external-dns` instance mentioned above another instance is deployed
   <a href="https://github.com/bjw-s" target="_blank">
     <img alt="bjw-s" height="50" width="50" src="https://avatars.githubusercontent.com/u/6213398?v=4&size=50"/>
   </a>
+  <a href="https://github.com/hevel86" target="_blank">
+    <img alt="hevel86" height="50" width="50" src="https://avatars.githubusercontent.com/u/2089595?v=4&size=50"/>
+  </a>
   <a href="https://github.com/mitchross" target="_blank">
     <img alt="mitchross" height="50" width="50" src="https://avatars.githubusercontent.com/u/6330506?v=4&size=50"/>
   </a>
