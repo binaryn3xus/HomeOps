@@ -25,7 +25,7 @@ spec:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: v0.8.8
+              tag: v0.8.9
             envFrom:
               - configMapRef:
                   name: open-webui-env
