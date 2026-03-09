@@ -34,6 +34,14 @@ spec:
                 - kube-public
                 - kube-node-lease
                 - local-path-storage
+                - flux-system
+                - rook-ceph
+                - system-upgrade
+                - cilium
+                - calico-system
+                - tigera-operator
+                - cloudflare
+                - cert-manager
       validate:
         message: "Resource is not managed by Flux (missing Flux labels)."
         anyPattern:
