@@ -6,3 +6,4 @@ namespace: kyverno
 resources:
   - ./ocirepository.yaml
   - ./helmrelease.yaml
+  - ../policies/
