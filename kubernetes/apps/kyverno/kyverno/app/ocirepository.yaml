@@ -11,5 +11,5 @@ spec:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: v3.6.3
+    tag: v3.7.3
   url: oci://ghcr.io/kyverno/charts/kyverno
