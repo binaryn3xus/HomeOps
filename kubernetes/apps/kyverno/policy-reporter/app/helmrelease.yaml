@@ -1,0 +1,37 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: policy-reporter
+  namespace: kyverno
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: policy-reporter
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
+  values:
+    ui:
+      enabled: true
+    # Enable metrics for Prometheus
+    metrics:
+      enabled: true
+    # ServiceMonitor for standard Prometheus Operator integration
+    serviceMonitor:
+      enabled: true
+    monitoring:
+      enabled: true
+    kyvernoPlugin:
+      enabled: true
+    # Target port for the UI is usually 8081 if enabled
+    # The default for the core app is 8080

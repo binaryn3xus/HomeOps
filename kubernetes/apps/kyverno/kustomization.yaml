@@ -6,3 +6,4 @@ namespace: kyverno
 resources:
   - ./namespace.yaml
   - ./kyverno/ks.yaml
+  - ./policy-reporter/ks.yaml
