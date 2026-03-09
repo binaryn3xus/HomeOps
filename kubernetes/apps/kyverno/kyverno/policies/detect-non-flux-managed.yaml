@@ -36,12 +36,6 @@ spec:
                 - local-path-storage
       validate:
         message: "Resource is not managed by Flux (missing Flux labels)."
-        pattern:
-          metadata:
-            labels:
-              "?(kustomize.toolkit.fluxcd.io/name)": "*"
-              "?(helm.toolkit.fluxcd.io/name)": "*"
-        # Using anyPattern to match if EITHER kustomize OR helm labels are present
         anyPattern:
           - metadata:
               labels:
