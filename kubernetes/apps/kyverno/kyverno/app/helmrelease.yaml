@@ -11,15 +11,72 @@ spec:
     kind: OCIRepository
     name: kyverno
   install:
+    timeout: 10m
+    remediation:
+      retries: -1
     crds: CreateReplace
   upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
     crds: CreateReplace
+  driftDetection:
+    mode: enabled
+  maxHistory: 3
   values:
+    crds:
+      install: true
+
+    grafana:
+      enabled: true
+      annotations:
+        grafana_folder: kyverno
+
+    serviceMonitor:
+      enabled: true
+      interval: 1m
+
     admissionController:
       replicas: 2
+      serviceMonitor:
+        enabled: true
+      # Topology spread constraints for HA (Best with >1 replica)
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/instance: kyverno
+              app.kubernetes.io/component: admission-controller
+
     backgroundController:
       replicas: 2
+      serviceMonitor:
+        enabled: true
+      # RBAC for managing resources
+      rbac:
+        clusterRole:
+          extraResources:
+            - apiGroups: [""]
+              resources: ["pods", "namespaces", "services", "configmaps"]
+              verbs: ["create", "update", "patch", "delete", "get", "list"]
+
     cleanupController:
       replicas: 2
+      serviceMonitor:
+        enabled: true
+
     reportsController:
       replicas: 2
+      serviceMonitor:
+        enabled: true
+
+    # Cleanup cronjobs to prevent internal resources from stacking up
+    cleanupJobs:
+      admissionReports:
+        enabled: true
+        threshold: 5000
+      clusterAdmissionReports:
+        enabled: true
+        threshold: 5000

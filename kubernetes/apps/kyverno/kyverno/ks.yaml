@@ -9,6 +9,9 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: observability
   interval: 1h
   path: ./kubernetes/apps/kyverno/kyverno/app
   prune: true
