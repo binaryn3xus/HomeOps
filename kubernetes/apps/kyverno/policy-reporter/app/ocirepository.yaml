@@ -1,11 +1,14 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: policy-reporter
   namespace: kyverno
 spec:
-  interval: 1h
-  url: oci://ghcr.io/kyverno/charts/policy-reporter
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
   ref:
     tag: 3.7.3
+  url: oci://ghcr.io/kyverno/charts/policy-reporter
