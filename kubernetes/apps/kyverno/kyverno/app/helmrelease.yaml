@@ -40,6 +40,13 @@ spec:
       replicas: 2
       serviceMonitor:
         enabled: true
+      createSelfSignedCert: true
+      rbac:
+        clusterRole:
+          extraResources:
+            - apiGroups: [""]
+              resources: ["pods", "namespaces", "services", "ingresses"]
+              verbs: ["create", "update", "delete"]
       # Topology spread constraints for HA (Best with >1 replica)
       topologySpreadConstraints:
         - maxSkew: 1
