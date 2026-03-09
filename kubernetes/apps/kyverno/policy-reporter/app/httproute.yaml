@@ -8,7 +8,7 @@ metadata:
   annotations:
     gatus.home-operations.com/enabled: "true"
     gatus.home-operations.com/endpoint: |-
-      conditions: ["[STATUS] == 200"]
+      conditions: ["len([BODY]) == 0"]
       group: internal
       dns:
         query-name: policy-reporter.unscfleet.com
