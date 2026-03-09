@@ -45,8 +45,11 @@ spec:
         clusterRole:
           extraResources:
             - apiGroups: [""]
-              resources: ["pods", "namespaces", "services", "ingresses"]
-              verbs: ["create", "update", "delete"]
+              resources: ["pods", "namespaces", "services", "ingresses", "secrets", "configmaps"]
+              verbs: ["create", "update", "delete", "get", "list", "watch"]
+            - apiGroups: ["apiextensions.k8s.io"]
+              resources: ["customresourcedefinitions"]
+              verbs: ["get", "list", "watch"]
       # Topology spread constraints for HA (Best with >1 replica)
       topologySpreadConstraints:
         - maxSkew: 1
@@ -66,8 +69,11 @@ spec:
         clusterRole:
           extraResources:
             - apiGroups: [""]
-              resources: ["pods", "namespaces", "services", "configmaps"]
-              verbs: ["create", "update", "patch", "delete", "get", "list"]
+              resources: ["pods", "namespaces", "services", "configmaps", "secrets"]
+              verbs: ["create", "update", "patch", "delete", "get", "list", "watch"]
+            - apiGroups: ["apiextensions.k8s.io"]
+              resources: ["customresourcedefinitions"]
+              verbs: ["get", "list", "watch"]
 
     cleanupController:
       replicas: 2
@@ -78,6 +84,15 @@ spec:
       replicas: 2
       serviceMonitor:
         enabled: true
+      rbac:
+        clusterRole:
+          extraResources:
+            - apiGroups: [""]
+              resources: ["pods", "namespaces", "services", "configmaps", "secrets"]
+              verbs: ["get", "list", "watch"]
+            - apiGroups: ["apiextensions.k8s.io"]
+              resources: ["customresourcedefinitions"]
+              verbs: ["get", "list", "watch"]
 
     # Cleanup cronjobs to prevent internal resources from stacking up
     cleanupJobs:
