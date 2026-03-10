@@ -29,19 +29,13 @@ spec:
       exclude:
         any:
           - resources:
-              namespaces:
-                - kube-system
-                - kube-public
-                - kube-node-lease
-                - local-path-storage
-                - flux-system
-                - rook-ceph
-                - system-upgrade
-                - cilium
-                - calico-system
-                - tigera-operator
-                - cloudflare
-                - cert-manager
+              names:
+                - kube-root-ca.crt
+          - resources:
+              selector:
+                matchExpressions:
+                  - key: "app.kubernetes.io/managed-by"
+                    operator: Exists
       validate:
         message: "Resource is not managed by Flux (missing Flux labels)."
         anyPattern:
