@@ -6,4 +6,5 @@ namespace: kyverno
 resources:
   - ./ocirepository.yaml
   - ./helmrelease.yaml
+  - ./grafanadashboard.yaml
   - ../policies/
