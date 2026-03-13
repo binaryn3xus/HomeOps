@@ -45,6 +45,7 @@ spec:
     cephClusterSpec:
       cephConfig:
         global:
+          mon_clock_drift_allowed: "0.10"
           bdev_enable_discard: "true"
           bdev_async_discard: "true"
           bdev_async_discard_threads: "1"
