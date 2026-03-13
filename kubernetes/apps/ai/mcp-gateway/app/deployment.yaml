@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mcp-gateway
+  namespace: ai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mcp-gateway
+  template:
+    metadata:
+      labels:
+        app: mcp-gateway
+    spec:
+      containers:
+        - name: mcp-gateway
+          image: python:3.11-slim
+          command: ["/bin/sh", "-c", "pip install fastmcp && python /app/main.py"]
+          ports:
+            - containerPort: 8080
+              name: http
+          env:
+            - name: GITHUB_PERSONAL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: mcp-secrets
+                  key: GITHUB_PERSONAL_TOKEN
+            - name: GITHUB_ENTERPRISE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: mcp-secrets
+                  key: GITHUB_ENTERPRISE_TOKEN
+            - name: GITHUB_ENTERPRISE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: mcp-secrets
+                  key: GITHUB_ENTERPRISE_URL
+          volumeMounts:
+            - name: config
+              mountPath: /app/main.py
+              subPath: main.py
+      volumes:
+        - name: config
+          configMap:
+            name: mcp-gateway-config

@@ -6,6 +6,7 @@ namespace: ai
 resources:
   - ./namespace.yaml
   - ./comfyui/ks.yaml
+  - ./mcp-gateway/ks.yaml
   - ./ollama/ks.yaml
   - ./open-webui/ks.yaml
   - ./searxng/ks.yaml
