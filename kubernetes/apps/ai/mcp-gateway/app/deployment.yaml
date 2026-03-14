@@ -17,12 +17,29 @@ spec:
         - name: mcp-gateway
           image: ghcr.io/all-hands-ai/python-nodejs:python3.11-nodejs22-slim
           imagePullPolicy: IfNotPresent
-          command: ["/bin/sh", "-c", "pip install fastmcp && python /app/main.py"]
+          command: 
+            - "/bin/sh"
+            - "-c"
+            - |
+              set -xe
+              curl -L https://github.com/github/github-mcp-server/releases/download/v0.32.0/github-mcp-server_Linux_x86_64.tar.gz | tar -xz -C /usr/local/bin github-mcp-server
+              chmod +x /usr/local/bin/github-mcp-server
+              uv pip install --system fastmcp
+              python /app/main.py
           ports:
             - containerPort: 8080
               name: http
           env:
+            - name: PYTHONUNBUFFERED
+              value: "1"
+            - name: FASTMCP_MESSAGE_PATH
+              value: "/messages/"
             - name: GITHUB_PERSONAL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: mcp-secrets
+                  key: GITHUB_PERSONAL_TOKEN
+            - name: GITHUB_PERSONAL_ACCESS_TOKEN # For the new official server
               valueFrom:
                 secretKeyRef:
                   name: mcp-secrets
