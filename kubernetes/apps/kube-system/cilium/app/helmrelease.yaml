@@ -38,7 +38,7 @@ spec:
     dashboards:
       enabled: true
     devices: enp+
-    enableIPv4BIGTCP: true
+    enableIPv4BIGTCP: false
     endpointRoutes:
       enabled: true
     envoy:
