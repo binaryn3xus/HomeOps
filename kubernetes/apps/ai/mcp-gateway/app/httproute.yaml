@@ -1,0 +1,23 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: mcp-gateway-external
+  namespace: ai
+spec:
+  parentRefs:
+    - name: envoy-external
+      namespace: network
+      sectionName: https
+  hostnames:
+    - mcp.unscfleet.com
+  rules:
+    - matches:
+        - headers:
+            - name: X-Auth-Token
+              type: Exact
+              value: "${MCP_AUTH_TOKEN}"
+      backendRefs:
+        - name: mcp-gateway-svc
+          port: 8080
