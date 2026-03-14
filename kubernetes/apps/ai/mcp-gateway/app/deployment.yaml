@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: mcp-gateway
-          image: public.ecr.aws/docker/library/python:3.11-slim
+          image: nikolaik/python-nodejs:python3.11-nodejs22-slim
           command: ["/bin/sh", "-c", "pip install fastmcp && python /app/main.py"]
           ports:
             - containerPort: 8080
