@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
         - name: mcp-gateway
-          image: nikolaik/python-nodejs:python3.11-nodejs22-slim
+          image: ghcr.io/all-hands-ai/python-nodejs:python3.11-nodejs22-slim
+          imagePullPolicy: IfNotPresent
           command: ["/bin/sh", "-c", "pip install fastmcp && python /app/main.py"]
           ports:
             - containerPort: 8080
