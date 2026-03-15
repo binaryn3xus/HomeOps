@@ -16,7 +16,7 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: /mcp
+            value: /
           headers:
             - name: X-Auth-Token
               type: Exact
@@ -26,7 +26,7 @@ spec:
           urlRewrite:
             path:
               type: ReplacePrefixMatch
-              replacePrefixMatch: /
+              replacePrefixMatch: /mcp
       backendRefs:
         - name: mcp-gateway-svc
           port: 8080

@@ -33,12 +33,17 @@ spec:
           ports:
             - containerPort: 9000
               name: http
+            - containerPort: 5173
+              name: ui
             - containerPort: 3000
               name: metrics
           volumeMounts:
             - name: config
-              mountPath: /app/mcpx.yaml
-              subPath: mcpx.yaml
+              mountPath: /lunar/packages/mcpx-server/config/mcp.json
+              subPath: mcp.json
+            - name: config
+              mountPath: /lunar/packages/mcpx-server/config/app.yaml
+              subPath: app.yaml
             - name: bin
               mountPath: /mcp/bin
       volumes:
