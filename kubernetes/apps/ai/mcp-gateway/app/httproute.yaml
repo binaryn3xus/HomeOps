@@ -8,7 +8,6 @@ metadata:
   annotations:
     gatus.home-operations.com/endpoint: |-
       group: external
-      path: /mcp
       conditions:
         - "[STATUS] == 405"
 spec:
@@ -21,9 +20,15 @@ spec:
   rules:
     - matches:
         - path:
-            type: Exact
-            value: /mcp
+            type: PathPrefix
+            value: /
           method: GET
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /mcp
       backendRefs:
         - name: mcp-gateway-svc
           port: 8080
