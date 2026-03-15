@@ -11,6 +11,6 @@ resources:
 configMapGenerator:
   - name: mcp-gateway-config
     files:
-      - main.py
+      - mcpx.yaml
 generatorOptions:
   disableNameSuffixHash: false

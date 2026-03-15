@@ -1,0 +1,12 @@
+mcpServers:
+  home:
+    command: /usr/local/bin/github-mcp-server
+    args: ["stdio"]
+    env:
+      GITHUB_PERSONAL_ACCESS_TOKEN: ${GITHUB_PERSONAL_TOKEN}
+  work:
+    command: /usr/local/bin/github-mcp-server
+    args: ["stdio"]
+    env:
+      GITHUB_HOST: ${GITHUB_ENTERPRISE_URL}
+      GITHUB_PERSONAL_ACCESS_TOKEN: ${GITHUB_ENTERPRISE_TOKEN}
