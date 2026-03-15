@@ -14,4 +14,4 @@ configMapGenerator:
       - mcp.json
       - app.yaml
 generatorOptions:
-  disableNameSuffixHash: false
+  disableNameSuffixHash: true
