@@ -10,9 +10,5 @@ spec:
       targetPort: 9000
       protocol: TCP
       name: http
-    - port: 5173
-      targetPort: 5173
-      protocol: TCP
-      name: ui
   selector:
     app: mcp-gateway
