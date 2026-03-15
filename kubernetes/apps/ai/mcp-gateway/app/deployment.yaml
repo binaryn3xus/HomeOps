@@ -21,11 +21,11 @@ spec:
             - |
               set -xe
               apk add --no-cache curl tar
-              curl -L https://github.com/github/github-mcp-server/releases/download/v0.32.0/github-mcp-server_Linux_x86_64.tar.gz | tar -xz -C /usr/local/bin github-mcp-server
-              chmod +x /usr/local/bin/github-mcp-server
+              curl -L https://github.com/github/github-mcp-server/releases/download/v0.32.0/github-mcp-server_Linux_x86_64.tar.gz | tar -xz -C /mcp/bin github-mcp-server
+              chmod +x /mcp/bin/github-mcp-server
           volumeMounts:
             - name: bin
-              mountPath: /usr/local/bin
+              mountPath: /mcp/bin
       containers:
         - name: mcp-gateway
           image: us-central1-docker.pkg.dev/prj-common-442813/mcpx/mcpx:latest
@@ -40,7 +40,7 @@ spec:
               mountPath: /app/mcpx.yaml
               subPath: mcpx.yaml
             - name: bin
-              mountPath: /usr/local/bin
+              mountPath: /mcp/bin
       volumes:
         - name: config
           configMap:
