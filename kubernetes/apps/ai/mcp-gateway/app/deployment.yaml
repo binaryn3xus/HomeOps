@@ -28,11 +28,13 @@ spec:
               mountPath: /usr/local/bin
       containers:
         - name: mcp-gateway
-          image: ghcr.io/thelunarcompany/mcpx:latest
+          image: us-central1-docker.pkg.dev/prj-common-442813/mcpx/mcpx:latest
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 3000
+            - containerPort: 9000
               name: http
+            - containerPort: 3000
+              name: metrics
           volumeMounts:
             - name: config
               mountPath: /app/mcpx.yaml
