@@ -30,6 +30,3 @@ spec:
       backendRefs:
         - name: mcp-gateway-svc
           port: 8080
-      backendRefs:
-        - name: mcp-gateway-svc
-          port: 8080
