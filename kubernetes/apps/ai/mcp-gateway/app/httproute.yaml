@@ -5,6 +5,12 @@ kind: HTTPRoute
 metadata:
   name: mcp-gateway-external
   namespace: ai
+  annotations:
+    gatus.home-operations.com/endpoint: |-
+      group: external
+      path: /mcp
+      conditions:
+        - "[STATUS] == 405"
 spec:
   parentRefs:
     - name: envoy-external
@@ -13,6 +19,14 @@ spec:
   hostnames:
     - mcp.unscfleet.com
   rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /mcp
+          method: GET
+      backendRefs:
+        - name: mcp-gateway-svc
+          port: 8080
     - matches:
         - path:
             type: PathPrefix
