@@ -7,9 +7,11 @@ resources:
   - externalsecret.yaml
   - deployment.yaml
   - service.yaml
+  - httproute.yaml
 configMapGenerator:
   - name: mcp-gateway-config
     files:
-      - main.py
+      - mcp.json
+      - app.yaml
 generatorOptions:
-  disableNameSuffixHash: false
+  disableNameSuffixHash: true

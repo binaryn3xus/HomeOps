@@ -13,34 +13,42 @@ spec:
       labels:
         app: mcp-gateway
     spec:
+      initContainers:
+        - name: download-mcp-server
+          image: alpine:latest
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              set -xe
+              apk add --no-cache curl tar
+              curl -L https://github.com/github/github-mcp-server/releases/download/v0.32.0/github-mcp-server_Linux_x86_64.tar.gz | tar -xz -C /mcp/bin github-mcp-server
+              chmod +x /mcp/bin/github-mcp-server
+          volumeMounts:
+            - name: bin
+              mountPath: /mcp/bin
       containers:
         - name: mcp-gateway
-          image: public.ecr.aws/docker/library/python:3.11-slim
-          command: ["/bin/sh", "-c", "pip install fastmcp && python /app/main.py"]
+          image: us-central1-docker.pkg.dev/prj-common-442813/mcpx/mcpx:latest
+          imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8080
+            - containerPort: 9000
               name: http
-          env:
-            - name: GITHUB_PERSONAL_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: mcp-secrets
-                  key: GITHUB_PERSONAL_TOKEN
-            - name: GITHUB_ENTERPRISE_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: mcp-secrets
-                  key: GITHUB_ENTERPRISE_TOKEN
-            - name: GITHUB_ENTERPRISE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: mcp-secrets
-                  key: GITHUB_ENTERPRISE_URL
+            - containerPort: 5173
+              name: ui
+            - containerPort: 3000
+              name: metrics
           volumeMounts:
             - name: config
-              mountPath: /app/main.py
-              subPath: main.py
+              mountPath: /lunar/packages/mcpx-server/config/mcp.json
+              subPath: mcp.json
+            - name: config
+              mountPath: /lunar/packages/mcpx-server/config/app.yaml
+              subPath: app.yaml
+            - name: bin
+              mountPath: /mcp/bin
       volumes:
         - name: config
           configMap:
             name: mcp-gateway-config
+        - name: bin
+          emptyDir: {}

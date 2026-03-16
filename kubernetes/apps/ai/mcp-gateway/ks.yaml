@@ -11,6 +11,10 @@ spec:
       app.kubernetes.io/name: *app
   interval: 1h
   path: ./kubernetes/apps/ai/mcp-gateway/app
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: mcp-secrets
   prune: true
   sourceRef:
     kind: GitRepository

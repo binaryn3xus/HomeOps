@@ -27,7 +27,8 @@ machine:
       path: /etc/cri/conf.d/20-customization.part
       content: |
         [plugins."io.containerd.grpc.v1.cri".registry]
-           max_concurrent_downloads = 10
+          config_path = "/etc/cri/conf.d/hosts"
+          max_concurrent_downloads = 10
         [plugins."io.containerd.cri.v1.images"]
           discard_unpacked_layers = false
         [plugins."io.containerd.cri.v1.runtime"]
