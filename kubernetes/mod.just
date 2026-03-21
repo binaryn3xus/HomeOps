@@ -56,6 +56,11 @@ sync-oci:
         kubectl -n "$ns" annotate --field-manager flux-client-side-apply --overwrite ocirepo "$name" reconcile.fluxcd.io/requestedAt="$(date +%s)"; \
     done
 
+[doc('Renew all Teleport certificates')]
+teleport-renew-certs:
+    kubectl delete secret -n teleport teleport-intermediary-ca-secret teleport-proxy-internal-cert teleport-proxy-public-cert
+    @echo "Teleport certificates deleted. cert-manager will recreate them shortly."
+
 [doc('Clear Rook Ceph Crash Reports')]
 clear-ceph-crashes:
     kubectl -n rook-ceph exec deploy/rook-ceph-tools -- ceph crash archive-all
