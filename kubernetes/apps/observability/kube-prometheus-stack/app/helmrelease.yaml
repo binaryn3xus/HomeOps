@@ -55,6 +55,8 @@ spec:
                   storage: 1Gi
     prometheus-node-exporter:
       fullnameOverride: node-exporter
+      extraArgs:
+        - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|run/containerd/.+|var/lib/docker/.+|var/lib/kubelet/.+|etc/nfsmount.conf|var/mnt/local-hostpath)($|/)
       prometheus:
         monitor:
           enabled: true
