@@ -22,6 +22,11 @@ spec:
           - name: alertname
             value: InfoInhibitor
             matchType: "="
+      - receiver: "null"
+        matchers:
+          - name: alertname
+            value: CephNodeDiskspaceWarning # Disable the CephNodeDiskspaceWarning alert by routing it to the null receiver - Reason: Too many false positives
+            matchType: "="
       - receiver: pushover
         matchers:
           - name: severity
