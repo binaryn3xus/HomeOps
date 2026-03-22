@@ -48,6 +48,8 @@ spec:
             namespace: network
             sectionName: https
     cephClusterSpec:
+      monitoring:
+        enabled: true
       cephConfig:
         global:
           mon_clock_drift_allowed: "0.10"
