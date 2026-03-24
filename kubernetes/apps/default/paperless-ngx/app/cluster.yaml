@@ -1,0 +1,80 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: paperless-db
+spec:
+  instances: 3
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.0
+  primaryUpdateStrategy: unsupervised
+  primaryUpdateMethod: switchover
+
+  storage:
+    size: 5Gi
+    storageClass: ceph-block
+
+  monitoring:
+    enablePodMonitor: true
+
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      enabled: true
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: paperless-db
+
+  bootstrap:
+    initdb:
+      database: paperless
+      owner: paperless
+      secret:
+        name: paperless-ngx-secret
+
+  externalClusters:
+    - name: origin
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: paperless-db
+
+  affinity:
+    enablePodAntiAffinity: true
+    podAntiAffinityType: preferred
+    topologyKey: kubernetes.io/hostname
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: paperless-db
+spec:
+  configuration:
+    data:
+      compression: bzip2
+      jobs: 4
+    destinationPath: s3://cnpg-paperless/
+    endpointURL: "https://542984caaa7dbec621de30100e1e7b23.r2.cloudflarestorage.com"
+    s3Credentials:
+      accessKeyId:
+        name: paperless-ngx-secret
+        key: backupAccessKeyId
+      secretAccessKey:
+        name: paperless-ngx-secret
+        key: backupAccessSecret
+    wal:
+      compression: bzip2
+      maxParallel: 4
+  retentionPolicy: 30d
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+  name: paperless-db
+spec:
+  backupOwnerReference: self
+  cluster:
+    name: paperless-db
+  method: plugin
+  pluginConfiguration:
+    name: barman-cloud.cloudnative-pg.io
+  schedule: "0 0 */4 * * *"

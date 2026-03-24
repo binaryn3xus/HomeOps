@@ -1,0 +1,8 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+resources:
+  - ./cluster.yaml
+  - ./externalsecret.yaml
+  - ./helmrelease.yaml
+  # We use the existing 'default' namespace
