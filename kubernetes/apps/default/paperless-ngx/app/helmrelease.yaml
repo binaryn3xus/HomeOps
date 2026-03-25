@@ -25,20 +25,24 @@ spec:
           app:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 2.19.1
+              tag: 2.20.13
             env:
               TZ: "America/New_York"
               PAPERLESS_PORT: &port 8000
               PAPERLESS_URL: https://paperless.unscfleet.com
+              PAPERLESS_CSRF_TRUSTED_ORIGINS: >-
+                https://paperless.unscfleet.com,
+                http://paperless-ngx.default.svc.cluster.local:8000,
+                http://paperless-ngx.default.svc:8000,
+                http://paperless-ngx.default:8000
               PAPERLESS_REDIS: redis://paperless-redis.default.svc.cluster.local:6379
               PAPERLESS_DBHOST: paperless-db-rw.default.svc.cluster.local
               PAPERLESS_DBNAME: paperless
               PAPERLESS_DBUSER: paperless
-              # We map the password explicitly from the secret CNPG generates
               PAPERLESS_DBPASS:
                 valueFrom:
                   secretKeyRef:
-                    name: paperless-db-app
+                    name: paperless-ngx-secret
                     key: password
               PAPERLESS_OCR_LANGUAGE: eng
               PAPERLESS_TIME_ZONE: "America/New_York"
@@ -76,11 +80,11 @@ spec:
             conditions: ["len([BODY]) == 0"]
             group: internal
             dns:
-              query-name: {{ .Release.Name }}.unscfleet.com
+              query-name: paperless.unscfleet.com
               query-type: A
             url: 1.1.1.1
         hostnames:
-          - "{{ .Release.Name }}.unscfleet.com"
+          - "paperless.unscfleet.com"
         parentRefs:
           - name: envoy-internal
             namespace: network
@@ -112,14 +116,9 @@ metadata:
   name: paperless-redis
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.2
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: paperless-ngx
   install:
     remediation:
       retries: -1
