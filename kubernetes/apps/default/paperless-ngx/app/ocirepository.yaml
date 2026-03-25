@@ -1,12 +1,14 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1beta2.json
-apiVersion: source.toolkit.fluxcd.io/v1beta2
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/source.toolkit.fluxcd.io/ocirepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: paperless-ngx
-  namespace: default
 spec:
-  interval: 12h
-  url: oci://ghcr.io/bjw-s/charts/app-template
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
   ref:
-    tag: 3.7.2
+    tag: 4.6.2
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
