@@ -34,11 +34,10 @@ spec:
               PAPERLESS_DBHOST: paperless-db-rw.default.svc.cluster.local
               PAPERLESS_DBNAME: paperless
               PAPERLESS_DBUSER: paperless
-              # We map the password explicitly from the secret CNPG generates
               PAPERLESS_DBPASS:
                 valueFrom:
                   secretKeyRef:
-                    name: paperless-db-app
+                    name: paperless-ngx-secret
                     key: password
               PAPERLESS_OCR_LANGUAGE: eng
               PAPERLESS_TIME_ZONE: "America/New_York"
