@@ -30,6 +30,11 @@ spec:
               TZ: "America/New_York"
               PAPERLESS_PORT: &port 8000
               PAPERLESS_URL: https://paperless.unscfleet.com
+              PAPERLESS_CSRF_TRUSTED_ORIGINS: >-
+                https://paperless.unscfleet.com,
+                http://paperless-ngx.default.svc.cluster.local:8000,
+                http://paperless-ngx.default.svc:8000,
+                http://paperless-ngx.default:8000
               PAPERLESS_REDIS: redis://paperless-redis.default.svc.cluster.local:6379
               PAPERLESS_DBHOST: paperless-db-rw.default.svc.cluster.local
               PAPERLESS_DBNAME: paperless
