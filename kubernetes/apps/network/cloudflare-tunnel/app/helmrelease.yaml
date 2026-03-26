@@ -74,6 +74,8 @@ spec:
       config:
         data:
           config.yaml: |-
+            warp-routing:
+              enabled: true
             ingress:
               - hostname: unsc-pillarofautumn.unscfleet.com
                 service: rdp://10.0.20.10:3389
