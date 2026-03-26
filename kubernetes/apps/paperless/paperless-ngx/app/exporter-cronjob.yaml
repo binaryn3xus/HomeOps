@@ -1,0 +1,53 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: exporter
+  namespace: paperless
+spec:
+  schedule: "0 2 * * *" # Daily at 2 AM
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: exporter
+              image: ghcr.io/paperless-ngx/paperless-ngx:2.20.13
+              command:
+                - /usr/local/bin/python3
+                - /usr/src/paperless/src/manage.py
+                - document_exporter
+                - /usr/src/paperless/export
+              env:
+                - name: PAPERLESS_REDIS
+                  value: redis://valkey.paperless.svc.cluster.local:6379
+                - name: PAPERLESS_DBHOST
+                  value: postgres-rw.paperless.svc.cluster.local
+                - name: PAPERLESS_DBNAME
+                  value: paperless
+                - name: PAPERLESS_DBUSER
+                  value: paperless
+                - name: PAPERLESS_DBPASS
+                  valueFrom:
+                    secretKeyRef:
+                      name: paperless-secrets
+                      key: PAPERLESS_ADMIN_PASSWORD
+              envFrom:
+                - secretRef:
+                    name: paperless-secrets
+              volumeMounts:
+                - name: storage
+                  mountPath: /usr/src/paperless/export
+                  subPath: export
+                - name: storage
+                  mountPath: /usr/src/paperless/data
+                  subPath: data
+                - name: storage
+                  mountPath: /usr/src/paperless/media
+                  subPath: media
+          volumes:
+            - name: storage
+              persistentVolumeClaim:
+                claimName: synology
