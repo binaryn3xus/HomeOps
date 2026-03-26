@@ -22,8 +22,8 @@ spec:
         containers:
           app:
             image:
-              repository: cgr.dev/chainguard/valkey
-              tag: 8.0.2
+              repository: ghcr.io/valkey-io/valkey
+              tag: 9.0.3
             resources:
               requests:
                 cpu: 10m

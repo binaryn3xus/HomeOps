@@ -28,6 +28,8 @@ spec:
               tag: 2.20.13
             env:
               TZ: "America/New_York"
+              PUID: 1000
+              PGID: 1000
               PAPERLESS_PORT: &port 8000
               PAPERLESS_URL: https://paperless.unscfleet.com
               PAPERLESS_REDIS: redis://valkey.paperless.svc.cluster.local:6379
