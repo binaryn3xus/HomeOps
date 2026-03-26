@@ -13,7 +13,7 @@ spec:
 
   storage:
     size: 10Gi
-    storageClass: synology-nfs
+    storageClass: ceph-block
 
   monitoring:
     enablePodMonitor: true

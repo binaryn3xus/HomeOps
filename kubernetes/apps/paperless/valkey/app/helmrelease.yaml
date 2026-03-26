@@ -41,4 +41,4 @@ spec:
         type: persistentVolumeClaim
         accessMode: ReadWriteOnce
         size: 2Gi
-        storageClass: synology-nfs
+        storageClass: ceph-block
