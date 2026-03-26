@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - ocirepository.yaml
+  - synology.yaml
+  - postgres-cluster/kustomization.yaml
+  - valkey/kustomization.yaml
+  - tika/kustomization.yaml
+  - gotenberg/kustomization.yaml
+  - paperless-ngx/kustomization.yaml

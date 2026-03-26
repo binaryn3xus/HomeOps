@@ -1,0 +1,24 @@
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: postgres
+  namespace: paperless
+spec:
+  configuration:
+    data:
+      compression: bzip2
+      jobs: 4
+    destinationPath: s3://cnpg-paperless/
+    endpointURL: "https://542984caaa7dbec621de30100e1e7b23.r2.cloudflarestorage.com"
+    s3Credentials:
+      accessKeyId:
+        name: paperless-secrets
+        key: backupAccessKeyId
+      secretAccessKey:
+        name: paperless-secrets
+        key: backupAccessSecret
+    wal:
+      compression: bzip2
+      maxParallel: 4
+  retentionPolicy: 30d
