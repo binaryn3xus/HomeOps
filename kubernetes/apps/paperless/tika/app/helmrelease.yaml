@@ -16,7 +16,7 @@ spec:
           app:
             image:
               repository: apache/tika
-              tag: 3.1.0.0
+              tag: 3.3.0.0
             ports:
               - containerPort: 9998
                 name: http
