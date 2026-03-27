@@ -43,6 +43,7 @@ spec:
                     key: PAPERLESS_ADMIN_PASSWORD
               PAPERLESS_TIKA_ENABLED: 1
               PAPERLESS_TIKA_ENDPOINT: http://tika.paperless.svc.cluster.local:9998
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg.paperless.svc.cluster.local:3000
               PAPERLESS_GOTENBERG_ENDPOINT: http://gotenberg.paperless.svc.cluster.local:3000
               PAPERLESS_OCR_LANGUAGE: eng
               PAPERLESS_TIME_ZONE: "America/New_York"
