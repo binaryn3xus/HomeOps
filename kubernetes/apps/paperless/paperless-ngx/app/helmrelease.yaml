@@ -2,13 +2,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: paperless
+  name: &app paperless
   namespace: paperless
 spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: paperless
+    name: *app
   install:
     remediation:
       retries: -1
@@ -28,6 +28,8 @@ spec:
               tag: 2.20.13
             env:
               TZ: "America/New_York"
+              PUID: 1000
+              PGID: 1000
               PAPERLESS_PORT: &port 8000
               PAPERLESS_URL: https://paperless.unscfleet.com
               PAPERLESS_REDIS: redis://valkey.paperless.svc.cluster.local:6379
@@ -41,6 +43,7 @@ spec:
                     key: PAPERLESS_ADMIN_PASSWORD
               PAPERLESS_TIKA_ENABLED: 1
               PAPERLESS_TIKA_ENDPOINT: http://tika.paperless.svc.cluster.local:9998
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg.paperless.svc.cluster.local:3000
               PAPERLESS_GOTENBERG_ENDPOINT: http://gotenberg.paperless.svc.cluster.local:3000
               PAPERLESS_OCR_LANGUAGE: eng
               PAPERLESS_TIME_ZONE: "America/New_York"
