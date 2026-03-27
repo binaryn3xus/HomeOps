@@ -12,6 +12,12 @@ spec:
       template:
         spec:
           restartPolicy: OnFailure
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
           containers:
             - name: exporter
               image: ghcr.io/paperless-ngx/paperless-ngx:2.20.13
