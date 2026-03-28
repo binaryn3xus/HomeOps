@@ -28,12 +28,15 @@ spec:
               tag: v3.0.9@sha256:2b65888163fd59716f1c8285b31c5bd0b30c9c3c192c42b516688e3887d4ba60
             env:
               TZ: "America/New_York"
+              PUID: 1000
+              PGID: 1000
               PAPERLESS_API_URL: http://paperless.paperless.svc.cluster.local:8000
               PAPERLESS_URL: http://paperless.paperless.svc.cluster.local:8000
               PAPERLESS_AI_PROVIDER: ollama
               OLLAMA_HOST: http://ollama.ai.svc.cluster.local:11434
               OLLAMA_MODEL: llama3.2
               USE_RAG: "true"
+              LOG_PATH: /app/data/logs
               PORT: &port 3000
             envFrom:
               - secretRef:
