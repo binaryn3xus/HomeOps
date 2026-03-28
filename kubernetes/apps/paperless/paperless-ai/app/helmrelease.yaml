@@ -30,7 +30,7 @@ spec:
               TZ: "America/New_York"
               PUID: 1000
               PGID: 1000
-              PAPERLESS_API_URL: http://paperless.paperless.svc.cluster.local:8000
+              PAPERLESS_API_URL: http://paperless.paperless.svc.cluster.local:8000/api
               PAPERLESS_USERNAME:
                 valueFrom:
                   secretKeyRef:
@@ -71,7 +71,8 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /app/data
-      logs:
-        type: emptyDir
-        globalMounts:
+            subPath: data
           - path: /app/logs
+            subPath: logs
+          - path: /app/public/images
+            subPath: images
