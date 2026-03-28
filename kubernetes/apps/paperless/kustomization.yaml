@@ -8,3 +8,4 @@ resources:
   - tika/ks.yaml
   - gotenberg/ks.yaml
   - paperless-ngx/ks.yaml
+  - paperless-ai/ks.yaml

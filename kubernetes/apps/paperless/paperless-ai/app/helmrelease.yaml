@@ -1,0 +1,67 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app paperless-ai
+  namespace: paperless
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: *app
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      paperless-ai:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: docker.io/clusterzx/paperless-ai
+              tag: v3.0.9
+            env:
+              TZ: "America/New_York"
+              PAPERLESS_API_URL: http://paperless.paperless.svc.cluster.local:8000
+              PAPERLESS_URL: http://paperless.paperless.svc.cluster.local:8000
+              PAPERLESS_AI_PROVIDER: ollama
+              OLLAMA_HOST: http://ollama.ai.svc.cluster.local:11434
+              OLLAMA_MODEL: llama3.2
+              USE_RAG: "true"
+              PORT: &port 3000
+            envFrom:
+              - secretRef:
+                  name: paperless-ai-secrets
+            resources:
+              requests:
+                cpu: 100m
+                memory: 500Mi
+              limits:
+                memory: 1000Mi
+
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+
+    service:
+      app:
+        controller: paperless-ai
+        ports:
+          http:
+            port: *port
+
+    persistence:
+      data:
+        existingClaim: *app
+        globalMounts:
+          - path: /app/data
