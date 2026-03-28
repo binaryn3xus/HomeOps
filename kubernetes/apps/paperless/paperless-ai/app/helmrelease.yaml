@@ -31,12 +31,10 @@ spec:
               PUID: 1000
               PGID: 1000
               PAPERLESS_API_URL: http://paperless.paperless.svc.cluster.local:8000
-              PAPERLESS_URL: http://paperless.paperless.svc.cluster.local:8000
-              PAPERLESS_AI_PROVIDER: ollama
-              OLLAMA_HOST: http://ollama.ai.svc.cluster.local:11434
+              AI_PROVIDER: ollama
+              OLLAMA_API_URL: http://ollama.ai.svc.cluster.local:11434
               OLLAMA_MODEL: llama3.2
               USE_RAG: "true"
-              LOG_PATH: /app/data/logs
               PORT: &port 3000
             envFrom:
               - secretRef:
@@ -68,3 +66,7 @@ spec:
         existingClaim: *app
         globalMounts:
           - path: /app/data
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /app/logs
