@@ -24,8 +24,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/clusterzx/paperless-ai
-              tag: v3.0.9
+              repository: ghcr.io/clusterzx/paperless-ai
+              tag: v3.0.9@sha256:2b65888163fd59716f1c8285b31c5bd0b30c9c3c192c42b516688e3887d4ba60
             env:
               TZ: "America/New_York"
               PAPERLESS_API_URL: http://paperless.paperless.svc.cluster.local:8000
