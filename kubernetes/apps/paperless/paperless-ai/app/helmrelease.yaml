@@ -74,7 +74,7 @@ spec:
             conditions: ["len([BODY]) == 0"]
             group: internal
             dns:
-              query-name: {{ .Release.Name }}.unscfleet.com
+              query-name: "{{ .Release.Name }}.unscfleet.com"
               query-type: A
             url: 1.1.1.1
         hostnames:
