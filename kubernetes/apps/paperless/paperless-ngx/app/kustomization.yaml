@@ -4,6 +4,5 @@ namespace: paperless
 resources:
   - externalsecret.yaml
   - helmrelease.yaml
-  - httproute.yaml
   - exporter-cronjob.yaml
   - ocirepository.yaml
