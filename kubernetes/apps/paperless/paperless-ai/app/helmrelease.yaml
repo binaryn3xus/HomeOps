@@ -26,22 +26,11 @@ spec:
             image:
               repository: ghcr.io/clusterzx/paperless-ai
               tag: v3.0.9@sha256:2b65888163fd59716f1c8285b31c5bd0b30c9c3c192c42b516688e3887d4ba60
-            env:
-              TZ: "America/New_York"
-              PUID: 1000
-              PGID: 1000
-              PAPERLESS_API_URL: http://paperless.paperless.svc.cluster.local:8000/api
-              PAPERLESS_USERNAME:
-                valueFrom:
-                  secretKeyRef:
-                    name: paperless-secrets
-                    key: PAPERLESS_ADMIN_USER
-              AI_PROVIDER: ollama
               OLLAMA_API_URL: http://ollama.ai.svc.cluster.local:11434
               OLLAMA_MODEL: llama3.2
-              USE_RAG: "true"
-              PORT: &port 3000
             envFrom:
+              - configMapRef:
+                  name: paperless-ai-env
               - secretRef:
                   name: paperless-ai-secrets
             resources:
