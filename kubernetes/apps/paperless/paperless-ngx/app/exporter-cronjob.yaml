@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: exporter
+  name: paperless-exporter
   namespace: paperless
 spec:
   schedule: "0 2 * * *" # Daily at 2 AM
@@ -30,7 +30,7 @@ spec:
                 - name: PAPERLESS_REDIS
                   value: redis://valkey.paperless.svc.cluster.local:6379
                 - name: PAPERLESS_DBHOST
-                  value: postgres-rw.paperless.svc.cluster.local
+                  value: paperless-postgres-rw.paperless.svc.cluster.local
                 - name: PAPERLESS_DBNAME
                   value: paperless
                 - name: PAPERLESS_DBUSER

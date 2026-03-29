@@ -3,7 +3,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres
+  name: paperless-postgres
   namespace: paperless
 spec:
   instances: 3
@@ -23,7 +23,7 @@ spec:
       enabled: true
       isWALArchiver: true
       parameters: &barmanParameters
-        barmanObjectName: postgres
+        barmanObjectName: paperless-postgres
 
   bootstrap:
     initdb:

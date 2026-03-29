@@ -33,7 +33,7 @@ spec:
               PAPERLESS_PORT: &port 8000
               PAPERLESS_URL: https://paperless.unscfleet.com
               PAPERLESS_REDIS: redis://valkey.paperless.svc.cluster.local:6379
-              PAPERLESS_DBHOST: postgres-rw.paperless.svc.cluster.local
+              PAPERLESS_DBHOST: paperless-postgres-rw.paperless.svc.cluster.local
               PAPERLESS_DBNAME: paperless
               PAPERLESS_DBUSER: paperless
               PAPERLESS_DBPASS:

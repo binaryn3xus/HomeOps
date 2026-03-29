@@ -9,7 +9,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: postgres
+    - name: paperless-postgres
       namespace: paperless
     - name: valkey
       namespace: paperless
