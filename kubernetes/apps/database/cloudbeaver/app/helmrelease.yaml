@@ -37,7 +37,7 @@ spec:
                 memory: 512Mi
               limits:
                 memory: 1Gi
-    
+
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
@@ -58,17 +58,18 @@ spec:
         annotations:
           gatus.home-operations.com/enabled: "true"
           gatus.home-operations.com/endpoint: |-
+            conditions: ["len([BODY]) == 0"]
             group: internal
+            dns:
+              query-name: "{{ .Release.Name }}.unscfleet.com"
+              query-type: A
+            url: 1.1.1.1
         hostnames:
-          - cloudbeaver.unscfleet.com
+          - "{{ .Release.Name }}.unscfleet.com"
         parentRefs:
           - name: envoy-internal
             namespace: network
             sectionName: https
-        rules:
-          - backendRefs:
-              - identifier: app
-                port: 8978
 
     persistence:
       workspace:
