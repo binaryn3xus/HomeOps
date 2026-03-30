@@ -6,4 +6,3 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   - ./ocirepository.yaml
-  # - ./pikvm-dns.yaml # Disabled for now to test out cloudflare tunnel with ingress rules for pikvm and teleport
