@@ -48,6 +48,9 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
+              add:
+                - SETUID
+                - SETGID
               drop:
                 - ALL
           volumeMounts:
