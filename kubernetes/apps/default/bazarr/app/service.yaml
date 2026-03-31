@@ -5,6 +5,8 @@ metadata:
   namespace: default
   labels:
     app.kubernetes.io/name: bazarr
+    app.kubernetes.io/instance: bazarr
+    app.kubernetes.io/controller: bazarr
 spec:
   ports:
     - name: http
@@ -13,3 +15,5 @@ spec:
       protocol: TCP
   selector:
     app.kubernetes.io/name: bazarr
+    app.kubernetes.io/instance: bazarr
+    app.kubernetes.io/controller: bazarr
