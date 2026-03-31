@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: watchstate
+  namespace: default
+  labels:
+    app.kubernetes.io/name: watchstate
+    app.kubernetes.io/instance: watchstate
+    app.kubernetes.io/controller: watchstate
+    app.kubernetes.io/service: watchstate
+spec:
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: watchstate
+    app.kubernetes.io/instance: watchstate
+    app.kubernetes.io/controller: watchstate
