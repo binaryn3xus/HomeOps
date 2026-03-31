@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jellyfin
+  namespace: default
+  labels:
+    app.kubernetes.io/name: jellyfin
+    app.kubernetes.io/instance: jellyfin
+    app.kubernetes.io/controller: jellyfin
+    app.kubernetes.io/service: jellyfin
+  annotations:
+    lbipam.cilium.io/ips: "10.0.30.39"
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 8096
+      targetPort: 8096
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: jellyfin
+    app.kubernetes.io/instance: jellyfin
+    app.kubernetes.io/controller: jellyfin
