@@ -62,7 +62,7 @@ spec:
               memory: 128Mi
             limits:
               cpu: 100m
-              memory: 512MiGi
+              memory: 512Mi
           volumeMounts:
             - name: config
               mountPath: /config
