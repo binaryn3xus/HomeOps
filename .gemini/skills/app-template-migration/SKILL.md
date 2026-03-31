@@ -34,6 +34,7 @@ Before implementing, you must discover the existing state to prevent immutabilit
 #### Deployment (`deployment.yaml`)
 - **apiVersion**: `apps/v1`
 - **Selector**: MUST exactly match the labels found in step 1.
+- **Environment Variables**: For applications with more than a few environment variables, move them into a `configmap.yaml` and use `envFrom` in the deployment to keep the manifest clean.
 - **Startup Probe**: ALWAYS include a `startupProbe` for applications with non-trivial initialization (e.g., DB migrations, heavy syncs).
   ```yaml
   startupProbe:
