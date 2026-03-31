@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tautulli
+  namespace: default
+  labels:
+    app.kubernetes.io/name: tautulli
+    app.kubernetes.io/instance: tautulli
+    app.kubernetes.io/controller: tautulli
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: tautulli
+      app.kubernetes.io/instance: tautulli
+      app.kubernetes.io/controller: tautulli
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: tautulli
+        app.kubernetes.io/instance: tautulli
+        app.kubernetes.io/controller: tautulli
+      annotations:
+        reloader.stakater.com/auto: "true"
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/tautulli/tautulli:v2.17.0@sha256:9c73937390116e6875970f4c816ddfa9d905cc88f76f2ddbf4eaca2ea2715006
+          env:
+            - name: TZ
+              value: "America/New_York"
+          ports:
+            - name: http
+              containerPort: 8181
+          startupProbe:
+            httpGet:
+              path: /
+              port: 8181
+            failureThreshold: 30
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 1Gi
+            limits:
+              cpu: 1000m
+              memory: 2Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: config
+              mountPath: /config
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: tautulli
