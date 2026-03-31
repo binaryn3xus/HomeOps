@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bazarr
+  namespace: default
+  labels:
+    app.kubernetes.io/name: bazarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: bazarr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: bazarr
+      annotations:
+        reloader.stakater.com/auto: "true"
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+      containers:
+        - name: app
+          image: ghcr.io/home-operations/bazarr:1.5.6@sha256:79fc37491f55c7e24427bcd669bce3df2d7415ca432a47ce9d53cc5988af8411
+          env:
+            - name: BAZARR__PORT
+              value: "80"
+            - name: TZ
+              value: America/New_York
+          ports:
+            - name: http
+              containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 10m
+              memory: 128Mi
+            limits:
+              cpu: 100m
+              memory: 512MiGi
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: tmpfs
+              mountPath: /config/cache
+              subPath: cache
+            - name: tmpfs
+              mountPath: /config/log
+              subPath: log
+            - name: tmpfs
+              mountPath: /tmp
+              subPath: tmp
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: bazarr
+        - name: tmpfs
+          emptyDir: {}
