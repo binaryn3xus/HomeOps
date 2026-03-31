@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tdarr-node
+  namespace: default
+  labels:
+    app.kubernetes.io/name: tdarr-node
+    app.kubernetes.io/instance: tdarr-node
+    app.kubernetes.io/controller: tdarr-node
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: tdarr-node
+      app.kubernetes.io/instance: tdarr-node
+      app.kubernetes.io/controller: tdarr-node
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: tdarr-node
+        app.kubernetes.io/instance: tdarr-node
+        app.kubernetes.io/controller: tdarr-node
+      annotations:
+        reloader.stakater.com/auto: "true"
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values: ["tdarr", "tdarr-node"]
+              topologyKey: kubernetes.io/hostname
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: NotIn
+                    values:
+                      - fleetcom-node4
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+      containers:
+        - name: app
+          image: ghcr.io/haveagitgat/tdarr_node:2.67.01
+          env:
+            - name: TZ
+              value: "America/New_York"
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: nodeID
+              value: "tdarr-node"
+            - name: serverIP
+              value: "tdarr.default.svc.cluster.local"
+            - name: serverPort
+              value: "8266"
+            - name: nodeName
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          resources:
+            requests:
+              cpu: 100m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 2Gi
+              gpu.intel.com/i915: "1"
+          volumeMounts:
+            - name: media
+              mountPath: /media
+            - name: temp
+              mountPath: /temp
+      volumes:
+        - name: media
+          persistentVolumeClaim:
+            claimName: synology-media
+        - name: temp
+          emptyDir: {}
