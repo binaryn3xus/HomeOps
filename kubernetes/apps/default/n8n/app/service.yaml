@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: n8n
+  namespace: default
+  labels:
+    app.kubernetes.io/name: n8n
+    app.kubernetes.io/instance: n8n
+    app.kubernetes.io/controller: n8n
+    app.kubernetes.io/service: n8n
+spec:
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: n8n
+    app.kubernetes.io/instance: n8n
+    app.kubernetes.io/controller: n8n
