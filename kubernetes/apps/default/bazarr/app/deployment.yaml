@@ -44,7 +44,7 @@ spec:
             httpGet:
               path: /health
               port: 80
-            initialDelaySeconds: 0
+            initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 1
             failureThreshold: 3
@@ -52,13 +52,13 @@ spec:
             httpGet:
               path: /health
               port: 80
-            initialDelaySeconds: 0
+            initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 1
             failureThreshold: 3
           securityContext:
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
+            readOnlyRootFilesystem: false
             capabilities:
               drop:
                 - ALL
