@@ -3,7 +3,10 @@ kind: Service
 metadata:
   name: plex
   namespace: default
+  annotations:
+    lbipam.cilium.io/ips: "10.0.30.34"
 spec:
+  type: LoadBalancer
   ports:
     - name: http
       port: 32400
