@@ -20,7 +20,7 @@ spec:
         app.kubernetes.io/controller: tdarr
     spec:
       securityContext:
-        fsGroup: 1000
+        fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: app
@@ -29,9 +29,9 @@ spec:
             - name: TZ
               value: "America/New_York"
             - name: PUID
-              value: "1000"
+              value: "568"
             - name: PGID
-              value: "1000"
+              value: "568"
             - name: serverPort
               value: "8266"
             - name: webUIPort

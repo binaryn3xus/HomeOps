@@ -37,7 +37,7 @@ spec:
                     values:
                       - fleetcom-node4
       securityContext:
-        fsGroup: 1000
+        fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: app
@@ -46,9 +46,9 @@ spec:
             - name: TZ
               value: "America/New_York"
             - name: PUID
-              value: "1000"
+              value: "568"
             - name: PGID
-              value: "1000"
+              value: "568"
             - name: nodeID
               value: "tdarr-node"
             - name: serverIP

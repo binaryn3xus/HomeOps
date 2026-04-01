@@ -23,9 +23,9 @@ spec:
         intel.feature.node.kubernetes.io/gpu: "true"
       securityContext:
         runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
         supplementalGroups: [107]
       initContainers:
@@ -36,7 +36,7 @@ spec:
             - |
               mkdir -p /config/config
               cp /tmp/encoding.xml /config/config/encoding.xml
-              chown 1000:1000 /config/config/encoding.xml
+              chown 568:568 /config/config/encoding.xml
           volumeMounts:
             - name: config
               mountPath: /config
