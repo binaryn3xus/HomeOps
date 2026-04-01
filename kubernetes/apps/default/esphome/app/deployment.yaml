@@ -1,0 +1,169 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: esphome
+  namespace: default
+  labels:
+    app.kubernetes.io/name: esphome
+    app.kubernetes.io/instance: esphome
+    app.kubernetes.io/controller: esphome
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: esphome
+      app.kubernetes.io/instance: esphome
+      app.kubernetes.io/controller: esphome
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: esphome
+        app.kubernetes.io/instance: esphome
+        app.kubernetes.io/controller: esphome
+      annotations:
+        reloader.stakater.com/auto: "true"
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+      containers:
+        - name: app
+          image: ghcr.io/esphome/esphome:2026.3.1
+          env:
+            - name: TZ
+              value: America/New_York
+            - name: PLATFORMIO_CORE_DIR
+              value: /config/.esphome/platformio
+          ports:
+            - name: http
+              containerPort: 6052
+          startupProbe:
+            httpGet:
+              path: /
+              port: 6052
+            failureThreshold: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 6052
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 6052
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - NET_ADMIN
+                - NET_RAW
+          resources:
+            requests:
+              cpu: 20m
+              memory: 2Gi
+            limits:
+              cpu: 1000m
+              memory: 4Gi
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: esphome-cache
+              mountPath: /config/.esphome
+              subPath: esphome
+            - name: tmp
+              mountPath: /tmp
+            - name: esphome-secrets-file
+              mountPath: /config/secrets.yaml
+              subPath: secrets.yaml
+            # --- Blinds ---
+            - name: esphome-configs
+              mountPath: /config/blinds-001.yaml
+              subPath: blinds-001.yaml
+            - name: esphome-configs
+              mountPath: /config/blinds-002.yaml
+              subPath: blinds-002.yaml
+            - name: esphome-configs
+              mountPath: /config/blinds-003.yaml
+              subPath: blinds-003.yaml
+            - name: esphome-configs
+              mountPath: /config/blinds-004.yaml
+              subPath: blinds-004.yaml
+            - name: esphome-configs
+              mountPath: /config/blinds-005.yaml
+              subPath: blinds-005.yaml
+            - name: esphome-configs
+              mountPath: /config/blinds-006.yaml
+              subPath: blinds-006.yaml
+            - name: esphome-configs
+              mountPath: /config/blinds-007.yaml
+              subPath: blinds-007.yaml
+            - name: esphome-configs
+              mountPath: /config/blinds-008.yaml
+              subPath: blinds-008.yaml
+            - name: esphome-configs
+              mountPath: /config/blinds-009.yaml
+              subPath: blinds-009.yaml
+            - name: esphome-configs
+              mountPath: /config/blinds-010.yaml
+              subPath: blinds-010.yaml
+            # --- Standalone Devices ---
+            - name: esphome-configs
+              mountPath: /config/pantry-leds.yaml
+              subPath: pantry-leds.yaml
+            - name: esphome-configs
+              mountPath: /config/washer.yaml
+              subPath: washer.yaml
+            - name: esphome-configs
+              mountPath: /config/holiday-lights-main.yaml
+              subPath: holiday-lights-main.yaml
+            - name: esphome-configs
+              mountPath: /config/master-bedroom-athom-bulb.yaml
+              subPath: master-bedroom-athom-bulb.yaml
+            - name: esphome-configs
+              mountPath: /config/office-presence-sensor.yaml
+              subPath: office-presence-sensor.yaml
+            # --- Packages Sub-directory ---
+            - name: esphome-configs
+              mountPath: /config/packages/base_blinds.yaml
+              subPath: base_blinds.yaml
+            - name: esphome-configs
+              mountPath: /config/packages/base_diagnostics.yaml
+              subPath: base_diagnostics.yaml
+            - name: esphome-configs
+              mountPath: /config/packages/base_pow_r2.yaml
+              subPath: base_pow_r2.yaml
+            - name: esphome-configs
+              mountPath: /config/packages/common_wifi.yaml
+              subPath: common_wifi.yaml
+            - name: esphome-configs
+              mountPath: /config/packages/athom-presence-sensor.yaml
+              subPath: athom-presence-sensor.yaml
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: esphome
+        - name: esphome-cache
+          persistentVolumeClaim:
+            claimName: esphome
+        - name: tmp
+          emptyDir: {}
+        - name: esphome-secrets-file
+          secret:
+            secretName: esphome-secrets-file
+        - name: esphome-configs
+          configMap:
+            name: esphome-device-configs

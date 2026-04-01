@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mosquitto
+  namespace: default
+  labels:
+    app.kubernetes.io/name: mosquitto
+    app.kubernetes.io/instance: mosquitto
+    app.kubernetes.io/controller: mosquitto
+    app.kubernetes.io/service: mosquitto
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: mqtt.unscfleet.com
+    lbipam.cilium.io/ips: 10.0.30.35
+    gatus.home-operations.com/enabled: "true"
+    gatus.home-operations.com/endpoint: |-
+      conditions: ["len([BODY]) == 0"]
+      group: internal
+      dns:
+        query-name: mqtt.unscfleet.com
+        query-type: A
+      url: 1.1.1.1
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 1883
+      targetPort: 1883
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: mosquitto
+    app.kubernetes.io/instance: mosquitto
+    app.kubernetes.io/controller: mosquitto

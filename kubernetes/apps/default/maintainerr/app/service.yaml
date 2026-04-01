@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: maintainerr
+  namespace: default
+  labels:
+    app.kubernetes.io/name: maintainerr
+    app.kubernetes.io/instance: maintainerr
+    app.kubernetes.io/controller: maintainerr
+    app.kubernetes.io/service: maintainerr
+spec:
+  ports:
+    - name: http
+      port: 6246
+      targetPort: 6246
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: maintainerr
+    app.kubernetes.io/instance: maintainerr
+    app.kubernetes.io/controller: maintainerr

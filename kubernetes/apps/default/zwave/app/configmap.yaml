@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zwave-config
+  namespace: default
+  labels:
+    app.kubernetes.io/name: zwave
+    app.kubernetes.io/instance: zwave
+    app.kubernetes.io/controller: zwave
+data:
+  TZ: America/New_York
+  PORT: "80"
+  TRUST_PROXY: "true"
+  ZWAVE_PORT: "tcp://10.0.30.8:7638"

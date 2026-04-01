@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maintainerr
+  namespace: default
+  labels:
+    app.kubernetes.io/name: maintainerr
+    app.kubernetes.io/instance: maintainerr
+    app.kubernetes.io/controller: maintainerr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: maintainerr
+      app.kubernetes.io/instance: maintainerr
+      app.kubernetes.io/controller: maintainerr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: maintainerr
+        app.kubernetes.io/instance: maintainerr
+        app.kubernetes.io/controller: maintainerr
+      annotations:
+        reloader.stakater.com/auto: "true"
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+      containers:
+        - name: app
+          image: ghcr.io/maintainerr/maintainerr:3.3.0@sha256:38c54e15c730e160fdd11707bf36d2129f303df08c0bd4ef8ae49dd12e94b232
+          env:
+            - name: TZ
+              value: "America/New_York"
+            - name: MAINTAINERR__PORT
+              value: "6246"
+          ports:
+            - name: http
+              containerPort: 6246
+          startupProbe:
+            httpGet:
+              path: /
+              port: 6246
+            failureThreshold: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 6246
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 6246
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1000Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: config
+              mountPath: /opt/data
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: maintainerr

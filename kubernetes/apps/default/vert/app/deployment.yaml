@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vert
+  namespace: default
+  labels:
+    app.kubernetes.io/name: vert
+    app.kubernetes.io/instance: vert
+    app.kubernetes.io/controller: it-tools
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: vert
+      app.kubernetes.io/instance: vert
+      app.kubernetes.io/controller: it-tools
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: vert
+        app.kubernetes.io/instance: vert
+        app.kubernetes.io/controller: it-tools
+      annotations:
+        reloader.stakater.com/auto: "true"
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/vert-sh/vert:latest
+          env:
+            - name: TZ
+              value: "America/New_York"
+          ports:
+            - name: http
+              containerPort: 80
+          resources:
+            requests:
+              cpu: 1
+              memory: 2Gi
+            limits:
+              cpu: 2
+              memory: 4Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              add:
+                - CHOWN
+                - SETUID
+              drop:
+                - ALL
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+            - name: nginx-cache
+              mountPath: /var/cache/nginx
+            - name: nginx-run
+              mountPath: /var/run
+      volumes:
+        - name: tmp
+          emptyDir: {}
+        - name: nginx-cache
+          emptyDir: {}
+        - name: nginx-run
+          emptyDir: {}
