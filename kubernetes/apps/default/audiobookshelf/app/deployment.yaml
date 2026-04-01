@@ -7,6 +7,8 @@ metadata:
     reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: audiobookshelf
@@ -73,6 +75,8 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
+            - name: media
+              mountPath: /media
             - name: tmpfs
               mountPath: /.npm
               subPath: .npm
@@ -80,5 +84,8 @@ spec:
         - name: config
           persistentVolumeClaim:
             claimName: audiobookshelf
+        - name: media
+          persistentVolumeClaim:
+            claimName: synology-media
         - name: tmpfs
           emptyDir: {}
