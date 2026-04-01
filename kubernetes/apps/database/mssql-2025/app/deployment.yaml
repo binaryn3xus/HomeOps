@@ -49,12 +49,7 @@ spec:
               cpu: 4
               memory: 6Gi
           securityContext:
-            allowPrivilegeEscalation: false
-            capabilities:
-              add:
-                - SYS_PTRACE
-              drop:
-                - ALL
+            privileged: true
           volumeMounts:
             - name: config
               mountPath: /var/opt/mssql
