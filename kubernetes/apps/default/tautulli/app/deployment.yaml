@@ -47,6 +47,7 @@ spec:
               add:
                 - SETUID
                 - SETGID
+                - CHOWN
               drop:
                 - ALL
           volumeMounts:

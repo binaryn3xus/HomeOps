@@ -78,6 +78,8 @@ spec:
               mountPath: /config
             - name: media
               mountPath: /media
+            - name: tmp
+              mountPath: /tmp
       volumes:
         - name: config
           persistentVolumeClaim:
@@ -85,3 +87,5 @@ spec:
         - name: media
           persistentVolumeClaim:
             claimName: synology-media
+        - name: tmp
+          emptyDir: {}
