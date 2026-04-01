@@ -9,6 +9,8 @@ metadata:
     app.kubernetes.io/controller: zwave
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: zwave
@@ -26,12 +28,9 @@ spec:
       containers:
         - name: app
           image: ghcr.io/zwave-js/zwave-js-ui:11.15.1
-          env:
-            - name: TZ
-              value: "America/New_York"
-            - name: PORT
-              value: "80"
           envFrom:
+            - configMapRef:
+                name: zwave-config
             - secretRef:
                 name: zwave-secret
           ports:
