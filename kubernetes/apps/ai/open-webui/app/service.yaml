@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: open-webui
+  namespace: ai
+spec:
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: open-webui
+    app.kubernetes.io/instance: open-webui
+    app.kubernetes.io/controller: open-webui
