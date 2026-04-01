@@ -40,13 +40,13 @@ spec:
               containerPort: 3000
           startupProbe:
             httpGet:
-              path: /health
+              path: /health/
               port: 80
             failureThreshold: 30
             periodSeconds: 10
           livenessProbe:
             httpGet:
-              path: /health
+              path: /health/
               port: 80
             initialDelaySeconds: 0
             periodSeconds: 10
@@ -54,7 +54,7 @@ spec:
             failureThreshold: 3
           readinessProbe:
             httpGet:
-              path: /health
+              path: /health/
               port: 80
             initialDelaySeconds: 0
             periodSeconds: 10
