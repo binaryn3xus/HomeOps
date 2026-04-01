@@ -9,6 +9,8 @@ metadata:
     app.kubernetes.io/controller: plex
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: plex
@@ -84,7 +86,7 @@ spec:
             - name: config
               mountPath: /config
             - name: media
-              mountPath: /synology-media
+              mountPath: /media
             - name: tmpfs
               mountPath: /config/Library/Application Support/Plex Media Server/Logs
               subPath: logs
