@@ -78,6 +78,8 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
+            - name: media
+              mountPath: /media
             - name: tmpfs
               mountPath: /config/cache
               subPath: cache
@@ -91,5 +93,8 @@ spec:
         - name: config
           persistentVolumeClaim:
             claimName: bazarr
+        - name: media
+          persistentVolumeClaim:
+            claimName: synology-media
         - name: tmpfs
           emptyDir: {}
