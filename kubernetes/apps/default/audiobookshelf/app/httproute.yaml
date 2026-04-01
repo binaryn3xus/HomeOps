@@ -15,6 +15,10 @@ spec:
     - audiobookshelf.unscfleet.com
     - audiobooks.unscfleet.com
   rules:
-    - backendRefs:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
         - name: audiobookshelf
           port: 80
