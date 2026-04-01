@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloudbeaver
+  namespace: database
+spec:
+  ports:
+    - name: http
+      port: 8978
+      targetPort: 8978
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: cloudbeaver
+    app.kubernetes.io/instance: cloudbeaver
+    app.kubernetes.io/controller: cloudbeaver
