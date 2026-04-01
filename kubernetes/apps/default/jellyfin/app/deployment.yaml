@@ -49,7 +49,7 @@ spec:
               subPath: encoding.xml
       containers:
         - name: app
-          image: ghcr.io/jellyfin/jellyfin:10.11.6
+          image: ghcr.io/jellyfin/jellyfin:10.11.7
           env:
             - name: TZ
               value: "America/New_York"
