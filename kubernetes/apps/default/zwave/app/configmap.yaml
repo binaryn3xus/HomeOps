@@ -10,5 +10,5 @@ metadata:
 data:
   TZ: America/New_York
   PORT: "80"
-  TRUST_PROXY: "true"
+  TRUST_PROXY: "1"
   ZWAVE_PORT: "tcp://10.0.30.8:6638"
