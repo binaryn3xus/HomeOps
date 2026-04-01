@@ -1,0 +1,141 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: searxng
+  namespace: ai
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: searxng
+      app.kubernetes.io/instance: searxng
+      app.kubernetes.io/controller: searxng
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: searxng
+        app.kubernetes.io/instance: searxng
+        app.kubernetes.io/controller: searxng
+    spec:
+      containers:
+        - name: main
+          image: ghcr.io/searxng/searxng:2025.12.30-a5c946a32
+          env:
+            - name: SEARXNG_BASE_URL
+              value: https://search.unscfleet.com
+            - name: SEARXNG_URL
+              value: https://search.unscfleet.com
+            - name: SEARXNG_PORT
+              value: "8080"
+          envFrom:
+            - secretRef:
+                name: searxng-secret
+          ports:
+            - name: http
+              containerPort: 8080
+          livenessProbe: &probe
+            httpGet:
+              path: /stats
+              port: 8080
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          readinessProbe: *probe
+          resources:
+            requests:
+              cpu: 10m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 2Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - CHOWN
+                - SETGID
+                - SETUID
+                - DAC_OVERRIDE
+          volumeMounts:
+            - name: config
+              mountPath: /etc/searxng/settings.yml
+              subPath: settings.yml
+              readOnly: true
+            - name: config
+              mountPath: /etc/searxng/limiter.toml
+              subPath: limiter.toml
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: config
+          configMap:
+            name: searxng-configmap
+        - name: tmp
+          emptyDir: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: searxng-redis
+  namespace: ai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: searxng
+      app.kubernetes.io/instance: searxng
+      app.kubernetes.io/controller: redis
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: searxng
+        app.kubernetes.io/instance: searxng
+        app.kubernetes.io/controller: redis
+    spec:
+      securityContext:
+        runAsUser: 65534
+        runAsGroup: 65534
+      containers:
+        - name: redis
+          image: ghcr.io/valkey-io/valkey:9.0.3
+          args:
+            - --save
+            - ""
+            - --appendonly
+            - "no"
+          livenessProbe: &redisProbe
+            exec:
+              command:
+                - valkey-cli
+                - ping
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          readinessProbe: *redisProbe
+          resources:
+            requests:
+              cpu: 5m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: redis-data
+              mountPath: /data
+      volumes:
+        - name: redis-data
+          emptyDir: {}
