@@ -3,10 +3,8 @@ kind: Deployment
 metadata:
   name: plex
   namespace: default
-  labels:
-    app.kubernetes.io/name: plex
-    app.kubernetes.io/instance: plex
-    app.kubernetes.io/controller: plex
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   strategy:
@@ -22,8 +20,6 @@ spec:
         app.kubernetes.io/name: plex
         app.kubernetes.io/instance: plex
         app.kubernetes.io/controller: plex
-      annotations:
-        reloader.stakater.com/auto: "true"
     spec:
       securityContext:
         runAsNonRoot: true
@@ -51,7 +47,7 @@ spec:
               port: 32400
             failureThreshold: 30
             periodSeconds: 10
-          livenessProbe:
+          livenessProbe: &probe
             httpGet:
               path: /identity
               port: 32400
@@ -59,14 +55,7 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 1
             failureThreshold: 3
-          readinessProbe:
-            httpGet:
-              path: /identity
-              port: 32400
-            initialDelaySeconds: 0
-            periodSeconds: 10
-            timeoutSeconds: 1
-            failureThreshold: 3
+          readinessProbe: *probe
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true

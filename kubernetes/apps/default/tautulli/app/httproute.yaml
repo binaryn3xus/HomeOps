@@ -3,10 +3,6 @@ kind: HTTPRoute
 metadata:
   name: tautulli
   namespace: default
-  labels:
-    app.kubernetes.io/name: tautulli
-    app.kubernetes.io/instance: tautulli
-    app.kubernetes.io/controller: tautulli
   annotations:
     gatus.home-operations.com/enabled: "true"
     gatus.home-operations.com/endpoint: |-

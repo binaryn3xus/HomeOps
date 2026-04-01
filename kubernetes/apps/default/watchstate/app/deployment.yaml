@@ -3,10 +3,8 @@ kind: Deployment
 metadata:
   name: watchstate
   namespace: default
-  labels:
-    app.kubernetes.io/name: watchstate
-    app.kubernetes.io/instance: watchstate
-    app.kubernetes.io/controller: watchstate
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   selector:
@@ -20,8 +18,6 @@ spec:
         app.kubernetes.io/name: watchstate
         app.kubernetes.io/instance: watchstate
         app.kubernetes.io/controller: watchstate
-      annotations:
-        reloader.stakater.com/auto: "true"
     spec:
       securityContext:
         runAsNonRoot: true
@@ -45,7 +41,7 @@ spec:
               port: 8080
             failureThreshold: 30
             periodSeconds: 10
-          livenessProbe:
+          livenessProbe: &probe
             httpGet:
               path: /
               port: 8080
@@ -53,14 +49,7 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 5
             failureThreshold: 5
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 8080
-            initialDelaySeconds: 10
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 5
+          readinessProbe: *probe
           resources:
             requests:
               cpu: 50m

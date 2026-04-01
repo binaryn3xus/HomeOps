@@ -3,10 +3,8 @@ kind: Deployment
 metadata:
   name: audiobookshelf
   namespace: default
-  labels:
-    app.kubernetes.io/name: audiobookshelf
-    app.kubernetes.io/instance: audiobookshelf
-    app.kubernetes.io/controller: audiobookshelf
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   selector:
@@ -20,8 +18,6 @@ spec:
         app.kubernetes.io/name: audiobookshelf
         app.kubernetes.io/instance: audiobookshelf
         app.kubernetes.io/controller: audiobookshelf
-      annotations:
-        reloader.stakater.com/auto: "true"
     spec:
       securityContext:
         runAsNonRoot: true
@@ -52,7 +48,7 @@ spec:
               port: 80
             failureThreshold: 30
             periodSeconds: 10
-          livenessProbe:
+          livenessProbe: &probe
             httpGet:
               path: /healthcheck
               port: 80
@@ -60,14 +56,7 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 1
             failureThreshold: 3
-          readinessProbe:
-            httpGet:
-              path: /healthcheck
-              port: 80
-            initialDelaySeconds: 0
-            periodSeconds: 10
-            timeoutSeconds: 1
-            failureThreshold: 3
+          readinessProbe: *probe
           resources:
             requests:
               cpu: 100m

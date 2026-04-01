@@ -3,10 +3,6 @@ kind: HTTPRoute
 metadata:
   name: tdarr
   namespace: default
-  labels:
-    app.kubernetes.io/name: tdarr
-    app.kubernetes.io/instance: tdarr
-    app.kubernetes.io/controller: tdarr
   annotations:
     gatus.home-operations.com/enabled: "true"
     gatus.home-operations.com/endpoint: |-

@@ -3,11 +3,6 @@ kind: Service
 metadata:
   name: prowlarr
   namespace: default
-  labels:
-    app.kubernetes.io/name: prowlarr
-    app.kubernetes.io/instance: prowlarr
-    app.kubernetes.io/controller: prowlarr
-    app.kubernetes.io/service: prowlarr
 spec:
   ports:
     - name: http

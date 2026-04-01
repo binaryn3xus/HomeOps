@@ -3,10 +3,6 @@ kind: HTTPRoute
 metadata:
   name: jellyfin
   namespace: default
-  labels:
-    app.kubernetes.io/name: jellyfin
-    app.kubernetes.io/instance: jellyfin
-    app.kubernetes.io/controller: jellyfin
   annotations:
     gatus.home-operations.com/endpoint: |-
       conditions: ["[STATUS] == 200"]

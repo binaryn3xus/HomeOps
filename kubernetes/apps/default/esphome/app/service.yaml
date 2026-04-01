@@ -3,11 +3,6 @@ kind: Service
 metadata:
   name: esphome
   namespace: default
-  labels:
-    app.kubernetes.io/name: esphome
-    app.kubernetes.io/instance: esphome
-    app.kubernetes.io/controller: esphome
-    app.kubernetes.io/service: esphome
 spec:
   ports:
     - name: http

@@ -3,10 +3,6 @@ kind: HTTPRoute
 metadata:
   name: it-tools
   namespace: default
-  labels:
-    app.kubernetes.io/name: it-tools
-    app.kubernetes.io/instance: it-tools
-    app.kubernetes.io/controller: it-tools
   annotations:
     gatus.home-operations.com/endpoint: |-
       group: external

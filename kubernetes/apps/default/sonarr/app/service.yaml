@@ -3,11 +3,6 @@ kind: Service
 metadata:
   name: sonarr
   namespace: default
-  labels:
-    app.kubernetes.io/name: sonarr
-    app.kubernetes.io/instance: sonarr
-    app.kubernetes.io/controller: sonarr
-    app.kubernetes.io/service: sonarr
 spec:
   ports:
     - name: http

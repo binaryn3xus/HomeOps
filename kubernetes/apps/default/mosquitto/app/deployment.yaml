@@ -3,10 +3,8 @@ kind: Deployment
 metadata:
   name: mosquitto
   namespace: default
-  labels:
-    app.kubernetes.io/name: mosquitto
-    app.kubernetes.io/instance: mosquitto
-    app.kubernetes.io/controller: mosquitto
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   selector:
@@ -20,8 +18,6 @@ spec:
         app.kubernetes.io/name: mosquitto
         app.kubernetes.io/instance: mosquitto
         app.kubernetes.io/controller: mosquitto
-      annotations:
-        reloader.stakater.com/auto: "true"
     spec:
       securityContext:
         runAsNonRoot: true

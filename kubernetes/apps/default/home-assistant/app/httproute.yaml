@@ -3,10 +3,6 @@ kind: HTTPRoute
 metadata:
   name: home-assistant-app
   namespace: default
-  labels:
-    app.kubernetes.io/name: home-assistant
-    app.kubernetes.io/instance: home-assistant
-    app.kubernetes.io/controller: home-assistant
   annotations:
     gatus.home-operations.com/endpoint: 'group: external'
 spec:
@@ -31,10 +27,6 @@ kind: HTTPRoute
 metadata:
   name: home-assistant-code
   namespace: default
-  labels:
-    app.kubernetes.io/name: home-assistant
-    app.kubernetes.io/instance: home-assistant
-    app.kubernetes.io/controller: home-assistant
   annotations:
     gatus.home-operations.com/enabled: "false"
 spec:

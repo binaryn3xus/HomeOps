@@ -2,6 +2,10 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+commonLabels:
+  app.kubernetes.io/name: audiobookshelf
+  app.kubernetes.io/instance: audiobookshelf
+  app.kubernetes.io/controller: audiobookshelf
 resources:
   - ./deployment.yaml
   - ./service.yaml

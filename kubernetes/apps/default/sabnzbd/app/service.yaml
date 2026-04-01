@@ -3,11 +3,6 @@ kind: Service
 metadata:
   name: sabnzbd
   namespace: default
-  labels:
-    app.kubernetes.io/name: sabnzbd
-    app.kubernetes.io/instance: sabnzbd
-    app.kubernetes.io/controller: sabnzbd
-    app.kubernetes.io/service: sabnzbd
 spec:
   ports:
     - name: http

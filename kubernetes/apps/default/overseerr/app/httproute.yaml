@@ -3,10 +3,6 @@ kind: HTTPRoute
 metadata:
   name: overseerr
   namespace: default
-  labels:
-    app.kubernetes.io/name: overseerr
-    app.kubernetes.io/instance: overseerr
-    app.kubernetes.io/controller: overseerr
   annotations:
     gatus.home-operations.com/endpoint: |-
       group: external

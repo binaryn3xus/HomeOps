@@ -3,11 +3,6 @@ kind: Service
 metadata:
   name: it-tools
   namespace: default
-  labels:
-    app.kubernetes.io/name: it-tools
-    app.kubernetes.io/instance: it-tools
-    app.kubernetes.io/controller: it-tools
-    app.kubernetes.io/service: it-tools
 spec:
   ports:
     - name: http

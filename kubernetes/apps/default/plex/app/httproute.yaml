@@ -3,13 +3,8 @@ kind: HTTPRoute
 metadata:
   name: plex
   namespace: default
-  labels:
-    app.kubernetes.io/name: plex
-    app.kubernetes.io/instance: plex
-    app.kubernetes.io/controller: plex
   annotations:
     gatus.home-operations.com/endpoint: |-
-      conditions: ["[STATUS] == 401"]
       group: external
 spec:
   parentRefs:
@@ -19,21 +14,6 @@ spec:
   hostnames:
     - plex.unscfleet.com
   rules:
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /library/streams
-      filters:
-        - type: RequestHeaderModifier
-          requestHeaderModifier:
-            remove: ["Range"]
-      backendRefs:
-        - name: plex
-          port: 32400
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /
-      backendRefs:
+    - backendRefs:
         - name: plex
           port: 32400

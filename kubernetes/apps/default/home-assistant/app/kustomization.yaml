@@ -2,6 +2,10 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+commonLabels:
+  app.kubernetes.io/name: home-assistant
+  app.kubernetes.io/instance: home-assistant
+  app.kubernetes.io/controller: home-assistant
 resources:
   - ./deployment.yaml
   - ./service.yaml

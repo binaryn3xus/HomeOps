@@ -3,11 +3,6 @@ kind: Service
 metadata:
   name: audiobookshelf
   namespace: default
-  labels:
-    app.kubernetes.io/name: audiobookshelf
-    app.kubernetes.io/instance: audiobookshelf
-    app.kubernetes.io/controller: audiobookshelf
-    app.kubernetes.io/service: audiobookshelf
 spec:
   ports:
     - name: http

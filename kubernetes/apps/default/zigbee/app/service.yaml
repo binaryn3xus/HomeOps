@@ -3,11 +3,6 @@ kind: Service
 metadata:
   name: zigbee
   namespace: default
-  labels:
-    app.kubernetes.io/name: zigbee
-    app.kubernetes.io/instance: zigbee
-    app.kubernetes.io/controller: zigbee
-    app.kubernetes.io/service: zigbee
 spec:
   ports:
     - name: http

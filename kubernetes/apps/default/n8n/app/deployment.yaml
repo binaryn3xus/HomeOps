@@ -3,10 +3,8 @@ kind: Deployment
 metadata:
   name: n8n
   namespace: default
-  labels:
-    app.kubernetes.io/name: n8n
-    app.kubernetes.io/instance: n8n
-    app.kubernetes.io/controller: n8n
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   selector:
@@ -20,8 +18,6 @@ spec:
         app.kubernetes.io/name: n8n
         app.kubernetes.io/instance: n8n
         app.kubernetes.io/controller: n8n
-      annotations:
-        reloader.stakater.com/auto: "true"
     spec:
       securityContext:
         runAsNonRoot: true

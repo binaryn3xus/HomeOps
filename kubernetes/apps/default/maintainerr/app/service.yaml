@@ -3,11 +3,6 @@ kind: Service
 metadata:
   name: maintainerr
   namespace: default
-  labels:
-    app.kubernetes.io/name: maintainerr
-    app.kubernetes.io/instance: maintainerr
-    app.kubernetes.io/controller: maintainerr
-    app.kubernetes.io/service: maintainerr
 spec:
   ports:
     - name: http

@@ -3,11 +3,6 @@ kind: Service
 metadata:
   name: zwave
   namespace: default
-  labels:
-    app.kubernetes.io/name: zwave
-    app.kubernetes.io/instance: zwave
-    app.kubernetes.io/controller: zwave
-    app.kubernetes.io/service: zwave
 spec:
   ports:
     - name: http

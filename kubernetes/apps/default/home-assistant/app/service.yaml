@@ -3,11 +3,6 @@ kind: Service
 metadata:
   name: home-assistant-app
   namespace: default
-  labels:
-    app.kubernetes.io/name: home-assistant
-    app.kubernetes.io/instance: home-assistant
-    app.kubernetes.io/controller: home-assistant
-    app.kubernetes.io/service: home-assistant-app
   annotations:
     lbipam.cilium.io/ips: "10.0.30.38"
 spec:
@@ -31,11 +26,6 @@ kind: Service
 metadata:
   name: home-assistant-code-server
   namespace: default
-  labels:
-    app.kubernetes.io/name: home-assistant
-    app.kubernetes.io/instance: home-assistant
-    app.kubernetes.io/controller: home-assistant
-    app.kubernetes.io/service: home-assistant-code-server
 spec:
   type: ClusterIP
   ports:

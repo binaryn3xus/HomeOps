@@ -3,11 +3,6 @@ kind: Service
 metadata:
   name: overseerr
   namespace: default
-  labels:
-    app.kubernetes.io/name: overseerr
-    app.kubernetes.io/instance: overseerr
-    app.kubernetes.io/controller: overseerr
-    app.kubernetes.io/service: overseerr
 spec:
   ports:
     - name: http

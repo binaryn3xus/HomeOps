@@ -3,11 +3,6 @@ kind: Service
 metadata:
   name: tautulli
   namespace: default
-  labels:
-    app.kubernetes.io/name: tautulli
-    app.kubernetes.io/instance: tautulli
-    app.kubernetes.io/controller: tautulli
-    app.kubernetes.io/service: tautulli
 spec:
   ports:
     - name: http

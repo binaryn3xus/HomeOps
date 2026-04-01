@@ -3,10 +3,8 @@ kind: Deployment
 metadata:
   name: home-assistant
   namespace: default
-  labels:
-    app.kubernetes.io/name: home-assistant
-    app.kubernetes.io/instance: home-assistant
-    app.kubernetes.io/controller: home-assistant
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   strategy:
@@ -22,8 +20,6 @@ spec:
         app.kubernetes.io/name: home-assistant
         app.kubernetes.io/instance: home-assistant
         app.kubernetes.io/controller: home-assistant
-      annotations:
-        reloader.stakater.com/auto: "true"
     spec:
       securityContext:
         runAsNonRoot: true
@@ -48,7 +44,7 @@ spec:
               port: 8123
             failureThreshold: 30
             periodSeconds: 10
-          livenessProbe:
+          livenessProbe: &probe
             httpGet:
               path: /
               port: 8123
@@ -56,14 +52,7 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 1
             failureThreshold: 3
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 8123
-            initialDelaySeconds: 0
-            periodSeconds: 10
-            timeoutSeconds: 1
-            failureThreshold: 3
+          readinessProbe: *probe
           resources:
             requests:
               cpu: 250m

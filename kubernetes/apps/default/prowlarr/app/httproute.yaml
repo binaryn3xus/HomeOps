@@ -3,10 +3,6 @@ kind: HTTPRoute
 metadata:
   name: prowlarr
   namespace: default
-  labels:
-    app.kubernetes.io/name: prowlarr
-    app.kubernetes.io/instance: prowlarr
-    app.kubernetes.io/controller: prowlarr
   annotations:
     gatus.home-operations.com/enabled: "true"
     gatus.home-operations.com/endpoint: |-

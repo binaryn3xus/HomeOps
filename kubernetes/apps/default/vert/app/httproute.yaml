@@ -3,10 +3,6 @@ kind: HTTPRoute
 metadata:
   name: vert
   namespace: default
-  labels:
-    app.kubernetes.io/name: vert
-    app.kubernetes.io/instance: vert
-    app.kubernetes.io/controller: it-tools
   annotations:
     gatus.home-operations.com/endpoint: |-
       group: external

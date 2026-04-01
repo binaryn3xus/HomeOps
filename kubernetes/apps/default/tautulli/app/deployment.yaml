@@ -3,10 +3,8 @@ kind: Deployment
 metadata:
   name: tautulli
   namespace: default
-  labels:
-    app.kubernetes.io/name: tautulli
-    app.kubernetes.io/instance: tautulli
-    app.kubernetes.io/controller: tautulli
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   selector:
@@ -20,8 +18,6 @@ spec:
         app.kubernetes.io/name: tautulli
         app.kubernetes.io/instance: tautulli
         app.kubernetes.io/controller: tautulli
-      annotations:
-        reloader.stakater.com/auto: "true"
     spec:
       containers:
         - name: app

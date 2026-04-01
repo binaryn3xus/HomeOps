@@ -3,11 +3,6 @@ kind: Service
 metadata:
   name: radarr
   namespace: default
-  labels:
-    app.kubernetes.io/name: radarr
-    app.kubernetes.io/instance: radarr
-    app.kubernetes.io/controller: radarr
-    app.kubernetes.io/service: radarr
 spec:
   ports:
     - name: http

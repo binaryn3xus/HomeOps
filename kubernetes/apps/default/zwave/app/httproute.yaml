@@ -3,10 +3,6 @@ kind: HTTPRoute
 metadata:
   name: zwave
   namespace: default
-  labels:
-    app.kubernetes.io/name: zwave
-    app.kubernetes.io/instance: zwave
-    app.kubernetes.io/controller: zwave
   annotations:
     gatus.home-operations.com/enabled: "true"
     gatus.home-operations.com/endpoint: |-
