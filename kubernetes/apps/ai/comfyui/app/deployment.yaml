@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comfyui
+  namespace: ai
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: comfyui
+      app.kubernetes.io/instance: comfyui
+      app.kubernetes.io/controller: comfyui
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: comfyui
+        app.kubernetes.io/instance: comfyui
+        app.kubernetes.io/controller: comfyui
+    spec:
+      runtimeClassName: nvidia
+      nodeSelector:
+        nvidia.com/gpu.present: "true"
+      tolerations:
+        - key: sku
+          operator: Equal
+          value: gpu
+          effect: NoSchedule
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: "OnRootMismatch"
+      initContainers:
+        - name: fix-perms
+          image: busybox:latest
+          command:
+            - sh
+            - -c
+            - |
+              chown -R 1000:1000 /workspace
+              chmod -R 755 /workspace
+              echo "Fixed permissions on /workspace"
+          volumeMounts:
+            - name: workspace
+              mountPath: /workspace
+      containers:
+        - name: app
+          image: ghcr.io/ai-dock/comfyui:v2-cuda-12.1.1-base-22.04-v0.2.7@sha256:ca4c95d4d4743d7d5683e57f5e0358fe586bc57578f66c2a844e9fa0650cc619
+          env:
+            - name: AUTO_UPDATE
+              value: "false"
+            - name: DIRECT_ADDRESS_GET_WAN
+              value: "true"
+            - name: SERVICEPORTAL_URL
+              value: "comfyui.unscfleet.com"
+            - name: WEB_ENABLE_AUTH
+              value: "false"
+            - name: WORKSPACE
+              value: "/workspace"
+            - name: CF_QUICK_TUNNELS
+              value: "false"
+            - name: SERVERLESS
+              value: "false"
+            - name: PROVISIONING_SCRIPT
+              value: "https://raw.githubusercontent.com/ai-dock/comfyui/main/config/provisioning/flux.sh"
+          ports:
+            - name: http
+              containerPort: 8188
+          securityContext:
+            privileged: true
+          resources:
+            requests:
+              cpu: 500m
+              memory: 4Gi
+              nvidia.com/gpu: "1"
+            limits:
+              cpu: 2000m
+              memory: 6Gi
+              nvidia.com/gpu: "1"
+          volumeMounts:
+            - name: workspace
+              mountPath: /workspace
+            - name: workspace
+              mountPath: /workspace/ComfyUI/output
+              subPath: ComfyUI/output
+      volumes:
+        - name: workspace
+          persistentVolumeClaim:
+            claimName: comfyui-openebs-pvc

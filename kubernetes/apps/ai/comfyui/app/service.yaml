@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: comfyui
+  namespace: ai
+spec:
+  ports:
+    - name: http
+      port: 8188
+      targetPort: 8188
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: comfyui
+    app.kubernetes.io/instance: comfyui
+    app.kubernetes.io/controller: comfyui
