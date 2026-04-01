@@ -5,6 +5,7 @@ metadata:
   namespace: default
   annotations:
     gatus.home-operations.com/endpoint: |-
+      conditions: ["[STATUS] == 401"]
       group: external
 spec:
   parentRefs:
@@ -14,6 +15,17 @@ spec:
   hostnames:
     - plex.unscfleet.com
   rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /library/streams
+      filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            remove: ["Range"]
+      backendRefs:
+        - name: plex
+          port: 32400
     - backendRefs:
         - name: plex
           port: 32400
