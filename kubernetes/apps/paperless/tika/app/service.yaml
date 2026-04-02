@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tika
+  namespace: paperless
+spec:
+  ports:
+    - name: http
+      port: 9998
+      targetPort: 9998
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: tika
+    app.kubernetes.io/instance: tika
+    app.kubernetes.io/controller: tika
