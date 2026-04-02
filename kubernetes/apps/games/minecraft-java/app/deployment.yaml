@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft-java
+  namespace: games
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: minecraft-java
+      app.kubernetes.io/instance: minecraft-java
+      app.kubernetes.io/controller: minecraft
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: minecraft-java
+        app.kubernetes.io/instance: minecraft-java
+        app.kubernetes.io/controller: minecraft
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+      containers:
+        - name: app
+          image: ghcr.io/itzg/minecraft-server:stable
+          env:
+            - name: TZ
+              value: America/New_York
+          envFrom:
+            - configMapRef:
+                name: minecraft-java-env
+          ports:
+            - name: minecraft
+              containerPort: 25565
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "2"
+              memory: 4Gi
+            limits:
+              cpu: "4"
+              memory: 6Gi
+          volumeMounts:
+            - name: config
+              mountPath: /data
+            - name: whitelist
+              mountPath: /data/whitelist.json
+              subPath: whitelist.json
+              readOnly: true
+            - name: operators
+              mountPath: /data/ops.json
+              subPath: ops.json
+              readOnly: true
+            - name: modrinth-projects
+              mountPath: /data/modrinth-projects.txt
+              subPath: modrinth-projects.txt
+              readOnly: true
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: minecraft-java
+        - name: whitelist
+          configMap:
+            name: minecraft-java-whitelist
+        - name: operators
+          configMap:
+            name: minecraft-java-operators
+        - name: modrinth-projects
+          configMap:
+            name: minecraft-java-modrinth-projects

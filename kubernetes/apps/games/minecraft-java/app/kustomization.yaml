@@ -2,23 +2,24 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+commonLabels:
+  app.kubernetes.io/name: minecraft-java
+  app.kubernetes.io/instance: minecraft-java
+  app.kubernetes.io/controller: minecraft
 resources:
   - ./configmap.yaml
   - ./dnsendpoint.yaml
   - ./gatus.yaml
-  - ./helmrelease.yaml
-  - ./ocirepository.yaml
+  - ./deployment.yaml
+  - ./service.yaml
 configMapGenerator:
   - name: minecraft-java-whitelist
-    namespace: games
     files:
       - whitelist.json=./resources/whitelist.json
   - name: minecraft-java-operators
-    namespace: games
     files:
       - ops.json=./resources/ops.json
   - name: minecraft-java-modrinth-projects
-    namespace: games
     files:
       - modrinth-projects.txt=./resources/modrinth-projects.txt
 generatorOptions:
