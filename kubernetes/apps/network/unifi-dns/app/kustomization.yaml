@@ -10,3 +10,4 @@ resources:
   - ./service.yaml
   - ./servicemonitor.yaml
   - ./externalsecret.yaml
+  - ./rbac.yaml
