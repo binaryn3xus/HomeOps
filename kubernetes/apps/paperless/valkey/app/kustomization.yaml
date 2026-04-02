@@ -1,6 +1,11 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: paperless
+commonLabels:
+  app.kubernetes.io/name: valkey
+  app.kubernetes.io/instance: valkey
+  app.kubernetes.io/controller: valkey
 resources:
-  - helmrelease.yaml
-  - ocirepository.yaml
+  - ./deployment.yaml
+  - ./service.yaml
