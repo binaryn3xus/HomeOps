@@ -7,6 +7,8 @@ metadata:
     reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: tdarr
@@ -20,6 +22,9 @@ spec:
         app.kubernetes.io/controller: tdarr
     spec:
       securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
       containers:
@@ -38,10 +43,8 @@ spec:
               value: "8265"
             - name: internalNode
               value: "true"
-            - name: nodeName
-              valueFrom:
-                fieldRef:
-                  fieldPath: spec.nodeName
+            - name: nodeID
+              value: "internal-node"
           ports:
             - name: http
               containerPort: 8265
@@ -51,16 +54,16 @@ spec:
             httpGet:
               path: /
               port: 8265
-            failureThreshold: 30
+            failureThreshold: 60
             periodSeconds: 10
           livenessProbe: &probe
             httpGet:
               path: /
               port: 8265
-            initialDelaySeconds: 0
-            periodSeconds: 10
-            timeoutSeconds: 1
-            failureThreshold: 3
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            timeoutSeconds: 10
+            failureThreshold: 5
           readinessProbe: *probe
           resources:
             requests:
@@ -70,6 +73,8 @@ spec:
               cpu: 1000m
               memory: 4Gi
               gpu.intel.com/i915: "1"
+          securityContext:
+            privileged: true
           volumeMounts:
             - name: config
               mountPath: /app/server
