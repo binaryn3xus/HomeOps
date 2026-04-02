@@ -1,8 +1,13 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: paperless
+commonLabels:
+  app.kubernetes.io/name: paperless
+  app.kubernetes.io/instance: paperless
+  app.kubernetes.io/controller: paperless
 resources:
-  - externalsecret.yaml
-  - helmrelease.yaml
-  - exporter-cronjob.yaml
-  - ocirepository.yaml
+  - ./deployment.yaml
+  - ./service.yaml
+  - ./httproute.yaml
+  - ./externalsecret.yaml

@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless
+  namespace: paperless
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: paperless
+      app.kubernetes.io/instance: paperless
+      app.kubernetes.io/controller: paperless
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: paperless
+        app.kubernetes.io/instance: paperless
+        app.kubernetes.io/controller: paperless
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+      containers:
+        - name: app
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.20.13
+          env:
+            - name: TZ
+              value: "America/New_York"
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: PAPERLESS_PORT
+              value: "8000"
+            - name: PAPERLESS_URL
+              value: https://paperless.unscfleet.com
+            - name: PAPERLESS_REDIS
+              value: redis://valkey.paperless.svc.cluster.local:6379
+            - name: PAPERLESS_DBHOST
+              value: paperless-postgres-rw.paperless.svc.cluster.local
+            - name: PAPERLESS_DBNAME
+              value: paperless
+            - name: PAPERLESS_DBUSER
+              value: paperless
+            - name: PAPERLESS_DBPASS
+              valueFrom:
+                secretKeyRef:
+                  name: paperless-secrets
+                  key: PAPERLESS_ADMIN_PASSWORD
+            - name: PAPERLESS_TIKA_ENABLED
+              value: "1"
+            - name: PAPERLESS_TIKA_ENDPOINT
+              value: http://tika.paperless.svc.cluster.local:9998
+            - name: PAPERLESS_TIKA_GOTENBERG_ENDPOINT
+              value: http://gotenberg.paperless.svc.cluster.local:3000
+            - name: PAPERLESS_GOTENBERG_ENDPOINT
+              value: http://gotenberg.paperless.svc.cluster.local:3000
+            - name: PAPERLESS_OCR_LANGUAGE
+              value: eng
+            - name: PAPERLESS_TIME_ZONE
+              value: "America/New_York"
+            - name: PAPERLESS_OCR_USER_ARGS
+              value: '{"optimize":1,"pdfa_image_compression":"jpeg"}'
+            - name: PAPERLESS_CONSUMER_RECURSIVE
+              value: "true"
+          envFrom:
+            - secretRef:
+                name: paperless-secrets
+          ports:
+            - name: http
+              containerPort: 8000
+          resources:
+            requests:
+              cpu: 250m
+              memory: 1000Mi
+            limits:
+              cpu: 500m
+              memory: 4000Mi
+          volumeMounts:
+            - name: synology
+              mountPath: /usr/src/paperless/data
+              subPath: data
+            - name: synology
+              mountPath: /usr/src/paperless/media
+              subPath: media
+            - name: synology
+              mountPath: /usr/src/paperless/export
+              subPath: export
+            - name: synology
+              mountPath: /usr/src/paperless/consume
+              subPath: consume
+      volumes:
+        - name: synology
+          persistentVolumeClaim:
+            claimName: synology
