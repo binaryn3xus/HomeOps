@@ -4,11 +4,11 @@
 
 # Fabric API is the library for essential hooks and interoperability
 # mechanisms for Fabric mods.
-fabric-api
+# fabric-api
 
 # Allows felling entire trees. Break down your trees by only cutting
 # one piece of it
-fallingtree
+# fallingtree
 
 # Harvest entire ore veins instantly and drop ore items at the
 # initial block position. An updated alternative to the vein
@@ -17,26 +17,26 @@ ore-harvester
 
 # A rendering engine optimization mod for modern Minecraft versions
 # which greatly improves frame rates and stuttering.
-sodium
+# sodium
 
 # A mod designed to improve the general performance of Minecraft
 # without breaking things.
-lithium
+# lithium
 
 # A server-side mod that works around a bug that spams the console
 # with "error sending packet" messages.
-disconnect-packet-fix
+# disconnect-packet-fix
 
 # Adds configurable, permissions-backed utility commands like tpa,
 # home, warp, spawn, back, nick, and rtp.
-essential-commands
+# essential-commands
 
 # A simple, but really customizable grave/death chest mod that
 # works on Fabric and Quilt servers.
-universal-graves
+# universal-graves
 
 # A mod that reduces the memory usage of Minecraft.
-ferrite-core
+# ferrite-core
 
 # Adds a proximity voice chat to your Minecraft server.
 # REMOVE: Not compatible with Minecraft 1.21.9. Do not include in mods folder.

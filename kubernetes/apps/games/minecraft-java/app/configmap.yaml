@@ -1,24 +1,27 @@
 ---
-# yaml-language-server: $schema=https://kubernetesjsonschema.dev/v1.18.1-standalone-strict/configmap-v1.json
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: minecraft-java-env
   namespace: games
+  labels:
+    app.kubernetes.io/controller: minecraft
+    app.kubernetes.io/instance: minecraft-java
+    app.kubernetes.io/name: minecraft-java
 data:
-  DIFFICULTY: '2'
-  ENABLE_COMMAND_BLOCK: 'true'
-  ENABLE_WHITELIST: 'true'
-  EULA: 'TRUE'
-  EXISTING_OPS_FILE: SKIP
-  LEVEL: Valley-of-Vanilla
-  MEMORY: 4096M
-  MODRINTH_DOWNLOAD_DEPENDENCIES: required
+  DIFFICULTY: "2"
+  ENABLE_COMMAND_BLOCK: "true"
+  ENABLE_WHITELIST: "true"
+  EULA: "TRUE"
+  EXISTING_OPS_FILE: "SKIP"
+  LEVEL: "Valley-of-Vanilla"
+  MEMORY: "4096M"
+  MODRINTH_DOWNLOAD_DEPENDENCIES: "required"
   MODRINTH_PROJECTS: "@/data/modrinth-projects.txt"
-  MOTD: Powered by BinaryNexus
-  ONLINE_MODE: 'true'
-  OVERRIDE_WHITELIST: 'true'
-  PAUSE_WHEN_EMPTY_SECONDS: '600'
-  TYPE: FABRIC
-  TZ: America/New_York
-  VERSION: LATEST
+  MOTD: "Powered by BinaryNexus"
+  ONLINE_MODE: "true"
+  OVERRIDE_WHITELIST: "true"
+  PAUSE_WHEN_EMPTY_SECONDS: "600"
+  TYPE: "FABRIC"
+  TZ: "America/New_York"
+  VERSION: "LATEST"
