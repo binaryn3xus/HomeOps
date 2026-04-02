@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minecraft-bedrock
+  namespace: games
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: minecraft-bedrock
+      app.kubernetes.io/instance: minecraft-bedrock
+      app.kubernetes.io/controller: minecraft
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: minecraft-bedrock
+        app.kubernetes.io/instance: minecraft-bedrock
+        app.kubernetes.io/controller: minecraft
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+      containers:
+        - name: app
+          image: docker.io/itzg/minecraft-bedrock-server:2026.3.1@sha256:f02d1faadafe81a51f34df7e2cd71923f7ec97c4f80d1cbd0b07e0187fbb8e96
+          env:
+            - name: TZ
+              value: America/New_York
+          envFrom:
+            - configMapRef:
+                name: minecraft-bedrock-env
+          ports:
+            - name: minecraft
+              containerPort: 19132
+              protocol: UDP
+          resources:
+            requests:
+              cpu: "2"
+              memory: 4Gi
+            limits:
+              cpu: "4"
+              memory: 6Gi
+          volumeMounts:
+            - name: config
+              mountPath: /data
+            - name: allowlist
+              mountPath: /data/allowlist.json
+              subPath: allowlist.json
+              readOnly: true
+            - name: operators
+              mountPath: /data/permissions.json
+              subPath: permissions.json
+              readOnly: true
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: minecraft-bedrock
+        - name: allowlist
+          configMap:
+            name: minecraft-bedrock-allowlist
+        - name: operators
+          configMap:
+            name: minecraft-bedrock-permissions
