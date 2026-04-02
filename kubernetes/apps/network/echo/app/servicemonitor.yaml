@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: echo
+  namespace: network
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: echo
+      app.kubernetes.io/instance: echo
+      app.kubernetes.io/controller: echo
+  endpoints:
+    - port: http
+      interval: 1m
+      path: /metrics

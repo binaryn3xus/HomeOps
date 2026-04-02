@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo
+  namespace: network
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: echo
+      app.kubernetes.io/instance: echo
+      app.kubernetes.io/controller: echo
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: echo
+        app.kubernetes.io/instance: echo
+        app.kubernetes.io/controller: echo
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+      containers:
+        - name: app
+          image: ghcr.io/mendhak/http-https-echo:40
+          env:
+            - name: HTTP_PORT
+              value: "80"
+            - name: LOG_WITHOUT_NEWLINE
+              value: "true"
+            - name: LOG_IGNORE_PATH
+              value: /healthz
+            - name: PROMETHEUS_ENABLED
+              value: "true"
+          ports:
+            - name: http
+              containerPort: 80
+          livenessProbe: &probe
+            httpGet:
+              path: /healthz
+              port: 80
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          readinessProbe: *probe
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 10m
+              memory: 64Mi
+            limits:
+              cpu: 50m
+              memory: 128Mi
