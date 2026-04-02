@@ -2,7 +2,11 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+commonLabels:
+  app.kubernetes.io/instance: unifi-dns
+  app.kubernetes.io/name: external-dns
 resources:
+  - ./deployment.yaml
+  - ./service.yaml
+  - ./servicemonitor.yaml
   - ./externalsecret.yaml
-  - ./helmrelease.yaml
-  - ./ocirepository.yaml
