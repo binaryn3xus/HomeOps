@@ -23,9 +23,9 @@ spec:
     spec:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 1024
+        runAsGroup: 100
+        fsGroup: 1024
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: app
@@ -34,9 +34,9 @@ spec:
             - name: TZ
               value: "America/New_York"
             - name: PUID
-              value: "1000"
+              value: "1024"
             - name: PGID
-              value: "1000"
+              value: "100"
             - name: PAPERLESS_PORT
               value: "8000"
             - name: PAPERLESS_URL
@@ -78,10 +78,9 @@ spec:
               containerPort: 8000
           resources:
             requests:
-              cpu: 1000m
+              cpu: 100m
               memory: 1000Mi
             limits:
-              cpu: 2000m
               memory: 4000Mi
           volumeMounts:
             - name: synology

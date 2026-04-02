@@ -7,5 +7,6 @@ commonLabels:
   app.kubernetes.io/instance: valkey
   app.kubernetes.io/controller: valkey
 resources:
+  - ./pvc.yaml
   - ./deployment.yaml
   - ./service.yaml
