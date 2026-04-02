@@ -29,10 +29,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: app
-          image: ghcr.io/itzg/minecraft-server:stable
-          env:
-            - name: TZ
-              value: America/New_York
+          image: ghcr.io/itzg/minecraft-server:java25
           envFrom:
             - configMapRef:
                 name: minecraft-java-env
