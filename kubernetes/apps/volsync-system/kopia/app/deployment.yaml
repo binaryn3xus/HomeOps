@@ -33,12 +33,12 @@ spec:
           args:
             - --without-password
           env:
+            - name: TZ
+              value: "America/New_York"
             - name: KOPIA_WEB_ENABLED
               value: "true"
             - name: KOPIA_WEB_PORT
               value: "80"
-            - name: TZ
-              value: "America/New_York"
           envFrom:
             - secretRef:
                 name: kopia-secret
@@ -49,7 +49,7 @@ spec:
             httpGet:
               path: /
               port: 80
-            initialDelaySeconds: 0
+            initialDelaySeconds: 10
             periodSeconds: 10
             timeoutSeconds: 1
             failureThreshold: 3
