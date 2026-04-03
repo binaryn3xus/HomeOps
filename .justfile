@@ -51,6 +51,10 @@ reconcile-status:
     jq -r '.items[] | "\(.metadata.namespace)\t\(.metadata.name)\tSuspended: \(.spec.suspend // false)\tReady: \(.status.conditions[]? | select(.type=="Ready") | .status // "Unknown")"' | \
     column -t
 
+[doc('Restart the Flux source-controller pod')]
+restart-source-controller:
+    kubectl delete pod -n flux-system -l app=source-controller
+
 # --- Azure Key Vault Integration ---
 [doc('Read a secret from Azure Key Vault')]
 read-az-secret secret_name:
