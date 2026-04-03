@@ -8,7 +8,7 @@ commonLabels:
   app.kubernetes.io/controller: gatus
 resources:
   - ./rbac.yaml
-  - ./statefulset.yaml
+  - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml
   - ./externalsecret.yaml

@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: gatus
   namespace: observability
@@ -7,7 +7,8 @@ metadata:
     reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
-  serviceName: gatus
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: gatus
@@ -44,7 +45,7 @@ spec:
               memory: 64Mi
           restartPolicy: Always
           volumeMounts:
-            - name: gatus-config
+            - name: config
               mountPath: /config
       containers:
         - name: app
@@ -84,9 +85,10 @@ spec:
               cpu: 100m
               memory: 128Mi
             limits:
+              cpu: 500m
               memory: 512Mi
           volumeMounts:
-            - name: gatus-config
+            - name: config
               mountPath: /config
             - name: config-file
               mountPath: /config/config.yaml
@@ -96,6 +98,6 @@ spec:
         - name: config-file
           configMap:
             name: gatus-configmap
-        - name: gatus-config
+        - name: config
           persistentVolumeClaim:
             claimName: config-gatus-0
