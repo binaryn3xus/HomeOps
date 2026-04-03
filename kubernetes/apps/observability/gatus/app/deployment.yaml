@@ -75,7 +75,7 @@ spec:
           readinessProbe: *probe
           securityContext:
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
+            readOnlyRootFilesystem: false
             capabilities:
               add:
                 - NET_RAW
@@ -86,8 +86,8 @@ spec:
               cpu: 100m
               memory: 128Mi
             limits:
-              cpu: 200m
-              memory: 256Mi
+              cpu: 500m
+              memory: 512Mi
           volumeMounts:
             - name: config-file
               mountPath: /config/config.yaml

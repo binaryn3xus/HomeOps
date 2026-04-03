@@ -1,4 +1,15 @@
 ---
+alerting:
+  pushover:
+    application-token: "${PUSHOVER_APP_KEY}"
+    user-key: "${PUSHOVER_USER_KEY}"
+    default-alert:
+      enabled: true
+      description: "Healthcheck failed"
+      send-on-resolved: true
+      failure-threshold: 3
+      success-threshold: 2
+
 connectivity:
   checker:
     target: 1.1.1.1:53
@@ -30,8 +41,7 @@ metrics: true
 
 storage:
   type: sqlite
-  caching: true
-  path: /data/gatus.db
+  path: /config/gatus.db
 
 ui:
   title: Status | Gatus
@@ -45,5 +55,5 @@ ui:
       link: https://github.com/binaryn3xus/HomeOps
 
 web:
-  port: ${GATUS_WEB_PORT}
+  port: 80
   header: Status
