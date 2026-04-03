@@ -54,7 +54,7 @@ spec:
             - name: GATUS_CONFIG_PATH
               value: /config
             - name: GATUS_WEB_PORT
-              value: "80"
+              value: "8080"
             - name: TZ
               value: America/New_York
           envFrom:
@@ -62,11 +62,11 @@ spec:
                 name: gatus-secret
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
           livenessProbe: &probe
             httpGet:
               path: /health
-              port: 80
+              port: 8080
             initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 1
