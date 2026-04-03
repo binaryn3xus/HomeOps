@@ -43,6 +43,9 @@ spec:
             limits:
               memory: 64Mi
           restartPolicy: Always
+          volumeMounts:
+            - name: gatus-config
+              mountPath: /config
       containers:
         - name: app
           image: ghcr.io/twin/gatus:v5.35.0@sha256:21609f31be8c4e680ce3004b24276305666239c99aff58391503f3fb6142f39d
@@ -63,14 +66,14 @@ spec:
             httpGet:
               path: /health
               port: 80
-            initialDelaySeconds: 0
+            initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 1
             failureThreshold: 3
           readinessProbe: *probe
           securityContext:
             allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
+            readOnlyRootFilesystem: false
             capabilities:
               add:
                 - NET_RAW
@@ -81,9 +84,9 @@ spec:
               cpu: 100m
               memory: 128Mi
             limits:
-              memory: 256Mi
+              memory: 512Mi
           volumeMounts:
-            - name: config
+            - name: gatus-config
               mountPath: /config
             - name: config-file
               mountPath: /config/config.yaml
@@ -93,12 +96,6 @@ spec:
         - name: config-file
           configMap:
             name: gatus-configmap
-  volumeClaimTemplates:
-    - metadata:
-        name: config
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        storageClassName: ceph-block
-        resources:
-          requests:
-            storage: 5Gi
+        - name: gatus-config
+          persistentVolumeClaim:
+            claimName: config-gatus-0
