@@ -13,6 +13,7 @@ resources:
   - ./httproute.yaml
   - ./externalsecret.yaml
   - ./prometheusrule.yaml
+  - ./connectivity-checks.yaml
 configMapGenerator:
   - name: gatus-configmap
     files:

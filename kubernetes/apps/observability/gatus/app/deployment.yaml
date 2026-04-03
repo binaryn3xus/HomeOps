@@ -35,6 +35,8 @@ spec:
             - --auto-httproute
             - --enable-httproute
             - --enable-service
+            - --output
+            - /data/gatus-sidecar.yaml
           env:
             - name: TZ
               value: America/New_York
@@ -45,16 +47,14 @@ spec:
               memory: 64Mi
           restartPolicy: Always
           volumeMounts:
-            - name: config
-              mountPath: /config
+            - name: data
+              mountPath: /data
       containers:
         - name: app
           image: ghcr.io/twin/gatus:v5.35.0@sha256:21609f31be8c4e680ce3004b24276305666239c99aff58391503f3fb6142f39d
           env:
             - name: GATUS_CONFIG_PATH
-              value: /config
-            - name: GATUS_WEB_PORT
-              value: "8080"
+              value: /data
             - name: TZ
               value: America/New_York
           envFrom:
@@ -62,11 +62,11 @@ spec:
                 name: gatus-secret
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 80
           livenessProbe: &probe
             httpGet:
               path: /health
-              port: 8080
+              port: 80
             initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 1
@@ -85,19 +85,18 @@ spec:
               cpu: 100m
               memory: 128Mi
             limits:
-              cpu: 500m
               memory: 512Mi
           volumeMounts:
             - name: config
-              mountPath: /config
-            - name: config-file
-              mountPath: /config/config.yaml
+              mountPath: /data/config.yaml
               subPath: config.yaml
               readOnly: true
+            - name: data
+              mountPath: /data
       volumes:
-        - name: config-file
+        - name: config
           configMap:
             name: gatus-configmap
-        - name: config
+        - name: data
           persistentVolumeClaim:
             claimName: config-gatus-0
