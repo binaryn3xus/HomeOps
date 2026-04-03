@@ -2,10 +2,16 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+commonLabels:
+  app.kubernetes.io/name: gatus
+  app.kubernetes.io/instance: gatus
+  app.kubernetes.io/controller: gatus
 resources:
+  - ./rbac.yaml
+  - ./statefulset.yaml
+  - ./service.yaml
+  - ./httproute.yaml
   - ./externalsecret.yaml
-  - ./helmrelease.yaml
-  - ./ocirepository.yaml
   - ./prometheusrule.yaml
 configMapGenerator:
   - name: gatus-configmap
@@ -13,5 +19,3 @@ configMapGenerator:
       - config.yaml=./resources/config.yaml
 generatorOptions:
   disableNameSuffixHash: true
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled
