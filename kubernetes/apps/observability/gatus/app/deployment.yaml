@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: gatus
   namespace: observability
@@ -7,7 +7,8 @@ metadata:
     reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
-  serviceName: gatus
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: gatus
@@ -34,8 +35,6 @@ spec:
             - --auto-httproute
             - --enable-httproute
             - --enable-service
-            - --output
-            - /config/gatus-sidecar.yaml
           env:
             - name: TZ
               value: America/New_York
@@ -100,12 +99,6 @@ spec:
         - name: config-file
           configMap:
             name: gatus-configmap
-  volumeClaimTemplates:
-    - metadata:
-        name: config
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        storageClassName: ceph-block
-        resources:
-          requests:
-            storage: 5Gi
+        - name: config
+          persistentVolumeClaim:
+            claimName: gatus-config
