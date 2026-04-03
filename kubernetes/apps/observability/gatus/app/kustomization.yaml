@@ -8,12 +8,11 @@ commonLabels:
   app.kubernetes.io/controller: gatus
 resources:
   - ./rbac.yaml
-  - ./deployment.yaml
+  - ./statefulset.yaml
   - ./service.yaml
   - ./httproute.yaml
   - ./externalsecret.yaml
   - ./prometheusrule.yaml
-  - ./connectivity-checks.yaml
 configMapGenerator:
   - name: gatus-configmap
     files:
