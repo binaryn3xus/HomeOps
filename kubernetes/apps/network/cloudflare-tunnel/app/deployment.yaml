@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/name: cloudflare-tunnel
 spec:
-  replicas: 1
+  replicas: 2
   strategy:
     type: RollingUpdate
   selector:
@@ -19,6 +19,18 @@ spec:
       labels:
         app.kubernetes.io/name: cloudflare-tunnel
     spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app.kubernetes.io/name
+                      operator: In
+                      values:
+                        - cloudflare-tunnel
+                topologyKey: kubernetes.io/hostname
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
