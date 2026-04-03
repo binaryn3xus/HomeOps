@@ -43,7 +43,9 @@ spec:
           resources:
             requests:
               cpu: 10m
+              memory: 32Mi
             limits:
+              cpu: 20m
               memory: 64Mi
           restartPolicy: Always
           volumeMounts:
@@ -85,7 +87,8 @@ spec:
               cpu: 100m
               memory: 128Mi
             limits:
-              memory: 512Mi
+              cpu: 200m
+              memory: 256Mi
           volumeMounts:
             - name: config
               mountPath: /data/config.yaml

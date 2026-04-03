@@ -63,9 +63,10 @@ spec:
           resources:
             requests:
               cpu: 10m
-              memory: 128Mi
+              memory: 256Mi
             limits:
-              memory: 1Gi
+              cpu: 50m
+              memory: 1024Mi
           volumeMounts:
             - name: config-file
               mountPath: /config/repository.config
