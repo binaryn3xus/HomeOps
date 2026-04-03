@@ -2,9 +2,14 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+commonLabels:
+  app.kubernetes.io/name: cloudflare-tunnel
+  app.kubernetes.io/instance: cloudflare-tunnel
+  app.kubernetes.io/controller: cloudflare-tunnel
 resources:
   - ./externalsecret.yaml
   - ./dnsendpoint.yaml
   - ./grafanadashboard.yaml
-  - ./helmrelease.yaml
-  - ./ocirepository.yaml
+  - ./configmap.yaml
+  - ./deployment.yaml
+  - ./service.yaml

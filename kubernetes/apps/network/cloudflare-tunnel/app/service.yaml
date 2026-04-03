@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cloudflare-tunnel
+  namespace: network
+  labels:
+    app.kubernetes.io/name: cloudflare-tunnel
+spec:
+  ports:
+    - name: metrics
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: cloudflare-tunnel
