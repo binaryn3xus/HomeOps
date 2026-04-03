@@ -23,16 +23,16 @@ spec:
     spec:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: app
           image: ghcr.io/advplyr/audiobookshelf:2.33.1
           env:
             - name: TZ
-              value: "America/New_York"
+              value: America/New_York
             - name: AUDIOBOOKSHELF_UID
               value: "568"
             - name: AUDIOBOOKSHELF_GID
@@ -41,22 +41,14 @@ spec:
               value: /config
             - name: METADATA_PATH
               value: /config/metadata
-            - name: ROUTER_BASE_PATH
-              value: /
           ports:
             - name: http
               containerPort: 80
-          startupProbe:
-            httpGet:
-              path: /healthcheck
-              port: 80
-            failureThreshold: 30
-            periodSeconds: 10
           livenessProbe: &probe
             httpGet:
               path: /healthcheck
               port: 80
-            initialDelaySeconds: 0
+            initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 1
             failureThreshold: 3
@@ -66,14 +58,7 @@ spec:
               cpu: 100m
               memory: 500Mi
             limits:
-              cpu: 1000m
               memory: 2500Mi
-          securityContext:
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: true
-            capabilities:
-              drop:
-                - ALL
           volumeMounts:
             - name: config
               mountPath: /config
