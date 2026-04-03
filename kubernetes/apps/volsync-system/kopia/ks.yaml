@@ -6,27 +6,23 @@ metadata:
   name: &app kopia
   namespace: &namespace volsync-system
 spec:
+  targetNamespace: *namespace
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: volsync
-      namespace: volsync-system
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2
-      kind: HelmRelease
-      name: *app
-      namespace: *namespace
-  interval: 1h
   path: ./kubernetes/apps/volsync-system/kopia/app
-  postBuild:
-    substitute:
-      APP: *app
   prune: true
-  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  targetNamespace: *namespace
+  wait: false
+  interval: 30m
+  retryInterval: 1m
   timeout: 5m
+  dependsOn:
+    - name: volsync
+      namespace: volsync-system
+  postBuild:
+    substitute:
+      APP: *app
