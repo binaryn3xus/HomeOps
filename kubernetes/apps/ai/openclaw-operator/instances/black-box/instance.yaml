@@ -5,6 +5,11 @@ metadata:
   name: black-box
   namespace: ai
 spec:
+  security:
+    networkPolicy:
+      enabled: true
+      allowedIngressNamespaces:
+        - "network"
   storage:
     persistence:
       enabled: true
@@ -13,6 +18,9 @@ spec:
     raw:
       gateway:
         port: 18789
+        controlUi:
+          allowedOrigins:
+            - "https://openclaw.unscfleet.com"
       models:
         providers:
           ollama:
