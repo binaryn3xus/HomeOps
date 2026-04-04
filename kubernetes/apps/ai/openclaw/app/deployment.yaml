@@ -30,6 +30,9 @@ spec:
               value: "http://ollama.ai.svc.cluster.local:11434"
             - name: LLM_MODEL
               value: "qwen2.5-coder:7b"
+          ports:
+            - name: http
+              containerPort: 18789
           resources:
             requests:
               cpu: 250m
