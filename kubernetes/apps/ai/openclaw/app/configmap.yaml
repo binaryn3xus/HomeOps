@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openclaw-configmap
+  namespace: ai
+data:
+  OLLAMA_BASE_URL: "http://ollama.ai.svc.cluster.local:11434"
+  LLM_MODEL: "qwen2.5-coder:7b"
+  OPENCLAW_GATEWAY_BIND: "lan"
+  OPENCLAW_LOAD_SHELL_ENV: "1"

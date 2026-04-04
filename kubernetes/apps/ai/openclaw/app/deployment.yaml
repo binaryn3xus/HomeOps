@@ -25,13 +25,9 @@ spec:
           image: ghcr.io/openclaw/openclaw:latest
           securityContext:
             runAsUser: 1000
-          env:
-            - name: OLLAMA_BASE_URL
-              value: "http://ollama.ai.svc.cluster.local:11434"
-            - name: LLM_MODEL
-              value: "qwen2.5-coder:7b"
-            - name: OPENCLAW_GATEWAY_BIND
-              value: "lan"
+          envFrom:
+            - configMapRef:
+                name: openclaw-configmap
           ports:
             - name: http
               containerPort: 18789
