@@ -28,11 +28,26 @@ spec:
   config:
     mergeMode: "overwrite"
     raw:
+      agents:
+        defaults:
+          timeoutSeconds: 600
+        list:
+          - id: "default"
+            model: "openai/gpt-4o"
+            name: "Default Agent"
+      channels:
+        discord:
+          enabled: true
+          token: "${DISCORD_BOT_TOKEN}"
+          guilds:
+            "1016510099310792744":
+              requireMention: false
       gateway:
         port: 18789
         controlUi:
           allowedOrigins:
             - "https://openclaw.unscfleet.com"
+          dangerouslyDisableDeviceAuth: true
       models:
         providers:
           openai:
@@ -43,17 +58,3 @@ spec:
                 name: "GPT-4o"
               - id: "gpt-4o-mini"
                 name: "GPT-4o Mini"
-      channels:
-        discord:
-          enabled: true
-          token: "${DISCORD_BOT_TOKEN}"
-          guilds:
-            "1016510099310792744":
-              requireMention: false
-      agents:
-        defaults:
-          timeoutSeconds: 600
-        list:
-          - id: "default"
-            name: "Default Agent"
-            model: "openai/gpt-4o"
