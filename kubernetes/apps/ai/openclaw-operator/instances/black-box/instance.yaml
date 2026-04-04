@@ -40,8 +40,8 @@ spec:
             api: "google-generative-ai"
             baseUrl: "https://generativelanguage.googleapis.com/v1beta"
             models:
-              - id: "gemini-2.0-flash"
-                name: "Gemini 2.0 Flash"
+              - id: "gemini-2.5-flash"
+                name: "Gemini 2.5 Flash"
       channels:
         discord:
           enabled: true
@@ -55,4 +55,4 @@ spec:
         list:
           - id: "default"
             name: "Default Agent"
-            model: "google/gemini-2.0-flash"
+            model: "google/gemini-2.5-flash"
