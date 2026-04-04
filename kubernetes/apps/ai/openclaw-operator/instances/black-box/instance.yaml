@@ -12,7 +12,6 @@ spec:
   config:
     raw:
       gateway:
-        bind: "lan"
         port: 18789
       models:
         providers:
