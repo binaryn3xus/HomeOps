@@ -10,14 +10,23 @@ spec:
       enabled: true
       allowedIngressNamespaces:
         - "network"
-  envFrom:
-    - secretRef:
-        name: black-box-discord-secret
+  env:
+    - name: DISCORD_BOT_TOKEN
+      valueFrom:
+        secretKeyRef:
+          name: black-box-discord-secret
+          key: DISCORD_BOT_TOKEN
+    - name: OPENAI_API_KEY
+      valueFrom:
+        secretKeyRef:
+          name: black-box-discord-secret
+          key: OPENAI_API_KEY
   storage:
     persistence:
       enabled: true
       existingClaim: openclaw-data
   config:
+    mergeMode: "overwrite"
     raw:
       gateway:
         port: 18789
@@ -39,7 +48,8 @@ spec:
           enabled: true
           token: "${DISCORD_BOT_TOKEN}"
           guilds:
-            "1016510099310792744": {}
+            "1016510099310792744":
+              requireMention: false
       agents:
         defaults:
           timeoutSeconds: 600
