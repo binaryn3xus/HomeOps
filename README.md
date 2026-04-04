@@ -4,7 +4,7 @@
 
 ### Fleetcom Operations :octocat:
 
-_... managed with Flux, SOPS and GitHub Actions_ 🤖
+_... managed with Flux, Azure KeyVault, and GitHub Actions_ 🤖
 
 </div>
 
@@ -84,9 +84,9 @@ This Git repository contains the following directories under [kubernetes](./kube
 ```
 
 ## 📡 Networking
- 
+
  <div align="center">
- 
+
  ```mermaid
  graph LR
      A[Internet] --> B[Cloudflare]
@@ -96,9 +96,9 @@ This Git repository contains the following directories under [kubernetes](./kube
      D --> F["Home Assistant"]
      D --> G["SearXNG"]
  ```
- 
+
  </div>
- 
+
 
 
 | Name                | CIDR           |
