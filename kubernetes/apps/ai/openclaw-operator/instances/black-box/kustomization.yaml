@@ -9,3 +9,4 @@ resources:
   - ./pvc.yaml
   - ./instance.yaml
   - ./httproute.yaml
+  - ./externalsecret.yaml

@@ -10,6 +10,9 @@ spec:
       enabled: true
       allowedIngressNamespaces:
         - "network"
+  envFrom:
+    - secretRef:
+        name: black-box-discord-secret
   storage:
     persistence:
       enabled: true
@@ -23,14 +26,24 @@ spec:
             - "https://openclaw.unscfleet.com"
       models:
         providers:
-          ollama:
-            baseUrl: "http://ollama.ai.svc.cluster.local:11434"
-            api: "ollama"
+          openai:
+            api: "openai-responses"
+            baseUrl: "https://api.openai.com/v1"
             models:
-              - id: "qwen2.5-coder:7b"
-                name: "Qwen 2.5 Coder 7B"
+              - id: "gpt-4o"
+                name: "GPT-4o"
+              - id: "gpt-4o-mini"
+                name: "GPT-4o Mini"
+      channels:
+        discord:
+          enabled: true
+          token: "${DISCORD_BOT_TOKEN}"
+          guilds:
+            "1016510099310792744": {}
       agents:
+        defaults:
+          timeoutSeconds: 600
         list:
           - id: "default"
             name: "Default Agent"
-            model: "ollama/qwen2.5-coder:7b"
+            model: "openai/gpt-4o"
