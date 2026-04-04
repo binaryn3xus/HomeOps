@@ -16,11 +16,11 @@ spec:
         secretKeyRef:
           name: black-box-discord-secret
           key: DISCORD_BOT_TOKEN
-    - name: OPENAI_API_KEY
-      valueFrom:
-        secretKeyRef:
-          name: black-box-discord-secret
-          key: OPENAI_API_KEY
+    # - name: OPENAI_API_KEY
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: black-box-discord-secret
+    #       key: OPENAI_API_KEY
   storage:
     persistence:
       enabled: true
