@@ -1,0 +1,29 @@
+---
+apiVersion: openclaw.rocks/v1alpha1
+kind: OpenClawInstance
+metadata:
+  name: black-box
+  namespace: ai
+spec:
+  storage:
+    persistence:
+      enabled: true
+      existingClaim: openclaw-data
+  config:
+    raw:
+      gateway:
+        bind: "lan"
+        port: 18789
+      models:
+        providers:
+          ollama:
+            baseUrl: "http://ollama.ai.svc.cluster.local:11434"
+            api: "ollama"
+            models:
+              - id: "qwen2.5-coder:7b"
+                name: "Qwen 2.5 Coder 7B"
+      agents:
+        list:
+          - id: "default"
+            name: "Default Agent"
+            model: "ollama/qwen2.5-coder:7b"

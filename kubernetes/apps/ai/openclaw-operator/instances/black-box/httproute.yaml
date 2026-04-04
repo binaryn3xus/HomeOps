@@ -2,7 +2,7 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: openclaw
+  name: black-box
   namespace: ai
 spec:
   parentRefs:
@@ -17,5 +17,5 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: openclaw
+        - name: black-box
           port: 18789
