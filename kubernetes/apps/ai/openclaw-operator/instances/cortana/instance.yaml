@@ -13,6 +13,10 @@ spec:
       enabled: true
       allowedIngressNamespaces:
         - "network"
+      additionalEgress:
+        - ports:
+            - port: 8000
+              protocol: TCP
     rbac:
       createServiceAccount: true
   envFrom:
