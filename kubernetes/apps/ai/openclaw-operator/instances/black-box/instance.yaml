@@ -15,17 +15,10 @@ spec:
         - "network"
     rbac:
       createServiceAccount: true
+  envFrom:
+    - secretRef:
+        name: black-box-discord-secret
   env:
-    - name: DISCORD_BOT_TOKEN
-      valueFrom:
-        secretKeyRef:
-          name: black-box-discord-secret
-          key: DISCORD_BOT_TOKEN
-    - name: GEMINI_API_KEY
-      valueFrom:
-        secretKeyRef:
-          name: black-box-discord-secret
-          key: GEMINI_API_KEY
     - name: PATH
       value: "/home/openclaw/.openclaw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   storage:
@@ -33,7 +26,7 @@ spec:
       enabled: true
       existingClaim: openclaw-data
   config:
-    mergeMode: "overwrite"
+    mergeMode: "merge"
     raw:
       gateway:
         port: 18789
@@ -41,25 +34,3 @@ spec:
           allowedOrigins:
             - "https://openclaw.unscfleet.com"
           dangerouslyDisableDeviceAuth: false
-      models:
-        providers:
-          google:
-            api: "google-generative-ai"
-            baseUrl: "https://generativelanguage.googleapis.com/v1beta"
-            models:
-              - id: "gemini-2.5-flash"
-                name: "Gemini 2.5 Flash"
-      channels:
-        discord:
-          enabled: true
-          token: "${DISCORD_BOT_TOKEN}"
-          guilds:
-            "1016510099310792744":
-              requireMention: false
-      agents:
-        defaults:
-          timeoutSeconds: 600
-        list:
-          - id: "default"
-            name: "Default Agent"
-            model: "google/gemini-2.5-flash"
