@@ -3,7 +3,7 @@
 apiVersion: openclaw.rocks/v1alpha1
 kind: OpenClawInstance
 metadata:
-  name: black-box
+  name: cortana
   namespace: ai
 spec:
   selfConfigure:
@@ -17,14 +17,14 @@ spec:
       createServiceAccount: true
   envFrom:
     - secretRef:
-        name: black-box-discord-secret
+        name: openclaw-cortana-secret
   env:
     - name: PATH
       value: "/home/openclaw/.openclaw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   storage:
     persistence:
       enabled: true
-      existingClaim: openclaw-data
+      existingClaim: openclaw-cortana-data
   config:
     mergeMode: "merge"
     raw:

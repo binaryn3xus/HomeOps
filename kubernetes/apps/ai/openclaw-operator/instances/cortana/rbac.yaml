@@ -2,10 +2,10 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: black-box-cluster-admin
+  name: cortana-cluster-admin
 subjects:
   - kind: ServiceAccount
-    name: black-box
+    name: cortana
     namespace: ai
 roleRef:
   kind: ClusterRole
