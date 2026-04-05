@@ -13,6 +13,7 @@ spec:
         - "network"
     rbac:
       createServiceAccount: true
+      automountServiceAccountToken: true
       additionalRules:
         - apiGroups: ["*"]
           resources: ["*"]
