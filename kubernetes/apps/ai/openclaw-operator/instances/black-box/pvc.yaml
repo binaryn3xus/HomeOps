@@ -5,9 +5,9 @@ metadata:
   name: openclaw-data
   namespace: ai
 spec:
-  storageClassName: openebs-hostpath
+  storageClassName: ceph-block
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 10Gi

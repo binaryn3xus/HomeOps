@@ -30,6 +30,8 @@ spec:
   dependsOn:
     - name: openclaw-operator
       namespace: ai
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
   interval: 30m
   path: ./kubernetes/apps/ai/openclaw-operator/instances/black-box
   prune: true
