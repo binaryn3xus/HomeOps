@@ -40,7 +40,7 @@ spec:
         controlUi:
           allowedOrigins:
             - "https://openclaw.unscfleet.com"
-          dangerouslyDisableDeviceAuth: true
+          dangerouslyDisableDeviceAuth: false
       models:
         providers:
           google:
