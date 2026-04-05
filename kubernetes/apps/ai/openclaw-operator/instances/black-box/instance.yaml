@@ -6,6 +6,8 @@ metadata:
   name: black-box
   namespace: ai
 spec:
+  selfConfigure:
+    enabled: true
   security:
     networkPolicy:
       enabled: true
@@ -13,7 +15,6 @@ spec:
         - "network"
     rbac:
       createServiceAccount: true
-      automountServiceAccountToken: true
       additionalRules:
         - apiGroups: ["*"]
           resources: ["*"]
