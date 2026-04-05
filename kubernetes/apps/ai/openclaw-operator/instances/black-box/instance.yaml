@@ -15,10 +15,6 @@ spec:
         - "network"
     rbac:
       createServiceAccount: true
-      additionalRules:
-        - apiGroups: ["*"]
-          resources: ["*"]
-          verbs: ["*"]
   env:
     - name: DISCORD_BOT_TOKEN
       valueFrom:
@@ -30,6 +26,8 @@ spec:
         secretKeyRef:
           name: black-box-discord-secret
           key: GEMINI_API_KEY
+    - name: PATH
+      value: "/home/openclaw/.openclaw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   storage:
     persistence:
       enabled: true

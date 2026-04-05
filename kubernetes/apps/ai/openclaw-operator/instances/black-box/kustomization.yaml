@@ -10,3 +10,4 @@ resources:
   - ./instance.yaml
   - ./httproute.yaml
   - ./externalsecret.yaml
+  - ./rbac.yaml
