@@ -10,7 +10,7 @@ spec:
       namespace: network
       sectionName: https
   hostnames:
-    - openclaw.unscfleet.com
+    - cortana.unscfleet.com
   rules:
     - matches:
         - path:

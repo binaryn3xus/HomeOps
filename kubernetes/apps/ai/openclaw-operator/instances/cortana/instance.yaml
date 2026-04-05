@@ -32,5 +32,5 @@ spec:
         port: 18789
         controlUi:
           allowedOrigins:
-            - "https://openclaw.unscfleet.com"
+            - "https://cortana.unscfleet.com"
           dangerouslyDisableDeviceAuth: false
