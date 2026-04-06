@@ -29,7 +29,7 @@ spec:
       value: "/tools/bin:/home/openclaw/.openclaw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   initContainers:
     - name: install-tools
-      image: ghcr.io/jdx/mise:2026.3.0@sha256:f1f6c4c0f862955f269a9b0c036329035661a0528e53995899981f443577d341
+      image: ghcr.io/jdx/mise:2026.3.0@sha256:0b3f47ef3646821b6b17226e71de2a9007d014ee07bd9c32c28e915b82da399e
       command: ["/bin/sh", "-c"]
       args:
         - |
