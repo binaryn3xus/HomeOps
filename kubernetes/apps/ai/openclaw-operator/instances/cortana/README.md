@@ -27,7 +27,7 @@ Tool versions are pinned in `mise.toml`.
 
 - `gh`: GitHub CLI
 - `kubectl`: Kubernetes CLI
-- `git`: Git (installed via `apt-get` in the `initContainer`)
+- `git`: Git
 
 ## Lifecycle & Persistence
 

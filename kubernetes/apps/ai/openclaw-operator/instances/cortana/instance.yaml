@@ -36,8 +36,8 @@ spec:
           set -euo pipefail
           mkdir -p /tools/bin /tools/mise
           
-          # Install mise
-          curl -fsSL https://mise.jdx.dev/mise-latest-linux-x64 > /tools/bin/mise
+          # Install mise (using musl binary for Alpine compatibility)
+          curl -fsSL https://github.com/jdx/mise/releases/download/v2026.4.5/mise-v2026.4.5-linux-x64-musl > /tools/bin/mise
           chmod +x /tools/bin/mise
           
           export MISE_DATA_DIR=/tools/mise
@@ -46,12 +46,8 @@ spec:
           
           # Symlink from mise managed paths to /tools/bin
           ln -sf "$(/tools/bin/mise which gh)" /tools/bin/gh
+          ln -sf "$(/tools/bin/mise which git)" /tools/bin/git
           ln -sf "$(/tools/bin/mise which kubectl)" /tools/bin/kubectl
-          
-          # Also symlink system git if available, or just rely on PATH
-          # curlimages/curl usually doesn't have git, let's check or use mise for git too
-          # actually mise can manage git if we use asdf-git or similar, but let's stick to gh/kubectl for now
-          # and see if git is already in the main container.
       volumeMounts:
         - name: tools
           mountPath: /tools
