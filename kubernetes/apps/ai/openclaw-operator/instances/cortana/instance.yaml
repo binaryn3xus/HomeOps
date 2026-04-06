@@ -17,6 +17,8 @@ spec:
         - ports:
             - port: 8000
               protocol: TCP
+            - port: 443
+              protocol: TCP
     rbac:
       createServiceAccount: true
   envFrom:
@@ -24,7 +26,37 @@ spec:
         name: openclaw-cortana-secret
   env:
     - name: PATH
-      value: "/home/openclaw/.openclaw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      value: "/tools/bin:/home/openclaw/.openclaw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  initContainers:
+    - name: install-tools
+      image: ghcr.io/jdx/mise:2026.3.0@sha256:f1f6c4c0f862955f269a9b0c036329035661a0528e53995899981f443577d341
+      command: ["/bin/sh", "-c"]
+      args:
+        - |
+          set -euo pipefail
+          apk add --no-cache git
+          mkdir -p /tools/bin /tools/mise
+          export MISE_DATA_DIR=/tools/mise
+          export MISE_CONFIG_FILE=/tools/mise.toml
+          mise install --yes
+          ln -sf "$(mise which gh)" /tools/bin/gh
+          ln -sf "$(which git)" /tools/bin/git
+          ln -sf "$(mise which kubectl)" /tools/bin/kubectl
+      volumeMounts:
+        - name: tools
+          mountPath: /tools
+        - name: mise-config
+          mountPath: /tools/mise.toml
+          subPath: mise.toml
+  extraVolumes:
+    - name: tools
+      emptyDir: {}
+    - name: mise-config
+      configMap:
+        name: cortana-mise-config
+  extraVolumeMounts:
+    - name: tools
+      mountPath: /tools
   storage:
     persistence:
       enabled: true

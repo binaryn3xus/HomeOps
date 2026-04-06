@@ -11,3 +11,11 @@ resources:
   - ./httproute.yaml
   - ./externalsecret.yaml
   - ./rbac.yaml
+
+configMapGenerator:
+  - name: cortana-mise-config
+    files:
+      - mise.toml
+
+generatorOptions:
+  disableNameSuffixHash: true
