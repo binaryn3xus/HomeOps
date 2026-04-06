@@ -29,7 +29,7 @@ spec:
       value: "/tools/bin:/home/openclaw/.openclaw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   initContainers:
     - name: install-tools
-      image: curlimages/curl:8.12.1@sha256:0d90d8591873f1d9426f04730600a94b5953046bc84ef64a2f864bc3510526e9
+      image: curlimages/curl:8.12.1@sha256:94e9e444bcba979c2ea12e27ae39bee4cd10bc7041a472c4727a558e213744e6
       command: ["/bin/sh", "-c"]
       args:
         - |
