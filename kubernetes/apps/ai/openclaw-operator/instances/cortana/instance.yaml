@@ -34,7 +34,7 @@ spec:
       args:
         - |
           set -euo pipefail
-          apk add --no-cache git
+          apt-get update && apt-get install -y git
           mkdir -p /tools/bin /tools/mise
           export MISE_DATA_DIR=/tools/mise
           export MISE_CONFIG_FILE=/tools/mise.toml
