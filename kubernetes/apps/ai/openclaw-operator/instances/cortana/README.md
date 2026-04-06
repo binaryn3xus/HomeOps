@@ -27,7 +27,7 @@ Tool versions are pinned in `mise.toml`.
 
 - `gh`: GitHub CLI
 - `kubectl`: Kubernetes CLI
-- `git`: Git
+- `git`: (Already present in the OpenClaw base image)
 
 ## Lifecycle & Persistence
 

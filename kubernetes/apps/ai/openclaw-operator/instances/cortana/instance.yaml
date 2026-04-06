@@ -51,7 +51,6 @@ spec:
           
           # Symlink from mise managed paths to /tools/bin
           ln -sf "$(/tools/bin/mise which gh)" /tools/bin/gh
-          ln -sf "$(/tools/bin/mise which aqua:git/git)" /tools/bin/git
           ln -sf "$(/tools/bin/mise which kubectl)" /tools/bin/kubectl
       volumeMounts:
         - name: tools
