@@ -30,18 +30,23 @@ spec:
   initContainers:
     - name: install-tools
       image: ghcr.io/jdx/mise:2026.4.5@sha256:87282853e6f63f69be4a5221f165bbbd5edba002c877fcdd9798cfc6987e10ab
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
       command: ["/bin/sh", "-c"]
       args:
         - |
           set -euo pipefail
           apt-get update && apt-get install -y git
           mkdir -p /tools/bin /tools/mise
+          export HOME=/tmp
           export MISE_DATA_DIR=/tools/mise
           export MISE_CONFIG_FILE=/tools/mise.toml
           mise install --yes
           ln -sf "$(mise which gh)" /tools/bin/gh
           ln -sf "$(which git)" /tools/bin/git
           ln -sf "$(mise which kubectl)" /tools/bin/kubectl
+          chmod -R 755 /tools
       volumeMounts:
         - name: tools
           mountPath: /tools
