@@ -1,4 +1,4 @@
 [tools]
 "aqua:kubernetes/kubectl" = "1.35.3"
 gh = "2.89.0"
-git = "2.48.1"
+"aqua:git/git" = "2.48.1"

@@ -34,19 +34,24 @@ spec:
       args:
         - |
           set -euo pipefail
-          mkdir -p /tools/bin /tools/mise
+          mkdir -p /tools/bin /tools/home /tools/mise
+          
+          # Redirect all mise state to the shared tools volume
+          export HOME=/tools/home
+          export MISE_DATA_DIR=/tools/mise
+          export MISE_CACHE_DIR=/tools/mise/cache
+          export MISE_STATE_DIR=/tools/mise/state
+          export MISE_CONFIG_FILE=/tools/mise.toml
           
           # Install mise (using musl binary for Alpine compatibility)
           curl -fsSL https://github.com/jdx/mise/releases/download/v2026.4.5/mise-v2026.4.5-linux-x64-musl > /tools/bin/mise
           chmod +x /tools/bin/mise
           
-          export MISE_DATA_DIR=/tools/mise
-          export MISE_CONFIG_FILE=/tools/mise.toml
           /tools/bin/mise install --yes
           
           # Symlink from mise managed paths to /tools/bin
           ln -sf "$(/tools/bin/mise which gh)" /tools/bin/gh
-          ln -sf "$(/tools/bin/mise which git)" /tools/bin/git
+          ln -sf "$(/tools/bin/mise which aqua:git/git)" /tools/bin/git
           ln -sf "$(/tools/bin/mise which kubectl)" /tools/bin/kubectl
       volumeMounts:
         - name: tools
