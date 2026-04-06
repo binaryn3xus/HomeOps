@@ -1,8 +1,4 @@
 [tools]
 "aqua:kubernetes/kubectl" = "1.35.3"
-<<<<<<< HEAD
 gh = "2.89.0"
-=======
-gh = "2.68.1"
 git = "2.48.1"
->>>>>>> 25a25c5ab (feat(ai): update README and mise.toml to include git installation details and version)
