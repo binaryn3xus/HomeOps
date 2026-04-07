@@ -23,6 +23,10 @@ spec:
               protocol: TCP
     rbac:
       createServiceAccount: true
+  skills:
+    - pskoett/self-improving-agent
+    - steipete/github
+    - odrobnik/unifi-site-manager
   envFrom:
     - secretRef:
         name: openclaw-cortana-secret
