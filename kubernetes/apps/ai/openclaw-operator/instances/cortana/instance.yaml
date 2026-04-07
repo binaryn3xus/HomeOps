@@ -27,6 +27,8 @@ spec:
   env:
     - name: PATH
       value: "/tools/bin:/home/openclaw/.openclaw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    - name: TALOSCONFIG
+      value: "/home/openclaw/.openclaw/talos/config"
   initContainers:
     - name: install-tools
       image: curlimages/curl:8.12.1@sha256:94e9e444bcba979c2ea12e27ae39bee4cd10bc7041a472c4727a558e213744e6
@@ -35,23 +37,24 @@ spec:
         - |
           set -euo pipefail
           mkdir -p /tools/bin /tools/home /tools/mise
-          
+
           # Redirect all mise state to the shared tools volume
           export HOME=/tools/home
           export MISE_DATA_DIR=/tools/mise
           export MISE_CACHE_DIR=/tools/mise/cache
           export MISE_STATE_DIR=/tools/mise/state
           export MISE_CONFIG_FILE=/tools/mise.toml
-          
+
           # Install mise (using musl binary for Alpine compatibility)
           curl -fsSL https://github.com/jdx/mise/releases/download/v2026.4.5/mise-v2026.4.5-linux-x64-musl > /tools/bin/mise
           chmod +x /tools/bin/mise
-          
+
           /tools/bin/mise install --yes
-          
+
           # Symlink from mise managed paths to /tools/bin
           ln -sf "$(/tools/bin/mise which gh)" /tools/bin/gh
           ln -sf "$(/tools/bin/mise which kubectl)" /tools/bin/kubectl
+          ln -sf "$(/tools/bin/mise which aqua:siderolabs/talos/talosctl)" /tools/bin/talosctl
       volumeMounts:
         - name: tools
           mountPath: /tools
