@@ -19,6 +19,8 @@ spec:
               protocol: TCP
             - port: 443
               protocol: TCP
+            - port: 50000
+              protocol: TCP
     rbac:
       createServiceAccount: true
   envFrom:
