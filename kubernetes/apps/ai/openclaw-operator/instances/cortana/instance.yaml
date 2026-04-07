@@ -54,7 +54,7 @@ spec:
           # Symlink from mise managed paths to /tools/bin
           ln -sf "$(/tools/bin/mise which gh)" /tools/bin/gh
           ln -sf "$(/tools/bin/mise which kubectl)" /tools/bin/kubectl
-          ln -sf "$(/tools/bin/mise which aqua:siderolabs/talos/talosctl)" /tools/bin/talosctl
+          ln -sf "$(/tools/bin/mise which talosctl)" /tools/bin/talosctl
       volumeMounts:
         - name: tools
           mountPath: /tools
