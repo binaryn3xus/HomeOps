@@ -27,6 +27,11 @@ render-talosconfig:
     just template talos/talosconfig.yaml.j2 > ./talosconfig
     @echo "Rendered Talos client config written to talos/talosconfig"
 
+[doc('Backup talosconfig to Azure Key Vault')]
+backup-talosconfig:
+    gum confirm "Backup talosconfig to Azure Key Vault?" --default="No" && \
+        az keyvault secret set --vault-name "K8sHomeOpsKeyVault" --name "Talos-Config" --file "{{ talos_dir }}/talosconfig"
+
 [doc('Backup the configuration spec from a node to a file')]
 backup-config ip:
     @talosctl -n "{{ip}}" get mc -o yaml | yq eval '.spec' - > "{{ip}}-backup.yaml"

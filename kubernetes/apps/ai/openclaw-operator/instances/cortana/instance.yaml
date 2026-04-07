@@ -32,6 +32,7 @@ spec:
     - name: TALOSCONFIG
       value: "/home/openclaw/.openclaw/talos/config"
   initContainers:
+
     - name: install-tools
       image: curlimages/curl:8.12.1@sha256:94e9e444bcba979c2ea12e27ae39bee4cd10bc7041a472c4727a558e213744e6
       command: ["/bin/sh", "-c"]
@@ -69,9 +70,18 @@ spec:
     - name: mise-config
       configMap:
         name: cortana-mise-config
+    - name: talos-config
+      secret:
+        secretName: openclaw-cortana-secret
+        items:
+          - key: TALOS_CONFIG
+            path: config
   extraVolumeMounts:
     - name: tools
       mountPath: /tools
+    - name: talos-config
+      mountPath: /home/openclaw/.openclaw/talos/config
+      subPath: config
   storage:
     persistence:
       enabled: true
