@@ -15,9 +15,11 @@ spec:
         - "network"
       additionalEgress:
         - ports:
-            - port: 8000
+            - port: 22
               protocol: TCP
             - port: 443
+              protocol: TCP
+            - port: 8000
               protocol: TCP
             - port: 50000
               protocol: TCP
