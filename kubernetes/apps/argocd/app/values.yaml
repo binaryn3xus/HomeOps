@@ -70,7 +70,7 @@ configs:
       p, role:org-admin, projects, *, *, allow
 
       # g = Grant (Mapping your user to the role)
-      g, binaryn3xus, role:org-admin
+      g, unscfleet:argocd-admins, role:org-admin
 
   cm:
     url: https://argocd.unscfleet.com
@@ -84,6 +84,8 @@ configs:
           config:
             clientID: $argocd-github-sso:CLIENT_ID
             clientSecret: $argocd-github-sso:CLIENT_SECRET
+            orgs:
+              - name: unscfleet
 
     # Custom Health Checks
     resource.customHealth.lua.helm.toolkit.fluxcd.io_HelmRelease: |
