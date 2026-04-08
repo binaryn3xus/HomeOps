@@ -7,7 +7,6 @@ KUBE_EDITOR = "nano"
 [tools]
 node = "latest"
 # Operations tools
-python = "3.14.4"
 "aqua:charmbracelet/gum" = "0.17.0"
 "aqua:cilium/cilium-cli" = "0.19.2"
 "aqua:cloudflare/cloudflared" = "2026.3.0"
