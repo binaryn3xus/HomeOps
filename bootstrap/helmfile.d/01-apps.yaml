@@ -84,18 +84,19 @@ releases:
     chart: oci://ghcr.io/argoproj/argo-helm/argo-cd
     version: 9.4.17
     values:
-      - ../../kubernetes/apps/argocd/argocd/app/values.yaml
+      - ../../kubernetes/apps/argocd/app/values.yaml
     needs:
       - flux-system/flux-instance
     hooks:
-      - # Apply additional manifests (HTTPRoute, Application, and Project)
+      - # Apply additional manifests (Infrastructure)
         command: kubectl
         args:
           - apply
           - --server-side
-          - --filename=../../kubernetes/apps/argocd/argocd/app/httproute.yaml
-          - --filename=../../kubernetes/apps/argocd/argocd/app/argocd-app.yaml
-          - --filename=../../kubernetes/apps/argocd/argocd/app/projects.yaml
+          - --filename=../../kubernetes/apps/argocd/app/argocd-app.yaml
+          - --filename=../../kubernetes/apps/argocd/app/projects.yaml
+          - --filename=../../kubernetes/apps/argocd/app/httproute.yaml
+          - --filename=../../kubernetes/apps/argocd/app/externalsecret.yaml
         events:
           - postsync
         showlogs: true
