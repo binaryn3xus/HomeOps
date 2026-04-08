@@ -78,3 +78,24 @@ releases:
       - ./templates/values.yaml.gotmpl
     needs:
       - flux-system/flux-operator
+
+  - name: argocd
+    namespace: argocd
+    chart: oci://ghcr.io/argoproj/argo-helm/argo-cd
+    version: 9.4.17
+    values:
+      - ../../kubernetes/apps/argocd/argocd/app/values.yaml
+    needs:
+      - flux-system/flux-instance
+    hooks:
+      - # Apply additional manifests (HTTPRoute, Application, and Project)
+        command: kubectl
+        args:
+          - apply
+          - --server-side
+          - --filename=../../kubernetes/apps/argocd/argocd/app/httproute.yaml
+          - --filename=../../kubernetes/apps/argocd/argocd/app/argocd-app.yaml
+          - --filename=../../kubernetes/apps/argocd/argocd/app/projects.yaml
+        events:
+          - postsync
+        showlogs: true

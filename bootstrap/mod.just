@@ -21,7 +21,7 @@ resources:
 # Bootstrap Step 2 - Apply Helm CRDs
 [doc('Apply Helmfile CRDs')]
 crds:
-    helmfile -f "{{ bootstrap_dir }}/helmfile.d/00-crds.yaml" template -q | kubectl apply --server-side -f -
+    helmfile -f "{{ bootstrap_dir }}/helmfile.d/00-crds.yaml" template -q | yq ea -e 'select(.kind == "CustomResourceDefinition")' | kubectl apply --server-side -f -
 
 # Bootstrap Step 3 - Apply Helmfile Apps
 [doc('Apply Helmfile Apps')]

@@ -1,0 +1,99 @@
+# Argo CD Configuration
+fullnameOverride: argocd
+
+## Global / Connectivity
+global:
+  domain: argocd.unscfleet.com
+
+## API/UI Server
+server:
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: false
+  config:
+    url: https://argocd.unscfleet.com
+    exec.enabled: "true"
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+## Redis (Internal Cache)
+redis:
+  enabled: true
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+## Controller Settings
+controller:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+## Repo Server
+repoServer:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+## Central Configuration
+configs:
+  params:
+    server.insecure: true
+
+  # Register HomeOps Repository
+  repositories:
+    home-ops:
+      url: https://github.com/binaryn3xus/HomeOps/
+      type: git
+      name: HomeOps
+
+  # RBAC Policy (Admin by default, Read-only for others)
+  rbac:
+    policy.default: role:readonly
+    policy.csv: |
+      p, role:org-admin, applications, *, */*, allow
+      p, role:org-admin, clusters, get, *, allow
+      p, role:org-admin, repositories, *, *, allow
+      p, role:org-admin, projects, *, *, allow
+      g, admin, role:org-admin
+
+  # Health Checks (Includes Flux support for dashboard health status)
+  cm:
+    url: https://argocd.unscfleet.com
+    resource.customHealth.lua.helm.toolkit.fluxcd.io_HelmRelease: |
+      hs = {}
+      if obj.status ~= nil and obj.status.conditions ~= nil then
+        for i, condition in ipairs(obj.status.conditions) do
+          if condition.type == "Ready" and condition.status == "True" then
+            hs.status = "Healthy"
+            hs.message = condition.message
+            return hs
+          end
+          if condition.type == "Ready" and condition.status == "False" then
+            hs.status = "Degraded"
+            hs.message = condition.message
+            return hs
+          end
+        end
+      end
+      hs.status = "Progressing"
+      return hs
+    resource.customHealth.lua.kustomize.toolkit.fluxcd.io_Kustomization: |
+      hs = {}
+      if obj.status ~= nil and obj.status.conditions ~= nil then
+        for i, condition in ipairs(obj.status.conditions) do
+          if condition.type == "Ready" and condition.status == "True" then
+            hs.status = "Healthy"
+            hs.message = condition.message
+            return hs
+          end
+        end
+      end
+      hs.status = "Progressing"
+      return hs

@@ -1,0 +1,25 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: home-ops
+  namespace: argocd
+spec:
+  description: Project for HomeOps applications
+  # Allow deployment to any namespace in the local cluster
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: '*'
+  # Only allow resources to come from your repository
+  sourceRepos:
+    - https://github.com/binaryn3xus/HomeOps/
+  # Allow all resource types
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  # Sync Windows configuration
+  orphanedResources:
+    warn: true
