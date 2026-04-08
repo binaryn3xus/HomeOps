@@ -73,7 +73,7 @@ spec:
               mountPath: /tmp
               subPath: tmp
         - name: code-server
-          image: ghcr.io/coder/code-server:4.114.1@sha256:df6e26973ab703254d6e736971906b6a1956494e8bbfd7e297afb4cf5d30ab5f
+          image: ghcr.io/coder/code-server:4.115.0@sha256:cbd5e05849367e521f774b760602cb9e0a8da1f159eaf89600490eec34129fe5
           env:
             - name: TZ
               value: "America/New_York"
