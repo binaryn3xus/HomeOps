@@ -85,8 +85,6 @@ releases:
     version: 9.4.17
     values:
       - ../../kubernetes/apps/argocd/app/values.yaml
-    needs:
-      - flux-system/flux-instance
     hooks:
       - # Apply additional manifests (Infrastructure)
         command: kubectl
