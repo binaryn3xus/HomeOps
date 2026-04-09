@@ -8,7 +8,8 @@ spec:
   goTemplate: true
   generators:
     - list:
-        elements: []
+        elements:
+          - app: bazarr
   template:
     metadata:
       name: "{{.app}}"
