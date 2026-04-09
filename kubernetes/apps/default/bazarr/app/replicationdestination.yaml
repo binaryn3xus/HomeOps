@@ -8,7 +8,6 @@ spec:
   trigger:
     manual: restore-once
   kopia:
-    destinationPVC: bazarr # <--- This tells VolSync: "I manage this PVC"
     accessModes: ["ReadWriteOnce"]
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 2Gi
