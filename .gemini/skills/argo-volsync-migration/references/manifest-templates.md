@@ -74,10 +74,6 @@ metadata:
   name: {{ .app }}
 spec:
   accessModes: ["ReadWriteOnce"]
-  dataSourceRef:
-    kind: ReplicationDestination
-    apiGroup: volsync.backube
-    name: {{ .app }}-dst
   resources:
     requests:
       storage: {{ .volsync_capacity }}
