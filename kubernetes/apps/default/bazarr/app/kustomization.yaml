@@ -10,6 +10,5 @@ resources:
   - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml
-  - ./pvc.yaml
   - ./replicationdestination.yaml
   - ./replicationsource.yaml
