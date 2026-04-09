@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: audiobookshelf
+spec:
+  accessModes: ["ReadWriteOnce"]
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: audiobookshelf-dst
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: ceph-block

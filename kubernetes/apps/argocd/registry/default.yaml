@@ -9,6 +9,7 @@ spec:
   generators:
     - list:
         elements:
+          - app: audiobookshelf
           - app: bazarr
           - app: n8n
   template:
