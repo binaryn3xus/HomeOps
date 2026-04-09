@@ -111,9 +111,7 @@ spec:
           markdown:
             tables: block
           groupPolicy: allowlist
-          replyToMode: first
           historyLimit: 20
-          streaming: off
           ackReaction: "💠"
           configWrites: false
           textChunkLimit: 1800
