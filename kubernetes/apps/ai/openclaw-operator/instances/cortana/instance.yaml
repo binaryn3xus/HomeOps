@@ -112,7 +112,8 @@ spec:
             tables: block
           groupPolicy: allowlist
           historyLimit: 20
-          ackReaction: "💠"
+          replyToMode: off
+          ackReaction: ""
           configWrites: false
           textChunkLimit: 1800
           maxLinesPerMessage: 80
