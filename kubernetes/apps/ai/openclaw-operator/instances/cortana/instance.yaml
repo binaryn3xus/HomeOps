@@ -6,6 +6,10 @@ metadata:
   name: cortana
   namespace: ai
 spec:
+  image:
+    repository: ghcr.io/openclaw/openclaw
+    tag: 2026.4.9
+    pullPolicy: IfNotPresent
   selfConfigure:
     enabled: true
   security:
