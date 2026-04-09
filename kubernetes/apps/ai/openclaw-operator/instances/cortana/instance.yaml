@@ -105,36 +105,36 @@ spec:
           allowedOrigins:
             - "https://cortana.unscfleet.com"
           dangerouslyDisableDeviceAuth: false
-    channels:
-      discord:
-        enabled: true
-        markdown:
-          tables: block
-        groupPolicy: allowlist
-        replyToMode: first
-        historyLimit: 20
-        streaming: off
-        ackReaction: "👀"
-        configWrites: false
-        textChunkLimit: 1800
-        maxLinesPerMessage: 80
-        actions:
-          moderation: false
-          roles: false
-          presence: false
-        execApprovals:
+      channels:
+        discord:
           enabled: true
-          target: channel
-          cleanupAfterResolve: true
-          approvers:
-            - "210731922320523264"
-        guilds:
-          "1016510099310792744":
-            requireMention: true
-            ignoreOtherMentions: false
-            users:
+          markdown:
+            tables: block
+          groupPolicy: allowlist
+          replyToMode: first
+          historyLimit: 20
+          streaming: off
+          ackReaction: "💠"
+          configWrites: false
+          textChunkLimit: 1800
+          maxLinesPerMessage: 80
+          actions:
+            moderation: false
+            roles: false
+            presence: false
+          execApprovals:
+            enabled: true
+            target: channel
+            cleanupAfterResolve: true
+            approvers:
               - "210731922320523264"
-            channels:
-              "1465069707013918733":
-                allow: true
-                requireMention: false
+          guilds:
+            "1016510099310792744":
+              requireMention: true
+              ignoreOtherMentions: false
+              users:
+                - "210731922320523264"
+              channels:
+                "1465069707013918733":
+                  allow: true
+                  requireMention: false
