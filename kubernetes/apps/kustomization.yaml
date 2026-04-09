@@ -3,21 +3,21 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./ai/kustomization.yaml
-  - ./argocd/kustomization.yaml
-  - ./cert-manager/kustomization.yaml
-  - ./database/kustomization.yaml
-  - ./default/kustomization.yaml
-  - ./external-secrets/kustomization.yaml
-  - ./flux-system/kustomization.yaml
-  - ./games/kustomization.yaml
-  - ./kube-system/kustomization.yaml
-  - ./kyverno/kustomization.yaml
-  - ./network/kustomization.yaml
-  - ./observability/kustomization.yaml
-  - ./openebs-system/kustomization.yaml
-  - ./paperless/kustomization.yaml
-  - ./rook-ceph/kustomization.yaml
-  - ./system-upgrade/kustomization.yaml
-  - ./teleport/kustomization.yaml
-  - ./volsync-system/kustomization.yaml
+  - ./ai
+  - ./argocd
+  - ./cert-manager
+  - ./database
+  - ./default
+  - ./external-secrets
+  - ./flux-system
+  - ./games
+  - ./kube-system
+  - ./kyverno
+  - ./network
+  - ./observability
+  - ./openebs-system
+  - ./paperless
+  - ./rook-ceph
+  - ./system-upgrade
+  - ./teleport
+  - ./volsync-system
