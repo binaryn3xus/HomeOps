@@ -31,7 +31,6 @@ spec:
             wave: "1"
           - app: mcp-gateway
             path: kubernetes/apps/ai/mcp-gateway/app
-            exclude: "mcp.json"
             wave: "1"
           - app: open-webui
             path: kubernetes/apps/ai/open-webui/app
@@ -50,8 +49,6 @@ spec:
         repoURL: https://github.com/binaryn3xus/HomeOps/
         targetRevision: main
         path: "{{.path}}"
-        directory:
-          exclude: '{{ .exclude | default "namespace.yaml" }}'
       destination:
         server: https://kubernetes.default.svc
         namespace: ai

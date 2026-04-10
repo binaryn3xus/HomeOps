@@ -39,8 +39,6 @@ spec:
         repoURL: https://github.com/binaryn3xus/HomeOps/
         targetRevision: main
         path: "{{.path}}"
-        directory:
-          exclude: '{{ .exclude | default "namespace.yaml" }}'
       destination:
         server: https://kubernetes.default.svc
         namespace: teleport
