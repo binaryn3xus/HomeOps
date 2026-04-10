@@ -1,0 +1,43 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: kube-system-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - app: cilium
+            path: kubernetes/apps/kube-system/cilium/app
+          - app: coredns
+            path: kubernetes/apps/kube-system/coredns/app
+          - app: intel-device-plugin
+            path: kubernetes/apps/kube-system/intel-device-plugin/app
+          - app: metrics-server
+            path: kubernetes/apps/kube-system/metrics-server/app
+          - app: node-feature-discovery
+            path: kubernetes/apps/kube-system/node-feature-discovery/app
+          - app: nvidia-device-plugin
+            path: kubernetes/apps/kube-system/nvidia-device-plugin/app
+          - app: reloader
+            path: kubernetes/apps/kube-system/reloader/app
+          - app: spegel
+            path: kubernetes/apps/kube-system/spegel/app
+  template:
+    metadata:
+      name: "{{.app}}"
+    spec:
+      project: home-ops
+      source:
+        repoURL: https://github.com/binaryn3xus/HomeOps/
+        targetRevision: main
+        path: "{{.path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: kube-system
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
