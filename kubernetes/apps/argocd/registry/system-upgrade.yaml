@@ -1,0 +1,33 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: system-upgrade-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - app: etcd-defrag
+            path: kubernetes/apps/system-upgrade/etcd-defrag/app
+          - app: tuppr
+            path: kubernetes/apps/system-upgrade/tuppr/app
+          - app: tuppr-upgrades
+            path: kubernetes/apps/system-upgrade/tuppr/upgrades
+  template:
+    metadata:
+      name: "{{.app}}"
+    spec:
+      project: home-ops
+      source:
+        repoURL: https://github.com/binaryn3xus/HomeOps/
+        targetRevision: main
+        path: "{{.path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: system-upgrade
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
