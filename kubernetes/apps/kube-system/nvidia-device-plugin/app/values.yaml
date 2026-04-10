@@ -1,0 +1,32 @@
+image:
+  repository: nvcr.io/nvidia/k8s-device-plugin
+  tag: v0.19.0
+config:
+  default: "default"
+  map:
+    default: |-
+      version: v1
+      sharing:
+        timeSlicing:
+          resources:
+          - name: nvidia.com/gpu
+            replicas: 5
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: sku
+              operator: In
+              values:
+                - gpu
+runtimeClassName: nvidia
+nfd:
+  enabled: false
+nodeSelector:
+  sku: "gpu"
+tolerations:
+  - key: "sku"
+    operator: "Equal"
+    value: "gpu"
+    effect: "NoSchedule"
