@@ -1,0 +1,50 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: paperless-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - app: paperless
+            name: paperless-ngx
+            path: kubernetes/apps/paperless/paperless-ngx/app
+          - app: paperless-gotenberg
+            name: gotenberg
+            path: kubernetes/apps/paperless/gotenberg/app
+          - app: paperless-postgres
+            name: postgres
+            path: kubernetes/apps/paperless/postgres/app
+          - app: paperless-tika
+            name: tika
+            path: kubernetes/apps/paperless/tika/app
+          - app: paperless-valkey
+            name: valkey
+            path: kubernetes/apps/paperless/valkey/app
+          - app: paperless-synology
+            name: synology
+            path: kubernetes/apps/paperless
+            include: synology.yaml
+  template:
+    metadata:
+      name: "{{.app}}"
+    spec:
+      project: home-ops
+      source:
+        repoURL: https://github.com/binaryn3xus/HomeOps/
+        targetRevision: main
+        path: "{{.path}}"
+        {{- if .include }}
+        directory:
+          include: "{{.include}}"
+        {{- end }}
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: paperless
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
