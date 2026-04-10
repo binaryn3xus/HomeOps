@@ -26,7 +26,7 @@ spec:
       source:
         repoURL: https://github.com/binaryn3xus/HomeOps/
         targetRevision: main
-        path: "{{ default (printf "kubernetes/apps/ai/%s/app" .app) .path }}"
+        path: '{{ default (printf "kubernetes/apps/ai/%s/app" .app) .path }}'
       destination:
         server: https://kubernetes.default.svc
         namespace: ai
