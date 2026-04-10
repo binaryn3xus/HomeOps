@@ -28,8 +28,6 @@ spec:
       name: "{{.app}}"
       annotations:
         argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
-        argocd.argoproj.io/compare-options: IgnoreExtraneous
-        argocd.argoproj.io/sync-options: Prune=false
     spec:
       project: home-ops
       source:
@@ -43,5 +41,7 @@ spec:
         namespace: cert-manager
       syncPolicy:
         automated:
-          prune: false
+          prune: true
           selfHeal: true
+        syncOptions:
+          - ServerSideApply=true
