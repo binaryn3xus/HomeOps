@@ -28,16 +28,12 @@ spec:
             wave: "-1"
           - app: certificates-export
             path: kubernetes/apps/network/certificates/export
-            wave: "0"
           - app: cloudflare-dns
             path: kubernetes/apps/network/cloudflare-dns/app
-            wave: "0"
           - app: cloudflare-tunnel
             path: kubernetes/apps/network/cloudflare-tunnel/app
-            wave: "0"
           - app: unifi-dns
             path: kubernetes/apps/network/unifi-dns/app
-            wave: "0"
           - app: echo
             path: kubernetes/apps/network/echo/app
             wave: "1"
@@ -45,7 +41,7 @@ spec:
     metadata:
       name: "{{.app}}"
       annotations:
-        argocd.argoproj.io/sync-wave: "{{default "0" .wave}}"
+        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
     spec:
       project: home-ops
       source:
