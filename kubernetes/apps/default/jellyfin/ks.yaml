@@ -8,8 +8,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -19,11 +17,6 @@ spec:
       namespace: kube-system
   interval: 30m
   path: ./kubernetes/apps/default/jellyfin/app
-  postBuild:
-    substitute:
-      APP: *app
-      VOLSYNC_CACHE_CAPACITY: 10Gi
-      VOLSYNC_CAPACITY: 20Gi
   prune: true
   sourceRef:
     kind: GitRepository

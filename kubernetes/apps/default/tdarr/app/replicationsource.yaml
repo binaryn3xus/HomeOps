@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: tdarr
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+spec:
+  sourcePVC: tdarr
+  trigger:
+    schedule: "0 * * * *"
+  kopia:
+    accessModes: ["ReadWriteOnce"]
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 15Gi
+    cacheStorageClassName: openebs-hostpath
+    compression: zstd-fastest
+    copyMethod: Snapshot
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    repository: volsync-kopia-secret
+    retain:
+      hourly: 24
+      daily: 7
+    storageClassName: ceph-block
+    volumeSnapshotClassName: csi-ceph-blockpool

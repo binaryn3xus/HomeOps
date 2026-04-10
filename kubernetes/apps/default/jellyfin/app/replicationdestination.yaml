@@ -1,0 +1,28 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: jellyfin-dst
+spec:
+  trigger:
+    manual: restore-once
+  kopia:
+    accessModes: ["ReadWriteOnce"]
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 10Gi
+    cacheStorageClassName: openebs-hostpath
+    capacity: 20Gi
+    cleanupCachePVC: true
+    cleanupTempPVC: true
+    copyMethod: Snapshot
+    enableFileDeletion: true
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    repository: volsync-kopia-secret
+    sourceIdentity:
+      sourceName: jellyfin
+    storageClassName: ceph-block
+    volumeSnapshotClassName: csi-ceph-blockpool

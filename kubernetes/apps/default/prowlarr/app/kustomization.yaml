@@ -7,6 +7,9 @@ commonLabels:
   app.kubernetes.io/instance: prowlarr
   app.kubernetes.io/controller: prowlarr
 resources:
+  - ./pvc.yaml
   - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml
+  - ./replicationdestination.yaml
+  - ./replicationsource.yaml

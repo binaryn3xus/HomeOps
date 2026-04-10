@@ -7,6 +7,9 @@ commonLabels:
   app.kubernetes.io/instance: tdarr
   app.kubernetes.io/controller: tdarr
 resources:
+  - ./pvc.yaml
   - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml
+  - ./replicationdestination.yaml
+  - ./replicationsource.yaml

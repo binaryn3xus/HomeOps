@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tautulli
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+spec:
+  accessModes: ["ReadWriteOnce"]
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: tautulli-dst
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: ceph-block

@@ -7,6 +7,9 @@ commonLabels:
   app.kubernetes.io/instance: maintainerr
   app.kubernetes.io/controller: maintainerr
 resources:
+  - ./pvc.yaml
   - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml
+  - ./replicationdestination.yaml
+  - ./replicationsource.yaml

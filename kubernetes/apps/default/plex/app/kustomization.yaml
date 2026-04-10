@@ -7,6 +7,8 @@ commonLabels:
   app.kubernetes.io/instance: plex
   app.kubernetes.io/controller: plex
 resources:
+  - ./pvc.yaml
   - ./deployment.yaml
   - ./service.yaml
-  - ./httproute.yaml
+  - ./replicationdestination.yaml
+  - ./replicationsource.yaml

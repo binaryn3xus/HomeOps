@@ -1,0 +1,28 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: zigbee-dst
+spec:
+  trigger:
+    manual: restore-once
+  kopia:
+    accessModes: ["ReadWriteOnce"]
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 1Gi
+    cacheStorageClassName: openebs-hostpath
+    capacity: 1Gi
+    cleanupCachePVC: true
+    cleanupTempPVC: true
+    copyMethod: Snapshot
+    enableFileDeletion: true
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    repository: volsync-kopia-secret
+    sourceIdentity:
+      sourceName: zigbee
+    storageClassName: ceph-block
+    volumeSnapshotClassName: csi-ceph-blockpool

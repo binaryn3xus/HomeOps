@@ -7,8 +7,8 @@ commonLabels:
   app.kubernetes.io/instance: zigbee
   app.kubernetes.io/controller: zigbee
 resources:
-  - ./externalsecret.yaml
-  - ./configmap.yaml
+  - ./pvc.yaml
   - ./deployment.yaml
   - ./service.yaml
-  - ./httproute.yaml
+  - ./replicationdestination.yaml
+  - ./replicationsource.yaml

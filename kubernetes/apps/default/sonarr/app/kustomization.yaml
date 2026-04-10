@@ -7,7 +7,9 @@ commonLabels:
   app.kubernetes.io/instance: sonarr
   app.kubernetes.io/controller: sonarr
 resources:
-  - ./externalsecret.yaml
+  - ./pvc.yaml
   - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml
+  - ./replicationdestination.yaml
+  - ./replicationsource.yaml

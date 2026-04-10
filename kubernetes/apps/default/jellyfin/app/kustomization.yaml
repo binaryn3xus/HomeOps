@@ -10,9 +10,7 @@ resources:
   - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml
-configMapGenerator:
-  - name: jellyfin-config
-    files:
-      - encoding.xml=./resources/encoding.xml
-generatorOptions:
-  disableNameSuffixHash: true
+  - ./pvc.yaml
+  - ./replicationdestination.yaml
+  - ./replicationsource.yaml
+  - ./resources/encoding.xml

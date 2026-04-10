@@ -8,8 +8,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/volsync
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -17,10 +15,6 @@ spec:
       namespace: volsync-system
   interval: 30m
   path: ./kubernetes/apps/default/sonarr/app
-  postBuild:
-    substitute:
-      APP: *app
-      VOLSYNC_CAPACITY: 2Gi
   prune: true
   sourceRef:
     kind: GitRepository

@@ -8,12 +8,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-  path: ./kubernetes/apps/default/it-tools/app
-  postBuild:
-    substitute:
-      APP: *app
   interval: 30m
+  path: ./kubernetes/apps/default/it-tools/app
   prune: true
   sourceRef:
     kind: GitRepository

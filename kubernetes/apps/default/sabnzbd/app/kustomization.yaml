@@ -7,6 +7,9 @@ commonLabels:
   app.kubernetes.io/instance: sabnzbd
   app.kubernetes.io/controller: sabnzbd
 resources:
+  - ./pvc.yaml
   - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml
+  - ./replicationdestination.yaml
+  - ./replicationsource.yaml
