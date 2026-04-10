@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ollama
+  name: open-webui
   annotations:
     argocd.argoproj.io/sync-options: Prune=false
 spec:
@@ -10,8 +10,8 @@ spec:
   dataSourceRef:
     kind: ReplicationDestination
     apiGroup: volsync.backube
-    name: ollama-dst
+    name: open-webui-dst
   resources:
     requests:
-      storage: 50Gi
+      storage: 20Gi
   storageClassName: ceph-block

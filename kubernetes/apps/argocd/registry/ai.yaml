@@ -1,0 +1,36 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ai-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - app: comfyui
+          - app: cortana
+            path: kubernetes/apps/ai/openclaw-operator/instances/cortana
+          - app: mcp-gateway
+          - app: ollama
+          - app: open-webui
+          - app: openclaw-operator
+            path: kubernetes/apps/ai/openclaw-operator/operator
+          - app: searxng
+  template:
+    metadata:
+      name: "{{.app}}"
+    spec:
+      project: home-ops
+      source:
+        repoURL: https://github.com/binaryn3xus/HomeOps/
+        targetRevision: main
+        path: "{{ default (printf "kubernetes/apps/ai/%s/app" .app) .path }}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: ai
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

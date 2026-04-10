@@ -7,6 +7,9 @@ commonLabels:
   app.kubernetes.io/instance: open-webui
   app.kubernetes.io/controller: open-webui
 resources:
+  - ./pvc.yaml
+  - ./replicationdestination.yaml
+  - ./replicationsource.yaml
   - ./configmap.yaml
   - ./externalsecret.yaml
   - ./rbac.yaml
