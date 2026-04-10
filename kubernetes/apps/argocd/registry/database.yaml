@@ -10,6 +10,7 @@ spec:
     - list:
         elements:
           - app: cloudbeaver
+            path: kubernetes/apps/database/cloudbeaver/app
           - app: cloudnative-pg-operator
             path: kubernetes/apps/database/cloudnative-pg/operator
           - app: cloudnative-pg-cluster
@@ -17,6 +18,7 @@ spec:
           - app: cloudnative-pg-plugin-barman-cloud
             path: kubernetes/apps/database/cloudnative-pg/plugin-barman-cloud
           - app: mssql-2025
+            path: kubernetes/apps/database/mssql-2025/app
   template:
     metadata:
       name: "{{.app}}"
@@ -25,7 +27,7 @@ spec:
       source:
         repoURL: https://github.com/binaryn3xus/HomeOps/
         targetRevision: main
-        path: '{{ default (printf "kubernetes/apps/database/%s/app" .app) .path }}'
+        path: "{{.path}}"
       destination:
         server: https://kubernetes.default.svc
         namespace: database

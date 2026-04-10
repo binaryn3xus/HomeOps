@@ -10,14 +10,19 @@ spec:
     - list:
         elements:
           - app: comfyui
+            path: kubernetes/apps/ai/comfyui/app
           - app: cortana
             path: kubernetes/apps/ai/openclaw-operator/instances/cortana
           - app: mcp-gateway
+            path: kubernetes/apps/ai/mcp-gateway/app
           - app: ollama
+            path: kubernetes/apps/ai/ollama/app
           - app: open-webui
+            path: kubernetes/apps/ai/open-webui/app
           - app: openclaw-operator
             path: kubernetes/apps/ai/openclaw-operator/operator
           - app: searxng
+            path: kubernetes/apps/ai/searxng/app
   template:
     metadata:
       name: "{{.app}}"
@@ -26,7 +31,7 @@ spec:
       source:
         repoURL: https://github.com/binaryn3xus/HomeOps/
         targetRevision: main
-        path: '{{ default (printf "kubernetes/apps/ai/%s/app" .app) .path }}'
+        path: "{{.path}}"
       destination:
         server: https://kubernetes.default.svc
         namespace: ai

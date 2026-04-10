@@ -10,6 +10,7 @@ spec:
     - list:
         elements:
           - app: cert-manager
+            path: kubernetes/apps/cert-manager/cert-manager/app
   template:
     metadata:
       name: "{{.app}}"
@@ -18,7 +19,7 @@ spec:
       source:
         repoURL: https://github.com/binaryn3xus/HomeOps/
         targetRevision: main
-        path: kubernetes/apps/cert-manager/{{.app}}/app
+        path: "{{.path}}"
       destination:
         server: https://kubernetes.default.svc
         namespace: cert-manager

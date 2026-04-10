@@ -10,26 +10,47 @@ spec:
     - list:
         elements:
           - app: audiobookshelf
+            path: kubernetes/apps/default/audiobookshelf/app
           - app: bazarr
+            path: kubernetes/apps/default/bazarr/app
           - app: esphome
+            path: kubernetes/apps/default/esphome/app
           - app: home-assistant
+            path: kubernetes/apps/default/home-assistant/app
           - app: it-tools
+            path: kubernetes/apps/default/it-tools/app
           - app: jellyfin
+            path: kubernetes/apps/default/jellyfin/app
           - app: maintainerr
+            path: kubernetes/apps/default/maintainerr/app
           - app: mosquitto
+            path: kubernetes/apps/default/mosquitto/app
           - app: n8n
+            path: kubernetes/apps/default/n8n/app
           - app: overseerr
+            path: kubernetes/apps/default/overseerr/app
           - app: plex
+            path: kubernetes/apps/default/plex/app
           - app: prowlarr
+            path: kubernetes/apps/default/prowlarr/app
           - app: radarr
+            path: kubernetes/apps/default/radarr/app
           - app: sabnzbd
+            path: kubernetes/apps/default/sabnzbd/app
           - app: sonarr
+            path: kubernetes/apps/default/sonarr/app
           - app: tautulli
+            path: kubernetes/apps/default/tautulli/app
           - app: tdarr
+            path: kubernetes/apps/default/tdarr/app
           - app: vert
+            path: kubernetes/apps/default/vert/app
           - app: watchstate
+            path: kubernetes/apps/default/watchstate/app
           - app: zigbee
+            path: kubernetes/apps/default/zigbee/app
           - app: zwave
+            path: kubernetes/apps/default/zwave/app
   template:
     metadata:
       name: "{{.app}}"
@@ -38,7 +59,7 @@ spec:
       source:
         repoURL: https://github.com/binaryn3xus/HomeOps/
         targetRevision: main
-        path: kubernetes/apps/default/{{.app}}/app
+        path: "{{.path}}"
       destination:
         server: https://kubernetes.default.svc
         namespace: default
