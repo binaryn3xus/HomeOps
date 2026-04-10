@@ -1,4 +1,15 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: observability
+  labels:
+    goldilocks.fairwinds.com/enabled: "true"
+    volsync.backube/privileged-movers: "true"
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+    volsync.backube/privileged-movers: "true"
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -9,31 +20,41 @@ spec:
   generators:
     - list:
         elements:
-          - app: gatus
-            path: kubernetes/apps/observability/gatus/app
-          - app: goldilocks
-            path: kubernetes/apps/observability/goldilocks/app
-          - app: grafana
-            path: kubernetes/apps/observability/grafana/app
-          - app: grafana-instance
-            path: kubernetes/apps/observability/grafana/instance
-          - app: kromgo
-            path: kubernetes/apps/observability/kromgo/app
-          - app: kube-prometheus-stack
-            path: kubernetes/apps/observability/kube-prometheus-stack/app
-          - app: loki
-            path: kubernetes/apps/observability/loki/app
           - app: prometheus-operator-crds
             path: kubernetes/apps/observability/prometheus-operator-crds/app
+            wave: "-5"
+          - app: kube-prometheus-stack
+            path: kubernetes/apps/observability/kube-prometheus-stack/app
+            wave: "-4"
+          - app: loki
+            path: kubernetes/apps/observability/loki/app
+            wave: "-2"
+          - app: gatus
+            path: kubernetes/apps/observability/gatus/app
+            wave: "1"
+          - app: goldilocks
+            path: kubernetes/apps/observability/goldilocks/app
+            wave: "1"
+          - app: grafana
+            path: kubernetes/apps/observability/grafana/app
+            wave: "1"
+          - app: kromgo
+            path: kubernetes/apps/observability/kromgo/app
+            wave: "1"
           - app: promtail
             path: kubernetes/apps/observability/promtail/app
+            wave: "1"
           - app: tdarr-exporter
             path: kubernetes/apps/observability/tdarr-exporter/app
+            wave: "1"
           - app: unpoller
             path: kubernetes/apps/observability/unpoller/app
+            wave: "1"
   template:
     metadata:
       name: "{{.app}}"
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
     spec:
       project: home-ops
       source:

@@ -1,4 +1,15 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: paperless
+  labels:
+    goldilocks.fairwinds.com/enabled: "true"
+    volsync.backube/privileged-movers: "true"
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+    volsync.backube/privileged-movers: "true"
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -9,33 +20,33 @@ spec:
   generators:
     - list:
         elements:
-          - app: paperless-ns
-            path: kubernetes/apps/paperless
-          - app: paperless
-            path: kubernetes/apps/paperless/paperless-ngx/app
-          - app: gotenberg
-            path: kubernetes/apps/paperless/gotenberg/app
-          - app: paperless-postgres
-            path: kubernetes/apps/paperless/postgres/app
-          - app: tika
-            path: kubernetes/apps/paperless/tika/app
-          - app: valkey
-            path: kubernetes/apps/paperless/valkey/app
           - app: paperless-resources
             path: kubernetes/apps/paperless/resources
+            wave: "-2"
+          - app: paperless-postgres
+            path: kubernetes/apps/paperless/postgres/app
+            wave: "-1"
+          - app: valkey
+            path: kubernetes/apps/paperless/valkey/app
+            wave: "-1"
+          - app: gotenberg
+            path: kubernetes/apps/paperless/gotenberg/app
+          - app: tika
+            path: kubernetes/apps/paperless/tika/app
+          - app: paperless
+            path: kubernetes/apps/paperless/paperless/app
+            wave: "1"
   template:
     metadata:
       name: "{{.app}}"
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
     spec:
       project: home-ops
       source:
         repoURL: https://github.com/binaryn3xus/HomeOps/
         targetRevision: main
         path: "{{.path}}"
-        {{- if eq .app "paperless-ns" }}
-        directory:
-          include: "namespace.yaml"
-        {{- end }}
       destination:
         server: https://kubernetes.default.svc
         namespace: paperless

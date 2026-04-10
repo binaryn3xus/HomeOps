@@ -1,4 +1,15 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: system-upgrade
+  labels:
+    goldilocks.fairwinds.com/enabled: "true"
+    volsync.backube/privileged-movers: "true"
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+    volsync.backube/privileged-movers: "true"
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -13,11 +24,11 @@ spec:
             path: kubernetes/apps/system-upgrade/etcd-defrag/app
           - app: tuppr
             path: kubernetes/apps/system-upgrade/tuppr/app
-          - app: tuppr-upgrades
-            path: kubernetes/apps/system-upgrade/tuppr/upgrades
   template:
     metadata:
       name: "{{.app}}"
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
     spec:
       project: home-ops
       source:

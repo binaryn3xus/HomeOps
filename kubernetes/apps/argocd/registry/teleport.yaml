@@ -1,4 +1,15 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: teleport
+  labels:
+    goldilocks.fairwinds.com/enabled: "true"
+    volsync.backube/privileged-movers: "true"
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+    volsync.backube/privileged-movers: "true"
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -9,15 +20,19 @@ spec:
   generators:
     - list:
         elements:
-          - app: teleport
+          - app: teleport-resources
+            path: kubernetes/apps/teleport/resources
+            wave: "-2"
+          - app: teleport-cluster
             path: kubernetes/apps/teleport/cluster/app
+            wave: "-1"
           - app: teleport-agent
             path: kubernetes/apps/teleport/agent/app
-          - app: teleport-resources
-            path: kubernetes/apps/teleport/resources/configs
   template:
     metadata:
       name: "{{.app}}"
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
     spec:
       project: home-ops
       source:

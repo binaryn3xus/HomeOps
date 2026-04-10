@@ -1,4 +1,15 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: network
+  labels:
+    goldilocks.fairwinds.com/enabled: "true"
+    volsync.backube/privileged-movers: "true"
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+    volsync.backube/privileged-movers: "true"
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -9,23 +20,32 @@ spec:
   generators:
     - list:
         elements:
-          - app: certificates-import
-            path: kubernetes/apps/network/certificates/import
-          - app: certificates-export
-            path: kubernetes/apps/network/certificates/export
-          - app: cloudflare-dns
-            path: kubernetes/apps/network/cloudflare-dns/app
-          - app: cloudflare-tunnel
-            path: kubernetes/apps/network/cloudflare-tunnel/app
-          - app: echo
-            path: kubernetes/apps/network/echo/app
           - app: envoy-gateway
             path: kubernetes/apps/network/envoy-gateway/app
+            wave: "-1"
+          - app: certificates-import
+            path: kubernetes/apps/network/certificates/import
+            wave: "-1"
+          - app: certificates-export
+            path: kubernetes/apps/network/certificates/export
+            wave: "0"
+          - app: cloudflare-dns
+            path: kubernetes/apps/network/cloudflare-dns/app
+            wave: "0"
+          - app: cloudflare-tunnel
+            path: kubernetes/apps/network/cloudflare-tunnel/app
+            wave: "0"
           - app: unifi-dns
             path: kubernetes/apps/network/unifi-dns/app
+            wave: "0"
+          - app: echo
+            path: kubernetes/apps/network/echo/app
+            wave: "1"
   template:
     metadata:
       name: "{{.app}}"
+      annotations:
+        argocd.argoproj.io/sync-wave: "{{default "0" .wave}}"
     spec:
       project: home-ops
       source:

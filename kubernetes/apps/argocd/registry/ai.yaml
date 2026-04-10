@@ -1,4 +1,15 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ai
+  labels:
+    goldilocks.fairwinds.com/enabled: "true"
+    volsync.backube/privileged-movers: "true"
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+    volsync.backube/privileged-movers: "true"
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -9,23 +20,27 @@ spec:
   generators:
     - list:
         elements:
-          - app: comfyui
-            path: kubernetes/apps/ai/comfyui/app
-          - app: cortana
-            path: kubernetes/apps/ai/openclaw-operator/instances/cortana
-          - app: mcp-gateway
-            path: kubernetes/apps/ai/mcp-gateway/app
           - app: ollama
             path: kubernetes/apps/ai/ollama/app
+          - app: openclaw-operator
+            path: kubernetes/apps/ai/openclaw-operator/app
+          - app: comfyui
+            path: kubernetes/apps/ai/comfyui/app
+            wave: "1"
+          - app: mcp-gateway
+            path: kubernetes/apps/ai/mcp-gateway/app
+            wave: "1"
           - app: open-webui
             path: kubernetes/apps/ai/open-webui/app
-          - app: openclaw-operator
-            path: kubernetes/apps/ai/openclaw-operator/operator
+            wave: "1"
           - app: searxng
             path: kubernetes/apps/ai/searxng/app
+            wave: "1"
   template:
     metadata:
       name: "{{.app}}"
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
     spec:
       project: home-ops
       source:

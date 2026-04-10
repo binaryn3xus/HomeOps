@@ -1,9 +1,0 @@
----
-# yaml-language-server: $schema=https://json.schemastore.org/kustomization
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-namespace: system-upgrade
-resources:
-  - ./namespace.yaml
-  - ./etcd-defrag/ks.yaml
-  - ./tuppr/ks.yaml

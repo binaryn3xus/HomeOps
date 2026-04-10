@@ -1,4 +1,15 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: default
+  labels:
+    goldilocks.fairwinds.com/enabled: "true"
+    volsync.backube/privileged-movers: "true"
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+    volsync.backube/privileged-movers: "true"
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -9,6 +20,9 @@ spec:
   generators:
     - list:
         elements:
+          - app: mosquitto
+            path: kubernetes/apps/default/mosquitto/app
+            wave: "-1"
           - app: audiobookshelf
             path: kubernetes/apps/default/audiobookshelf/app
           - app: bazarr
@@ -23,30 +37,34 @@ spec:
             path: kubernetes/apps/default/jellyfin/app
           - app: maintainerr
             path: kubernetes/apps/default/maintainerr/app
-          - app: mosquitto
-            path: kubernetes/apps/default/mosquitto/app
+            wave: "1"
           - app: n8n
             path: kubernetes/apps/default/n8n/app
           - app: overseerr
             path: kubernetes/apps/default/overseerr/app
+            wave: "1"
           - app: plex
             path: kubernetes/apps/default/plex/app
           - app: prowlarr
             path: kubernetes/apps/default/prowlarr/app
           - app: radarr
             path: kubernetes/apps/default/radarr/app
+            wave: "1"
           - app: sabnzbd
             path: kubernetes/apps/default/sabnzbd/app
           - app: sonarr
             path: kubernetes/apps/default/sonarr/app
+            wave: "1"
           - app: tautulli
             path: kubernetes/apps/default/tautulli/app
+            wave: "1"
           - app: tdarr
             path: kubernetes/apps/default/tdarr/app
           - app: vert
             path: kubernetes/apps/default/vert/app
           - app: watchstate
             path: kubernetes/apps/default/watchstate/app
+            wave: "1"
           - app: zigbee
             path: kubernetes/apps/default/zigbee/app
           - app: zwave
@@ -54,6 +72,8 @@ spec:
   template:
     metadata:
       name: "{{.app}}"
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
     spec:
       project: home-ops
       source:

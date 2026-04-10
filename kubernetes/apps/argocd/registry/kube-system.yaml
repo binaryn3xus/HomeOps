@@ -1,4 +1,15 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kube-system
+  labels:
+    goldilocks.fairwinds.com/enabled: "true"
+    volsync.backube/privileged-movers: "true"
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+    volsync.backube/privileged-movers: "true"
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -11,23 +22,33 @@ spec:
         elements:
           - app: cilium
             path: kubernetes/apps/kube-system/cilium/app
+            wave: "-5"
           - app: coredns
             path: kubernetes/apps/kube-system/coredns/app
+            wave: "-5"
           - app: intel-device-plugin
             path: kubernetes/apps/kube-system/intel-device-plugin/app
+            wave: "-4"
           - app: metrics-server
             path: kubernetes/apps/kube-system/metrics-server/app
+            wave: "-4"
           - app: node-feature-discovery
             path: kubernetes/apps/kube-system/node-feature-discovery/app
+            wave: "-4"
           - app: nvidia-device-plugin
             path: kubernetes/apps/kube-system/nvidia-device-plugin/app
+            wave: "-4"
           - app: reloader
             path: kubernetes/apps/kube-system/reloader/app
+            wave: "-4"
           - app: spegel
             path: kubernetes/apps/kube-system/spegel/app
+            wave: "-4"
   template:
     metadata:
       name: "{{.app}}"
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
     spec:
       project: home-ops
       source:

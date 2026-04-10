@@ -1,4 +1,15 @@
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: database
+  labels:
+    goldilocks.fairwinds.com/enabled: "true"
+    volsync.backube/privileged-movers: "true"
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+    volsync.backube/privileged-movers: "true"
+---
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
@@ -9,19 +20,26 @@ spec:
   generators:
     - list:
         elements:
-          - app: cloudbeaver
-            path: kubernetes/apps/database/cloudbeaver/app
           - app: cloudnative-pg-operator
             path: kubernetes/apps/database/cloudnative-pg/operator
+            wave: "-3"
           - app: cloudnative-pg-cluster
             path: kubernetes/apps/database/cloudnative-pg/cluster
+            wave: "-1"
           - app: cloudnative-pg-plugin-barman-cloud
             path: kubernetes/apps/database/cloudnative-pg/plugin-barman-cloud
+            wave: "-1"
           - app: mssql-2025
             path: kubernetes/apps/database/mssql-2025/app
+            wave: "-1"
+          - app: cloudbeaver
+            path: kubernetes/apps/database/cloudbeaver/app
+            wave: "1"
   template:
     metadata:
       name: "{{.app}}"
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
     spec:
       project: home-ops
       source:
