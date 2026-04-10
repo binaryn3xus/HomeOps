@@ -29,6 +29,8 @@ spec:
       name: "{{.app}}"
       annotations:
         argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
+        argocd.argoproj.io/compare-options: IgnoreExtraneous
+        argocd.argoproj.io/sync-options: Prune=false
     spec:
       project: home-ops
       source:
@@ -36,11 +38,11 @@ spec:
         targetRevision: main
         path: "{{.path}}"
         directory:
-          exclude: "namespace.yaml"
+          exclude: '{{ .exclude | default "namespace.yaml" }}'
       destination:
         server: https://kubernetes.default.svc
         namespace: system-upgrade
       syncPolicy:
         automated:
-          prune: true
+          prune: false
           selfHeal: true
