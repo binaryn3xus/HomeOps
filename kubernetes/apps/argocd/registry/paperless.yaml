@@ -11,16 +11,16 @@ spec:
         elements:
           - app: paperless
             path: kubernetes/apps/paperless/paperless-ngx/app
-          - app: paperless-gotenberg
+          - app: gotenberg
             path: kubernetes/apps/paperless/gotenberg/app
           - app: paperless-postgres
             path: kubernetes/apps/paperless/postgres/app
-          - app: paperless-tika
+          - app: tika
             path: kubernetes/apps/paperless/tika/app
-          - app: paperless-valkey
+          - app: valkey
             path: kubernetes/apps/paperless/valkey/app
-          - app: paperless-infra
-            path: kubernetes/apps/paperless/paperless-infra/app
+          - app: paperless-resources
+            path: kubernetes/apps/paperless/resources
   template:
     metadata:
       name: "{{.app}}"
