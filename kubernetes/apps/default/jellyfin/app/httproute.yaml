@@ -17,7 +17,11 @@ spec:
   hostnames:
     - jellyfin.unscfleet.com
   rules:
-    - backendRefs:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
         - group: ""
           kind: Service
           name: jellyfin

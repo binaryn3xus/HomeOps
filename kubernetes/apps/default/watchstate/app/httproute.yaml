@@ -22,7 +22,11 @@ spec:
   hostnames:
     - watchstate.unscfleet.com
   rules:
-    - backendRefs:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
         - group: ""
           kind: Service
           name: watchstate

@@ -23,7 +23,11 @@ spec:
       namespace: network
       sectionName: https
   rules:
-    - backendRefs:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
         - group: ""
           kind: Service
           name: grafana-service

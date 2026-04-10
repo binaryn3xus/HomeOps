@@ -22,7 +22,11 @@ spec:
   hostnames:
     - tdarr.unscfleet.com
   rules:
-    - backendRefs:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
         - group: ""
           kind: Service
           name: tdarr
