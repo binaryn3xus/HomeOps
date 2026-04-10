@@ -34,6 +34,8 @@ spec:
         repoURL: https://github.com/binaryn3xus/HomeOps/
         targetRevision: main
         path: "{{.path}}"
+        directory:
+          exclude: "namespace.yaml"
       destination:
         server: https://kubernetes.default.svc
         namespace: openebs-system
