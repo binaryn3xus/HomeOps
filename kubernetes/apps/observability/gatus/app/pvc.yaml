@@ -3,10 +3,15 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: gatus-config
-  namespace: observability
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
 spec:
   accessModes: ["ReadWriteOnce"]
-  storageClassName: ceph-block
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: gatus-config-dst
   resources:
     requests:
       storage: 5Gi
+  storageClassName: ceph-block

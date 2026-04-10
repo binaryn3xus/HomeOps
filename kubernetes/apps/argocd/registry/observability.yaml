@@ -1,0 +1,49 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: observability-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - app: gatus
+            path: kubernetes/apps/observability/gatus/app
+          - app: goldilocks
+            path: kubernetes/apps/observability/goldilocks/app
+          - app: grafana
+            path: kubernetes/apps/observability/grafana/app
+          - app: grafana-instance
+            path: kubernetes/apps/observability/grafana/instance
+          - app: kromgo
+            path: kubernetes/apps/observability/kromgo/app
+          - app: kube-prometheus-stack
+            path: kubernetes/apps/observability/kube-prometheus-stack/app
+          - app: loki
+            path: kubernetes/apps/observability/loki/app
+          - app: prometheus-operator-crds
+            path: kubernetes/apps/observability/prometheus-operator-crds/app
+          - app: promtail
+            path: kubernetes/apps/observability/promtail/app
+          - app: tdarr-exporter
+            path: kubernetes/apps/observability/tdarr-exporter/app
+          - app: unpoller
+            path: kubernetes/apps/observability/unpoller/app
+  template:
+    metadata:
+      name: "{{.app}}"
+    spec:
+      project: home-ops
+      source:
+        repoURL: https://github.com/binaryn3xus/HomeOps/
+        targetRevision: main
+        path: "{{.path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: observability
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

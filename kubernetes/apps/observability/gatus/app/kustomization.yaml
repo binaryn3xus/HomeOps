@@ -7,8 +7,10 @@ commonLabels:
   app.kubernetes.io/instance: gatus
   app.kubernetes.io/controller: gatus
 resources:
-  - ./rbac.yaml
   - ./pvc.yaml
+  - ./replicationdestination.yaml
+  - ./replicationsource.yaml
+  - ./rbac.yaml
   - ./deployment.yaml
   - ./service.yaml
   - ./servicemonitor.yaml
