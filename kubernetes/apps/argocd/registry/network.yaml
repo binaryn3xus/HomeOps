@@ -1,0 +1,41 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: network-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - app: certificates-import
+            path: kubernetes/apps/network/certificates/import
+          - app: certificates-export
+            path: kubernetes/apps/network/certificates/export
+          - app: cloudflare-dns
+            path: kubernetes/apps/network/cloudflare-dns/app
+          - app: cloudflare-tunnel
+            path: kubernetes/apps/network/cloudflare-tunnel/app
+          - app: echo
+            path: kubernetes/apps/network/echo/app
+          - app: envoy-gateway
+            path: kubernetes/apps/network/envoy-gateway/app
+          - app: unifi-dns
+            path: kubernetes/apps/network/unifi-dns/app
+  template:
+    metadata:
+      name: "{{.app}}"
+    spec:
+      project: home-ops
+      source:
+        repoURL: https://github.com/binaryn3xus/HomeOps/
+        targetRevision: main
+        path: "{{.path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: network
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
