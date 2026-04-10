@@ -12,7 +12,6 @@ resources:
   - ./flux-system
   - ./games
   - ./kube-system
-  - ./kyverno
   - ./network
   - ./observability
   - ./openebs-system
