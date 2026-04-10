@@ -9,6 +9,8 @@ spec:
   generators:
     - list:
         elements:
+          - app: paperless-ns
+            path: kubernetes/apps/paperless
           - app: paperless
             path: kubernetes/apps/paperless/paperless-ngx/app
           - app: gotenberg
@@ -30,6 +32,10 @@ spec:
         repoURL: https://github.com/binaryn3xus/HomeOps/
         targetRevision: main
         path: "{{.path}}"
+        {{- if eq .app "paperless-ns" }}
+        directory:
+          include: "namespace.yaml"
+        {{- end }}
       destination:
         server: https://kubernetes.default.svc
         namespace: paperless
