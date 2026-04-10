@@ -1,0 +1,31 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: rook-ceph-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - app: rook-ceph-operator
+            path: kubernetes/apps/rook-ceph/rook-ceph/app
+          - app: rook-ceph-cluster
+            path: kubernetes/apps/rook-ceph/rook-ceph/cluster
+  template:
+    metadata:
+      name: "{{.app}}"
+    spec:
+      project: home-ops
+      source:
+        repoURL: https://github.com/binaryn3xus/HomeOps/
+        targetRevision: main
+        path: "{{.path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: rook-ceph
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
