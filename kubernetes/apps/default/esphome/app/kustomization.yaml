@@ -7,9 +7,12 @@ commonLabels:
   app.kubernetes.io/instance: esphome
   app.kubernetes.io/controller: esphome
 resources:
+  - ./pvc.yaml
   - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml
+  - ./replicationdestination.yaml
+  - ./replicationsource.yaml
   - ./externalsecret.yaml
 configMapGenerator:
   - name: esphome-device-configs

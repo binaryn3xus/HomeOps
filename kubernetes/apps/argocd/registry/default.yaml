@@ -11,7 +11,25 @@ spec:
         elements:
           - app: audiobookshelf
           - app: bazarr
+          - app: esphome
+          # - app: home-assistant
+          # - app: it-tools
+          # - app: jellyfin
+          # - app: maintainerr
+          # - app: mosquitto
           - app: n8n
+          # - app: overseerr
+          # - app: plex
+          # - app: prowlarr
+          # - app: radarr
+          # - app: sabnzbd
+          # - app: sonarr
+          # - app: tautulli
+          # - app: tdarr
+          # - app: vert
+          # - app: watchstate
+          # - app: zigbee
+          # - app: zwave
   template:
     metadata:
       name: "{{.app}}"
