@@ -7,6 +7,9 @@ commonLabels:
   app.kubernetes.io/instance: cloudbeaver
   app.kubernetes.io/controller: cloudbeaver
 resources:
+  - ./pvc.yaml
+  - ./replicationdestination.yaml
+  - ./replicationsource.yaml
   - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml

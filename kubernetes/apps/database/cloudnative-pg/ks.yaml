@@ -13,9 +13,6 @@ spec:
       namespace: external-secrets
   interval: 30m
   path: ./kubernetes/apps/database/cloudnative-pg/operator
-  postBuild:
-    substitute:
-      APP: *app
   prune: false
   sourceRef:
     kind: GitRepository
@@ -38,9 +35,6 @@ spec:
       namespace: database
   interval: 30m
   path: ./kubernetes/apps/database/cloudnative-pg/plugin-barman-cloud
-  postBuild:
-    substitute:
-      APP: *app
   prune: false
   sourceRef:
     kind: GitRepository
@@ -63,9 +57,6 @@ spec:
       namespace: database
   interval: 30m
   path: ./kubernetes/apps/database/cloudnative-pg/cluster
-  postBuild:
-    substitute:
-      APP: *app
   prune: false
   sourceRef:
     kind: GitRepository

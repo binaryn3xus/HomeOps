@@ -1,0 +1,35 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: database-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - app: cloudbeaver
+          - app: cloudnative-pg-operator
+            path: kubernetes/apps/database/cloudnative-pg/operator
+          - app: cloudnative-pg-cluster
+            path: kubernetes/apps/database/cloudnative-pg/cluster
+          - app: cloudnative-pg-plugin-barman-cloud
+            path: kubernetes/apps/database/cloudnative-pg/plugin-barman-cloud
+          - app: mssql-2025
+  template:
+    metadata:
+      name: "{{.app}}"
+    spec:
+      project: home-ops
+      source:
+        repoURL: https://github.com/binaryn3xus/HomeOps/
+        targetRevision: main
+        path: '{{ default (printf "kubernetes/apps/database/%s/app" .app) .path }}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: database
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
