@@ -72,8 +72,14 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ .app }}
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
 spec:
   accessModes: ["ReadWriteOnce"]
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: {{ .app }}-dst
   resources:
     requests:
       storage: {{ .volsync_capacity }}
