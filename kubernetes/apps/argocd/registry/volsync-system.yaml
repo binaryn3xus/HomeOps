@@ -1,0 +1,33 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: volsync-system-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - app: volsync-kopia
+            path: kubernetes/apps/volsync-system/kopia/app
+          - app: volsync-operator
+            path: kubernetes/apps/volsync-system/volsync/app
+          - app: volsync-snapshot-controller
+            path: kubernetes/apps/volsync-system/snapshot-controller/app
+  template:
+    metadata:
+      name: "{{.app}}"
+    spec:
+      project: home-ops
+      source:
+        repoURL: https://github.com/binaryn3xus/HomeOps/
+        targetRevision: main
+        path: "{{.path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: volsync-system
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
