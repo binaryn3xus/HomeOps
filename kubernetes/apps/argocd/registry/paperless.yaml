@@ -19,8 +19,8 @@ spec:
             path: kubernetes/apps/paperless/tika/app
           - app: paperless-valkey
             path: kubernetes/apps/paperless/valkey/app
-          - app: paperless-synology
-            path: kubernetes/apps/paperless
+          - app: paperless-infra
+            path: kubernetes/apps/paperless/paperless-infra/app
   template:
     metadata:
       name: "{{.app}}"
