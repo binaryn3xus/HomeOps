@@ -14,12 +14,17 @@ metadata:
       url: 1.1.1.1
 spec:
   parentRefs:
-    - name: envoy-internal
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-internal
       namespace: network
       sectionName: https
   hostnames:
     - zigbee.unscfleet.com
   rules:
     - backendRefs:
-        - name: zigbee
+        - group: ""
+          kind: Service
+          name: zigbee
           port: 80
+          weight: 1

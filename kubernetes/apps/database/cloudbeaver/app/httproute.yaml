@@ -14,7 +14,9 @@ metadata:
       url: 1.1.1.1
 spec:
   parentRefs:
-    - name: envoy-internal
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-internal
       namespace: network
       sectionName: https
   hostnames:
@@ -25,5 +27,8 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: cloudbeaver
+        - group: ""
+          kind: Service
+          name: cloudbeaver
           port: 8978
+          weight: 1

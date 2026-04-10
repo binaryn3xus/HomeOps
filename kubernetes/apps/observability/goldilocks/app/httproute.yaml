@@ -16,11 +16,16 @@ metadata:
 spec:
   hostnames: ["goldilocks.unscfleet.com"]
   parentRefs:
-    - name: envoy-internal
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-internal
       namespace: network
       sectionName: https
   rules:
     - backendRefs:
-        - name: goldilocks-dashboard
+        - group: ""
+          kind: Service
+          name: goldilocks-dashboard
           namespace: observability
           port: 80
+          weight: 1

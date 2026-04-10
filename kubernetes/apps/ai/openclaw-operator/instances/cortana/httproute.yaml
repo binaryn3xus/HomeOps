@@ -8,7 +8,9 @@ metadata:
     gatus.home-operations.com/enabled: "false"
 spec:
   parentRefs:
-    - name: envoy-internal
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-internal
       namespace: network
       sectionName: https
   hostnames:
@@ -19,5 +21,8 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: cortana
+        - group: ""
+          kind: Service
+          name: cortana
           port: 18789
+          weight: 1

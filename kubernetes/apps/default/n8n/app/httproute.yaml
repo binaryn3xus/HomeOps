@@ -12,12 +12,17 @@ metadata:
       group: external
 spec:
   parentRefs:
-    - name: envoy-external
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-external
       namespace: network
       sectionName: https
   hostnames:
     - n8n.unscfleet.com
   rules:
     - backendRefs:
-        - name: n8n
+        - group: ""
+          kind: Service
+          name: n8n
           port: 8080
+          weight: 1

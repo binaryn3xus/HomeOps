@@ -14,12 +14,17 @@ metadata:
       url: 1.1.1.1
 spec:
   parentRefs:
-    - name: envoy-internal
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-internal
       namespace: network
       sectionName: https
   hostnames:
     - sonarr.unscfleet.com
   rules:
     - backendRefs:
-        - name: sonarr
+        - group: ""
+          kind: Service
+          name: sonarr
           port: 80
+          weight: 1

@@ -14,12 +14,17 @@ metadata:
       url: 1.1.1.1
 spec:
   parentRefs:
-    - name: envoy-internal
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-internal
       namespace: network
       sectionName: https
   hostnames:
     - radarr.unscfleet.com
   rules:
     - backendRefs:
-        - name: radarr
+        - group: ""
+          kind: Service
+          name: radarr
           port: 80
+          weight: 1

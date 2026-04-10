@@ -9,7 +9,9 @@ metadata:
       group: external
 spec:
   parentRefs:
-    - name: envoy-external
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-external
       namespace: network
       sectionName: https
   hostnames:
@@ -24,8 +26,14 @@ spec:
           requestHeaderModifier:
             remove: ["Range"]
       backendRefs:
-        - name: plex
+        - group: ""
+          kind: Service
+          name: plex
           port: 32400
+          weight: 1
     - backendRefs:
-        - name: plex
+        - group: ""
+          kind: Service
+          name: plex
           port: 32400
+          weight: 1

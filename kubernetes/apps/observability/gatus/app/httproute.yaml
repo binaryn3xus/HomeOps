@@ -7,7 +7,9 @@ metadata:
     gatus.home-operations.com/enabled: "false"
 spec:
   parentRefs:
-    - name: envoy-external
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-external
       namespace: network
       sectionName: https
   hostnames:
@@ -19,5 +21,8 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: gatus
+        - group: ""
+          kind: Service
+          name: gatus
           port: 80
+          weight: 1

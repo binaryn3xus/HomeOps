@@ -9,7 +9,9 @@ metadata:
       group: external
 spec:
   parentRefs:
-    - name: envoy-external
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-external
       namespace: network
       sectionName: https
   hostnames:
@@ -20,5 +22,8 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: paperless
+        - group: ""
+          kind: Service
+          name: paperless
           port: 8000
+          weight: 1

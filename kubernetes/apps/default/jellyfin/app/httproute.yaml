@@ -9,12 +9,17 @@ metadata:
       group: external
 spec:
   parentRefs:
-    - name: envoy-external
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-external
       namespace: network
       sectionName: https
   hostnames:
     - jellyfin.unscfleet.com
   rules:
     - backendRefs:
-        - name: jellyfin
+        - group: ""
+          kind: Service
+          name: jellyfin
           port: 8096
+          weight: 1

@@ -14,12 +14,17 @@ metadata:
       url: 1.1.1.1
 spec:
   parentRefs:
-    - name: envoy-internal
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-internal
       namespace: network
       sectionName: https
   hostnames:
     - esphome.unscfleet.com
   rules:
     - backendRefs:
-        - name: esphome
+        - group: ""
+          kind: Service
+          name: esphome
           port: 6052
+          weight: 1

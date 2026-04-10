@@ -8,7 +8,9 @@ metadata:
       group: external
 spec:
   parentRefs:
-    - name: envoy-external
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-external
       namespace: network
       sectionName: https
   hostnames:
@@ -16,5 +18,8 @@ spec:
     - requests.unscfleet.com
   rules:
     - backendRefs:
-        - name: overseerr
+        - group: ""
+          kind: Service
+          name: overseerr
           port: 80
+          weight: 1

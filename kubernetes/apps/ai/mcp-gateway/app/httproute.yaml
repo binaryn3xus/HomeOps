@@ -12,7 +12,9 @@ metadata:
         - "[STATUS] == 405"
 spec:
   parentRefs:
-    - name: envoy-external
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-external
       namespace: network
       sectionName: https
   hostnames:
@@ -30,8 +32,11 @@ spec:
               type: ReplacePrefixMatch
               replacePrefixMatch: /mcp
       backendRefs:
-        - name: mcp-gateway-svc
+        - group: ""
+          kind: Service
+          name: mcp-gateway-svc
           port: 8080
+          weight: 1
     - matches:
         - path:
             type: PathPrefix
@@ -47,5 +52,8 @@ spec:
               type: ReplacePrefixMatch
               replacePrefixMatch: /mcp
       backendRefs:
-        - name: mcp-gateway-svc
+        - group: ""
+          kind: Service
+          name: mcp-gateway-svc
           port: 8080
+          weight: 1

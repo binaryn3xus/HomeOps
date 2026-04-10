@@ -14,12 +14,17 @@ metadata:
       url: 1.1.1.1
 spec:
   parentRefs:
-    - name: envoy-internal
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-internal
       namespace: network
       sectionName: https
   hostnames:
     - tautulli.unscfleet.com
   rules:
     - backendRefs:
-        - name: tautulli
+        - group: ""
+          kind: Service
+          name: tautulli
           port: 8181
+          weight: 1

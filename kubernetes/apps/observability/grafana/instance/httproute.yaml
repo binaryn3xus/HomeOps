@@ -17,9 +17,15 @@ spec:
   hostnames:
     - grafana.unscfleet.com
   parentRefs:
-    - name: envoy-internal
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: envoy-internal
       namespace: network
+      sectionName: https
   rules:
     - backendRefs:
-        - name: grafana-service
+        - group: ""
+          kind: Service
+          name: grafana-service
           port: 3000
+          weight: 1
