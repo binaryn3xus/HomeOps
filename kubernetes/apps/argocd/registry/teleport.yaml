@@ -1,0 +1,33 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: teleport-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - app: teleport
+            path: kubernetes/apps/teleport/cluster/app
+          - app: teleport-agent
+            path: kubernetes/apps/teleport/agent/app
+          - app: teleport-resources
+            path: kubernetes/apps/teleport/resources/configs
+  template:
+    metadata:
+      name: "{{.app}}"
+    spec:
+      project: home-ops
+      source:
+        repoURL: https://github.com/binaryn3xus/HomeOps/
+        targetRevision: main
+        path: "{{.path}}"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: teleport
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

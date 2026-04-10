@@ -8,8 +8,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/volsync
   dependsOn:
     - name: cert-manager
       namespace: cert-manager
@@ -25,10 +23,6 @@ spec:
   interval: 30m
   retryInterval: 1m
   path: ./kubernetes/apps/teleport/cluster/app
-  postBuild:
-    substitute:
-      APP: *app
-      VOLSYNC_CAPACITY: 5Gi
   prune: true
   sourceRef:
     kind: GitRepository
