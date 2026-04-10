@@ -7,9 +7,9 @@ commonLabels:
   app.kubernetes.io/instance: n8n
   app.kubernetes.io/controller: n8n
 resources:
+  - ./pvc.yaml
   - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml
-  - ./pvc.yaml
   - ./replicationdestination.yaml
   - ./replicationsource.yaml

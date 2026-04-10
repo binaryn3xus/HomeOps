@@ -3,6 +3,8 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: n8n
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
 spec:
   accessModes: ["ReadWriteOnce"]
   dataSourceRef:

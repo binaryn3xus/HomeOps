@@ -7,9 +7,9 @@ commonLabels:
   app.kubernetes.io/instance: audiobookshelf
   app.kubernetes.io/controller: audiobookshelf
 resources:
+  - ./pvc.yaml
   - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml
-  - ./pvc.yaml
   - ./replicationdestination.yaml
   - ./replicationsource.yaml
