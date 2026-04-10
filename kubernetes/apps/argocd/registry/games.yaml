@@ -1,0 +1,29 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: games-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - app: minecraft-bedrock
+          - app: minecraft-java
+  template:
+    metadata:
+      name: "{{.app}}"
+    spec:
+      project: home-ops
+      source:
+        repoURL: https://github.com/binaryn3xus/HomeOps/
+        targetRevision: main
+        path: kubernetes/apps/games/{{.app}}/app
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: games
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

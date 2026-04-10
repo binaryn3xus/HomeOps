@@ -7,6 +7,9 @@ commonLabels:
   app.kubernetes.io/instance: minecraft-java
   app.kubernetes.io/controller: minecraft
 resources:
+  - ./pvc.yaml
+  - ./replicationdestination.yaml
+  - ./replicationsource.yaml
   - ./configmap.yaml
   - ./dnsendpoint.yaml
   - ./gatus.yaml

@@ -8,15 +8,12 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  components:
-    - ../../../../components/volsync
   interval: 30m
   path: ./kubernetes/apps/games/minecraft-bedrock/app
   postBuild:
     substitute:
       APP: *app
       GATUS_SUBDOMAIN: mc-bedrock
-      VOLSYNC_CAPACITY: 10Gi
     substituteFrom:
       - kind: Secret
         name: minecraft-shared-secret
