@@ -15,6 +15,9 @@ auth:
       public_addr: teleport-cluster-auth.teleport.svc.cluster.local:3025
     kubernetes_service:
       enabled: true
+      resources:
+        - labels:
+            "*": "*"
   extraVolumes:
     - name: intermediary-ca-cert
       secret:
@@ -77,6 +80,9 @@ proxy:
     kubernetes_service:
       enabled: true
       listen_addr: 0.0.0.0:3027
+      resources:
+        - labels:
+            "*": "*"
   extraVolumes:
     - name: teleport-proxy-public-cert
       secret:
