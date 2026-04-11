@@ -34,7 +34,7 @@ log:
   output: stderr
 operator:
   enabled: true
-  installCRDs: "dynamic"
+  installCRDs: "always"
 persistence:
   enabled: true
   existingClaimName: teleport
