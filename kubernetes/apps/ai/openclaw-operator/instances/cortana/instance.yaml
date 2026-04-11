@@ -95,7 +95,7 @@ spec:
   storage:
     persistence:
       enabled: true
-      existingClaim: openclaw-cortana-data
+      existingClaim: openclaw-cortana
   config:
     mergeMode: "merge"
     raw:

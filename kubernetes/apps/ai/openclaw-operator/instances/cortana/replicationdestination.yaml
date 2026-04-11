@@ -3,7 +3,7 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: openclaw-cortana-data-dst
+  name: openclaw-cortana-dst
   namespace: ai
   annotations:
     argocd.argoproj.io/sync-options: Prune=false
@@ -16,10 +16,16 @@ spec:
     cacheCapacity: 10Gi
     cacheStorageClassName: openebs-hostpath
     capacity: 10Gi
+    cleanupCachePVC: true
+    cleanupTempPVC: true
+    copyMethod: Snapshot
+    enableFileDeletion: true
     moverSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
       fsGroup: 1000
     repository: volsync-kopia-secret
+    sourceIdentity:
+      sourceName: openclaw-cortana
     storageClassName: ceph-block
     volumeSnapshotClassName: csi-ceph-blockpool

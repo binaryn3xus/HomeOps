@@ -3,12 +3,12 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: openclaw-cortana-data
+  name: openclaw-cortana
   namespace: ai
   annotations:
     argocd.argoproj.io/sync-options: Prune=false
 spec:
-  sourcePVC: openclaw-cortana-data
+  sourcePVC: openclaw-cortana
   trigger:
     schedule: "0 * * * *"
   kopia:
