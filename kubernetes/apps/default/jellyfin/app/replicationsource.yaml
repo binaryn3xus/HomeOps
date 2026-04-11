@@ -13,7 +13,7 @@ spec:
   kopia:
     accessModes: ["ReadWriteOnce"]
     cacheAccessModes: ["ReadWriteOnce"]
-    cacheCapacity: 10Gi
+    cacheCapacity: 15Gi
     cacheStorageClassName: openebs-hostpath
     compression: zstd-fastest
     copyMethod: Snapshot
