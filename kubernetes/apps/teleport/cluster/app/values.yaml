@@ -58,7 +58,7 @@ proxy:
       reloader.stakater.com/auto: 'true'
   teleportConfig:
     teleport:
-      auth_server: teleport-cluster-auth.teleport.cluster.local:3025
+      auth_server: teleport-cluster-auth.teleport.svc.cluster.local:3025
       join_params:
         token_name: agent-join-token
         method: kubernetes
