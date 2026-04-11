@@ -1,0 +1,4 @@
+dashboard:
+  enabled: true
+serviceMonitor:
+  enabled: true

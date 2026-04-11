@@ -22,30 +22,51 @@ spec:
         elements:
           - app: prometheus-operator-crds
             path: kubernetes/apps/observability/prometheus-operator-crds/app
+            chart: prometheus-operator-crds
+            repo: oci://ghcr.io/prometheus-community/charts
+            version: 28.0.1
             wave: "-5"
           - app: kube-prometheus-stack
             path: kubernetes/apps/observability/kube-prometheus-stack/app
+            chart: kube-prometheus-stack
+            repo: oci://ghcr.io/prometheus-community/charts
+            version: 82.18.0
             wave: "-4"
           - app: loki
             path: kubernetes/apps/observability/loki/app
+            chart: loki
+            repo: oci://ghcr.io/grafana/helm-charts
+            version: 6.55.0
             wave: "-2"
           - app: gatus
             path: kubernetes/apps/observability/gatus/app
             wave: "1"
           - app: goldilocks
             path: kubernetes/apps/observability/goldilocks/app
+            chart: goldilocks
+            repo: https://charts.fairwinds.com/stable
+            version: 10.3.0
             wave: "1"
           - app: grafana
             path: kubernetes/apps/observability/grafana/app
+            chart: grafana-operator
+            repo: oci://ghcr.io/grafana/helm-charts
+            version: v5.13.0
             wave: "1"
           - app: kromgo
             path: kubernetes/apps/observability/kromgo/app
             wave: "1"
           - app: promtail
             path: kubernetes/apps/observability/promtail/app
+            chart: promtail
+            repo: oci://ghcr.io/grafana/helm-charts
+            version: 6.16.6
             wave: "1"
           - app: tdarr-exporter
             path: kubernetes/apps/observability/tdarr-exporter/app
+            chart: tdarr-exporter
+            repo: oci://ghcr.io/home-operations/charts-mirror
+            version: 1.1.0
             wave: "1"
           - app: unpoller
             path: kubernetes/apps/observability/unpoller/app
@@ -57,10 +78,17 @@ spec:
         argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
     spec:
       project: home-ops
-      source:
-        repoURL: https://github.com/binaryn3xus/HomeOps/
-        targetRevision: main
-        path: "{{.path}}"
+      sources:
+        - repoURL: https://github.com/binaryn3xus/HomeOps/
+          targetRevision: main
+          path: "{{.path}}"
+        - repoURL: "{{.repo}}"
+          chart: "{{.chart}}"
+          targetRevision: "{{.version}}"
+          helm:
+            releaseName: "{{.app}}"
+            valueFiles:
+              - $values/{{.path}}/values.yaml
       destination:
         server: https://kubernetes.default.svc
         namespace: observability
