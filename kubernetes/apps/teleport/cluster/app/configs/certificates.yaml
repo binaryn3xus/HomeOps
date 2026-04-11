@@ -1,0 +1,51 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: teleport-intermediary-ca-issuer
+  namespace: teleport
+spec:
+  ca:
+    secretName: teleport-intermediary-ca-secret
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: teleport-intermediary-ca
+  namespace: teleport
+spec:
+  isCA: true
+  commonName: teleport-intermediary-ca
+  secretName: teleport-intermediary-ca-secret
+  duration: 87600h # 10 years
+  renewBefore: 720h # 30 days
+  issuerRef:
+    name: cloudflare-dns
+    kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: teleport-proxy-public-cert
+  namespace: teleport
+spec:
+  dnsNames:
+    - teleport.unscfleet.com
+  secretName: teleport-proxy-public-cert
+  issuerRef:
+    name: cloudflare-dns
+    kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: teleport-proxy-internal-cert
+  namespace: teleport
+spec:
+  dnsNames:
+    - teleport.teleport.svc
+    - teleport.teleport.svc.cluster.local
+  secretName: teleport-proxy-internal-cert
+  issuerRef:
+    name: teleport-intermediary-ca-issuer
+    kind: Issuer
