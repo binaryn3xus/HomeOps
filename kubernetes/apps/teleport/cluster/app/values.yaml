@@ -10,15 +10,9 @@ auth:
       session_recording: 'off'
     kubernetes_service:
       enabled: true
-    discovery_service:
-      enabled: true
-      discovery_group: "home-ops"
-      kubernetes:
-        - types: ["app"]
-          labels:
-            "teleport.dev/discover": "true"
     windows_desktop_service:
       enabled: true
+      listen_addr: 0.0.0.0:3028
       static_hosts:
         - name: UNSC-PillarOfAutumn
           addr: 10.0.20.10
