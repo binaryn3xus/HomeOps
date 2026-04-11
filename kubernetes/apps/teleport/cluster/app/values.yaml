@@ -4,14 +4,17 @@ auth:
     deployment:
       reloader.stakater.com/auto: 'true'
   teleportConfig:
+    teleport:
+      join_params:
+        token_name: agent-join-token
+        method: kubernetes
     auth_service:
       client_idle_timeout: 2h
       client_idle_timeout_message: Connection closed after 2hours without activity
       session_recording: 'off'
+      # Adding public_addr forces Teleport to include this name in its auto-generated certs
+      public_addr: teleport-cluster-auth.teleport.svc.cluster.local:3025
     kubernetes_service:
-      join_params:
-        token_name: agent-join-token
-        method: kubernetes
       enabled: true
   extraVolumes:
     - name: intermediary-ca-cert
@@ -61,10 +64,11 @@ proxy:
     deployment:
       reloader.stakater.com/auto: 'true'
   teleportConfig:
-    proxy_service:
+    teleport:
       join_params:
         token_name: agent-join-token
         method: kubernetes
+    proxy_service:
       trust_x_forwarded_for: true
       https_keypairs:
         - cert_file: /etc/teleport/secrets/serving-certs/public/tls.crt
@@ -72,9 +76,6 @@ proxy:
         - cert_file: /etc/teleport/secrets/serving-certs/internal/tls.crt
           key_file: /etc/teleport/secrets/serving-certs/internal/tls.key
     kubernetes_service:
-      join_params:
-        token_name: agent-join-token
-        method: kubernetes
       enabled: true
   extraVolumes:
     - name: teleport-proxy-public-cert
