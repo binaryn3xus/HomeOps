@@ -17,7 +17,11 @@ spec:
     - overseerr.unscfleet.com
     - requests.unscfleet.com
   rules:
-    - backendRefs:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
         - group: ""
           kind: Service
           name: overseerr
