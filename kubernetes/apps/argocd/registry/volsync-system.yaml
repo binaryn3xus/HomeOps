@@ -10,10 +10,11 @@ metadata:
     argocd.argoproj.io/sync-options: Prune=false
     volsync.backube/privileged-movers: "true"
 ---
+# Helm-based VolSync Apps
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: volsync-system-apps
+  name: volsync-system-helm-apps
   namespace: argocd
 spec:
   goTemplate: true
@@ -22,10 +23,58 @@ spec:
         elements:
           - app: volsync-operator
             path: kubernetes/apps/volsync-system/volsync/app
+            chart: volsync-perfectra1n
+            repo: oci://ghcr.io/home-operations/charts-mirror
+            version: 0.18.5
             wave: "-3"
           - app: volsync-snapshot-controller
             path: kubernetes/apps/volsync-system/snapshot-controller/app
+            chart: snapshot-controller
+            repo: oci://ghcr.io/piraeusdatastore/helm-charts
+            version: 5.0.3
             wave: "-3"
+  template:
+    metadata:
+      name: "{{.app}}"
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
+    spec:
+      project: home-ops
+      sources:
+        - repoURL: https://github.com/binaryn3xus/HomeOps/
+          targetRevision: main
+          ref: values
+        - repoURL: https://github.com/binaryn3xus/HomeOps/
+          targetRevision: main
+          path: "{{.path}}"
+        - repoURL: "{{.repo}}"
+          chart: "{{.chart}}"
+          targetRevision: "{{.version}}"
+          helm:
+            releaseName: "{{.app}}"
+            valueFiles:
+              - $values/{{.path}}/values.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: volsync-system
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - ServerSideApply=true
+---
+# Plain Manifest VolSync Apps
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: volsync-system-plain-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
           - app: volsync-kopia
             path: kubernetes/apps/volsync-system/kopia/app
             wave: "-2"
