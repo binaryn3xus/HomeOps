@@ -5,7 +5,7 @@ kind: TeleportProvisionToken
 metadata:
   name: agent-join-token
 spec:
-  roles: [Kube,App,Discovery,Node,WindowsDesktop]
+  roles: [Proxy,Kube,App,Discovery,Node,WindowsDesktop]
   join_method: kubernetes
   kubernetes:
     type: in_cluster

@@ -12,7 +12,6 @@ auth:
       client_idle_timeout: 2h
       client_idle_timeout_message: Connection closed after 2hours without activity
       session_recording: 'off'
-      # Adding public_addr forces Teleport to include this name in its auto-generated certs
       public_addr: teleport-cluster-auth.teleport.svc.cluster.local:3025
     kubernetes_service:
       enabled: true
@@ -77,6 +76,7 @@ proxy:
           key_file: /etc/teleport/secrets/serving-certs/internal/tls.key
     kubernetes_service:
       enabled: true
+      listen_addr: 0.0.0.0:3027
   extraVolumes:
     - name: teleport-proxy-public-cert
       secret:
@@ -91,12 +91,19 @@ proxy:
       secret:
         secretName: teleport-proxy-internal-cert
         defaultMode: 0440
+    - name: intermediary-ca-cert
+      secret:
+        secretName: teleport-intermediary-ca-secret
+        defaultMode: 0440
+        items:
+          - key: ca.crt
+            path: ca.crt
   extraVolumeMounts:
     - name: teleport-proxy-public-cert
       mountPath: /etc/teleport/secrets/serving-certs/public
     - name: teleport-proxy-internal-cert
       mountPath: /etc/teleport/secrets/serving-certs/internal
-    - name: teleport-proxy-internal-cert
+    - name: intermediary-ca-cert
       mountPath: /etc/ssl/certs/ca.crt
       subPath: ca.crt
 proxyListenerMode: multiplex
