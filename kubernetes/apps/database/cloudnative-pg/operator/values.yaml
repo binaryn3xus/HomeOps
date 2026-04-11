@@ -1,0 +1,12 @@
+crds:
+  create: true
+monitoring:
+  podMonitorEnabled: false
+  grafanaDashboard:
+    create: true
+resources:
+  requests:
+    cpu: 15m
+    memory: 256Mi
+  limits:
+    memory: 512Mi
