@@ -27,5 +27,3 @@ configMapGenerator:
       - modrinth-projects.txt=./resources/modrinth-projects.txt
 generatorOptions:
   disableNameSuffixHash: true
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled

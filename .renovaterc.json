@@ -23,9 +23,6 @@
     "prIgnoreNotification"
   ],
   "rebaseWhen": "conflicted",
-  "flux": {
-    "managerFilePatterns": ["/\\.yaml(?:\\.j2)?$/"]
-  },
   "helm-values": {
     "managerFilePatterns": ["/\\.yaml(?:\\.j2)?$/"]
   },

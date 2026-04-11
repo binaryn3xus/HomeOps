@@ -44,5 +44,3 @@ configMapGenerator:
       - athom-presence-sensor.yaml=./resources/packages/athom-presence-sensor.yaml
 generatorOptions:
   disableNameSuffixHash: true
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled
