@@ -12,6 +12,7 @@ auth:
       enabled: true
     discovery_service:
       enabled: true
+      discovery_group: "home-ops"
       kubernetes:
         - types: ["app"]
           labels:
