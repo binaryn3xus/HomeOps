@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: openclaw-cortana-data-dst
+  namespace: ai
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+spec:
+  trigger:
+    manual: restore-once
+  kopia:
+    accessModes: ["ReadWriteOnce"]
+    cacheAccessModes: ["ReadWriteOnce"]
+    cacheCapacity: 10Gi
+    cacheStorageClassName: openebs-hostpath
+    moverSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    repository: volsync-kopia-secret
+    storageClassName: ceph-block
+    volumeSnapshotClassName: csi-ceph-blockpool

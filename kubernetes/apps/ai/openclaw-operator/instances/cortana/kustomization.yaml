@@ -11,6 +11,8 @@ resources:
   - ./httproute.yaml
   - ./externalsecret.yaml
   - ./rbac.yaml
+  - ./replicationsource.yaml
+  - ./replicationdestination.yaml
 
 configMapGenerator:
   - name: cortana-mise-config
