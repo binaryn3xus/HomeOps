@@ -20,7 +20,7 @@ spec:
         - path:
             type: PathPrefix
             value: /
-    - backendRefs:
+      backendRefs:
         - group: ""
           kind: Service
           name: it-tools
