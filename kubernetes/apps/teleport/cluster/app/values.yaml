@@ -9,7 +9,18 @@ auth:
       client_idle_timeout_message: Connection closed after 2hours without activity
       session_recording: 'off'
     kubernetes_service:
-      enabled: false
+      enabled: true
+    discovery_service:
+      enabled: true
+      kubernetes:
+        - types: ["app"]
+          labels:
+            "teleport.dev/discover": "true"
+    windows_desktop_service:
+      enabled: true
+      static_hosts:
+        - name: UNSC-PillarOfAutumn
+          addr: 10.0.20.10
   extraVolumes:
     - name: intermediary-ca-cert
       secret:
@@ -60,7 +71,7 @@ proxy:
         - cert_file: /etc/teleport/secrets/serving-certs/internal/tls.crt
           key_file: /etc/teleport/secrets/serving-certs/internal/tls.key
     kubernetes_service:
-      enabled: false
+      enabled: true
   extraVolumes:
     - name: teleport-proxy-public-cert
       secret:
