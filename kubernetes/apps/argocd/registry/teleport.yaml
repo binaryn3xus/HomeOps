@@ -10,11 +10,11 @@ metadata:
     argocd.argoproj.io/sync-options: Prune=false
     volsync.backube/privileged-movers: "true"
 ---
-# Unified Teleport Stack (Cluster + Agent + Resources)
+# 1. Teleport Cluster (Operator + Agent)
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: teleport-apps
+  name: teleport-cluster-apps
   namespace: argocd
 spec:
   goTemplate: true
@@ -26,18 +26,18 @@ spec:
             chart: teleport-cluster
             repo: https://charts.releases.teleport.dev
             version: 18.7.3
+            wave: "-5"
   template:
     metadata:
       name: "{{.app}}"
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
     spec:
       project: home-ops
       sources:
         - repoURL: https://github.com/binaryn3xus/HomeOps/
           targetRevision: main
           ref: values
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
-          targetRevision: main
-          path: "{{.path}}/configs"
         - repoURL: "{{.repo}}"
           chart: "{{.chart}}"
           targetRevision: "{{.version}}"
@@ -45,6 +45,41 @@ spec:
             releaseName: "{{.app}}"
             valueFiles:
               - $values/{{.path}}/values.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: teleport
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - ServerSideApply=true
+---
+# 2. Teleport Resources (Roles, Tokens, Connectors)
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: teleport-resource-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - app: teleport-resources
+            path: kubernetes/apps/teleport/cluster/app/configs
+            wave: "0"
+  template:
+    metadata:
+      name: "{{.app}}"
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
+    spec:
+      project: home-ops
+      source:
+        repoURL: https://github.com/binaryn3xus/HomeOps/
+        targetRevision: main
+        path: "{{.path}}"
       destination:
         server: https://kubernetes.default.svc
         namespace: teleport
