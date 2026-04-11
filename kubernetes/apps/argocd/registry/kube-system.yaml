@@ -78,6 +78,9 @@ spec:
       sources:
         - repoURL: https://github.com/binaryn3xus/HomeOps/
           targetRevision: main
+          ref: values
+        - repoURL: https://github.com/binaryn3xus/HomeOps/
+          targetRevision: main
           path: "{{.path}}"
         - repoURL: "{{.repo}}"
           chart: "{{.chart}}"

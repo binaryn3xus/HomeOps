@@ -81,7 +81,11 @@ spec:
       sources:
         - repoURL: https://github.com/binaryn3xus/HomeOps/
           targetRevision: main
+          ref: values
+        - repoURL: https://github.com/binaryn3xus/HomeOps/
+          targetRevision: main
           path: "{{.path}}"
+        {{- if .chart }}
         - repoURL: "{{.repo}}"
           chart: "{{.chart}}"
           targetRevision: "{{.version}}"
@@ -89,6 +93,7 @@ spec:
             releaseName: "{{.app}}"
             valueFiles:
               - $values/{{.path}}/values.yaml
+        {{- end }}
       destination:
         server: https://kubernetes.default.svc
         namespace: observability
