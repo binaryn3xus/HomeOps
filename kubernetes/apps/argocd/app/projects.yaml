@@ -10,9 +10,16 @@ spec:
   destinations:
     - server: https://kubernetes.default.svc
       namespace: '*'
-  # Only allow resources to come from your repository
+  # Allow resources from your repo AND the common Helm/OCI mirrors
   sourceRepos:
     - https://github.com/binaryn3xus/HomeOps/
+    - oci://ghcr.io/*
+    - oci://quay.io/*
+    - https://charts.fairwinds.com/stable
+    - https://kubernetes-sigs.github.io/node-feature-discovery/charts
+    - https://nvidia.github.io/k8s-device-plugin
+    - https://prometheus-community.github.io/helm-charts
+    - https://grafana.github.io/helm-charts
   # Allow all resource types
   clusterResourceWhitelist:
     - group: '*'
