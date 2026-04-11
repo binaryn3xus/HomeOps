@@ -22,7 +22,7 @@ spec:
     - list:
         elements:
           - app: openebs
-            path: kubernetes/apps/openebs-system/openebs/app
+            path: kubernetes/apps/openebs-system/openebs
             chart: openebs
             repo: oci://ghcr.io/home-operations/charts-mirror
             version: 4.4.0

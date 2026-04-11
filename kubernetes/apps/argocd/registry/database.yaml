@@ -79,10 +79,10 @@ spec:
             path: kubernetes/apps/database/cloudnative-pg/cluster
             wave: "-1"
           - app: mssql-2025
-            path: kubernetes/apps/database/mssql-2025/app
+            path: kubernetes/apps/database/mssql-2025
             wave: "-1"
           - app: cloudbeaver
-            path: kubernetes/apps/database/cloudbeaver/app
+            path: kubernetes/apps/database/cloudbeaver
             wave: "1"
   template:
     metadata:

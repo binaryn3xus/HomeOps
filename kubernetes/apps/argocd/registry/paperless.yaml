@@ -24,17 +24,17 @@ spec:
             path: kubernetes/apps/paperless/resources
             wave: "-2"
           - app: paperless-postgres
-            path: kubernetes/apps/paperless/postgres/app
+            path: kubernetes/apps/paperless/postgres
             wave: "-1"
           - app: valkey
-            path: kubernetes/apps/paperless/valkey/app
+            path: kubernetes/apps/paperless/valkey
             wave: "-1"
           - app: gotenberg
-            path: kubernetes/apps/paperless/gotenberg/app
+            path: kubernetes/apps/paperless/gotenberg
           - app: tika
-            path: kubernetes/apps/paperless/tika/app
+            path: kubernetes/apps/paperless/tika
           - app: paperless
-            path: kubernetes/apps/paperless/paperless/app
+            path: kubernetes/apps/paperless/paperless
             wave: "1"
   template:
     metadata:

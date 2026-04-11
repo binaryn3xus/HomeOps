@@ -69,20 +69,20 @@ spec:
     - list:
         elements:
           - app: ollama
-            path: kubernetes/apps/ai/ollama/app
+            path: kubernetes/apps/ai/ollama
           - app: openclaw-instances
             path: kubernetes/apps/ai/openclaw-operator/instances
           - app: comfyui
-            path: kubernetes/apps/ai/comfyui/app
+            path: kubernetes/apps/ai/comfyui
             wave: "1"
           - app: mcp-gateway
-            path: kubernetes/apps/ai/mcp-gateway/app
+            path: kubernetes/apps/ai/mcp-gateway
             wave: "1"
           - app: open-webui
-            path: kubernetes/apps/ai/open-webui/app
+            path: kubernetes/apps/ai/open-webui
             wave: "1"
           - app: searxng
-            path: kubernetes/apps/ai/searxng/app
+            path: kubernetes/apps/ai/searxng
             wave: "1"
   template:
     metadata:

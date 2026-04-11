@@ -22,7 +22,7 @@ spec:
     - list:
         elements:
           - app: tuppr
-            path: kubernetes/apps/system-upgrade/tuppr/app
+            path: kubernetes/apps/system-upgrade/tuppr
             chart: tuppr
             repo: oci://ghcr.io/home-operations/charts
             version: 0.1.3
@@ -69,7 +69,7 @@ spec:
     - list:
         elements:
           - app: etcd-defrag
-            path: kubernetes/apps/system-upgrade/etcd-defrag/app
+            path: kubernetes/apps/system-upgrade/etcd-defrag
   template:
     metadata:
       name: "{{.app}}"

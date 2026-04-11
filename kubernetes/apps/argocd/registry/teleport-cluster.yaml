@@ -16,7 +16,7 @@ spec:
       helm:
         releaseName: teleport-cluster
         valueFiles:
-          - $values/kubernetes/apps/teleport/cluster/app/values.yaml
+          - $values/kubernetes/apps/teleport/cluster/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: teleport

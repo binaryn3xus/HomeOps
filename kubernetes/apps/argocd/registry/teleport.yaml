@@ -22,7 +22,7 @@ spec:
     - list:
         elements:
           - app: teleport-cluster
-            path: kubernetes/apps/teleport/cluster/app
+            path: kubernetes/apps/teleport/cluster
             chart: teleport-cluster
             repo: https://charts.releases.teleport.dev
             version: 18.7.3
@@ -65,7 +65,7 @@ spec:
     - list:
         elements:
           - app: teleport-resources
-            path: kubernetes/apps/teleport/cluster/app/configs
+            path: kubernetes/apps/teleport/cluster/configs
   template:
     metadata:
       name: "{{.app}}"

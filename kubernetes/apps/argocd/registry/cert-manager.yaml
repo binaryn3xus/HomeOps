@@ -32,7 +32,7 @@ spec:
       sources:
         - repoURL: https://github.com/binaryn3xus/HomeOps/
           targetRevision: main
-          path: kubernetes/apps/cert-manager/cert-manager/app
+          path: kubernetes/apps/cert-manager/cert-manager
         - repoURL: oci://quay.io/jetstack/charts
           chart: cert-manager
           targetRevision: v1.20.1

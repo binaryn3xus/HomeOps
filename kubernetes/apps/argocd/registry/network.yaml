@@ -21,7 +21,7 @@ spec:
     - list:
         elements:
           - app: envoy-gateway
-            path: kubernetes/apps/network/envoy-gateway/app
+            path: kubernetes/apps/network/envoy-gateway
             chart: envoy-gateway
             repo: oci://docker.io/envoyproxy/gateway-helm
             version: 1.7.1
@@ -32,16 +32,16 @@ spec:
           - app: certificates-export
             path: kubernetes/apps/network/certificates/export
           - app: cloudflare-dns
-            path: kubernetes/apps/network/cloudflare-dns/app
+            path: kubernetes/apps/network/cloudflare-dns
             chart: external-dns
             repo: oci://ghcr.io/home-operations/charts-mirror
             version: 1.20.0
           - app: cloudflare-tunnel
-            path: kubernetes/apps/network/cloudflare-tunnel/app
+            path: kubernetes/apps/network/cloudflare-tunnel
           - app: unifi-dns
-            path: kubernetes/apps/network/unifi-dns/app
+            path: kubernetes/apps/network/unifi-dns
           - app: echo
-            path: kubernetes/apps/network/echo/app
+            path: kubernetes/apps/network/echo
             wave: "1"
   template:
     metadata:
