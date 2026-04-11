@@ -2,11 +2,10 @@
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: teleport-intermediary-ca-issuer
+  name: teleport-selfsigned-issuer
   namespace: teleport
 spec:
-  ca:
-    secretName: teleport-intermediary-ca-secret
+  selfSigned: {}
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -20,8 +19,17 @@ spec:
   duration: 87600h # 10 years
   renewBefore: 720h # 30 days
   issuerRef:
-    name: cloudflare-dns
-    kind: ClusterIssuer
+    name: teleport-selfsigned-issuer
+    kind: Issuer
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: teleport-intermediary-ca-issuer
+  namespace: teleport
+spec:
+  ca:
+    secretName: teleport-intermediary-ca-secret
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
