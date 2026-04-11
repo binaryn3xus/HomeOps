@@ -10,10 +10,58 @@ metadata:
     argocd.argoproj.io/sync-options: Prune=false
     volsync.backube/privileged-movers: "true"
 ---
+# Helm-based System Upgrade Apps
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: system-upgrade-apps
+  name: system-upgrade-helm-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - app: tuppr
+            path: kubernetes/apps/system-upgrade/tuppr/app
+            chart: tuppr
+            repo: oci://ghcr.io/home-operations/charts
+            version: 0.1.3
+  template:
+    metadata:
+      name: "{{.app}}"
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
+    spec:
+      project: home-ops
+      sources:
+        - repoURL: https://github.com/binaryn3xus/HomeOps/
+          targetRevision: main
+          ref: values
+        - repoURL: https://github.com/binaryn3xus/HomeOps/
+          targetRevision: main
+          path: "{{.path}}"
+        - repoURL: "{{.repo}}"
+          chart: "{{.chart}}"
+          targetRevision: "{{.version}}"
+          helm:
+            releaseName: "{{.app}}"
+            valueFiles:
+              - $values/{{.path}}/values.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: system-upgrade
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - ServerSideApply=true
+---
+# Plain Manifest System Upgrade Apps
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: system-upgrade-plain-apps
   namespace: argocd
 spec:
   goTemplate: true
@@ -22,8 +70,6 @@ spec:
         elements:
           - app: etcd-defrag
             path: kubernetes/apps/system-upgrade/etcd-defrag/app
-          - app: tuppr
-            path: kubernetes/apps/system-upgrade/tuppr/app
   template:
     metadata:
       name: "{{.app}}"
