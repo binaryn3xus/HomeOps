@@ -79,6 +79,8 @@ proxy:
     - name: teleport-proxy-public-cert
       mountPath: /etc/teleport/secrets/serving-certs/public
     - name: teleport-proxy-internal-cert
+      mountPath: /etc/teleport/secrets/serving-certs/internal
+    - name: teleport-proxy-internal-cert
       mountPath: /etc/ssl/certs/ca.crt
       subPath: ca.crt
 proxyListenerMode: multiplex
