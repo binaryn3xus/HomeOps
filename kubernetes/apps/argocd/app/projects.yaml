@@ -6,11 +6,9 @@ metadata:
   namespace: argocd
 spec:
   description: Project for HomeOps applications
-  # Allow deployment to any namespace in the local cluster
   destinations:
     - server: https://kubernetes.default.svc
       namespace: '*'
-  # Allow resources from your repo AND the common Helm/OCI mirrors
   sourceRepos:
     - https://github.com/binaryn3xus/HomeOps/
     - oci://ghcr.io/*
@@ -20,13 +18,11 @@ spec:
     - https://nvidia.github.io/k8s-device-plugin
     - https://prometheus-community.github.io/helm-charts
     - https://grafana.github.io/helm-charts
-  # Allow all resource types
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
   namespaceResourceWhitelist:
     - group: '*'
       kind: '*'
-  # Sync Windows configuration
   orphanedResources:
     warn: true
