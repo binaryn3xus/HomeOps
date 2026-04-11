@@ -15,6 +15,7 @@ spec:
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 10Gi
     cacheStorageClassName: openebs-hostpath
+    capacity: 10Gi
     moverSecurityContext:
       runAsUser: 1000
       runAsGroup: 1000
