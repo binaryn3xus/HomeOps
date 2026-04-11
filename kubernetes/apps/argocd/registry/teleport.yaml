@@ -10,11 +10,11 @@ metadata:
     argocd.argoproj.io/sync-options: Prune=false
     volsync.backube/privileged-movers: "true"
 ---
-# Helm-based Teleport Apps
+# Unified Teleport Stack (Cluster + Agent + Resources)
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: teleport-helm-apps
+  name: teleport-apps
   namespace: argocd
 spec:
   goTemplate: true
@@ -26,26 +26,15 @@ spec:
             chart: teleport-cluster
             repo: https://charts.releases.teleport.dev
             version: 18.7.3
-            wave: "-1"
-          - app: teleport-agent
-            path: kubernetes/apps/teleport/agent/app
-            chart: teleport-kube-agent
-            repo: https://charts.releases.teleport.dev
-            version: 18.7.3
   template:
     metadata:
       name: "{{.app}}"
-      annotations:
-        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
     spec:
       project: home-ops
       sources:
         - repoURL: https://github.com/binaryn3xus/HomeOps/
           targetRevision: main
           ref: values
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
-          targetRevision: main
-          path: "{{.path}}"
         - repoURL: "{{.repo}}"
           chart: "{{.chart}}"
           targetRevision: "{{.version}}"
@@ -62,12 +51,13 @@ spec:
           selfHeal: true
         syncOptions:
           - ServerSideApply=true
+          - SkipDryRunOnMissingResource=true
 ---
-# Plain Manifest Teleport Apps
+# Teleport Resources (Roles, Tokens, Connectors)
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: teleport-plain-apps
+  name: teleport-resource-apps
   namespace: argocd
 spec:
   goTemplate: true
@@ -75,13 +65,10 @@ spec:
     - list:
         elements:
           - app: teleport-resources
-            path: kubernetes/apps/teleport/resources/configs
-            wave: "-2"
+            path: kubernetes/apps/teleport/cluster/app/configs
   template:
     metadata:
       name: "{{.app}}"
-      annotations:
-        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
     spec:
       project: home-ops
       source:
@@ -97,3 +84,4 @@ spec:
           selfHeal: true
         syncOptions:
           - ServerSideApply=true
+          - SkipDryRunOnMissingResource=true

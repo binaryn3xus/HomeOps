@@ -3,17 +3,18 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: jellyfin
+  name: openclaw-cortana
+  namespace: ai
   annotations:
     argocd.argoproj.io/sync-options: Prune=false
 spec:
-  sourcePVC: jellyfin
+  sourcePVC: openclaw-cortana
   trigger:
     schedule: "0 * * * *"
   kopia:
     accessModes: ["ReadWriteOnce"]
     cacheAccessModes: ["ReadWriteOnce"]
-    cacheCapacity: 15Gi
+    cacheCapacity: 10Gi
     cacheStorageClassName: openebs-hostpath
     compression: zstd-fastest
     copyMethod: Snapshot

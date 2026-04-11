@@ -12,15 +12,15 @@ spec:
     cacheAccessModes: ["ReadWriteOnce"]
     cacheCapacity: 5Gi
     cacheStorageClassName: openebs-hostpath
-    capacity: 5Gi
+    capacity: 10Gi
     cleanupCachePVC: true
     cleanupTempPVC: true
     copyMethod: Snapshot
     enableFileDeletion: true
     moverSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
     repository: volsync-kopia-secret
     sourceIdentity:
       sourceName: teleport

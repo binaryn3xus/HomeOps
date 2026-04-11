@@ -3,24 +3,24 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: jellyfin
+  name: teleport
   annotations:
     argocd.argoproj.io/sync-options: Prune=false
 spec:
-  sourcePVC: jellyfin
+  sourcePVC: teleport
   trigger:
     schedule: "0 * * * *"
   kopia:
     accessModes: ["ReadWriteOnce"]
     cacheAccessModes: ["ReadWriteOnce"]
-    cacheCapacity: 15Gi
+    cacheCapacity: 10Gi
     cacheStorageClassName: openebs-hostpath
     compression: zstd-fastest
     copyMethod: Snapshot
     moverSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+      runAsUser: 568
+      runAsGroup: 568
+      fsGroup: 568
     repository: volsync-kopia-secret
     retain:
       hourly: 24

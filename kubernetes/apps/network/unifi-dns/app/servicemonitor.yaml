@@ -10,5 +10,5 @@ spec:
       app.kubernetes.io/name: external-dns
   endpoints:
     - port: http
-      interval: 1m
+      interval: 30s
       path: /metrics

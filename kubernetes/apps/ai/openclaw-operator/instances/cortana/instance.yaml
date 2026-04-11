@@ -95,7 +95,7 @@ spec:
   storage:
     persistence:
       enabled: true
-      existingClaim: openclaw-cortana-data
+      existingClaim: openclaw-cortana
   config:
     mergeMode: "merge"
     raw:
@@ -134,6 +134,6 @@ spec:
               users:
                 - "210731922320523264"
               channels:
-                "1465069707013918733":
+                "1492603577150210190":
                   allow: true
                   requireMention: false

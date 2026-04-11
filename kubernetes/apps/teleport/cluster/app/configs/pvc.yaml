@@ -6,12 +6,9 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-options: Prune=false
 spec:
-  accessModes: ["ReadWriteOnce"]
-  dataSourceRef:
-    kind: ReplicationDestination
-    apiGroup: volsync.backube
-    name: teleport-dst
+  accessModes:
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
+      storage: 10Gi
   storageClassName: ceph-block

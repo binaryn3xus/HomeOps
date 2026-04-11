@@ -4,10 +4,15 @@ auth:
     deployment:
       reloader.stakater.com/auto: 'true'
   teleportConfig:
+    teleport:
+      join_params:
+        token_name: agent-join-token
+        method: kubernetes
     auth_service:
       client_idle_timeout: 2h
       client_idle_timeout_message: Connection closed after 2hours without activity
       session_recording: 'off'
+      public_addr: teleport-cluster-auth.teleport.svc.cluster.local:3025
     kubernetes_service:
       enabled: false
   extraVolumes:
@@ -52,6 +57,11 @@ proxy:
     deployment:
       reloader.stakater.com/auto: 'true'
   teleportConfig:
+    teleport:
+      auth_server: teleport-cluster-auth.teleport.svc.cluster.local:3025
+      join_params:
+        token_name: agent-join-token
+        method: kubernetes
     proxy_service:
       trust_x_forwarded_for: true
       https_keypairs:
@@ -61,6 +71,12 @@ proxy:
           key_file: /etc/teleport/secrets/serving-certs/internal/tls.key
     kubernetes_service:
       enabled: false
+    windows_desktop_service:
+      enabled: true
+      listen_addr: 0.0.0.0:3028
+      static_hosts:
+        - name: UNSC-PillarOfAutumn
+          addr: 10.0.20.10
   extraVolumes:
     - name: teleport-proxy-public-cert
       secret:
@@ -87,8 +103,6 @@ proxyListenerMode: multiplex
 proxyProtocol: "off"
 publicAddr:
   - teleport.unscfleet.com:443
-  - teleport.teleport.svc:443
-  - teleport.teleport.svc.cluster.local:443
 rbac:
   create: true
 service:

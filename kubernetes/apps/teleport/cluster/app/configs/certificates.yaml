@@ -1,18 +1,4 @@
 ---
-# ============================================================================
-# Teleport Certificate Authority & Trust Infrastructure
-# ============================================================================
-# This file consolidates the trust chain for Teleport:
-# 1. Intermediary CA: Root of trust for internal cluster communications
-# 2. Public Cert: Secured via Let's Encrypt for user/browser access
-# 3. Internal Cert: Secured via Intermediary CA for intra-cluster communication
-# ============================================================================
-
-# ----------------------------------------------------------------------------
-# 1. Intermediary CA
-# Generates a long-lived internal CA signed by the cluster's Root CA.
-# This prevents split-brain trust issues for internal services.
-# ----------------------------------------------------------------------------
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -36,12 +22,6 @@ metadata:
 spec:
   ca:
     secretName: teleport-intermediary-ca-secret
-
-# ----------------------------------------------------------------------------
-# 2. Public Certificate (External Access)
-# Trusted by browsers (Chrome, Edge, etc) via Let's Encrypt.
-# Used by the Proxy for incoming user connections.
-# ----------------------------------------------------------------------------
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -62,12 +42,6 @@ spec:
     kind: ClusterIssuer
     name: letsencrypt-production
   secretName: teleport-proxy-public-cert
-
-# ----------------------------------------------------------------------------
-# 3. Internal Certificate (Cluster Access)
-# Trusted by Teleport Agents via the Intermediary CA.
-# Used for internal gRPC communication between Proxy and Agents.
-# ----------------------------------------------------------------------------
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
