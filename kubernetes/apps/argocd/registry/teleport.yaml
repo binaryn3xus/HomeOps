@@ -26,12 +26,13 @@ spec:
             chart: teleport-cluster
             repo: https://charts.releases.teleport.dev
             version: 18.7.3
-            wave: "-1"
+            wave: "-2"
           - app: teleport-agent
             path: kubernetes/apps/teleport/agent/app
             chart: teleport-kube-agent
             repo: https://charts.releases.teleport.dev
             version: 18.7.3
+            wave: "-1"
   template:
     metadata:
       name: "{{.app}}"
@@ -76,7 +77,7 @@ spec:
         elements:
           - app: teleport-resources
             path: kubernetes/apps/teleport/resources/configs
-            wave: "-2"
+            wave: "0"
   template:
     metadata:
       name: "{{.app}}"
