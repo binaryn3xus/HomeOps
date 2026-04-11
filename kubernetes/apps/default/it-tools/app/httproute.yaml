@@ -16,6 +16,10 @@ spec:
   hostnames:
     - it-tools.unscfleet.com
   rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
     - backendRefs:
         - group: ""
           kind: Service
