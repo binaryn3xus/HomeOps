@@ -9,7 +9,7 @@ auth:
       client_idle_timeout_message: Connection closed after 2hours without activity
       session_recording: 'off'
     kubernetes_service:
-      enabled: false
+      enabled: true
   extraVolumes:
     - name: intermediary-ca-cert
       secret:
@@ -60,7 +60,7 @@ proxy:
         - cert_file: /etc/teleport/secrets/serving-certs/internal/tls.crt
           key_file: /etc/teleport/secrets/serving-certs/internal/tls.key
     kubernetes_service:
-      enabled: false
+      enabled: true
   extraVolumes:
     - name: teleport-proxy-public-cert
       secret:
@@ -78,8 +78,6 @@ proxy:
   extraVolumeMounts:
     - name: teleport-proxy-public-cert
       mountPath: /etc/teleport/secrets/serving-certs/public
-    - name: teleport-proxy-internal-cert
-      mountPath: /etc/teleport/secrets/serving-certs/internal
     - name: teleport-proxy-internal-cert
       mountPath: /etc/ssl/certs/ca.crt
       subPath: ca.crt
