@@ -45,6 +45,8 @@ spec:
   dnsNames:
     - teleport.teleport.svc
     - teleport.teleport.svc.cluster.local
+    - teleport-cluster-auth.teleport.svc.cluster.local
+    - "*.teleport.cluster.local"
   secretName: teleport-proxy-internal-cert
   issuerRef:
     name: teleport-intermediary-ca-issuer
