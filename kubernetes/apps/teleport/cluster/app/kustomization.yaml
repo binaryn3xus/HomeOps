@@ -6,8 +6,6 @@ resources:
   - ./replicationdestination.yaml
   - ./replicationsource.yaml
   - certificates.yaml
-  - helmrelease.yaml
-  - ocirepository.yaml
   - podmonitor.yaml
 commonLabels:
   app.kubernetes.io/name: teleport

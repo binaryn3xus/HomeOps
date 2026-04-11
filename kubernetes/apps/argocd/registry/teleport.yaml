@@ -10,10 +10,64 @@ metadata:
     argocd.argoproj.io/sync-options: Prune=false
     volsync.backube/privileged-movers: "true"
 ---
+# Helm-based Teleport Apps
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: teleport-apps
+  name: teleport-helm-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - app: teleport-cluster
+            path: kubernetes/apps/teleport/cluster/app
+            chart: teleport-cluster
+            repo: https://charts.releases.teleport.dev
+            version: 18.7.3
+            wave: "-1"
+          - app: teleport-agent
+            path: kubernetes/apps/teleport/agent/app
+            chart: teleport-kube-agent
+            repo: https://charts.releases.teleport.dev
+            version: 18.7.3
+  template:
+    metadata:
+      name: "{{.app}}"
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
+    spec:
+      project: home-ops
+      sources:
+        - repoURL: https://github.com/binaryn3xus/HomeOps/
+          targetRevision: main
+          ref: values
+        - repoURL: https://github.com/binaryn3xus/HomeOps/
+          targetRevision: main
+          path: "{{.path}}"
+        - repoURL: "{{.repo}}"
+          chart: "{{.chart}}"
+          targetRevision: "{{.version}}"
+          helm:
+            releaseName: "{{.app}}"
+            valueFiles:
+              - $values/{{.path}}/values.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: teleport
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - ServerSideApply=true
+---
+# Plain Manifest Teleport Apps
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: teleport-plain-apps
   namespace: argocd
 spec:
   goTemplate: true
@@ -21,13 +75,8 @@ spec:
     - list:
         elements:
           - app: teleport-resources
-            path: kubernetes/apps/teleport/resources
+            path: kubernetes/apps/teleport/resources/configs
             wave: "-2"
-          - app: teleport-cluster
-            path: kubernetes/apps/teleport/cluster/app
-            wave: "-1"
-          - app: teleport-agent
-            path: kubernetes/apps/teleport/agent/app
   template:
     metadata:
       name: "{{.app}}"
