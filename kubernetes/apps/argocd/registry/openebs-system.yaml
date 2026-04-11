@@ -10,10 +10,11 @@ metadata:
     argocd.argoproj.io/sync-options: Prune=false
     volsync.backube/privileged-movers: "true"
 ---
+# Helm-based OpenEBS Apps
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: openebs-system-apps
+  name: openebs-system-helm-apps
   namespace: argocd
 spec:
   goTemplate: true
@@ -22,6 +23,9 @@ spec:
         elements:
           - app: openebs
             path: kubernetes/apps/openebs-system/openebs/app
+            chart: openebs
+            repo: oci://ghcr.io/home-operations/charts-mirror
+            version: 4.4.0
             wave: "-5"
   template:
     metadata:
@@ -30,10 +34,20 @@ spec:
         argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
     spec:
       project: home-ops
-      source:
-        repoURL: https://github.com/binaryn3xus/HomeOps/
-        targetRevision: main
-        path: "{{.path}}"
+      sources:
+        - repoURL: https://github.com/binaryn3xus/HomeOps/
+          targetRevision: main
+          ref: values
+        - repoURL: https://github.com/binaryn3xus/HomeOps/
+          targetRevision: main
+          path: "{{.path}}"
+        - repoURL: "{{.repo}}"
+          chart: "{{.chart}}"
+          targetRevision: "{{.version}}"
+          helm:
+            releaseName: "{{.app}}"
+            valueFiles:
+              - $values/{{.path}}/values.yaml
       destination:
         server: https://kubernetes.default.svc
         namespace: openebs-system
