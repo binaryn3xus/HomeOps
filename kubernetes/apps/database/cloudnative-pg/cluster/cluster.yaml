@@ -1,12 +1,9 @@
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/postgresql.cnpg.io/cluster_v1.json
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/postgresql.cnpg.io/cluster_v1.json
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: &name home-ops
-  annotations:
-    # Required for seamless bootstrap to avoid empty WAL archive check issues
-    # cnpg.io/skipEmptyWalArchiveCheck: "enabled"
+  namespace: database
 spec:
   instances: 1
   imageName: ghcr.io/cloudnative-pg/postgresql:18.0
@@ -14,14 +11,40 @@ spec:
   primaryUpdateMethod: switchover
 
   enableSuperuserAccess: true
-  superuserSecret:
-    name: cloudnative-pg-secret
+  # Explicit default field
+  enablePDB: true
 
   postgresql:
     parameters:
       max_connections: "600"
       max_slot_wal_keep_size: 30GB
       shared_buffers: 512MB
+      # Explicit defaults to match controller
+      archive_mode: "on"
+      archive_timeout: 5min
+      dynamic_shared_memory_type: posix
+      full_page_writes: "on"
+      log_destination: csvlog
+      log_directory: /controller/log
+      log_filename: postgres
+      log_rotation_age: "0"
+      log_rotation_size: "0"
+      log_truncate_on_rotation: "false"
+      logging_collector: "on"
+      max_parallel_workers: "32"
+      max_replication_slots: "32"
+      max_worker_processes: "32"
+      shared_memory_type: mmap
+      shared_preload_libraries: ""
+      ssl_max_protocol_version: TLSv1.3
+      ssl_min_protocol_version: TLSv1.3
+      wal_keep_size: 512MB
+      wal_level: logical
+      wal_log_hints: "on"
+      wal_receiver_timeout: 5s
+      wal_sender_timeout: 5s
+    syncReplicaElectionConstraint:
+      enabled: false
 
   resources:
     requests:
@@ -36,6 +59,11 @@ spec:
 
   monitoring:
     enablePodMonitor: true
+    # Explicit default
+    disableDefaultQueries: false
+    customQueriesConfigMap:
+      - key: queries
+        name: cnpg-default-monitoring
 
   plugins:
     - name: barman-cloud.cloudnative-pg.io
@@ -44,31 +72,25 @@ spec:
       parameters: &barmanParameters
         barmanObjectName: *name
 
-  # ============================================================================
-  # BOOTSTRAP CONFIGURATION - Choose ONE section below
-  # ============================================================================
-
-  # OPTION 1: Initial setup - Create fresh database
+  # Initial setup - Create fresh database
   bootstrap:
     initdb:
       database: app
       owner: postgres
+      # Explicit defaults
+      encoding: UTF8
+      localeCType: C
+      localeCollate: C
       secret:
         name: cloudnative-pg-secret
-
-  # OPTION 2: Restore from S3/R2 backup (uncomment to use)
-  # bootstrap:
-  #   recovery:
-  #     source: origin
-  #     recoveryTarget:
-  #       # Omit targetTime for latest WAL, or specify for PITR:
-  #       # targetTime: "2025-12-27 16:05:00+00"  # RFC3339 format
 
   # External cluster reference for recovery
   externalClusters:
     - name: origin
       plugin:
         name: barman-cloud.cloudnative-pg.io
+        enabled: true
+        isWALArchiver: false
         parameters: *barmanParameters
 
   affinity:
@@ -79,3 +101,27 @@ spec:
   nodeMaintenanceWindow:
     inProgress: false
     reusePVC: false
+
+  # Other explicit defaults
+  failoverDelay: 0
+  logLevel: info
+  maxSyncReplicas: 0
+  minSyncReplicas: 0
+  postgresGID: 26
+  postgresUID: 26
+  probes:
+    liveness:
+      isolationCheck:
+        connectionTimeout: 1000
+        enabled: true
+        requestTimeout: 1000
+  replicationSlots:
+    highAvailability:
+      enabled: true
+      slotPrefix: _cnpg_
+    synchronizeReplicas:
+      enabled: true
+    updateInterval: 30
+  smartShutdownTimeout: 180
+  startDelay: 3600
+  stopDelay: 1800
