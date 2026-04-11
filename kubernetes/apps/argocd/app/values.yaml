@@ -87,5 +87,3 @@ configs:
             orgs:
               - name: unscfleet
 
-    # Custom Health Checks
-    # (ArgoCD manages its own health checks for standard resources)
