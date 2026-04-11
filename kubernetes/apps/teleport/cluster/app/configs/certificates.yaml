@@ -1,26 +1,18 @@
 ---
 apiVersion: cert-manager.io/v1
-kind: Issuer
-metadata:
-  name: teleport-selfsigned-issuer
-  namespace: teleport
-spec:
-  selfSigned: {}
----
-apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: teleport-intermediary-ca
   namespace: teleport
 spec:
   isCA: true
-  commonName: teleport-intermediary-ca
+  commonName: "HomeOps Intermediary CA"
+  duration: 720h # 30 days
   secretName: teleport-intermediary-ca-secret
-  duration: 87600h # 10 years
-  renewBefore: 720h # 30 days
   issuerRef:
-    name: teleport-selfsigned-issuer
-    kind: Issuer
+    name: root-ca-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
 ---
 apiVersion: cert-manager.io/v1
 kind: Issuer
@@ -37,12 +29,19 @@ metadata:
   name: teleport-proxy-public-cert
   namespace: teleport
 spec:
+  commonName: teleport.unscfleet.com
   dnsNames:
     - teleport.unscfleet.com
-  secretName: teleport-proxy-public-cert
+    - "*.teleport.unscfleet.com"
+  subject:
+    countries: ["US"]
+    organizations: ["binaryn3xus-homeops"]
+    provinces: ["NC"]
   issuerRef:
-    name: cloudflare-dns
+    group: cert-manager.io
     kind: ClusterIssuer
+    name: letsencrypt-production
+  secretName: teleport-proxy-public-cert
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -50,12 +49,18 @@ metadata:
   name: teleport-proxy-internal-cert
   namespace: teleport
 spec:
+  commonName: teleport.teleport.svc.cluster.local
   dnsNames:
-    - teleport.teleport.svc
     - teleport.teleport.svc.cluster.local
-    - teleport-cluster-auth.teleport.svc.cluster.local
-    - "*.teleport.cluster.local"
-  secretName: teleport-proxy-internal-cert
+    - "*.teleport.teleport.svc.cluster.local"
+    - teleport.teleport.svc
+    - "*.teleport.teleport.svc"
+  subject:
+    countries: ["US"]
+    organizations: ["binaryn3xus-homeops"]
+    provinces: ["NC"]
   issuerRef:
-    name: teleport-intermediary-ca-issuer
+    group: cert-manager.io
     kind: Issuer
+    name: teleport-intermediary-ca-issuer
+  secretName: teleport-proxy-internal-cert
