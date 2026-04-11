@@ -8,9 +8,6 @@ auth:
       client_idle_timeout: 2h
       client_idle_timeout_message: Connection closed after 2hours without activity
       session_recording: 'off'
-      https_keypairs:
-        - cert_file: /etc/teleport/secrets/serving-certs/internal/tls.crt
-          key_file: /etc/teleport/secrets/serving-certs/internal/tls.key
     kubernetes_service:
       enabled: true
   extraVolumes:
