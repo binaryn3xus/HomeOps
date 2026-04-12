@@ -30,7 +30,7 @@ spec:
           - app: cloudflare-dns
             path: kubernetes/apps/network/cloudflare-dns
             chart: external-dns
-            repo: oci://registry-1.docker.io/bitnamicharts/external-dns
+            repo: oci://ghcr.io/home-operations/charts-mirror/external-dns
             version: 9.0.3
   template:
     metadata:
