@@ -1,1 +1,1 @@
-{{ (fromYaml (readFile (printf "../../../kubernetes/apps/%s/%s/app/helmrelease.yaml" .Release.Namespace .Release.Name))).spec.values | toYaml }}
+{{ (readFile (printf "../../../kubernetes/apps/%s/%s/values.yaml" .Release.Namespace .Release.Name)) }}

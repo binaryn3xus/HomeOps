@@ -16,6 +16,5 @@ resources:
   - ./registry/paperless.yaml
   - ./registry/rook-ceph.yaml
   - ./registry/system-upgrade.yaml
-  - ./registry/teleport-cluster.yaml
   - ./registry/teleport.yaml
   - ./registry/volsync-system.yaml
