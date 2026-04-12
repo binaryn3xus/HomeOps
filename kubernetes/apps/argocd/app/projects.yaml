@@ -12,8 +12,8 @@ spec:
   sourceRepos:
     - https://github.com/binaryn3xus/HomeOps
     - oci://ghcr.io/*
-    - oci://ghcr.io/argoproj/argo-helm/*
     - oci://quay.io/*
+    - oci://docker.io/*
     - https://charts.releases.teleport.dev
     - https://charts.fairwinds.com/stable
     - https://kubernetes-sigs.github.io/node-feature-discovery/charts

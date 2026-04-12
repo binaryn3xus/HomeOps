@@ -48,6 +48,19 @@ repoServer:
     enabled: true
     serviceMonitor:
       enabled: true
+  resources:
+    requests:
+      cpu: 500m
+      memory: 256Mi
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+  livenessProbe:
+    timeoutSeconds: 10
+    failureThreshold: 10
+  readinessProbe:
+    timeoutSeconds: 10
+    failureThreshold: 10
 
 ## Configuration
 configs:
