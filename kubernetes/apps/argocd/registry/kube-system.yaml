@@ -41,8 +41,8 @@ spec:
           - app: metrics-server
             path: kubernetes/apps/kube-system/metrics-server
             chart: metrics-server
-            repo: oci://registry-1.docker.io/bitnamicharts/metrics-server
-            version: 3.12.2
+            repo: oci://ghcr.io/home-operations/charts-mirror/metrics-server
+            version: 3.13.0
             wave: "-4"
           - app: node-feature-discovery
             path: kubernetes/apps/kube-system/node-feature-discovery
