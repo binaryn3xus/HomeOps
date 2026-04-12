@@ -5,7 +5,7 @@ metadata:
   name: argocd
   namespace: argocd
 spec:
-  project: default
+  project: home-ops
   sources:
     # Source 1: The Argo CD Installation itself (Seed)
     - repoURL: oci://ghcr.io/argoproj/argo-helm/argo-cd

@@ -10,10 +10,11 @@ metadata:
     argocd.argoproj.io/sync-options: Prune=false
     volsync.backube/privileged-movers: "true"
 ---
+# Helm-based Network Apps
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: network-apps
+  name: network-helm-apps
   namespace: argocd
 spec:
   goTemplate: true
@@ -26,23 +27,11 @@ spec:
             repo: oci://docker.io/envoyproxy/gateway-helm
             version: 1.7.1
             wave: "-1"
-          - app: certificates-import
-            path: kubernetes/apps/network/certificates/import
-            wave: "-1"
-          - app: certificates-export
-            path: kubernetes/apps/network/certificates/export
           - app: cloudflare-dns
             path: kubernetes/apps/network/cloudflare-dns
             chart: external-dns
             repo: oci://ghcr.io/home-operations/charts-mirror
             version: 1.20.0
-          - app: cloudflare-tunnel
-            path: kubernetes/apps/network/cloudflare-tunnel
-          - app: unifi-dns
-            path: kubernetes/apps/network/unifi-dns
-          - app: echo
-            path: kubernetes/apps/network/echo
-            wave: "1"
   template:
     metadata:
       name: "{{.app}}"
@@ -57,7 +46,6 @@ spec:
         - repoURL: https://github.com/binaryn3xus/HomeOps/
           targetRevision: main
           path: "{{.path}}"
-        {{- if .chart }}
         - repoURL: "{{.repo}}"
           chart: "{{.chart}}"
           targetRevision: "{{.version}}"
@@ -65,7 +53,50 @@ spec:
             releaseName: "{{.app}}"
             valueFiles:
               - $values/{{.path}}/values.yaml
-        {{- end }}
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: network
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - ServerSideApply=true
+---
+# Plain Manifest Network Apps
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: network-plain-apps
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+    - list:
+        elements:
+          - app: certificates-import
+            path: kubernetes/apps/network/certificates/import
+            wave: "-1"
+          - app: certificates-export
+            path: kubernetes/apps/network/certificates/export
+          - app: cloudflare-tunnel
+            path: kubernetes/apps/network/cloudflare-tunnel
+          - app: unifi-dns
+            path: kubernetes/apps/network/unifi-dns
+          - app: echo
+            path: kubernetes/apps/network/echo
+            wave: "1"
+  template:
+    metadata:
+      name: "{{.app}}"
+      annotations:
+        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
+    spec:
+      project: home-ops
+      source:
+        repoURL: https://github.com/binaryn3xus/HomeOps/
+        targetRevision: main
+        path: "{{.path}}"
       destination:
         server: https://kubernetes.default.svc
         namespace: network
