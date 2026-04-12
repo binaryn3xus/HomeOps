@@ -7,7 +7,7 @@ metadata:
 spec:
   project: home-ops
   sources:
-    - repoURL: https://github.com/binaryn3xus/HomeOps/
+    - repoURL: https://github.com/binaryn3xus/HomeOps
       targetRevision: main
       ref: values
     - chart: teleport-cluster

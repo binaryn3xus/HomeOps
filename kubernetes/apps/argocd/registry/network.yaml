@@ -24,13 +24,13 @@ spec:
           - app: envoy-gateway
             path: kubernetes/apps/network/envoy-gateway
             chart: envoy-gateway
-            repo: oci://docker.io/envoyproxy/gateway-helm
+            repo: oci://docker.io/envoyproxy/gateway-helm/envoy-gateway
             version: 1.7.1
             wave: "-1"
           - app: cloudflare-dns
             path: kubernetes/apps/network/cloudflare-dns
             chart: external-dns
-            repo: oci://ghcr.io/home-operations/charts-mirror
+            repo: oci://ghcr.io/home-operations/charts-mirror/external-dns
             version: 1.20.0
   template:
     metadata:
@@ -40,10 +40,10 @@ spec:
     spec:
       project: home-ops
       sources:
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           ref: values
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           path: "{{.path}}"
         - repoURL: "{{.repo}}"
@@ -94,7 +94,7 @@ spec:
     spec:
       project: home-ops
       source:
-        repoURL: https://github.com/binaryn3xus/HomeOps/
+        repoURL: https://github.com/binaryn3xus/HomeOps
         targetRevision: main
         path: "{{.path}}"
       destination:

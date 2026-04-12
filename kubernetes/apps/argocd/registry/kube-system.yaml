@@ -23,25 +23,25 @@ spec:
           - app: cilium
             path: kubernetes/apps/kube-system/cilium
             chart: cilium
-            repo: oci://ghcr.io/home-operations/charts-mirror
+            repo: oci://ghcr.io/home-operations/charts-mirror/cilium
             version: 1.18.6
             wave: "-5"
           - app: coredns
             path: kubernetes/apps/kube-system/coredns
             chart: coredns
-            repo: oci://ghcr.io/coredns/charts
+            repo: oci://ghcr.io/coredns/charts/coredns
             version: 1.45.2
             wave: "-5"
           - app: intel-device-plugin
             path: kubernetes/apps/kube-system/intel-device-plugin
             chart: intel-device-plugins-operator
-            repo: oci://ghcr.io/home-operations/charts-mirror
+            repo: oci://ghcr.io/home-operations/charts-mirror/intel-device-plugins-operator
             version: 0.32.1
             wave: "-4"
           - app: metrics-server
             path: kubernetes/apps/kube-system/metrics-server
             chart: metrics-server
-            repo: oci://ghcr.io/home-operations/charts-mirror
+            repo: oci://ghcr.io/home-operations/charts-mirror/metrics-server
             version: 3.12.2
             wave: "-4"
           - app: node-feature-discovery
@@ -59,13 +59,13 @@ spec:
           - app: reloader
             path: kubernetes/apps/kube-system/reloader
             chart: reloader
-            repo: oci://ghcr.io/home-operations/charts-mirror
+            repo: oci://ghcr.io/home-operations/charts-mirror/reloader
             version: 1.2.1
             wave: "-4"
           - app: spegel
             path: kubernetes/apps/kube-system/spegel
             chart: spegel
-            repo: oci://ghcr.io/home-operations/charts-mirror
+            repo: oci://ghcr.io/home-operations/charts-mirror/spegel
             version: v0.0.30
             wave: "-4"
   template:
@@ -76,10 +76,10 @@ spec:
     spec:
       project: home-ops
       sources:
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           ref: values
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           path: "{{.path}}"
         - repoURL: "{{.repo}}"

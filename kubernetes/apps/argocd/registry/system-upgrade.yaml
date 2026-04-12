@@ -24,7 +24,7 @@ spec:
           - app: tuppr
             path: kubernetes/apps/system-upgrade/tuppr
             chart: tuppr
-            repo: oci://ghcr.io/home-operations/charts
+            repo: oci://ghcr.io/home-operations/charts/tuppr
             version: 0.1.3
   template:
     metadata:
@@ -34,10 +34,10 @@ spec:
     spec:
       project: home-ops
       sources:
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           ref: values
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           path: "{{.path}}"
         - repoURL: "{{.repo}}"
@@ -78,7 +78,7 @@ spec:
     spec:
       project: home-ops
       source:
-        repoURL: https://github.com/binaryn3xus/HomeOps/
+        repoURL: https://github.com/binaryn3xus/HomeOps
         targetRevision: main
         path: "{{.path}}"
       destination:

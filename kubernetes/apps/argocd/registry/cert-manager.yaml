@@ -23,7 +23,7 @@ spec:
           - app: cert-manager
             path: kubernetes/apps/cert-manager
             chart: cert-manager
-            repo: oci://quay.io/jetstack/charts
+            repo: oci://quay.io/jetstack/charts/cert-manager
             version: v1.20.1
             wave: "-4"
   template:
@@ -34,10 +34,10 @@ spec:
     spec:
       project: home-ops
       sources:
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           ref: values
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           path: "{{.path}}"
         - repoURL: "{{.repo}}"

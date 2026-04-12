@@ -24,7 +24,7 @@ spec:
           - app: openclaw-operator
             path: kubernetes/apps/ai/openclaw-operator/operator
             chart: openclaw-operator
-            repo: oci://ghcr.io/openclaw-rocks/charts
+            repo: oci://ghcr.io/openclaw-rocks/charts/openclaw-operator
             version: 0.26.2
   template:
     metadata:
@@ -34,10 +34,10 @@ spec:
     spec:
       project: home-ops
       sources:
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           ref: values
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           path: "{{.path}}"
         - repoURL: "{{.repo}}"
@@ -92,7 +92,7 @@ spec:
     spec:
       project: home-ops
       source:
-        repoURL: https://github.com/binaryn3xus/HomeOps/
+        repoURL: https://github.com/binaryn3xus/HomeOps
         targetRevision: main
         path: "{{.path}}"
       destination:

@@ -24,13 +24,13 @@ spec:
           - app: cloudnative-pg-operator
             path: kubernetes/apps/database/cloudnative-pg/operator
             chart: cloudnative-pg
-            repo: oci://ghcr.io/cloudnative-pg/charts
+            repo: oci://ghcr.io/cloudnative-pg/charts/cloudnative-pg
             version: 0.28.0
             wave: "-3"
           - app: cloudnative-pg-plugin-barman-cloud
             path: kubernetes/apps/database/cloudnative-pg/plugin-barman-cloud
             chart: plugin-barman-cloud
-            repo: oci://ghcr.io/cloudnative-pg/charts
+            repo: oci://ghcr.io/cloudnative-pg/charts/plugin-barman-cloud
             version: 0.5.0
             wave: "-1"
   template:
@@ -41,10 +41,10 @@ spec:
     spec:
       project: home-ops
       sources:
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           ref: values
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           path: "{{.path}}"
         - repoURL: "{{.repo}}"
@@ -92,7 +92,7 @@ spec:
     spec:
       project: home-ops
       source:
-        repoURL: https://github.com/binaryn3xus/HomeOps/
+        repoURL: https://github.com/binaryn3xus/HomeOps
         targetRevision: main
         path: "{{.path}}"
       destination:

@@ -10,8 +10,9 @@ spec:
     - server: https://kubernetes.default.svc
       namespace: '*'
   sourceRepos:
-    - https://github.com/binaryn3xus/HomeOps/
+    - https://github.com/binaryn3xus/HomeOps
     - oci://ghcr.io/*
+    - oci://ghcr.io/argoproj/argo-helm/*
     - oci://quay.io/*
     - https://charts.fairwinds.com/stable
     - https://kubernetes-sigs.github.io/node-feature-discovery/charts
