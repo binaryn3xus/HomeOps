@@ -66,6 +66,11 @@ spec:
             - /data/ca.crt
             - /data/tls.crt
             - /data/tls.key
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          name: volumegroupsnapshotcontents.groupsnapshot.storage.k8s.io
+          jsonPointers:
+            - /spec/conversion/webhook/clientConfig/caBundle
       syncPolicy:
         automated:
           enabled: false
