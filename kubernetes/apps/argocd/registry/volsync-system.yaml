@@ -59,8 +59,8 @@ spec:
         namespace: volsync-system
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          prune: false
+          selfHeal: false
         syncOptions:
           - ServerSideApply=true
 ---
@@ -94,7 +94,7 @@ spec:
         namespace: volsync-system
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          prune: false
+          selfHeal: false
         syncOptions:
           - ServerSideApply=true

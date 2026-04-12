@@ -89,8 +89,8 @@ spec:
         namespace: observability
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          prune: false
+          selfHeal: false
         syncOptions:
           - ServerSideApply=true
 ---
@@ -130,7 +130,7 @@ spec:
         namespace: observability
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          prune: false
+          selfHeal: false
         syncOptions:
           - ServerSideApply=true

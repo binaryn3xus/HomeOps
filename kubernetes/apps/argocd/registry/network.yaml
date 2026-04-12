@@ -58,8 +58,8 @@ spec:
         namespace: network
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          prune: false
+          selfHeal: false
         syncOptions:
           - ServerSideApply=true
 ---
@@ -102,7 +102,7 @@ spec:
         namespace: network
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          prune: false
+          selfHeal: false
         syncOptions:
           - ServerSideApply=true
