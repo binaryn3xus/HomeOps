@@ -52,7 +52,7 @@ spec:
               containerPort: 8080
           livenessProbe: &probe
             httpGet:
-              path: /ready
+              path: /metrics
               port: 8080
             initialDelaySeconds: 0
             periodSeconds: 10

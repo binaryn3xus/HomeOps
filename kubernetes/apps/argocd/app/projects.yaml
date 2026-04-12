@@ -17,6 +17,9 @@ spec:
     - oci://ghcr.io/home-operations/charts-mirror/*
     - oci://ghcr.io/coredns/*
     - oci://ghcr.io/coredns/charts/*
+    - oci://ghcr.io/external-secrets/*
+    - oci://ghcr.io/external-secrets/charts/*
+    - oci://ghcr.io/external-secrets/charts/external-secrets
     - oci://quay.io/*
     - oci://quay.io/jetstack/charts/*
     - oci://docker.io/*
