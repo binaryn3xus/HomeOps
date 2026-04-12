@@ -23,7 +23,7 @@ spec:
           - app: cilium
             path: kubernetes/apps/kube-system/cilium
             chart: ""
-            repo: oci://ghcr.io/cilium/charts/cilium
+            repo: oci://ghcr.io/home-operations/charts-mirror/cilium
             version: 1.18.6
             wave: "-5"
           - app: coredns
