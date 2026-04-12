@@ -1,1 +1,7 @@
-{{ (readFile (printf "../../../kubernetes/apps/%s/%s/values.yaml" .Release.Namespace .Release.Name)) }}
+{{- $ns := .Release.Namespace -}}
+{{- $name := .Release.Name -}}
+{{- if eq $ns $name -}}
+{{ (readFile (printf "../../../kubernetes/apps/%s/values.yaml" $ns)) }}
+{{- else -}}
+{{ (readFile (printf "../../../kubernetes/apps/%s/%s/values.yaml" $ns $name)) }}
+{{- end -}}
