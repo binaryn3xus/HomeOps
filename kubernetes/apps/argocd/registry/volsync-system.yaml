@@ -57,6 +57,15 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: volsync-system
+      ignoreDifferences:
+        - group: ""
+          kind: Secret
+          name: volsync-snapshot-controller-conversion-webhook
+          namespace: volsync-system
+          jsonPointers:
+            - /data/ca.crt
+            - /data/tls.crt
+            - /data/tls.key
       syncPolicy:
         automated:
           enabled: false

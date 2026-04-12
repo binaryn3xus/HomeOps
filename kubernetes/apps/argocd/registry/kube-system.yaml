@@ -98,6 +98,34 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: kube-system
+      ignoreDifferences:
+        - group: ""
+          kind: Secret
+          name: cilium-ca
+          namespace: kube-system
+          jsonPointers:
+            - /data/ca.crt
+            - /data/ca.key
+            - /data/tls.crt
+            - /data/tls.key
+        - group: ""
+          kind: Secret
+          name: hubble-relay-client-certs
+          namespace: kube-system
+          jsonPointers:
+            - /data/ca.crt
+            - /data/ca.key
+            - /data/tls.crt
+            - /data/tls.key
+        - group: ""
+          kind: Secret
+          name: hubble-server-certs
+          namespace: kube-system
+          jsonPointers:
+            - /data/ca.crt
+            - /data/ca.key
+            - /data/tls.crt
+            - /data/tls.key
       syncPolicy:
         automated:
           enabled: false
