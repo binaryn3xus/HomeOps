@@ -57,12 +57,6 @@ spec:
             repo: oci://ghcr.io/grafana/helm-charts/promtail
             version: 6.16.6
             wave: "1"
-          - app: tdarr-exporter
-            path: kubernetes/apps/observability/tdarr-exporter
-            chart: tdarr-exporter
-            repo: oci://ghcr.io/homeylab/charts/tdarr-exporter
-            version: 1.1.0
-            wave: "1"
   template:
     metadata:
       name: "{{.app}}"
