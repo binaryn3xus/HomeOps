@@ -11,7 +11,8 @@ spec:
       namespace: '*'
   sourceRepos:
     - https://github.com/binaryn3xus/HomeOps
-    - '*'
+    - oci://*
+    - https://*
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'

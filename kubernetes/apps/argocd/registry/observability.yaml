@@ -41,8 +41,8 @@ spec:
             wave: "-2"
           - app: goldilocks
             path: kubernetes/apps/observability/goldilocks
-            chart: goldilocks
-            repo: https://charts.fairwinds.com/stable
+            chart: ""
+            repo: oci://public.ecr.aws/fairwinds/goldilocks
             version: 10.3.0
             wave: "1"
           - app: grafana
@@ -59,8 +59,8 @@ spec:
             wave: "1"
           - app: tdarr-exporter
             path: kubernetes/apps/observability/tdarr-exporter
-            chart: tdarr-exporter
-            repo: oci://ghcr.io/home-operations/charts-mirror/tdarr-exporter
+            chart: ""
+            repo: oci://ghcr.io/homeylab/charts/tdarr-exporter
             version: 1.1.0
             wave: "1"
   template:
