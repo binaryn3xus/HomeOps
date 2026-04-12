@@ -47,6 +47,7 @@ spec:
         namespace: teleport
       syncPolicy:
         automated:
+          enabled: false
           prune: false
           selfHeal: false
         syncOptions:
@@ -80,6 +81,7 @@ spec:
         namespace: teleport
       syncPolicy:
         automated:
+          enabled: false
           prune: false
           selfHeal: false
         syncOptions:

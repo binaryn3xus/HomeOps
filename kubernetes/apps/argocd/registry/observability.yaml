@@ -89,6 +89,7 @@ spec:
         namespace: observability
       syncPolicy:
         automated:
+          enabled: false
           prune: false
           selfHeal: false
         syncOptions:
@@ -130,6 +131,7 @@ spec:
         namespace: observability
       syncPolicy:
         automated:
+          enabled: false
           prune: false
           selfHeal: false
         syncOptions:

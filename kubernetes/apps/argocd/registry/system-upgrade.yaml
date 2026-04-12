@@ -52,6 +52,7 @@ spec:
         namespace: system-upgrade
       syncPolicy:
         automated:
+          enabled: false
           prune: false
           selfHeal: false
         syncOptions:
@@ -86,6 +87,7 @@ spec:
         namespace: system-upgrade
       syncPolicy:
         automated:
+          enabled: false
           prune: false
           selfHeal: false
         syncOptions:

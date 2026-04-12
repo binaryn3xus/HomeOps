@@ -52,6 +52,7 @@ spec:
         namespace: ai
       syncPolicy:
         automated:
+          enabled: false
           prune: false
           selfHeal: false
         syncOptions:
@@ -100,6 +101,7 @@ spec:
         namespace: ai
       syncPolicy:
         automated:
+          enabled: false
           prune: false
           selfHeal: false
         syncOptions:

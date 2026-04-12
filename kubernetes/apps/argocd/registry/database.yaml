@@ -59,6 +59,7 @@ spec:
         namespace: database
       syncPolicy:
         automated:
+          enabled: false
           prune: false
           selfHeal: false
         syncOptions:
@@ -100,6 +101,7 @@ spec:
         namespace: database
       syncPolicy:
         automated:
+          enabled: false
           prune: false
           selfHeal: false
         syncOptions:

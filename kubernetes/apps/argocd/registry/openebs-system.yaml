@@ -53,6 +53,7 @@ spec:
         namespace: openebs-system
       syncPolicy:
         automated:
+          enabled: false
           prune: false
           selfHeal: false
         syncOptions:

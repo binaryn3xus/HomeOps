@@ -59,6 +59,7 @@ spec:
         namespace: volsync-system
       syncPolicy:
         automated:
+          enabled: false
           prune: false
           selfHeal: false
         syncOptions:
@@ -94,6 +95,7 @@ spec:
         namespace: volsync-system
       syncPolicy:
         automated:
+          enabled: false
           prune: false
           selfHeal: false
         syncOptions:
