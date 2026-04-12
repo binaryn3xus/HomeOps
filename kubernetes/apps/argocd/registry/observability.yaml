@@ -88,6 +88,13 @@ spec:
           selfHeal: false
         syncOptions:
           - ServerSideApply=true
+      ignoreDifferences:
+        - group: gateway.networking.k8s.io
+          kind: HTTPRoute
+          jsonPointers:
+            - /spec/hostnames
+            - /spec/parentRefs
+            - /spec/rules
 ---
 # Plain Manifest Observability Apps
 apiVersion: argoproj.io/v1alpha1
@@ -130,3 +137,10 @@ spec:
           selfHeal: false
         syncOptions:
           - ServerSideApply=true
+      ignoreDifferences:
+        - group: gateway.networking.k8s.io
+          kind: HTTPRoute
+          jsonPointers:
+            - /spec/hostnames
+            - /spec/parentRefs
+            - /spec/rules
