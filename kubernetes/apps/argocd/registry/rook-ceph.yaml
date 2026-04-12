@@ -24,14 +24,14 @@ spec:
           - app: rook-ceph-operator
             path: kubernetes/apps/rook-ceph/rook-ceph
             chart: rook-ceph
-            repo: oci://ghcr.io/rook/rook-ceph
-            version: 1.19.3
+            repo: oci://ghcr.io/rook
+            version: v1.19.3
             wave: "-5"
           - app: rook-ceph-cluster
             path: kubernetes/apps/rook-ceph/rook-ceph/cluster
             chart: rook-ceph-cluster
-            repo: oci://ghcr.io/rook/rook-ceph
-            version: 1.19.3
+            repo: oci://ghcr.io/rook
+            version: v1.19.3
             wave: "-4"
   template:
     metadata:

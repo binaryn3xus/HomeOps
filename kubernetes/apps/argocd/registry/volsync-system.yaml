@@ -23,14 +23,14 @@ spec:
         elements:
           - app: volsync-operator
             path: kubernetes/apps/volsync-system/volsync
-            chart: volsync-perfectra1n
-            repo: oci://ghcr.io/home-operations/charts-mirror/volsync-perfectra1n
-            version: 0.18.5
+            chart: volsync
+            repo: oci://ghcr.io/backube/helm-charts
+            version: 0.11.0
             wave: "-3"
           - app: volsync-snapshot-controller
             path: kubernetes/apps/volsync-system/snapshot-controller
             chart: snapshot-controller
-            repo: oci://ghcr.io/piraeusdatastore/helm-charts/snapshot-controller
+            repo: oci://ghcr.io/piraeusdatastore/helm-charts
             version: 5.0.3
             wave: "-3"
   template:

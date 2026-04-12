@@ -24,14 +24,14 @@ spec:
           - app: envoy-gateway
             path: kubernetes/apps/network/envoy-gateway
             chart: gateway-helm
-            repo: oci://registry-1.docker.io/envoyproxy
+            repo: oci://docker.io/envoyproxy
             version: 1.7.1
             wave: "-1"
           - app: cloudflare-dns
             path: kubernetes/apps/network/cloudflare-dns
             chart: external-dns
-            repo: oci://ghcr.io/home-operations/charts-mirror/external-dns
-            version: 1.20.0
+            repo: oci://registry-1.docker.io/bitnamicharts
+            version: 9.0.3
   template:
     metadata:
       name: "{{.app}}"
