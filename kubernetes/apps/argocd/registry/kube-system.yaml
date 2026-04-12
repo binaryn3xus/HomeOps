@@ -29,7 +29,7 @@ spec:
           - app: coredns
             path: kubernetes/apps/kube-system/coredns
             chart: coredns
-            repo: oci://ghcr.io/coredns/charts
+            repo: oci://ghcr.io/coredns/charts/coredns
             version: 1.45.2
             wave: "-5"
           - app: intel-device-plugin
