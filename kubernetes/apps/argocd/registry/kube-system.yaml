@@ -23,7 +23,7 @@ spec:
           - app: cilium
             path: kubernetes/apps/kube-system/cilium
             chart: cilium
-            repo: oci://quay.io/cilium/charts
+            repo: oci://quay.io/cilium/charts/cilium
             version: 1.19.2
             wave: "-5"
           - app: coredns
@@ -41,7 +41,7 @@ spec:
           - app: metrics-server
             path: kubernetes/apps/kube-system/metrics-server
             chart: metrics-server
-            repo: oci://registry-1.docker.io/bitnamicharts
+            repo: oci://registry-1.docker.io/bitnamicharts/metrics-server
             version: 3.12.2
             wave: "-4"
           - app: node-feature-discovery
