@@ -1,3 +1,4 @@
+logLevel: debug
 fullnameOverride: cloudflare-dns
 provider:
   name: cloudflare

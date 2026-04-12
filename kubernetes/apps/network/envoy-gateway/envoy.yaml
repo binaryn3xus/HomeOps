@@ -51,7 +51,7 @@ metadata:
   name: envoy-external
   namespace: network
   annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname external.unscfleet.com
+    external-dns.alpha.kubernetes.io/target: external.unscfleet.com
     gatus.home-operations.com/endpoint: |-
       client:
       group: external
@@ -59,7 +59,6 @@ spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: *hostname
       lbipam.cilium.io/ips: 10.0.30.32
   listeners:
     - name: http
@@ -87,14 +86,13 @@ metadata:
   name: envoy-internal
   namespace: network
   annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname internal.unscfleet.com
+    external-dns.alpha.kubernetes.io/target: internal.unscfleet.com
     gatus.home-operations.com/endpoint: |-
       group: internal
 spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: *hostname
       lbipam.cilium.io/ips: 10.0.30.33
   listeners:
     - name: http

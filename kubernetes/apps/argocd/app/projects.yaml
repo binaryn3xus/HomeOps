@@ -11,6 +11,7 @@ spec:
       namespace: '*'
   sourceRepos:
     - https://github.com/binaryn3xus/HomeOps
+    - oci://ghcr.io/argoproj/argo-helm/*
     - oci://*
     - https://charts.releases.teleport.dev
     - https://charts.fairwinds.com/stable
