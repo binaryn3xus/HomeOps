@@ -100,3 +100,15 @@ configs:
             orgs:
               - name: unscfleet
 
+
+    # Keep Grafana dashboard CR status noise from blocking app health.
+    resource.customizations.ignoreDifferences.grafana.integreatly.org_GrafanaDashboard: |
+      jqPathExpressions:
+        - .status
+
+    # Treat GrafanaDashboard CRs as healthy so apps do not stay Progressing.
+    resource.customizations.health.grafana.integreatly.org_GrafanaDashboard: |
+      hs = {}
+      hs.status = "Healthy"
+      hs.message = "GrafanaDashboard health ignored by ArgoCD"
+      return hs
