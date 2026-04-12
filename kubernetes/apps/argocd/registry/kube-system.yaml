@@ -64,9 +64,9 @@ spec:
             wave: "-4"
           - app: spegel
             path: kubernetes/apps/kube-system/spegel
-            chart: ""
-            repo: oci://ghcr.io/spegel-org/helm-charts/spegel
-            version: 0.0.30
+            chart: spegel
+            repo: oci://ghcr.io/spegel-org/helm-charts
+            version: 0.6.0
             wave: "-4"
   template:
     metadata:
