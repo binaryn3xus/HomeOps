@@ -12,20 +12,9 @@ spec:
   sourceRepos:
     - https://github.com/binaryn3xus/HomeOps
     - oci://ghcr.io/*
-    - oci://ghcr.io/argoproj/argo-helm/*
-    - oci://ghcr.io/home-operations/*
-    - oci://ghcr.io/home-operations/charts-mirror/*
-    - oci://ghcr.io/coredns/*
-    - oci://ghcr.io/coredns/charts/*
-    - oci://ghcr.io/external-secrets/*
-    - oci://ghcr.io/external-secrets/charts/*
-    - oci://ghcr.io/external-secrets/charts/external-secrets
-    - oci://docker.io/envoyproxy/*
-    - oci://docker.io/envoyproxy/gateway-helm
-    - oci://docker.io/envoyproxy/gateway-helm/envoy-gateway
-    - oci://quay.io/*
-    - oci://quay.io/jetstack/charts/*
     - oci://docker.io/*
+    - oci://public.ecr.aws/*
+    - oci://quay.io/*
     - https://charts.releases.teleport.dev
     - https://charts.fairwinds.com/stable
     - https://kubernetes-sigs.github.io/node-feature-discovery/charts
