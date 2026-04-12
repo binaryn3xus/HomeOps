@@ -24,13 +24,13 @@ spec:
           - app: volsync-operator
             path: kubernetes/apps/volsync-system/volsync
             chart: volsync
-            repo: oci://ghcr.io/backube/helm-charts
+            repo: oci://ghcr.io/backube/helm-charts/volsync
             version: 0.11.0
             wave: "-3"
           - app: volsync-snapshot-controller
             path: kubernetes/apps/volsync-system/snapshot-controller
             chart: snapshot-controller
-            repo: oci://ghcr.io/piraeusdatastore/helm-charts
+            repo: oci://ghcr.io/piraeusdatastore/helm-charts/snapshot-controller
             version: 5.0.3
             wave: "-3"
   template:

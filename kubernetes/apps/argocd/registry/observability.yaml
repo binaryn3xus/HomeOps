@@ -24,19 +24,19 @@ spec:
           - app: prometheus-operator-crds
             path: kubernetes/apps/observability/prometheus-operator-crds
             chart: prometheus-operator-crds
-            repo: oci://ghcr.io/prometheus-community/charts
+            repo: oci://ghcr.io/prometheus-community/charts/prometheus-operator-crds
             version: 28.0.1
             wave: "-5"
           - app: kube-prometheus-stack
             path: kubernetes/apps/observability/kube-prometheus-stack
             chart: kube-prometheus-stack
-            repo: oci://ghcr.io/prometheus-community/charts
+            repo: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
             version: 82.18.0
             wave: "-4"
           - app: loki
             path: kubernetes/apps/observability/loki
             chart: loki
-            repo: oci://ghcr.io/grafana/helm-charts
+            repo: oci://ghcr.io/grafana/helm-charts/loki
             version: 6.55.0
             wave: "-2"
           - app: goldilocks
@@ -48,19 +48,19 @@ spec:
           - app: grafana
             path: kubernetes/apps/observability/grafana
             chart: grafana-operator
-            repo: oci://ghcr.io/grafana/helm-charts
+            repo: oci://ghcr.io/grafana/helm-charts/grafana-operator
             version: v5.13.0
             wave: "1"
           - app: promtail
             path: kubernetes/apps/observability/promtail
             chart: promtail
-            repo: oci://ghcr.io/grafana/helm-charts
+            repo: oci://ghcr.io/grafana/helm-charts/promtail
             version: 6.16.6
             wave: "1"
           - app: tdarr-exporter
             path: kubernetes/apps/observability/tdarr-exporter
             chart: tdarr-exporter
-            repo: oci://ghcr.io/homeylab/charts
+            repo: oci://ghcr.io/homeylab/charts/tdarr-exporter
             version: 1.1.0
             wave: "1"
   template:

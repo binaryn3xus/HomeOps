@@ -35,7 +35,7 @@ spec:
           - app: intel-device-plugin
             path: kubernetes/apps/kube-system/intel-device-plugin
             chart: intel-device-plugins-operator
-            repo: oci://ghcr.io/intel/intel-device-plugins-for-kubernetes/charts
+            repo: oci://ghcr.io/intel/intel-device-plugins-for-kubernetes/charts/intel-device-plugins-operator
             version: 0.32.1
             wave: "-4"
           - app: metrics-server
@@ -47,25 +47,25 @@ spec:
           - app: node-feature-discovery
             path: kubernetes/apps/kube-system/node-feature-discovery
             chart: node-feature-discovery
-            repo: oci://ghcr.io/kubernetes-sigs/node-feature-discovery/charts
+            repo: oci://ghcr.io/kubernetes-sigs/node-feature-discovery/charts/node-feature-discovery
             version: 0.18.3
             wave: "-4"
           - app: nvidia-device-plugin
             path: kubernetes/apps/kube-system/nvidia-device-plugin
             chart: nvidia-device-plugin
-            repo: oci://nvidia.github.io/k8s-device-plugin
+            repo: oci://ghcr.io/home-operations/charts-mirror/nvidia-device-plugin
             version: 0.19.0
             wave: "-4"
           - app: reloader
             path: kubernetes/apps/kube-system/reloader
             chart: reloader
-            repo: oci://ghcr.io/stakater/charts
+            repo: oci://ghcr.io/stakater/charts/reloader
             version: 2.2.9
             wave: "-4"
           - app: spegel
             path: kubernetes/apps/kube-system/spegel
             chart: spegel
-            repo: oci://ghcr.io/spegel-org/helm-charts
+            repo: oci://ghcr.io/spegel-org/helm-charts/spegel
             version: 0.6.0
             wave: "-4"
   template:
