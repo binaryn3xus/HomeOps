@@ -21,12 +21,6 @@ spec:
   generators:
     - list:
         elements:
-          - app: prometheus-operator-crds
-            path: kubernetes/apps/observability/prometheus-operator-crds
-            chart: prometheus-operator-crds
-            repo: oci://ghcr.io/prometheus-community/charts/prometheus-operator-crds
-            version: 28.0.1
-            wave: "-5"
           - app: kube-prometheus-stack
             path: kubernetes/apps/observability/kube-prometheus-stack
             chart: kube-prometheus-stack
