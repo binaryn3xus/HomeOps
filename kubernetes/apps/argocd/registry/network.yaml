@@ -23,8 +23,8 @@ spec:
         elements:
           - app: envoy-gateway
             path: kubernetes/apps/network/envoy-gateway
-            chart: envoy-gateway
-            repo: oci://docker.io/envoyproxy/gateway-helm/envoy-gateway
+            chart: gateway-helm
+            repo: oci://docker.io/envoyproxy/gateway-helm
             version: v1.7.1
             wave: "-1"
           - app: cloudflare-dns
