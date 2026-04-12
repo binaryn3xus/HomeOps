@@ -20,6 +20,8 @@ spec:
     - oci://ghcr.io/external-secrets/*
     - oci://ghcr.io/external-secrets/charts/*
     - oci://ghcr.io/external-secrets/charts/external-secrets
+    - oci://docker.io/envoyproxy/*
+    - oci://docker.io/envoyproxy/gateway-helm/envoy-gateway
     - oci://quay.io/*
     - oci://quay.io/jetstack/charts/*
     - oci://docker.io/*
