@@ -11,17 +11,7 @@ spec:
       namespace: '*'
   sourceRepos:
     - https://github.com/binaryn3xus/HomeOps
-    - oci://*
-    - oci://ghcr.io/*
-    - oci://docker.io/*
-    - oci://public.ecr.aws/*
-    - oci://quay.io/*
-    - https://charts.releases.teleport.dev
-    - https://charts.fairwinds.com/stable
-    - https://kubernetes-sigs.github.io/node-feature-discovery/charts
-    - https://nvidia.github.io/k8s-device-plugin
-    - https://prometheus-community.github.io/helm-charts
-    - https://grafana.github.io/helm-charts
+    - '*'
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
