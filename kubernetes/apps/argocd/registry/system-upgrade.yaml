@@ -17,6 +17,9 @@ metadata:
   name: system-upgrade-helm-apps
   namespace: argocd
 spec:
+  syncPolicy:
+    applicationsSync: create-update
+    preserveResourcesOnDeletion: true
   goTemplate: true
   generators:
     - list:
