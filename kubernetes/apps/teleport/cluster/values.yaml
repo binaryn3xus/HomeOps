@@ -53,7 +53,7 @@ podSecurityPolicy:
 proxy:
   annotations:
     service:
-      coredns.io/hostname: teleport.unscfleet.com
+      external-dns.alpha.kubernetes.io/hostname: teleport.unscfleet.com
     deployment:
       reloader.stakater.com/auto: 'true'
   teleportConfig:
