@@ -27,7 +27,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: app
-          image: ghcr.io/n8n-io/n8n:2.15.0
+          image: ghcr.io/n8n-io/n8n:2.16.0
           env:
             - name: DB_SQLITE_VACUUM_ON_STARTUP
               value: "true"
