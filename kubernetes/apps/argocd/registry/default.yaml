@@ -21,54 +21,54 @@ spec:
     - list:
         elements:
           - app: mosquitto
-            path: kubernetes/apps/default/mosquitto/app
+            path: kubernetes/apps/default/mosquitto
             wave: "-1"
           - app: audiobookshelf
-            path: kubernetes/apps/default/audiobookshelf/app
+            path: kubernetes/apps/default/audiobookshelf
           - app: bazarr
-            path: kubernetes/apps/default/bazarr/app
+            path: kubernetes/apps/default/bazarr
           - app: esphome
-            path: kubernetes/apps/default/esphome/app
+            path: kubernetes/apps/default/esphome
           - app: home-assistant
-            path: kubernetes/apps/default/home-assistant/app
+            path: kubernetes/apps/default/home-assistant
           - app: it-tools
-            path: kubernetes/apps/default/it-tools/app
+            path: kubernetes/apps/default/it-tools
           - app: jellyfin
-            path: kubernetes/apps/default/jellyfin/app
+            path: kubernetes/apps/default/jellyfin
           - app: maintainerr
-            path: kubernetes/apps/default/maintainerr/app
+            path: kubernetes/apps/default/maintainerr
             wave: "1"
           - app: n8n
-            path: kubernetes/apps/default/n8n/app
+            path: kubernetes/apps/default/n8n
           - app: overseerr
-            path: kubernetes/apps/default/overseerr/app
+            path: kubernetes/apps/default/overseerr
             wave: "1"
           - app: plex
-            path: kubernetes/apps/default/plex/app
+            path: kubernetes/apps/default/plex
           - app: prowlarr
-            path: kubernetes/apps/default/prowlarr/app
+            path: kubernetes/apps/default/prowlarr
           - app: radarr
-            path: kubernetes/apps/default/radarr/app
+            path: kubernetes/apps/default/radarr
             wave: "1"
           - app: sabnzbd
-            path: kubernetes/apps/default/sabnzbd/app
+            path: kubernetes/apps/default/sabnzbd
           - app: sonarr
-            path: kubernetes/apps/default/sonarr/app
+            path: kubernetes/apps/default/sonarr
             wave: "1"
           - app: tautulli
-            path: kubernetes/apps/default/tautulli/app
+            path: kubernetes/apps/default/tautulli
             wave: "1"
           - app: tdarr
-            path: kubernetes/apps/default/tdarr/app
+            path: kubernetes/apps/default/tdarr
           - app: vert
-            path: kubernetes/apps/default/vert/app
+            path: kubernetes/apps/default/vert
           - app: watchstate
-            path: kubernetes/apps/default/watchstate/app
+            path: kubernetes/apps/default/watchstate
             wave: "1"
           - app: zigbee
-            path: kubernetes/apps/default/zigbee/app
+            path: kubernetes/apps/default/zigbee
           - app: zwave
-            path: kubernetes/apps/default/zwave/app
+            path: kubernetes/apps/default/zwave
   template:
     metadata:
       name: "{{.app}}"
@@ -77,7 +77,7 @@ spec:
     spec:
       project: home-ops
       source:
-        repoURL: https://github.com/binaryn3xus/HomeOps/
+        repoURL: https://github.com/binaryn3xus/HomeOps
         targetRevision: main
         path: "{{.path}}"
       destination:
@@ -85,7 +85,8 @@ spec:
         namespace: default
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          enabled: false
+          prune: false
+          selfHeal: false
         syncOptions:
           - ServerSideApply=true

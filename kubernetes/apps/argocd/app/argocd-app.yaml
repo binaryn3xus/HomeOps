@@ -5,7 +5,7 @@ metadata:
   name: argocd
   namespace: argocd
 spec:
-  project: default
+  project: home-ops
   sources:
     # Source 1: The Argo CD Installation itself (Seed)
     - repoURL: oci://ghcr.io/argoproj/argo-helm/argo-cd
@@ -15,15 +15,13 @@ spec:
         valueFiles:
           - $values/kubernetes/apps/argocd/app/values.yaml
     # Source 2: Your Git Repo (for the values file)
-    - repoURL: https://github.com/binaryn3xus/HomeOps/
+    - repoURL: https://github.com/binaryn3xus/HomeOps
       targetRevision: main
       ref: values
     # Source 3: The Control Room (Discovery Pattern)
-    - repoURL: https://github.com/binaryn3xus/HomeOps/
+    - repoURL: https://github.com/binaryn3xus/HomeOps
       targetRevision: main
-      path: kubernetes/apps/argocd/registry
-      directory:
-        recurse: true
+      path: kubernetes/apps/argocd
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd

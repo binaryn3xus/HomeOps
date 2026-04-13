@@ -2,7 +2,19 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: argocd
 resources:
-  - ./namespace.yaml
+  - ./registry/ai.yaml
+  - ./registry/cert-manager.yaml
+  - ./registry/database.yaml
   - ./registry/default.yaml
+  - ./registry/external-secrets.yaml
+  - ./registry/games.yaml
+  - ./registry/kube-system.yaml
+  - ./registry/network.yaml
+  - ./registry/observability.yaml
+  - ./registry/openebs-system.yaml
+  - ./registry/paperless.yaml
+  - ./registry/rook-ceph.yaml
+  - ./registry/system-upgrade.yaml
+  - ./registry/teleport.yaml
+  - ./registry/volsync-system.yaml

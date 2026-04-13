@@ -22,7 +22,7 @@ spec:
     - list:
         elements:
           - app: teleport-cluster
-            path: kubernetes/apps/teleport/cluster/app
+            path: kubernetes/apps/teleport/cluster
             chart: teleport-cluster
             repo: https://charts.releases.teleport.dev
             version: 18.7.3
@@ -32,7 +32,7 @@ spec:
     spec:
       project: home-ops
       sources:
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           ref: values
         - repoURL: "{{.repo}}"
@@ -47,8 +47,9 @@ spec:
         namespace: teleport
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          enabled: false
+          prune: false
+          selfHeal: false
         syncOptions:
           - ServerSideApply=true
           - SkipDryRunOnMissingResource=true
@@ -65,14 +66,14 @@ spec:
     - list:
         elements:
           - app: teleport-resources
-            path: kubernetes/apps/teleport/cluster/app/configs
+            path: kubernetes/apps/teleport/cluster/configs
   template:
     metadata:
       name: "{{.app}}"
     spec:
       project: home-ops
       source:
-        repoURL: https://github.com/binaryn3xus/HomeOps/
+        repoURL: https://github.com/binaryn3xus/HomeOps
         targetRevision: main
         path: "{{.path}}"
       destination:
@@ -80,8 +81,9 @@ spec:
         namespace: teleport
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          enabled: false
+          prune: false
+          selfHeal: false
         syncOptions:
           - ServerSideApply=true
           - SkipDryRunOnMissingResource=true

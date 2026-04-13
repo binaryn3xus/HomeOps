@@ -24,7 +24,7 @@ spec:
           - app: openclaw-operator
             path: kubernetes/apps/ai/openclaw-operator/operator
             chart: openclaw-operator
-            repo: oci://ghcr.io/openclaw-rocks/charts
+            repo: oci://ghcr.io/openclaw-rocks/charts/openclaw-operator
             version: 0.26.2
   template:
     metadata:
@@ -34,10 +34,10 @@ spec:
     spec:
       project: home-ops
       sources:
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           ref: values
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           path: "{{.path}}"
         - repoURL: "{{.repo}}"
@@ -52,8 +52,9 @@ spec:
         namespace: ai
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          enabled: false
+          prune: false
+          selfHeal: false
         syncOptions:
           - ServerSideApply=true
 ---
@@ -69,20 +70,20 @@ spec:
     - list:
         elements:
           - app: ollama
-            path: kubernetes/apps/ai/ollama/app
+            path: kubernetes/apps/ai/ollama
           - app: openclaw-instances
             path: kubernetes/apps/ai/openclaw-operator/instances
           - app: comfyui
-            path: kubernetes/apps/ai/comfyui/app
+            path: kubernetes/apps/ai/comfyui
             wave: "1"
           - app: mcp-gateway
-            path: kubernetes/apps/ai/mcp-gateway/app
+            path: kubernetes/apps/ai/mcp-gateway
             wave: "1"
           - app: open-webui
-            path: kubernetes/apps/ai/open-webui/app
+            path: kubernetes/apps/ai/open-webui
             wave: "1"
           - app: searxng
-            path: kubernetes/apps/ai/searxng/app
+            path: kubernetes/apps/ai/searxng
             wave: "1"
   template:
     metadata:
@@ -92,7 +93,7 @@ spec:
     spec:
       project: home-ops
       source:
-        repoURL: https://github.com/binaryn3xus/HomeOps/
+        repoURL: https://github.com/binaryn3xus/HomeOps
         targetRevision: main
         path: "{{.path}}"
       destination:
@@ -100,7 +101,8 @@ spec:
         namespace: ai
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          enabled: false
+          prune: false
+          selfHeal: false
         syncOptions:
           - ServerSideApply=true

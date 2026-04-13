@@ -22,15 +22,15 @@ spec:
     - list:
         elements:
           - app: volsync-operator
-            path: kubernetes/apps/volsync-system/volsync/app
+            path: kubernetes/apps/volsync-system/volsync
             chart: volsync-perfectra1n
-            repo: oci://ghcr.io/home-operations/charts-mirror
+            repo: oci://ghcr.io/home-operations/charts-mirror/volsync-perfectra1n
             version: 0.18.5
             wave: "-3"
           - app: volsync-snapshot-controller
-            path: kubernetes/apps/volsync-system/snapshot-controller/app
+            path: kubernetes/apps/volsync-system/snapshot-controller
             chart: snapshot-controller
-            repo: oci://ghcr.io/piraeusdatastore/helm-charts
+            repo: oci://ghcr.io/piraeusdatastore/helm-charts/snapshot-controller
             version: 5.0.3
             wave: "-3"
   template:
@@ -41,10 +41,10 @@ spec:
     spec:
       project: home-ops
       sources:
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           ref: values
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           path: "{{.path}}"
         - repoURL: "{{.repo}}"
@@ -57,10 +57,25 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: volsync-system
+      ignoreDifferences:
+        - group: ""
+          kind: Secret
+          name: volsync-snapshot-controller-conversion-webhook
+          namespace: volsync-system
+          jsonPointers:
+            - /data/ca.crt
+            - /data/tls.crt
+            - /data/tls.key
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          name: volumegroupsnapshotcontents.groupsnapshot.storage.k8s.io
+          jsonPointers:
+            - /spec/conversion/webhook/clientConfig/caBundle
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          enabled: false
+          prune: false
+          selfHeal: false
         syncOptions:
           - ServerSideApply=true
 ---
@@ -76,7 +91,7 @@ spec:
     - list:
         elements:
           - app: volsync-kopia
-            path: kubernetes/apps/volsync-system/kopia/app
+            path: kubernetes/apps/volsync-system/kopia
             wave: "-2"
   template:
     metadata:
@@ -86,7 +101,7 @@ spec:
     spec:
       project: home-ops
       source:
-        repoURL: https://github.com/binaryn3xus/HomeOps/
+        repoURL: https://github.com/binaryn3xus/HomeOps
         targetRevision: main
         path: "{{.path}}"
       destination:
@@ -94,7 +109,8 @@ spec:
         namespace: volsync-system
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          enabled: false
+          prune: false
+          selfHeal: false
         syncOptions:
           - ServerSideApply=true

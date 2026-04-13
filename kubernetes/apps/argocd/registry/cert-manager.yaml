@@ -21,6 +21,10 @@ spec:
     - list:
         elements:
           - app: cert-manager
+            path: kubernetes/apps/cert-manager
+            chart: cert-manager
+            repo: oci://quay.io/jetstack/charts/cert-manager
+            version: v1.20.1
             wave: "-4"
   template:
     metadata:
@@ -30,31 +34,27 @@ spec:
     spec:
       project: home-ops
       sources:
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
-          path: kubernetes/apps/cert-manager/cert-manager/app
-        - repoURL: oci://quay.io/jetstack/charts
-          chart: cert-manager
-          targetRevision: v1.20.1
+          ref: values
+        - repoURL: https://github.com/binaryn3xus/HomeOps
+          targetRevision: main
+          path: "{{.path}}"
+        - repoURL: "{{.repo}}"
+          chart: "{{.chart}}"
+          targetRevision: "{{.version}}"
           helm:
-            releaseName: cert-manager
-            values: |
-              crds:
-                enabled: true
-              dns01RecursiveNameservers: https://1.1.1.1:443/dns-query,https://1.0.0.1:443/dns-query
-              dns01RecursiveNameserversOnly: true
-              prometheus:
-                enabled: true
-                servicemonitor:
-                  enabled: true
-              replicaCount: 1
+            releaseName: "{{.app}}"
+            valueFiles:
+              - $values/{{.path}}/values.yaml
       destination:
         server: https://kubernetes.default.svc
         namespace: cert-manager
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          enabled: false
+          prune: false
+          selfHeal: false
         syncOptions:
           - ServerSideApply=true
           - CreateNamespace=false

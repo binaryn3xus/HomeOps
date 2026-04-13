@@ -10,14 +10,8 @@ spec:
     - server: https://kubernetes.default.svc
       namespace: '*'
   sourceRepos:
-    - https://github.com/binaryn3xus/HomeOps/
-    - oci://ghcr.io/*
-    - oci://quay.io/*
-    - https://charts.fairwinds.com/stable
-    - https://kubernetes-sigs.github.io/node-feature-discovery/charts
-    - https://nvidia.github.io/k8s-device-plugin
-    - https://prometheus-community.github.io/helm-charts
-    - https://grafana.github.io/helm-charts
+    - https://github.com/binaryn3xus/HomeOps
+    - '*'
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'

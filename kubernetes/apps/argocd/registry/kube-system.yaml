@@ -21,52 +21,58 @@ spec:
     - list:
         elements:
           - app: cilium
-            path: kubernetes/apps/kube-system/cilium/app
+            path: kubernetes/apps/kube-system/cilium
             chart: cilium
-            repo: oci://ghcr.io/home-operations/charts-mirror
-            version: 1.18.6
+            repo: oci://quay.io/cilium/charts/cilium
+            version: 1.19.2
             wave: "-5"
           - app: coredns
-            path: kubernetes/apps/kube-system/coredns/app
+            path: kubernetes/apps/kube-system/coredns
             chart: coredns
-            repo: oci://ghcr.io/coredns/charts
+            repo: oci://ghcr.io/coredns/charts/coredns
             version: 1.45.2
             wave: "-5"
           - app: intel-device-plugin
-            path: kubernetes/apps/kube-system/intel-device-plugin/app
+            path: kubernetes/apps/kube-system/intel-device-plugin
             chart: intel-device-plugins-operator
-            repo: oci://ghcr.io/home-operations/charts-mirror
-            version: 0.32.1
+            repo: oci://ghcr.io/home-operations/charts-mirror/intel-device-plugins-operator
+            version: 0.34.1
+            wave: "-4"
+          - app: intel-device-plugin-gpu
+            path: kubernetes/apps/kube-system/intel-device-plugin/gpu
+            chart: intel-device-plugins-gpu
+            repo: oci://ghcr.io/home-operations/charts-mirror/intel-device-plugins-gpu
+            version: 0.34.1
             wave: "-4"
           - app: metrics-server
-            path: kubernetes/apps/kube-system/metrics-server/app
+            path: kubernetes/apps/kube-system/metrics-server
             chart: metrics-server
-            repo: oci://ghcr.io/home-operations/charts-mirror
-            version: 3.12.2
+            repo: oci://ghcr.io/home-operations/charts-mirror/metrics-server
+            version: 3.13.0
             wave: "-4"
           - app: node-feature-discovery
-            path: kubernetes/apps/kube-system/node-feature-discovery/app
+            path: kubernetes/apps/kube-system/node-feature-discovery
             chart: node-feature-discovery
             repo: https://kubernetes-sigs.github.io/node-feature-discovery/charts
             version: 0.18.3
             wave: "-4"
           - app: nvidia-device-plugin
-            path: kubernetes/apps/kube-system/nvidia-device-plugin/app
+            path: kubernetes/apps/kube-system/nvidia-device-plugin
             chart: nvidia-device-plugin
-            repo: https://nvidia.github.io/k8s-device-plugin
+            repo: oci://ghcr.io/home-operations/charts-mirror/nvidia-device-plugin
             version: 0.19.0
             wave: "-4"
           - app: reloader
-            path: kubernetes/apps/kube-system/reloader/app
+            path: kubernetes/apps/kube-system/reloader
             chart: reloader
-            repo: oci://ghcr.io/home-operations/charts-mirror
-            version: 1.2.1
+            repo: oci://ghcr.io/stakater/charts/reloader
+            version: 2.2.9
             wave: "-4"
           - app: spegel
-            path: kubernetes/apps/kube-system/spegel/app
+            path: kubernetes/apps/kube-system/spegel
             chart: spegel
-            repo: oci://ghcr.io/home-operations/charts-mirror
-            version: v0.0.30
+            repo: oci://ghcr.io/spegel-org/helm-charts/spegel
+            version: 0.6.0
             wave: "-4"
   template:
     metadata:
@@ -76,10 +82,10 @@ spec:
     spec:
       project: home-ops
       sources:
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           ref: values
-        - repoURL: https://github.com/binaryn3xus/HomeOps/
+        - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           path: "{{.path}}"
         - repoURL: "{{.repo}}"
@@ -92,9 +98,38 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: kube-system
+      ignoreDifferences:
+        - group: ""
+          kind: Secret
+          name: cilium-ca
+          namespace: kube-system
+          jsonPointers:
+            - /data/ca.crt
+            - /data/ca.key
+            - /data/tls.crt
+            - /data/tls.key
+        - group: ""
+          kind: Secret
+          name: hubble-relay-client-certs
+          namespace: kube-system
+          jsonPointers:
+            - /data/ca.crt
+            - /data/ca.key
+            - /data/tls.crt
+            - /data/tls.key
+        - group: ""
+          kind: Secret
+          name: hubble-server-certs
+          namespace: kube-system
+          jsonPointers:
+            - /data/ca.crt
+            - /data/ca.key
+            - /data/tls.crt
+            - /data/tls.key
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          enabled: false
+          prune: false
+          selfHeal: false
         syncOptions:
           - ServerSideApply=true

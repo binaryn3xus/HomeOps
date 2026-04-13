@@ -21,9 +21,9 @@ spec:
     - list:
         elements:
           - app: minecraft-bedrock
-            path: kubernetes/apps/games/minecraft-bedrock/app
+            path: kubernetes/apps/games/minecraft-bedrock
           - app: minecraft-java
-            path: kubernetes/apps/games/minecraft-java/app
+            path: kubernetes/apps/games/minecraft-java
   template:
     metadata:
       name: "{{.app}}"
@@ -32,7 +32,7 @@ spec:
     spec:
       project: home-ops
       source:
-        repoURL: https://github.com/binaryn3xus/HomeOps/
+        repoURL: https://github.com/binaryn3xus/HomeOps
         targetRevision: main
         path: "{{.path}}"
       destination:
@@ -40,7 +40,8 @@ spec:
         namespace: games
       syncPolicy:
         automated:
-          prune: true
-          selfHeal: true
+          enabled: false
+          prune: false
+          selfHeal: false
         syncOptions:
           - ServerSideApply=true
