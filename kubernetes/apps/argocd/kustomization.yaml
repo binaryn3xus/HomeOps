@@ -15,6 +15,5 @@ resources:
   - ./registry/openebs-system.yaml
   - ./registry/paperless.yaml
   - ./registry/rook-ceph.yaml
-  - ./registry/system-upgrade.yaml
   - ./registry/teleport.yaml
   - ./registry/volsync-system.yaml
