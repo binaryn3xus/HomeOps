@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudflare-ddns
+  namespace: network
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: cloudflare-ddns
+      app.kubernetes.io/instance: cloudflare-ddns
+      app.kubernetes.io/controller: cloudflare-ddns
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: cloudflare-ddns
+        app.kubernetes.io/instance: cloudflare-ddns
+        app.kubernetes.io/controller: cloudflare-ddns
+      annotations:
+        secret.reloader.stakater.com/reload: cloudflare-ddns-secret
+    spec:
+      containers:
+        - name: app
+          image: qmcgaw/ddns-updater:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PERIOD
+              value: 5m
+            - name: CONFIG_FILEPATH
+              value: /updater/data/config.json
+            - name: CLOUDFLARE_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: cloudflare-ddns-secret
+                  key: CLOUDFLARE_API_TOKEN
+            - name: CLOUDFLARE_ZONE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: cloudflare-ddns-secret
+                  key: CLOUDFLARE_ZONE_ID
+          ports:
+            - name: http
+              containerPort: 8000
+          volumeMounts:
+            - name: config
+              mountPath: /updater/data/config.json
+              subPath: config.json
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
+      volumes:
+        - name: config
+          configMap:
+            name: cloudflare-ddns-config

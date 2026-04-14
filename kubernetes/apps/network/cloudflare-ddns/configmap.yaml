@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cloudflare-ddns-config
+  namespace: network
+data:
+  config.json: |
+    {
+      "settings": [
+        {
+          "provider": "cloudflare",
+          "zone_identifier": "${CLOUDFLARE_ZONE_ID}",
+          "domain": "mc-java.unscfleet.com",
+          "ttl": 300,
+          "proxied": false,
+          "ip_version": "ipv4"
+        }
+      ]
+    }
