@@ -5,7 +5,6 @@ namespace: argocd
 resources:
   - namespace.yaml
   - project-home-ops.yaml
-  - argocd-install.yaml
   - argocd-httproute.yaml
   - platform-app.yaml
   - apps-app.yaml
