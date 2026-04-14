@@ -18,10 +18,10 @@ spec:
     - repoURL: https://github.com/binaryn3xus/HomeOps
       targetRevision: main
       ref: values
-    # Source 3: The Core Control Plane
+    # Source 3: The Control Room (Discovery Pattern)
     - repoURL: https://github.com/binaryn3xus/HomeOps
       targetRevision: main
-      path: kubernetes/argocd/core
+      path: kubernetes/apps/argocd
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
