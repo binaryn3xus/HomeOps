@@ -2,6 +2,8 @@ global:
   imageRegistry: mirror.gcr.io
 config:
   envoyGateway:
+    extensionApis:
+      enableBackend: true
     provider:
       type: Kubernetes
       kubernetes:
