@@ -7,7 +7,6 @@ commonLabels:
   app.kubernetes.io/instance: pikvm
   app.kubernetes.io/controller: pikvm
 resources:
-  - ./service.yaml
-  - ./endpoints.yaml
+  - ./backend.yaml
   - ./httproute.yaml
   - ./security.yaml

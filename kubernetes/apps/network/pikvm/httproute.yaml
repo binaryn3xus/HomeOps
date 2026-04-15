@@ -22,8 +22,7 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - group: ""
-          kind: Service
+        - group: gateway.envoyproxy.io
+          kind: Backend
           name: pikvm
-          port: 80
           weight: 1
