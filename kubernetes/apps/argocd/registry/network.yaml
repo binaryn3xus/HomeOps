@@ -87,6 +87,8 @@ spec:
             path: kubernetes/apps/network/cloudflare-tunnel
           - app: ddns-updater
             path: kubernetes/apps/network/ddns-updater
+          - app: pikvm
+            path: kubernetes/apps/network/pikvm
           - app: unifi-dns
             path: kubernetes/apps/network/unifi-dns
           - app: echo

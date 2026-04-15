@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  app.kubernetes.io/name: pikvm
+  app.kubernetes.io/instance: pikvm
+  app.kubernetes.io/controller: pikvm
+resources:
+  - ./service.yaml
+  - ./endpoints.yaml
+  - ./httproute.yaml
+  - ./security.yaml
