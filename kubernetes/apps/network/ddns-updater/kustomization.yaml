@@ -1,0 +1,11 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  app.kubernetes.io/name: ddns-updater
+  app.kubernetes.io/instance: ddns-updater
+  app.kubernetes.io/controller: ddns-updater
+resources:
+  - ./externalsecret.yaml
+  - ./deployment.yaml

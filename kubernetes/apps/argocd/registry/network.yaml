@@ -85,6 +85,8 @@ spec:
             path: kubernetes/apps/network/certificates/export
           - app: cloudflare-tunnel
             path: kubernetes/apps/network/cloudflare-tunnel
+          - app: ddns-updater
+            path: kubernetes/apps/network/ddns-updater
           - app: unifi-dns
             path: kubernetes/apps/network/unifi-dns
           - app: echo
