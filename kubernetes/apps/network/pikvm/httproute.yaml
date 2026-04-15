@@ -12,11 +12,6 @@ spec:
       name: envoy-external
       namespace: network
       sectionName: https
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: envoy-internal
-      namespace: network
-      sectionName: https
   hostnames:
     - pikvm.unscfleet.com
   rules:
