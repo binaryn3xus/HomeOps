@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: ollama
+  name: ollama-openebs-pvc
   namespace: ai
   annotations:
     argocd.argoproj.io/sync-options: Prune=false
 spec:
-  storageClassName: ceph-block
+  storageClassName: openebs-hostpath
   accessModes:
     - ReadWriteOnce
   resources:
