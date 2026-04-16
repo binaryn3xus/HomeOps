@@ -70,12 +70,9 @@ kubeApiServer:
         provider: kubernetes
 kubeControllerManager:
   enabled: true
-  endpoints:
-    - 10.0.30.11
-    - 10.0.30.12
-    - 10.0.30.13
-  serviceMonitor:
-    metricRelabelings:
+  service:
+    selector:
+      component: kube-controller-manager
 kubeEtcd:
   enabled: true
   endpoints:
@@ -84,10 +81,9 @@ kubeEtcd:
     - 10.0.30.13
 kubeScheduler:
   enabled: true
-  endpoints:
-    - 10.0.30.11
-    - 10.0.30.12
-    - 10.0.30.13
+  service:
+    selector:
+      component: kube-scheduler
 kubeProxy:
   enabled: false
 prometheus:
