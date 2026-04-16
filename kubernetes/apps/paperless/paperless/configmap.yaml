@@ -22,3 +22,4 @@ data:
   PAPERLESS_TIME_ZONE: "America/New_York"
   PAPERLESS_OCR_USER_ARGS: "{\"optimize\":1,\"pdfa_image_compression\":\"jpeg\"}"
   PAPERLESS_CONSUMER_RECURSIVE: "true"
+  PAPERLESS_CONSUMER_POLLING: "60"
