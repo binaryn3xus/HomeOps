@@ -64,7 +64,7 @@ releases:
   - name: argocd
     namespace: argocd
     chart: oci://ghcr.io/argoproj/argo-helm/argo-cd
-    version: 9.5.0
+    version: 9.5.1
     values:
       - ../../kubernetes/apps/argocd/app/values.yaml
     needs:
