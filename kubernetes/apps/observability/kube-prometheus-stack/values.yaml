@@ -72,7 +72,7 @@ kubeControllerManager:
   enabled: true
   service:
     ipDualStack:
-      enabled: false
+      enabled: true
       ipFamilies: ["IPv4"]
       ipFamilyPolicy: SingleStack
     selector:
@@ -87,7 +87,7 @@ kubeScheduler:
   enabled: true
   service:
     ipDualStack:
-      enabled: false
+      enabled: true
       ipFamilies: ["IPv4"]
       ipFamilyPolicy: SingleStack
     selector:
