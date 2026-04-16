@@ -3,5 +3,6 @@ kind: Kustomization
 namespace: paperless
 resources:
   - cluster.yaml
-  - objectstore.yaml
-  - scheduledbackup.yaml
+# Temporarily disabled for clean Postgres reset; re-enable after cluster is healthy.
+# - objectstore.yaml
+# - scheduledbackup.yaml

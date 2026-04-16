@@ -10,4 +10,5 @@ resources:
   - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml
+  - ./configmap.yaml
   - ./externalsecret.yaml
