@@ -20,7 +20,7 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
           containers:
             - name: exporter
-              image: ghcr.io/paperless-ngx/paperless-ngx:2.20.13
+              image: ghcr.io/paperless-ngx/paperless-ngx:2.20.14
               command:
                 - /usr/local/bin/python3
                 - /usr/src/paperless/src/manage.py
