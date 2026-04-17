@@ -14,9 +14,7 @@ metadata:
       url: 1.1.1.1
 spec:
   parentRefs:
-    - group: gateway.networking.k8s.io
-      kind: Gateway
-      name: envoy-internal
+    - name: envoy-internal
       namespace: network
       sectionName: https
   hostnames:
@@ -27,8 +25,5 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - group: ""
-          kind: Service
-          name: kopia
+        - name: kopia
           port: 80
-          weight: 1

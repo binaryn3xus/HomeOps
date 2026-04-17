@@ -8,6 +8,8 @@ resources:
   - ./flux-system
   - ./kube-system
   - ./network
+  - ./openebs-system
   - ./rook-ceph
   - ./system-upgrade
   - ./teleport
+  - ./volsync-system
