@@ -3,11 +3,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./argocd/argocd/ks.yaml
-  - ./cert-manager
-  - ./flux-system
-  - ./kube-system
-  - ./network
-  - ./rook-ceph
-  - ./system-upgrade
-  - ./teleport
+  - ./grafanadashboard.yaml
+  - ./helmrelease.yaml
+  - ./ocirepository.yaml
