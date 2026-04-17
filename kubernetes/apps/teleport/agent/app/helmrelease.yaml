@@ -1,0 +1,54 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: teleport-agent
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: teleport-kube-agent
+      version: 18.7.3
+      interval: 15m
+      sourceRef:
+        kind: HelmRepository
+        name: teleport
+        namespace: teleport
+  values:
+    log:
+      level: DEBUG
+    roles: kube,app,discovery,node,windowsdesktop
+    proxyAddr: teleport.teleport.svc.cluster.local:443
+    joinParams:
+      method: kubernetes
+      tokenName: agent-join-token
+    kubeClusterName: HomeOpsCluster
+    updater:
+      # Make absolutely certain that the auto updater is never enabled
+      enabled: false
+    podMonitor:
+      enabled: true
+    extraVolumes:
+      - name: proxy-cert-ca
+        secret:
+          secretName: teleport-intermediary-ca-secret
+    extraVolumeMounts:
+      - name: proxy-cert-ca
+        mountPath: /etc/teleport-proxy-cert
+        readOnly: true
+    extraEnv:
+      - name: SSL_CERT_FILE
+        value: /etc/teleport-proxy-cert/tls.crt
+    teleportConfig:
+      discovery_service:
+        enabled: true
+        kubernetes:
+          - types: ["app"]
+            labels:
+              "teleport.dev/discover": "true"
+      windows_desktop_service:
+        enabled: true
+        static_hosts:
+        - name: UNSC-PillarOfAutumn
+          addr: 10.0.20.10

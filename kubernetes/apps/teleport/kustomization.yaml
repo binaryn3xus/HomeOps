@@ -2,11 +2,9 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: teleport
 resources:
-  - ./argocd/argocd/ks.yaml
-  - ./cert-manager
-  - ./flux-system
-  - ./kube-system
-  - ./network
-  - ./system-upgrade
-  - ./teleport
+  - ./namespace.yaml
+  - ./agent/ks.yaml
+  - ./cluster/ks.yaml
+  - ./resources/ks.yaml

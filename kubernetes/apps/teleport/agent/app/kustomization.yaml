@@ -3,10 +3,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./argocd/argocd/ks.yaml
-  - ./cert-manager
-  - ./flux-system
-  - ./kube-system
-  - ./network
-  - ./system-upgrade
-  - ./teleport
+  - agent-token.yaml
+  - helmrelease.yaml
