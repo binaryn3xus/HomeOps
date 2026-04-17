@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  app.kubernetes.io/name: open-webui
+  app.kubernetes.io/instance: open-webui
+  app.kubernetes.io/controller: open-webui
+resources:
+  - ./configmap.yaml
+  - ./externalsecret.yaml
+  - ./rbac.yaml
+  - ./deployment.yaml
+  - ./service.yaml
+  - ./httproute.yaml

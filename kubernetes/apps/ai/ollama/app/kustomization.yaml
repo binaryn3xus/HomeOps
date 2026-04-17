@@ -1,0 +1,11 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  app.kubernetes.io/name: ollama
+  app.kubernetes.io/instance: ollama
+  app.kubernetes.io/controller: ollama
+resources:
+  - ./deployment.yaml
+  - ./service.yaml

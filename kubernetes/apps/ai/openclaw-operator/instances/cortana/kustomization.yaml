@@ -1,0 +1,20 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  app.kubernetes.io/name: cortana
+  app.kubernetes.io/instance: cortana
+  app.kubernetes.io/controller: cortana
+resources:
+  - ./instance.yaml
+  - ./httproute.yaml
+  - ./externalsecret.yaml
+  - ./rbac.yaml
+
+configMapGenerator:
+  - name: cortana-mise-config
+    files:
+      - mise.toml
+
+generatorOptions:
+  disableNameSuffixHash: true
