@@ -3,5 +3,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./flux-system
-  - ./network
+  - ./clusterexternalsecret.yaml
+  - ./envoy.yaml
+  - ./grafanadashboard.yaml
+  - ./helmrelease.yaml
+  - ./observability.yaml
+  - ./ocirepository.yaml

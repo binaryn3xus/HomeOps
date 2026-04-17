@@ -7,59 +7,59 @@ helmDefaults:
   waitForJobs: true
 
 releases:
-  # - name: cilium
-  #   namespace: kube-system
-  #   chart: oci://ghcr.io/home-operations/charts-mirror/cilium
-  #   version: 1.18.6
-  #   values:
-  #     - ./templates/values.yaml.gotmpl
-  #   hooks:
-  #     - # Wait for Cilium CRDs to be available
-  #       command: bash
-  #       args:
-  #         - -c
-  #         - until kubectl get crd ciliumloadbalancerippools.cilium.io ciliuml2announcementpolicies.cilium.io ciliumbgpadvertisements.cilium.io ciliumbgppeerconfigs.cilium.io ciliumbgpclusterconfigs.cilium.io &>/dev/null; do sleep 5; done
-  #       events:
-  #         - postsync
-  #       showlogs: true
-  #     - # Apply Cilium Resources
-  #       command: kubectl
-  #       args:
-  #         - apply
-  #         - --namespace=kube-system
-  #         - --server-side
-  #         - --field-manager=kustomize-controller
-  #         - --filename=../../kubernetes/apps/kube-system/cilium/networks.yaml
-  #       events:
-  #         - postsync
-  #       showlogs: true
+  - name: cilium
+    namespace: kube-system
+    chart: oci://ghcr.io/home-operations/charts-mirror/cilium
+    version: 1.18.6
+    values:
+      - ./templates/values.yaml.gotmpl
+    hooks:
+      - # Wait for Cilium CRDs to be available
+        command: bash
+        args:
+          - -c
+          - until kubectl get crd ciliumloadbalancerippools.cilium.io ciliuml2announcementpolicies.cilium.io ciliumbgpadvertisements.cilium.io ciliumbgppeerconfigs.cilium.io ciliumbgpclusterconfigs.cilium.io &>/dev/null; do sleep 5; done
+        events:
+          - postsync
+        showlogs: true
+      - # Apply Cilium Resources
+        command: kubectl
+        args:
+          - apply
+          - --namespace=kube-system
+          - --server-side
+          - --field-manager=kustomize-controller
+          - --filename=../../kubernetes/apps/kube-system/cilium/networks.yaml
+        events:
+          - postsync
+        showlogs: true
 
-  # - name: coredns
-  #   namespace: kube-system
-  #   chart: oci://ghcr.io/coredns/charts/coredns
-  #   version: 1.45.2
-  #   values:
-  #     - ./templates/values.yaml.gotmpl
-  #   needs:
-  #     - kube-system/cilium
+  - name: coredns
+    namespace: kube-system
+    chart: oci://ghcr.io/coredns/charts/coredns
+    version: 1.45.2
+    values:
+      - ./templates/values.yaml.gotmpl
+    needs:
+      - kube-system/cilium
 
-  # - name: spegel
-  #   namespace: kube-system
-  #   chart: oci://ghcr.io/spegel-org/helm-charts/spegel
-  #   version: 0.6.0
-  #   values:
-  #     - ./templates/values.yaml.gotmpl
-  #   needs:
-  #     - kube-system/coredns
+  - name: spegel
+    namespace: kube-system
+    chart: oci://ghcr.io/spegel-org/helm-charts/spegel
+    version: 0.6.0
+    values:
+      - ./templates/values.yaml.gotmpl
+    needs:
+      - kube-system/coredns
 
-  # - name: cert-manager
-  #   namespace: cert-manager
-  #   chart: oci://quay.io/jetstack/charts/cert-manager
-  #   version: v1.20.2
-  #   values:
-  #     - ./templates/values.yaml.gotmpl
-  #   needs:
-  #     - kube-system/spegel
+  - name: cert-manager
+    namespace: cert-manager
+    chart: oci://quay.io/jetstack/charts/cert-manager
+    version: v1.20.2
+    values:
+      - ./templates/values.yaml.gotmpl
+    needs:
+      - kube-system/spegel
 
   - name: flux-operator
     namespace: flux-system
@@ -67,8 +67,8 @@ releases:
     version: 0.45.1
     values:
       - ./templates/values.yaml.gotmpl
-    needs:
-      - cert-manager/cert-manager
+    #needs:
+    #  - cert-manager/cert-manager
 
   - name: flux-instance
     namespace: flux-system
@@ -76,27 +76,28 @@ releases:
     version: 0.45.1
     values:
       - ./templates/values.yaml.gotmpl
+    wait: false
     needs:
       - flux-system/flux-operator
 
-  # - name: argocd
-  #   namespace: argocd
-  #   chart: oci://ghcr.io/argoproj/argo-helm/argo-cd
-  #   version: 9.5.1
-  #   values:
-  #     - ../../kubernetes/apps/argocd/app/values.yaml
-  #   needs:
-  #     - cert-manager/cert-manager
-  #   hooks:
-  #     - # Apply additional manifests (Infrastructure)
-  #       command: kubectl
-  #       args:
-  #         - apply
-  #         - --server-side
-  #         - --filename=../../kubernetes/apps/argocd/app/argocd-app.yaml
-  #         - --filename=../../kubernetes/apps/argocd/app/projects.yaml
-  #         - --filename=../../kubernetes/apps/argocd/app/httproute.yaml
-  #         - --filename=../../kubernetes/apps/argocd/app/externalsecret.yaml
-  #       events:
-  #         - postsync
-  #       showlogs: true
+  - name: argocd
+    namespace: argocd
+    chart: oci://ghcr.io/argoproj/argo-helm/argo-cd
+    version: 9.5.1
+    values:
+      - ../../kubernetes/apps/argocd/app/values.yaml
+    needs:
+      - cert-manager/cert-manager
+    hooks:
+      - # Apply additional manifests (Infrastructure)
+        command: kubectl
+        args:
+          - apply
+          - --server-side
+          - --filename=../../kubernetes/apps/argocd/app/argocd-app.yaml
+          - --filename=../../kubernetes/apps/argocd/app/projects.yaml
+          - --filename=../../kubernetes/apps/argocd/app/httproute.yaml
+          - --filename=../../kubernetes/apps/argocd/app/externalsecret.yaml
+        events:
+          - postsync
+        showlogs: true

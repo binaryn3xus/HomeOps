@@ -1,0 +1,121 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: unifi-dns
+  namespace: network
+  annotations:
+    secret.reloader.stakater.com/reload: unifi-dns-secret
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: unifi-dns
+      app.kubernetes.io/name: external-dns
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: unifi-dns
+        app.kubernetes.io/name: external-dns
+    spec:
+      serviceAccountName: unifi-dns
+      securityContext:
+        fsGroup: 65534
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: external-dns
+          image: registry.k8s.io/external-dns/external-dns:v0.20.0
+          args:
+            - --log-level=debug
+            - --log-format=text
+            - --interval=1m
+            - --events
+            - --source=gateway-httproute
+            - --source=service
+            - --policy=sync
+            - --registry=txt
+            - --txt-owner-id=main
+            - --txt-prefix=zz.k8s.main.
+            - --domain-filter=unscfleet.com
+            - --provider=webhook
+          ports:
+            - name: http
+              containerPort: 7979
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 2
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50Mi
+            limits:
+              cpu: 100m
+              memory: 200Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            runAsUser: 65532
+            runAsGroup: 65532
+            capabilities:
+              drop:
+                - ALL
+        - name: webhook
+          image: ghcr.io/kashalls/external-dns-unifi-webhook:v0.8.2@sha256:7f0ddbbc83a36a2a9d762e25eef9cafcb3adf0493068a27d72ae71087eafe6f0
+          env:
+            - name: LOG_LEVEL
+              value: debug
+            - name: UNIFI_HOST
+              value: https://10.0.10.1
+            - name: UNIFI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: unifi-dns-secret
+                  key: UNIFI_API_KEY
+          ports:
+            - name: http-webhook
+              containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http-webhook
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 2
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http-webhook
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+          resources:
+            requests:
+              cpu: 10m
+              memory: 50Mi
+            limits:
+              cpu: 100m
+              memory: 200Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL

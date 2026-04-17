@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: unifi-dns
+  namespace: network
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: unifi-dns
+      app.kubernetes.io/name: external-dns
+  endpoints:
+    - port: http
+      interval: 1m
+      path: /metrics
