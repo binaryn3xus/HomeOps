@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: network
+  name: teleport
   labels:
     goldilocks.fairwinds.com/enabled: "true"
     volsync.backube/privileged-movers: "true"
@@ -10,11 +10,11 @@ metadata:
     argocd.argoproj.io/sync-options: Prune=false
     volsync.backube/privileged-movers: "true"
 ---
-# Helm-based Network Apps
+# Unified Teleport Stack (Cluster + Agent + Resources)
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: network-helm-apps
+  name: teleport-apps
   namespace: argocd
 spec:
   syncPolicy:
@@ -24,31 +24,20 @@ spec:
   generators:
     - list:
         elements:
-          - app: envoy-gateway
-            path: kubernetes/apps/network/envoy-gateway
-            chart: gateway-helm
-            repo: oci://mirror.gcr.io/envoyproxy/gateway-helm
-            version: 1.7.1
-            wave: "-1"
-          - app: cloudflare-dns
-            path: kubernetes/apps/network/cloudflare-dns
-            chart: external-dns
-            repo: oci://ghcr.io/home-operations/charts-mirror/external-dns
-            version: 1.20.0
+          - app: teleport-cluster
+            path: kubernetes/argo-apps/teleport/cluster
+            chart: teleport-cluster
+            repo: https://charts.releases.teleport.dev
+            version: 18.7.3
   template:
     metadata:
       name: "{{.app}}"
-      annotations:
-        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
     spec:
       project: home-ops
       sources:
         - repoURL: https://github.com/binaryn3xus/HomeOps
           targetRevision: main
           ref: values
-        - repoURL: https://github.com/binaryn3xus/HomeOps
-          targetRevision: main
-          path: "{{.path}}"
         - repoURL: "{{.repo}}"
           chart: "{{.chart}}"
           targetRevision: "{{.version}}"
@@ -58,7 +47,7 @@ spec:
               - $values/{{.path}}/values.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: network
+        namespace: teleport
       syncPolicy:
         automated:
           enabled: false
@@ -66,39 +55,24 @@ spec:
           selfHeal: false
         syncOptions:
           - ServerSideApply=true
+          - SkipDryRunOnMissingResource=true
 ---
-# Plain Manifest Network Apps
+# Teleport Resources (Roles, Tokens, Connectors)
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: network-plain-apps
+  name: teleport-resource-apps
   namespace: argocd
 spec:
   goTemplate: true
   generators:
     - list:
         elements:
-          - app: certificates-import
-            path: kubernetes/apps/network/certificates/import
-            wave: "-1"
-          - app: certificates-export
-            path: kubernetes/apps/network/certificates/export
-          - app: cloudflare-tunnel
-            path: kubernetes/apps/network/cloudflare-tunnel
-          - app: ddns-updater
-            path: kubernetes/apps/network/ddns-updater
-          - app: pikvm
-            path: kubernetes/apps/network/pikvm
-          - app: unifi-dns
-            path: kubernetes/apps/network/unifi-dns
-          - app: echo
-            path: kubernetes/apps/network/echo
-            wave: "1"
+          - app: teleport-resources
+            path: kubernetes/argo-apps/teleport/cluster/configs
   template:
     metadata:
       name: "{{.app}}"
-      annotations:
-        argocd.argoproj.io/sync-wave: '{{ .wave | default "0" }}'
     spec:
       project: home-ops
       source:
@@ -107,7 +81,7 @@ spec:
         path: "{{.path}}"
       destination:
         server: https://kubernetes.default.svc
-        namespace: network
+        namespace: teleport
       syncPolicy:
         automated:
           enabled: false
@@ -115,3 +89,4 @@ spec:
           selfHeal: false
         syncOptions:
           - ServerSideApply=true
+          - SkipDryRunOnMissingResource=true

@@ -1,0 +1,30 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: flux-instance-rules
+  namespace: flux-system
+spec:
+  groups:
+    - name: flux-instance.rules
+      rules:
+        - alert: FluxKustomizationNotReady
+          expr: |
+            gotk_resource_info{customresource_kind="Kustomization", exported_namespace="flux-system", ready!="True"} == 1
+          for: 5m
+          annotations:
+            summary: >-
+              Flux Kustomization resource is not ready
+          labels:
+            severity: critical
+
+        - alert: FluxHelmReleaseNotReady
+          expr: |
+            gotk_resource_info{customresource_kind="HelmRelease", exported_namespace="flux-system", ready!="True"} == 1
+          for: 5m
+          annotations:
+            summary: >-
+              Flux HelmRelease resource is not ready
+          labels:
+            severity: critical

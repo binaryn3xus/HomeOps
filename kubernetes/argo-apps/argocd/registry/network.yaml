@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: system-upgrade
+  name: network
   labels:
     goldilocks.fairwinds.com/enabled: "true"
     volsync.backube/privileged-movers: "true"
@@ -10,11 +10,11 @@ metadata:
     argocd.argoproj.io/sync-options: Prune=false
     volsync.backube/privileged-movers: "true"
 ---
-# Helm-based System Upgrade Apps
+# Helm-based Network Apps
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: system-upgrade-helm-apps
+  name: network-helm-apps
   namespace: argocd
 spec:
   syncPolicy:
@@ -24,11 +24,17 @@ spec:
   generators:
     - list:
         elements:
-          - app: tuppr
-            path: kubernetes/apps/system-upgrade/tuppr
-            chart: tuppr
-            repo: oci://ghcr.io/home-operations/charts/tuppr
-            version: 0.1.3
+          - app: envoy-gateway
+            path: kubernetes/argo-apps/network/envoy-gateway
+            chart: gateway-helm
+            repo: oci://mirror.gcr.io/envoyproxy/gateway-helm
+            version: 1.7.1
+            wave: "-1"
+          - app: cloudflare-dns
+            path: kubernetes/argo-apps/network/cloudflare-dns
+            chart: external-dns
+            repo: oci://ghcr.io/home-operations/charts-mirror/external-dns
+            version: 1.20.0
   template:
     metadata:
       name: "{{.app}}"
@@ -52,7 +58,7 @@ spec:
               - $values/{{.path}}/values.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: system-upgrade
+        namespace: network
       syncPolicy:
         automated:
           enabled: false
@@ -61,19 +67,33 @@ spec:
         syncOptions:
           - ServerSideApply=true
 ---
-# Plain Manifest System Upgrade Apps
+# Plain Manifest Network Apps
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: system-upgrade-plain-apps
+  name: network-plain-apps
   namespace: argocd
 spec:
   goTemplate: true
   generators:
     - list:
         elements:
-          - app: etcd-defrag
-            path: kubernetes/apps/system-upgrade/etcd-defrag
+          - app: certificates-import
+            path: kubernetes/argo-apps/network/certificates/import
+            wave: "-1"
+          - app: certificates-export
+            path: kubernetes/argo-apps/network/certificates/export
+          - app: cloudflare-tunnel
+            path: kubernetes/argo-apps/network/cloudflare-tunnel
+          - app: ddns-updater
+            path: kubernetes/argo-apps/network/ddns-updater
+          - app: pikvm
+            path: kubernetes/argo-apps/network/pikvm
+          - app: unifi-dns
+            path: kubernetes/argo-apps/network/unifi-dns
+          - app: echo
+            path: kubernetes/argo-apps/network/echo
+            wave: "1"
   template:
     metadata:
       name: "{{.app}}"
@@ -87,7 +107,7 @@ spec:
         path: "{{.path}}"
       destination:
         server: https://kubernetes.default.svc
-        namespace: system-upgrade
+        namespace: network
       syncPolicy:
         automated:
           enabled: false

@@ -25,13 +25,13 @@ spec:
     - list:
         elements:
           - app: cloudnative-pg-operator
-            path: kubernetes/apps/database/cloudnative-pg/operator
+            path: kubernetes/argo-apps/database/cloudnative-pg/operator
             chart: cloudnative-pg
             repo: oci://ghcr.io/cloudnative-pg/charts/cloudnative-pg
             version: 0.28.0
             wave: "-3"
           - app: cloudnative-pg-plugin-barman-cloud
-            path: kubernetes/apps/database/cloudnative-pg/plugin-barman-cloud
+            path: kubernetes/argo-apps/database/cloudnative-pg/plugin-barman-cloud
             chart: plugin-barman-cloud
             repo: oci://ghcr.io/cloudnative-pg/charts/plugin-barman-cloud
             version: 0.5.0
@@ -80,13 +80,13 @@ spec:
     - list:
         elements:
           - app: cloudnative-pg-cluster
-            path: kubernetes/apps/database/cloudnative-pg/cluster
+            path: kubernetes/argo-apps/database/cloudnative-pg/cluster
             wave: "-1"
           - app: mssql-2025
-            path: kubernetes/apps/database/mssql-2025
+            path: kubernetes/argo-apps/database/mssql-2025
             wave: "-1"
           - app: cloudbeaver
-            path: kubernetes/apps/database/cloudbeaver
+            path: kubernetes/argo-apps/database/cloudbeaver
             wave: "1"
   template:
     metadata:

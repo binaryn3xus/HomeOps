@@ -25,31 +25,31 @@ spec:
     - list:
         elements:
           - app: kube-prometheus-stack
-            path: kubernetes/apps/observability/kube-prometheus-stack
+            path: kubernetes/argo-apps/observability/kube-prometheus-stack
             chart: kube-prometheus-stack
             repo: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
             version: 82.18.0
             wave: "-4"
           - app: loki
-            path: kubernetes/apps/observability/loki
+            path: kubernetes/argo-apps/observability/loki
             chart: loki
             repo: oci://ghcr.io/grafana/helm-charts/loki
             version: 6.55.0
             wave: "-2"
           - app: goldilocks
-            path: kubernetes/apps/observability/goldilocks
+            path: kubernetes/argo-apps/observability/goldilocks
             chart: goldilocks
             repo: https://charts.fairwinds.com/stable
             version: 10.3.0
             wave: "1"
           - app: grafana
-            path: kubernetes/apps/observability/grafana
+            path: kubernetes/argo-apps/observability/grafana
             chart: grafana-operator
             repo: oci://ghcr.io/grafana/helm-charts/grafana-operator
             version: v5.13.0
             wave: "1"
           - app: promtail
-            path: kubernetes/apps/observability/promtail
+            path: kubernetes/argo-apps/observability/promtail
             chart: promtail
             repo: oci://ghcr.io/grafana/helm-charts/promtail
             version: 6.16.6
@@ -105,13 +105,13 @@ spec:
     - list:
         elements:
           - app: gatus
-            path: kubernetes/apps/observability/gatus
+            path: kubernetes/argo-apps/observability/gatus
             wave: "1"
           - app: kromgo
-            path: kubernetes/apps/observability/kromgo
+            path: kubernetes/argo-apps/observability/kromgo
             wave: "1"
           - app: unpoller
-            path: kubernetes/apps/observability/unpoller
+            path: kubernetes/argo-apps/observability/unpoller
             wave: "1"
   template:
     metadata:

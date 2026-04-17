@@ -1,7 +1,1 @@
-{{- $ns := .Release.Namespace -}}
-{{- $name := .Release.Name -}}
-{{- if eq $ns $name -}}
-{{ (readFile (printf "../../../kubernetes/apps/%s/values.yaml" $ns)) }}
-{{- else -}}
-{{ (readFile (printf "../../../kubernetes/apps/%s/%s/values.yaml" $ns $name)) }}
-{{- end -}}
+{{ (fromYaml (readFile (printf "../../../kubernetes/apps/%s/%s/app/helmrelease.yaml" .Release.Namespace .Release.Name))).spec.values | toYaml }}

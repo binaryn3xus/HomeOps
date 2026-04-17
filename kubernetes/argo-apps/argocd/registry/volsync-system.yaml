@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: ai
+  name: volsync-system
   labels:
     goldilocks.fairwinds.com/enabled: "true"
     volsync.backube/privileged-movers: "true"
@@ -10,11 +10,11 @@ metadata:
     argocd.argoproj.io/sync-options: Prune=false
     volsync.backube/privileged-movers: "true"
 ---
-# Helm-based AI Apps
+# Helm-based VolSync Apps
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: ai-helm-apps
+  name: volsync-system-helm-apps
   namespace: argocd
 spec:
   syncPolicy:
@@ -24,11 +24,18 @@ spec:
   generators:
     - list:
         elements:
-          - app: openclaw-operator
-            path: kubernetes/apps/ai/openclaw-operator/operator
-            chart: openclaw-operator
-            repo: oci://ghcr.io/openclaw-rocks/charts/openclaw-operator
-            version: 0.26.2
+          - app: volsync-operator
+            path: kubernetes/argo-apps/volsync-system/volsync
+            chart: volsync-perfectra1n
+            repo: oci://ghcr.io/home-operations/charts-mirror/volsync-perfectra1n
+            version: 0.18.5
+            wave: "-3"
+          - app: volsync-snapshot-controller
+            path: kubernetes/argo-apps/volsync-system/snapshot-controller
+            chart: snapshot-controller
+            repo: oci://ghcr.io/piraeusdatastore/helm-charts/snapshot-controller
+            version: 5.0.3
+            wave: "-3"
   template:
     metadata:
       name: "{{.app}}"
@@ -52,7 +59,21 @@ spec:
               - $values/{{.path}}/values.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: ai
+        namespace: volsync-system
+      ignoreDifferences:
+        - group: ""
+          kind: Secret
+          name: volsync-snapshot-controller-conversion-webhook
+          namespace: volsync-system
+          jsonPointers:
+            - /data/ca.crt
+            - /data/tls.crt
+            - /data/tls.key
+        - group: apiextensions.k8s.io
+          kind: CustomResourceDefinition
+          name: volumegroupsnapshotcontents.groupsnapshot.storage.k8s.io
+          jsonPointers:
+            - /spec/conversion/webhook/clientConfig/caBundle
       syncPolicy:
         automated:
           enabled: false
@@ -61,30 +82,20 @@ spec:
         syncOptions:
           - ServerSideApply=true
 ---
-# Plain Manifest AI Apps
+# Plain Manifest VolSync Apps
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: ai-plain-apps
+  name: volsync-system-plain-apps
   namespace: argocd
 spec:
   goTemplate: true
   generators:
     - list:
         elements:
-          - app: ollama
-            path: kubernetes/apps/ai/ollama
-          - app: openclaw-instances
-            path: kubernetes/apps/ai/openclaw-operator/instances
-          - app: mcp-gateway
-            path: kubernetes/apps/ai/mcp-gateway
-            wave: "1"
-          - app: open-webui
-            path: kubernetes/apps/ai/open-webui
-            wave: "1"
-          - app: searxng
-            path: kubernetes/apps/ai/searxng
-            wave: "1"
+          - app: volsync-kopia
+            path: kubernetes/argo-apps/volsync-system/kopia
+            wave: "-2"
   template:
     metadata:
       name: "{{.app}}"
@@ -98,7 +109,7 @@ spec:
         path: "{{.path}}"
       destination:
         server: https://kubernetes.default.svc
-        namespace: ai
+        namespace: volsync-system
       syncPolicy:
         automated:
           enabled: false

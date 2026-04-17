@@ -28,22 +28,32 @@ configuration-backup backup_datetime=`date +%Y%m%d-%H%M`:
     cp ./kubeconfig ./.private/backups/"{{backup_datetime}}"/
     cp ./age.key ./.private/backups/"{{backup_datetime}}"/
 
-# --- ArgoCD Management ---
-[doc('Sync all ArgoCD applications')]
-argocd-sync-all:
-    argocd app sync -l argocd.argoproj.io/instance=argocd
+# --- Flux Management ---
+[doc('Force Flux reconcile Git repository changes')]
+reconcile:
+    flux --namespace flux-system reconcile kustomization flux-system --with-source
 
-[doc('Get status of all ArgoCD applications')]
-argocd-status:
-    argocd app list
+[doc('Force Flux to refresh a Kustomization')]
+reconcile-app namespace name:
+    flux --namespace "{{namespace}}" suspend kustomization "{{name}}"
+    sleep 2
+    flux --namespace "{{namespace}}" resume kustomization "{{name}}"
 
-[doc('Sync a specific ArgoCD application')]
-argocd-app-sync namespace name:
-    argocd app sync "{{name}}"
+[doc('Force Flux to refresh all Kustomizations in the cluster')]
+force-reconcile-all:
+    kubectl get kustomizations --all-namespaces -o json | jq -r '.items[] | [.metadata.namespace, .metadata.name] | @tsv' | while IFS=$'\t' read ns name; do flux --namespace "$ns" suspend kustomization "$name"; done
+    sleep 2
+    kubectl get kustomizations --all-namespaces -o json | jq -r '.items[] | [.metadata.namespace, .metadata.name] | @tsv' | while IFS=$'\t' read ns name; do flux --namespace "$ns" resume kustomization "$name" --timeout=10s; done
 
-[doc('Get status of a specific ArgoCD application')]
-argocd-app-status namespace name:
-    argocd app get "{{name}}"
+[doc('List all Kustomizations with suspended and ready status')]
+reconcile-status:
+    kubectl get kustomizations --all-namespaces -o json | \
+    jq -r '.items[] | "\(.metadata.namespace)\t\(.metadata.name)\tSuspended: \(.spec.suspend // false)\tReady: \(.status.conditions[]? | select(.type=="Ready") | .status // "Unknown")"' | \
+    column -t
+
+[doc('Restart the Flux source-controller pod')]
+restart-source-controller:
+    kubectl delete pod -n flux-system -l app=source-controller
 
 # --- Azure Key Vault Integration ---
 [doc('Read a secret from Azure Key Vault')]

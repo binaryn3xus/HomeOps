@@ -24,9 +24,9 @@ spec:
     - list:
         elements:
           - app: minecraft-bedrock
-            path: kubernetes/apps/games/minecraft-bedrock
+            path: kubernetes/argo-apps/games/minecraft-bedrock
           - app: minecraft-java
-            path: kubernetes/apps/games/minecraft-java
+            path: kubernetes/argo-apps/games/minecraft-java
   template:
     metadata:
       name: "{{.app}}"
