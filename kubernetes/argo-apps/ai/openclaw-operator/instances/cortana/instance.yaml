@@ -8,7 +8,7 @@ metadata:
 spec:
   image:
     repository: ghcr.io/openclaw/openclaw
-    tag: 2026.4.14
+    tag: 2026.4.15
     pullPolicy: IfNotPresent
   selfConfigure:
     enabled: true
