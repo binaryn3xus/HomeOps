@@ -3,5 +3,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - ./argocd/argocd/ks.yaml
+  - ./cert-manager/cert-manager/ks.yaml
   - ./flux-system
+  - ./kube-system/cilium/ks.yaml
+  - ./kube-system/coredns/ks.yaml
+  - ./kube-system/spegel/ks.yaml
   - ./network

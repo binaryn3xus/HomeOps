@@ -1,0 +1,121 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: argocd
+spec:
+  values:
+    # Argo CD Configuration
+    fullnameOverride: argocd
+    
+    ## Global
+    global:
+      domain: argocd.unscfleet.com
+    
+    ## API/UI Server
+    server:
+      service:
+        type: ClusterIP
+      ingress:
+        enabled: false
+      config:
+        url: https://argocd.unscfleet.com
+        exec.enabled: "true"
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+    
+    ## Dex
+    dex:
+      enabled: true
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+    
+    ## Redis
+    redis:
+      enabled: true
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+    
+    ## Controller
+    controller:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+    
+    ## Repo Server
+    repoServer:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+      resources:
+        requests:
+          cpu: 500m
+          memory: 256Mi
+        limits:
+          cpu: 1000m
+          memory: 1Gi
+      livenessProbe:
+        timeoutSeconds: 10
+        failureThreshold: 10
+      readinessProbe:
+        timeoutSeconds: 10
+        failureThreshold: 10
+    
+    ## Configuration
+    configs:
+      params:
+        server.insecure: true
+    
+      repositories:
+        home-ops:
+          url: https://github.com/binaryn3xus/HomeOps/
+          type: git
+          name: HomeOps
+    
+      rbac:
+        policy.default: role:readonly
+        policy.csv: |
+          # p = Policy (Defining the role permissions)
+          p, role:org-admin, applications, *, */*, allow
+          p, role:org-admin, clusters, get, *, allow
+          p, role:org-admin, repositories, *, *, allow
+          p, role:org-admin, projects, *, *, allow
+    
+          # g = Grant (Mapping your user to the role)
+          g, unscfleet:argocd-admins, role:org-admin
+    
+      cm:
+        url: https://argocd.unscfleet.com
+    
+        # GitHub SSO via Dex
+        dex.config: |
+          connectors:
+            - type: github
+              id: github
+              name: GitHub
+              config:
+                clientID: $argocd-github-sso:CLIENT_ID
+                clientSecret: $argocd-github-sso:CLIENT_SECRET
+                orgs:
+                  - name: unscfleet
+    
+    
+        # Keep Grafana dashboard CR status noise from blocking app health.
+        resource.customizations.ignoreDifferences.grafana.integreatly.org_GrafanaDashboard: |
+          jqPathExpressions:
+            - .status
+    
+        # Treat GrafanaDashboard CRs as healthy so apps do not stay Progressing.
+        resource.customizations.health.grafana.integreatly.org_GrafanaDashboard: |
+          hs = {}
+          hs.status = "Healthy"
+          hs.message = "GrafanaDashboard health ignored by ArgoCD"
+          return hs

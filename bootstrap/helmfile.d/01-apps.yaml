@@ -29,7 +29,7 @@ releases:
           - --namespace=kube-system
           - --server-side
           - --field-manager=kustomize-controller
-          - --filename=../../kubernetes/apps/kube-system/cilium/networks.yaml
+          - --filename=../../kubernetes/apps/kube-system/cilium/app/networks.yaml
         events:
           - postsync
         showlogs: true
@@ -67,8 +67,8 @@ releases:
     version: 0.45.1
     values:
       - ./templates/values.yaml.gotmpl
-    #needs:
-    #  - cert-manager/cert-manager
+    needs:
+      - cert-manager/cert-manager
 
   - name: flux-instance
     namespace: flux-system
@@ -76,16 +76,16 @@ releases:
     version: 0.45.1
     values:
       - ./templates/values.yaml.gotmpl
-    wait: false
-    needs:
-      - flux-system/flux-operator
+    # wait: false
+    # needs:
+    #   - flux-system/flux-operator
 
   - name: argocd
     namespace: argocd
     chart: oci://ghcr.io/argoproj/argo-helm/argo-cd
     version: 9.5.1
     values:
-      - ../../kubernetes/apps/argocd/app/values.yaml
+      - ../../kubernetes/apps/argocd/argocd/app/values.yaml
     needs:
       - cert-manager/cert-manager
     hooks:
@@ -94,10 +94,10 @@ releases:
         args:
           - apply
           - --server-side
-          - --filename=../../kubernetes/apps/argocd/app/argocd-app.yaml
-          - --filename=../../kubernetes/apps/argocd/app/projects.yaml
-          - --filename=../../kubernetes/apps/argocd/app/httproute.yaml
-          - --filename=../../kubernetes/apps/argocd/app/externalsecret.yaml
+          - --filename=../../kubernetes/apps/argocd/argocd/app/argocd-app.yaml
+          - --filename=../../kubernetes/apps/argocd/argocd/app/projects.yaml
+          - --filename=../../kubernetes/apps/argocd/argocd/app/httproute.yaml
+          - --filename=../../kubernetes/apps/argocd/argocd/app/externalsecret.yaml
         events:
           - postsync
         showlogs: true
