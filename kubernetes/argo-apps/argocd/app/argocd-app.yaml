@@ -13,7 +13,7 @@ spec:
       targetRevision: 9.4.17
       helm:
         valueFiles:
-          - $values/kubernetes/apps/argocd/app/values.yaml
+          - $values/kubernetes/argo-apps/argocd/app/values.yaml
     # Source 2: Your Git Repo (for the values file)
     - repoURL: https://github.com/binaryn3xus/HomeOps
       targetRevision: main
