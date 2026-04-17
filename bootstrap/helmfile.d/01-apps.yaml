@@ -13,6 +13,7 @@ releases:
     version: 1.18.6
     values:
       - ./templates/values.yaml.gotmpl
+    wait: false
     hooks:
       - # Wait for Cilium CRDs to be available
         command: bash
@@ -76,9 +77,9 @@ releases:
     version: 0.45.1
     values:
       - ./templates/values.yaml.gotmpl
-    # wait: false
-    # needs:
-    #   - flux-system/flux-operator
+    wait: false
+    needs:
+      - flux-system/flux-operator
 
   - name: argocd
     namespace: argocd
