@@ -5,9 +5,12 @@ kind: Kustomization
 resources:
   - ./argocd/argocd/ks.yaml
   - ./cert-manager
+  - ./database
+  - ./external-secrets
   - ./flux-system
   - ./kube-system
   - ./network
+  - ./observability
   - ./openebs-system
   - ./rook-ceph
   - ./system-upgrade
