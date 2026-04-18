@@ -2,10 +2,9 @@
 apiVersion: barmancloud.cnpg.io/v1
 kind: ObjectStore
 metadata:
-  name: paperless-postgres
+  name: paperless-postgres-v2
   namespace: paperless
 spec:
-  barmanObjectName: paperless-postgres-v2
   configuration:
     data:
       compression: bzip2
