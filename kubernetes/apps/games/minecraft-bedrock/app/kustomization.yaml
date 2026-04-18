@@ -3,10 +3,11 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 commonLabels:
-  app.kubernetes.io/name: ollama
-  app.kubernetes.io/instance: ollama
-  app.kubernetes.io/controller: ollama
+  app.kubernetes.io/name: minecraft-bedrock
+  app.kubernetes.io/instance: minecraft-bedrock
+  app.kubernetes.io/controller: minecraft-bedrock
 resources:
-  - ./pvc.yaml
+  - ./configmap.yaml
   - ./deployment.yaml
   - ./service.yaml
+  - ./gatus.yaml

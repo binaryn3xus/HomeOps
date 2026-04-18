@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plex
+  namespace: default
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: plex
+      app.kubernetes.io/instance: plex
+      app.kubernetes.io/controller: plex
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: plex
+        app.kubernetes.io/instance: plex
+        app.kubernetes.io/controller: plex
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
+      containers:
+        - name: app
+          image: ghcr.io/home-operations/plex:1.43.0.10492@sha256:8cb062f2b0660bd7811387e6c799da0ce5f18112078fe21485c11adcc83a9c1c
+          env:
+            - name: TZ
+              value: "America/New_York"
+            - name: PLEX_ADVERTISE_URL
+              value: "https://plex.unscfleet.com:443,http://10.0.30.34:32400"
+            - name: PLEX_NO_AUTH_NETWORKS
+              value: "10.0.0.0/16,10.1.0.0/16"
+          ports:
+            - name: http
+              containerPort: 32400
+          startupProbe:
+            tcpSocket:
+              port: 32400
+            failureThreshold: 30
+            periodSeconds: 10
+          livenessProbe: &probe
+            httpGet:
+              path: /identity
+              port: 32400
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          readinessProbe: *probe
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              gpu.intel.com/i915: "1"
+              cpu: 1000m
+              memory: 4Gi
+            limits:
+              gpu.intel.com/i915: "1"
+              cpu: 4000m
+              memory: 12Gi
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: media
+              mountPath: /media
+            - name: tmpfs
+              mountPath: /config/Library/Application Support/Plex Media Server/Logs
+              subPath: logs
+            - name: tmpfs
+              mountPath: /transcode
+              subPath: transcode
+            - name: tmpfs
+              mountPath: /tmp
+              subPath: tmp
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: plex
+        - name: media
+          persistentVolumeClaim:
+            claimName: synology-media
+        - name: tmpfs
+          emptyDir: {}

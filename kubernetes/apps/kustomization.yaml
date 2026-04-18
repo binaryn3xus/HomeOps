@@ -7,8 +7,10 @@ resources:
   - ./argocd/argocd/ks.yaml
   - ./cert-manager
   - ./database
+  - ./default
   - ./external-secrets
   - ./flux-system
+  - ./games
   - ./kube-system
   - ./network
   - ./observability
