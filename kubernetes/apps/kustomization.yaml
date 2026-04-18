@@ -13,6 +13,7 @@ resources:
   - ./network
   - ./observability
   - ./openebs-system
+  - ./paperless
   - ./rook-ceph
   - ./system-upgrade
   - ./teleport

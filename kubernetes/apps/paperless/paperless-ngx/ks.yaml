@@ -1,0 +1,28 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app paperless
+  namespace: &namespace paperless
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  dependsOn:
+    - name: paperless-postgres
+      namespace: paperless
+    - name: valkey
+      namespace: paperless
+    - name: tika
+      namespace: paperless
+    - name: gotenberg
+      namespace: paperless
+  interval: 30m
+  path: ./kubernetes/apps/paperless/paperless-ngx/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
