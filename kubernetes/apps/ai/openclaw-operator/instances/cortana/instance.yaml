@@ -40,7 +40,7 @@ spec:
   initContainers:
 
     - name: install-tools
-      image: curlimages/curl:8.12.1@sha256:94e9e444bcba979c2ea12e27ae39bee4cd10bc7041a472c4727a558e213744e6
+      image: curlimages/curl:8.19.0@sha256:9a6f6a17667960e077f1b153009aaf18ac99a622221084e1938a45a06fff057a
       command: ["/bin/sh", "-c"]
       args:
         - |
