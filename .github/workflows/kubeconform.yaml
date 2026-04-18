@@ -21,12 +21,14 @@ jobs:
 
       - name: Setup Tools
         run: |
-          brew install kubeconform kustomize
+          brew install kubeconform
 
-      - name: Run kustomize build
+      - name: Run flux-local build
         run: |
-          # Find all kustomization.yaml files in kubernetes/apps and build them
-          find kubernetes/apps -name "kustomization.yaml" -exec kustomize build $(dirname {}) >> manifests.yaml \;
+          docker run --rm -v ${{ github.workspace }}:/github/workspace ghcr.io/allenporter/flux-local:v8.1.0 \
+            build ks \
+            --path /github/workspace/kubernetes/flux/cluster \
+            > manifests.yaml
 
       - name: Run kubeconform
         run: |

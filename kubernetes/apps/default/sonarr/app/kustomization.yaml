@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  app.kubernetes.io/name: sonarr
+  app.kubernetes.io/instance: sonarr
+  app.kubernetes.io/controller: sonarr
+resources:
+  - ./externalsecret.yaml
+  - ./deployment.yaml
+  - ./service.yaml
+  - ./httproute.yaml

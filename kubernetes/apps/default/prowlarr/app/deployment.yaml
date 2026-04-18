@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prowlarr
+  namespace: default
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: prowlarr
+      app.kubernetes.io/instance: prowlarr
+      app.kubernetes.io/controller: prowlarr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: prowlarr
+        app.kubernetes.io/instance: prowlarr
+        app.kubernetes.io/controller: prowlarr
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+      containers:
+        - name: app
+          image: ghcr.io/home-operations/prowlarr:2.3.5.5327@sha256:fc87e9af2f175ef19610fdcf1fcdcc84d5099127211cc6733f826409b2733237
+          env:
+            - name: TZ
+              value: "America/New_York"
+            - name: PROWLARR__INSTANCE_NAME
+              value: Prowlarr
+            - name: PROWLARR__PORT
+              value: "80"
+            - name: PROWLARR__LOG_LEVEL
+              value: info
+          ports:
+            - name: http
+              containerPort: 80
+          startupProbe:
+            httpGet:
+              path: /ping
+              port: 80
+            failureThreshold: 30
+            periodSeconds: 10
+          livenessProbe: &probe
+            httpGet:
+              path: /ping
+              port: 80
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          readinessProbe: *probe
+          resources:
+            requests:
+              cpu: 10m
+              memory: 100Mi
+            limits:
+              cpu: 1000m
+              memory: 500Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: config
+              mountPath: /config
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: prowlarr

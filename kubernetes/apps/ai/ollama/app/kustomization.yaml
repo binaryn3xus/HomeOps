@@ -7,5 +7,6 @@ commonLabels:
   app.kubernetes.io/instance: ollama
   app.kubernetes.io/controller: ollama
 resources:
+  - ./pvc.yaml
   - ./deployment.yaml
   - ./service.yaml

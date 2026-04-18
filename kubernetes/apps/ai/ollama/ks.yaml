@@ -15,8 +15,6 @@ spec:
       namespace: volsync-system
     - name: nvidia-device-plugin
       namespace: kube-system
-  components:
-    - ../../../../components/volsync
   interval: 30m
   path: ./kubernetes/apps/ai/ollama/app
   postBuild:
