@@ -5,6 +5,7 @@ metadata:
   name: paperless-postgres
   namespace: paperless
 spec:
+  barmanObjectName: paperless-postgres-v2
   configuration:
     data:
       compression: bzip2
