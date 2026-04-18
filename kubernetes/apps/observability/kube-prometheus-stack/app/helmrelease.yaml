@@ -82,7 +82,7 @@ spec:
               sourceLabels: ["__meta_kubernetes_pod_node_name"]
               targetLabel: kubernetes_node
     kubeApiServer:
-      serviceMonitor: {}
+      enabled: false
     kubeControllerManager:
       enabled: true
       endpoints: &cp
