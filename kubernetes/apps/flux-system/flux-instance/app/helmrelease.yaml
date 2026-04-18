@@ -119,8 +119,9 @@ spec:
               kind: Deployment
               name: kustomize-controller
       sync:
-        interval: 1h
+        interval: 5m
         kind: GitRepository
         path: kubernetes/flux/cluster
         ref: refs/heads/main
+        timeout: 300s
         url: https://github.com/binaryn3xus/HomeOps/
