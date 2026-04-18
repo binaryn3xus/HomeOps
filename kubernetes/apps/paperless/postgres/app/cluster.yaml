@@ -23,7 +23,7 @@ spec:
       enabled: true
       isWALArchiver: true
       parameters: &barmanParameters
-        barmanObjectName: paperless-postgres
+        barmanObjectName: paperless-postgres-v2
 
   bootstrap:
     initdb:
