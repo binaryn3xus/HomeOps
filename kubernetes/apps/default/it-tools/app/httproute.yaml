@@ -3,9 +3,6 @@ kind: HTTPRoute
 metadata:
   name: it-tools
   namespace: default
-  annotations:
-    gatus.home-operations.com/endpoint: |-
-      group: external
 spec:
   parentRefs:
     - name: envoy-external

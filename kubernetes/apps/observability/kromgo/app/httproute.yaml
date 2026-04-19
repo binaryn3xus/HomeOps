@@ -3,10 +3,6 @@ kind: HTTPRoute
 metadata:
   name: kromgo
   namespace: observability
-  annotations:
-    gatus.home-operations.com/endpoint: |-
-      conditions: ["[STATUS] == 200"]
-      group: external
 spec:
   parentRefs:
     - name: envoy-external

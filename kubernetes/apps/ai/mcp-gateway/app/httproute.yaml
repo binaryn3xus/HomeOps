@@ -5,11 +5,6 @@ kind: HTTPRoute
 metadata:
   name: mcp-gateway-external
   namespace: ai
-  annotations:
-    gatus.home-operations.com/endpoint: |-
-      group: external
-      conditions:
-        - "[STATUS] == 405"
 spec:
   parentRefs:
     - name: envoy-external

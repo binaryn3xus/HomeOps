@@ -103,14 +103,7 @@ spec:
       route:
         main:
           annotations:
-            gatus.home-operations.com/enabled: "true"
-            gatus.home-operations.com/endpoint: |-
-              conditions: ["len([BODY]) == 0"]
-              group: internal
-              dns:
-                query-name: prometheus.unscfleet.com
-                query-type: A
-              url: 1.1.1.1
+            gatus.home-operations.com/endpoint: 'dns: { query-name: prometheus.unscfleet.com }'
           enabled: true
           hostnames: ["prometheus.unscfleet.com"]
           parentRefs:
