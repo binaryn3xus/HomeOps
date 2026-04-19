@@ -2,7 +2,7 @@
 apiVersion: barmancloud.cnpg.io/v1
 kind: ObjectStore
 metadata:
-  name: paperless-postgres-v2
+  name: paperless-postgres-v5
   namespace: paperless
 spec:
   configuration:

@@ -5,6 +5,8 @@ kind: Cluster
 metadata:
   name: paperless-postgres
   namespace: paperless
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:18.0
@@ -23,7 +25,7 @@ spec:
       enabled: true
       isWALArchiver: true
       parameters: &barmanParameters
-        barmanObjectName: paperless-postgres-v2
+        barmanObjectName: paperless-postgres-v5
 
   bootstrap:
     initdb:
@@ -32,11 +34,12 @@ spec:
       secret:
         name: paperless-secrets
 
-  externalClusters:
-    - name: origin
-      plugin:
-        name: barman-cloud.cloudnative-pg.io
-        parameters: *barmanParameters
+  # externalClusters:
+  #   - name: origin
+  #     plugin:
+  #       name: barman-cloud.cloudnative-pg.io
+  #       parameters:
+  #         barmanObjectName: paperless-postgres
 
   affinity:
     enablePodAntiAffinity: true

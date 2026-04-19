@@ -6,7 +6,7 @@ metadata:
   name: &name home-ops
   annotations:
     # Required for seamless bootstrap to avoid empty WAL archive check issues
-    # cnpg.io/skipEmptyWalArchiveCheck: "enabled"
+    cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   instances: 1
   imageName: ghcr.io/cloudnative-pg/postgresql:18.0
@@ -42,7 +42,7 @@ spec:
       enabled: true
       isWALArchiver: true
       parameters: &barmanParameters
-        barmanObjectName: *name
+        barmanObjectName: home-ops-v2
 
   # ============================================================================
   # BOOTSTRAP CONFIGURATION - Choose ONE section below
