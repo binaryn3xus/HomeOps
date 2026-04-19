@@ -60,6 +60,28 @@ restart-source-controller:
 read-az-secret secret_name:
     @az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "{{secret_name}}" --query 'value' -o tsv
 
+[doc('Write a secret to Azure Key Vault (handles multi-line)')]
+write-az-secret secret_name file_path="" overwrite="false":
+    #!/usr/bin/env bash
+    VAULT="K8sHomeOpsKeyVault"
+    EXISTS=$(az keyvault secret list --vault-name "$VAULT" --query "[?name=='{{secret_name}}']" -o tsv)
+    
+    if [[ -n "$EXISTS" && "{{overwrite}}" != "true" ]]; then
+        echo "Error: Secret '{{secret_name}}' already exists in $VAULT."
+        echo "Use 'overwrite=true' to force update."
+        exit 1
+    fi
+
+    if [[ -z "{{file_path}}" ]]; then
+        echo "Reading secret value from stdin (Ctrl+D to finish)..."
+        VALUE=$(cat)
+    else
+        VALUE=$(cat "{{file_path}}")
+    fi
+
+    echo "$VALUE" | az keyvault secret set --vault-name "$VAULT" --name "{{secret_name}}" --file /dev/stdin > /dev/null
+    echo "✔ Secret '{{secret_name}}' successfully saved to $VAULT."
+
 # --- YAML Sorting ---
 [doc('Sort a YAML file at .spec level')]
 sort-spec file:

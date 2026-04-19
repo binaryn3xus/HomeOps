@@ -14,5 +14,5 @@ spec:
       kind: Kustomization
       name: flux-system
   secretRef:
-    name: github-webhook-token-secret
+    name: flux-secrets
   type: github
