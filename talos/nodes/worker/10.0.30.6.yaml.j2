@@ -26,10 +26,10 @@ machine:
         mtu: 9000
         dhcp: false
   kernel:
-      modules:
-        - name: nvidia
-        - name: nvidia_uvm
-        - name: nvidia_drm
+    modules:
+      - name: nvidia
+      - name: nvidia_uvm
+      - name: nvidia_drm
   nodeLabels:
     node-role.kubernetes.io/worker: ""
     sku: gpu
@@ -37,6 +37,10 @@ machine:
     gpu-model: rtx2070
   kubelet:
     extraConfig:
+      # Image Garbage Collection tuning for smaller NVMe
+      imageGCHighThresholdPercent: 75
+      imageGCLowThresholdPercent: 60
+      imageMinimumGCAge: "5m"
       registerWithTaints:
         - key: sku
           value: gpu
