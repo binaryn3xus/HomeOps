@@ -32,17 +32,17 @@ spec:
   # ============================================================================
 
   # Initial setup: Use this ONLY for the very first deployment
-  bootstrap:
-    initdb:
-      database: paperless
-      owner: paperless
-      secret:
-        name: paperless-secrets
+  # bootstrap:
+  #   initdb:
+  #     database: paperless
+  #     owner: paperless
+  #     secret:
+  #       name: paperless-secrets
 
   # GitOps Recovery: Uncomment this (and comment initdb) after the first backup exists
-  # bootstrap:
-  #   recovery:
-  #     source: origin
+  bootstrap:
+    recovery:
+      source: origin
 
   # ============================================================================
 
