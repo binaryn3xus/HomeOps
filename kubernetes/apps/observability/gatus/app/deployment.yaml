@@ -34,7 +34,6 @@ spec:
           args:
             - --auto-httproute
             - --enable-httproute
-            - --enable-service
           env:
             - name: TZ
               value: America/New_York
