@@ -3,6 +3,9 @@ kind: HTTPRoute
 metadata:
   name: plex
   namespace: default
+  annotations:
+    gatus.home-operations.com/endpoint: |-
+      conditions: ["[STATUS] == 401"]
 spec:
   parentRefs:
     - name: envoy-external
