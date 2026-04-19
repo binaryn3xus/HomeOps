@@ -26,7 +26,10 @@ spec:
     route:
       dashboard:
         annotations:
-          gatus.home-operations.com/endpoint: 'dns: { query-name: rook.unscfleet.com }'
+          gatus.home-operations.com/endpoint: |-
+            dns:
+              query-name: rook.unscfleet.com
+              query-type: A
         host:
           name: rook.unscfleet.com
           path: /

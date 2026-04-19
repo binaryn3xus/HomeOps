@@ -4,7 +4,10 @@ metadata:
   name: prowlarr
   namespace: default
   annotations:
-    gatus.home-operations.com/endpoint: 'dns: { query-name: prowlarr.unscfleet.com }'
+    gatus.home-operations.com/endpoint: |-
+      dns:
+        query-name: prowlarr.unscfleet.com
+        query-type: A
 spec:
   parentRefs:
     - name: envoy-internal

@@ -4,7 +4,10 @@ metadata:
   name: sonarr
   namespace: default
   annotations:
-    gatus.home-operations.com/endpoint: 'dns: { query-name: sonarr.unscfleet.com }'
+    gatus.home-operations.com/endpoint: |-
+      dns:
+        query-name: sonarr.unscfleet.com
+        query-type: A
 spec:
   parentRefs:
     - name: envoy-internal

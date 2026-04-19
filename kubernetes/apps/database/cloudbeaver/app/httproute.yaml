@@ -4,7 +4,10 @@ metadata:
   name: cloudbeaver
   namespace: database
   annotations:
-    gatus.home-operations.com/endpoint: 'dns: { query-name: cloudbeaver.unscfleet.com }'
+    gatus.home-operations.com/endpoint: |-
+      dns:
+        query-name: cloudbeaver.unscfleet.com
+        query-type: A
 spec:
   parentRefs:
     - name: envoy-internal

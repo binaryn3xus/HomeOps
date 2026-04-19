@@ -26,12 +26,9 @@ spec:
           annotations:
             gatus.home-operations.com/enabled: "true"
             gatus.home-operations.com/endpoint: |-
-              conditions: ["len([BODY]) == 0"]
-              group: internal
               dns:
                 query-name: alertmanager.unscfleet.com
                 query-type: A
-              url: 1.1.1.1
           enabled: true
           hostnames: ["alertmanager.unscfleet.com"]
           parentRefs:
@@ -103,7 +100,10 @@ spec:
       route:
         main:
           annotations:
-            gatus.home-operations.com/endpoint: 'dns: { query-name: prometheus.unscfleet.com }'
+            gatus.home-operations.com/endpoint: |-
+              dns:
+                query-name: prometheus.unscfleet.com
+                query-type: A
           enabled: true
           hostnames: ["prometheus.unscfleet.com"]
           parentRefs:
@@ -163,3 +163,4 @@ spec:
                 expr: (kube_pod_container_status_restarts_total - kube_pod_container_status_restarts_total offset 10m >= 1) and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}[10m]) == 1
                 labels:
                   severity: critical
+l

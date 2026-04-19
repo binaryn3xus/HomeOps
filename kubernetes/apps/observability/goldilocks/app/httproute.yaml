@@ -5,7 +5,10 @@ kind: HTTPRoute
 metadata:
   name: goldilocks
   annotations:
-    gatus.home-operations.com/endpoint: 'dns: { query-name: goldilocks.unscfleet.com }'
+    gatus.home-operations.com/endpoint: |-
+      dns:
+        query-name: goldilocks.unscfleet.com
+        query-type: A
 spec:
   hostnames: ["goldilocks.unscfleet.com"]
   parentRefs:

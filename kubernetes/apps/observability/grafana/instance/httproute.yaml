@@ -5,7 +5,10 @@ kind: HTTPRoute
 metadata:
   name: grafana
   annotations:
-    gatus.home-operations.com/endpoint: 'dns: { query-name: grafana.unscfleet.com }'
+    gatus.home-operations.com/endpoint: |-
+      dns:
+        query-name: grafana.unscfleet.com
+        query-type: A
 spec:
   hostnames:
     - grafana.unscfleet.com

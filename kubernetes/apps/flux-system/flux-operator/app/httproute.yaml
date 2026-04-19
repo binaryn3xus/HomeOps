@@ -5,7 +5,10 @@ kind: HTTPRoute
 metadata:
   name: flux-operator
   annotations:
-    gatus.home-operations.com/endpoint: 'dns: { query-name: flux-operator.unscfleet.com }'
+    gatus.home-operations.com/endpoint: |-
+      dns:
+        query-name: headlamp.unscfleet.com
+        query-type: A
 spec:
   hostnames: ["flux-operator.unscfleet.com"]
   parentRefs:

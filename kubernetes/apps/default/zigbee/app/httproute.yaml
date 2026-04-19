@@ -4,7 +4,10 @@ metadata:
   name: zigbee
   namespace: default
   annotations:
-    gatus.home-operations.com/endpoint: 'dns: { query-name: zigbee.unscfleet.com }'
+    gatus.home-operations.com/endpoint: |-
+      dns:
+        query-name: zigbee.unscfleet.com
+        query-type: A
 spec:
   parentRefs:
     - name: envoy-internal

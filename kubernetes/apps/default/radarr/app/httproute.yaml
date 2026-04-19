@@ -4,7 +4,10 @@ metadata:
   name: radarr
   namespace: default
   annotations:
-    gatus.home-operations.com/endpoint: 'dns: { query-name: radarr.unscfleet.com }'
+    gatus.home-operations.com/endpoint: |-
+      dns:
+        query-name: radarr.unscfleet.com
+        query-type: A
 spec:
   parentRefs:
     - name: envoy-internal

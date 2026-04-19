@@ -4,7 +4,10 @@ metadata:
   name: maintainerr
   namespace: default
   annotations:
-    gatus.home-operations.com/endpoint: 'dns: { query-name: maintainerr.unscfleet.com }'
+    gatus.home-operations.com/endpoint: |-
+      dns:
+        query-name: maintainerr.unscfleet.com
+        query-type: A
 spec:
   parentRefs:
     - name: envoy-internal

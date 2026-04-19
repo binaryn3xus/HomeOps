@@ -4,7 +4,10 @@ metadata:
   name: watchstate
   namespace: default
   annotations:
-    gatus.home-operations.com/endpoint: 'dns: { query-name: watchstate.unscfleet.com }'
+    gatus.home-operations.com/endpoint: |-
+      dns:
+        query-name: watchstate.unscfleet.com
+        query-type: A
 spec:
   parentRefs:
     - name: envoy-internal
