@@ -123,6 +123,6 @@ spec:
         kind: GitRepository
         path: kubernetes/flux/cluster
         ref: refs/heads/main
-        secretRef: flux-secrets
+        pullSecret: flux-secrets
         timeout: 300s
         url: ssh://git@github.com/binaryn3xus/HomeOps.git
