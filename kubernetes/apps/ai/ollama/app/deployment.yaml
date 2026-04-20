@@ -60,6 +60,12 @@ spec:
               echo "Pulling qwen2.5-coder:7b..."
               ollama pull qwen2.5-coder:7b
 
+              echo "Pulling gemma4:e2b..."
+              ollama pull gemma4:e2b
+
+              echo "Pulling gemma4:e4b..."
+              ollama pull gemma4:e4b
+
               echo "All models pulled successfully!"
               kill $OLLAMA_PID
               wait $OLLAMA_PID 2>/dev/null || true
