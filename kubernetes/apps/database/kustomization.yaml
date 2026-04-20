@@ -6,5 +6,4 @@ namespace: database
 resources:
   - ./namespace.yaml
   - ./cloudnative-pg/ks.yaml
-  - ./mssql-2025/ks.yaml
   - ./cloudbeaver/ks.yaml
