@@ -3,6 +3,11 @@ kind: HTTPRoute
 metadata:
   name: paperless
   namespace: paperless
+  annotations:
+    gatus.home-operations.com/endpoint: |-
+      dns:
+        query-name: paperless.unscfleet.com
+        query-type: A
 spec:
   parentRefs:
     - name: envoy-internal
