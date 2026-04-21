@@ -4,7 +4,6 @@ kind: Namespace
 metadata:
   name: _
   labels:
-    goldilocks.fairwinds.com/enabled: "true"
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
     volsync.backube/privileged-movers: "true"
