@@ -5,7 +5,7 @@ metadata:
   namespace: paperless
 spec:
   parentRefs:
-    - name: envoy-external
+    - name: envoy-internal
       namespace: network
       sectionName: https
   hostnames:
