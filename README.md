@@ -4,7 +4,7 @@
 
 ### Fleetcom Operations :octocat:
 
-_... managed with ArgoCD, Azure KeyVault, and GitHub Actions_ 🤖
+_... managed with Flux, Azure KeyVault, and GitHub Actions_ 🤖
 
 </div>
 
@@ -42,7 +42,7 @@ _... managed with ArgoCD, Azure KeyVault, and GitHub Actions_ 🤖
 
 ## 📖 Overview
 
-This is a mono repository for my home infrastructure and Kubernetes cluster. I try to adhere to Infrastructure as Code (IaC) and GitOps practices using the tools like [just](https://github.com/casey/just), [Kubernetes](https://kubernetes.io/), [ArgoCD](https://argoproj.github.io/cd/), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions).
+This is a mono repository for my home infrastructure and Kubernetes cluster. I try to adhere to Infrastructure as Code (IaC) and GitOps practices using the tools like [just](https://github.com/casey/just), [Kubernetes](https://kubernetes.io/), [Flux](https://github.com/fluxcd/flux2), [Renovate](https://github.com/renovatebot/renovate) and [GitHub Actions](https://github.com/features/actions).
 
 ---
 
@@ -50,11 +50,10 @@ This is a mono repository for my home infrastructure and Kubernetes cluster. I t
 
 ### Installation
 
-My Kubernetes cluster is deployed with [Talos](https://www.talos.dev). This is a semi-hyper-converged cluster, workloads and block storage are sharing the same available resources on my nodes while I have a separate server with my Synology NAS for bulk file storage and backups.
+My Kubernetes cluster is deploy with [Talos](https://www.talos.dev). This is a semi-hyper-converged cluster, workloads and block storage are sharing the same available resources on my nodes while I have a separate server with on my Synology NAS for storage for bulk file storage and backups.
 
 ### Core Components
 
-- [ArgoCD](https://argoproj.github.io/cd/): Declarative, GitOps continuous delivery tool for Kubernetes.
 - [cert-manager](https://github.com/cert-manager/cert-manager): Creates SSL certificates for services in my cluster.
 - [cilium](https://github.com/cilium/cilium): eBPF-based networking for my workloads.
 - [cloudflared](https://github.com/cloudflare/cloudflared): Enables Cloudflare secure access to certain ingresses.
@@ -67,11 +66,11 @@ My Kubernetes cluster is deployed with [Talos](https://www.talos.dev). This is a
 
 ### GitOps
 
-[ArgoCD](https://argoproj.github.io/cd/) watches my [kubernetes](./kubernetes/) folder (see Directories below) and makes the changes to my cluster based on the YAML manifests.
+[Flux](https://github.com/fluxcd/flux2) watches my [kubernetes](./kubernetes/) folder (see Directories below) and makes the changes to my cluster based on the YAML manifests.
 
-I use an **App-of-Apps** (Discovery) pattern with ArgoCD. The core ArgoCD application points to a [registry](./kubernetes/apps/argocd/registry) folder which contains `ApplicationSet` resources. These ApplicationSets then automatically discover and deploy all applications within the [kubernetes/apps](./kubernetes/apps) directory.
+The way Flux works for me here is it will recursively search the [kubernetes/apps](./kubernetes/apps) folder until it finds the most top level `kustomization.yaml` per directory and then apply all the resources listed in it. That aforementioned `kustomization.yaml` will generally only have a namespace resource and one or many Flux kustomizations. Those Flux kustomizations will generally have a `HelmRelease` or other resources related to the application underneath it which will be applied.
 
-[Renovate](https://github.com/renovatebot/renovate) watches my **entire** repository looking for dependency updates, when they are found a PR is automatically created. When some PRs are merged ArgoCD applies the changes to my cluster.
+[Renovate](https://github.com/renovatebot/renovate) watches my **entire** repository looking for dependency updates, when they are found a PR is automatically created. When some PRs are merged [Flux](https://github.com/fluxcd/flux2) applies the changes to my cluster.
 
 ### Directories
 
@@ -79,7 +78,9 @@ This Git repository contains the following directories under [kubernetes](./kube
 
 ```sh
 📁 kubernetes
-└── 📁 apps       # applications
+├── 📁 apps       # applications
+├── 📁 components # re-useable kustomize components
+└── 📁 flux       # flux system configuration
 ```
 
 ## 📡 Networking

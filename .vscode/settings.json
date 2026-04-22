@@ -13,7 +13,6 @@
         "kubectl describe": true,
         "kubectl logs": true,
         "base64": true,
-        "openssl": true,
-        "kubectl -n argocd": true
+        "openssl": true
     }
 }
