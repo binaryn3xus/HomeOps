@@ -15,6 +15,7 @@ spec:
       labels:
         app.kubernetes.io/name: homepage
     spec:
+      serviceAccountName: homepage
       containers:
         - name: app
           image: ghcr.io/gethomepage/homepage:v0.9.13

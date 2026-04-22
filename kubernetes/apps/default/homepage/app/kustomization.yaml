@@ -6,6 +6,8 @@ resources:
   - service.yaml
   - httproute.yaml
   - externalsecret.yaml
+  - rbac.yaml
+  - serviceaccount.yaml
 configMapGenerator:
   - name: homepage-config
     files:
