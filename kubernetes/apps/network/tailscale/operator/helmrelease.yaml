@@ -21,6 +21,9 @@ spec:
     remediation:
       retries: 3
   values:
-    oauth:
-      secretName: tailscale-auth-secret
+    fullnameOverride: tailscale-operator
+    oauthSecretVolume:
+      secret:
+        secretName: operator-oauth
+
 

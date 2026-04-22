@@ -1,5 +1,4 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/tailscale.com/proxyclass_v1alpha1.json
 apiVersion: tailscale.com/v1alpha1
 kind: ProxyClass
 metadata:
