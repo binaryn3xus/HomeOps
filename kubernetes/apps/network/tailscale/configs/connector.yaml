@@ -9,5 +9,6 @@ spec:
     advertiseRoutes:
       - 192.168.1.0/24
       - 10.0.0.0/16
+    snat: false
   tags:
     - tag:subnet-router
