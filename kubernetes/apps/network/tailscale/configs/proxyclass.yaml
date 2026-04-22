@@ -1,10 +1,13 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/tailscale.com/proxyclass_v1alpha1.json
 apiVersion: tailscale.com/v1alpha1
 kind: ProxyClass
 metadata:
   name: tailscale-subnet-router-pc
 spec:
-  tailscale:
-    env:
-      - name: TS_EXTRA_ARGS
-        value: "--snat-subnet-routes=false --stateful-filtering=false"
+  statefulSet:
+    pod:
+      tailscaleContainer:
+        env:
+          - name: TS_EXTRA_ARGS
+            value: "--snat-subnet-routes=false --stateful-filtering=false"

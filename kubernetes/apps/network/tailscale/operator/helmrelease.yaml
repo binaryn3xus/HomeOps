@@ -23,5 +23,4 @@ spec:
   values:
     oauth:
       secretName: tailscale-auth-secret
-    proxyClass:
-      enabled: true
+
