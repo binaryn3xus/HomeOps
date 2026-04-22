@@ -29,7 +29,19 @@ spec:
               containerPort: 3000
           volumeMounts:
             - name: config
-              mountPath: /app/config
+              mountPath: /app/config/settings.yaml
+              subPath: settings.yaml
+            - name: config
+              mountPath: /app/config/services.yaml
+              subPath: services.yaml
+            - name: config
+              mountPath: /app/config/widgets.yaml
+              subPath: widgets.yaml
+            - name: config
+              mountPath: /app/config/bookmarks.yaml
+              subPath: bookmarks.yaml
+            - name: logs
+              mountPath: /app/config/logs
           livenessProbe:
             httpGet:
               path: /
@@ -51,21 +63,3 @@ spec:
             name: homepage-config
         - name: logs
           emptyDir: {}
-         httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
-          resources:
-            requests:
-              cpu: 200m
-              memory: 100Mi
-            limits:
-              cpu: 500m
-              memory: 500Mi
-      volumes:
-        - name: config
-          configMap:
-            name: homepage-config
