@@ -1,0 +1,14 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/tailscale.com/connector_v1alpha1.json
+apiVersion: tailscale.com/v1alpha1
+kind: Connector
+metadata:
+  name: tailscale-subnet-router
+spec:
+  proxyClass: tailscale-subnet-router-pc
+  subnetRouter:
+    advertiseRoutes:
+      - 192.168.1.0/24
+      - 10.0.0.0/16
+  tags:
+    - tag:subnet-router
