@@ -49,3 +49,23 @@ spec:
         - name: config
           configMap:
             name: homepage-config
+        - name: logs
+          emptyDir: {}
+         httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            requests:
+              cpu: 200m
+              memory: 100Mi
+            limits:
+              cpu: 500m
+              memory: 500Mi
+      volumes:
+        - name: config
+          configMap:
+            name: homepage-config
