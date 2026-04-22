@@ -8,10 +8,6 @@ data:
     warp-routing:
       enabled: true
     ingress:
-      - hostname: pikvm.unscfleet.com
-        service: https://10.0.30.5
-        originRequest:
-          noTLSVerify: true
       - hostname: teleport.unscfleet.com
         service: https://teleport.teleport.svc.cluster.local:443
         originRequest:

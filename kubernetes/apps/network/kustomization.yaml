@@ -10,5 +10,4 @@ resources:
   - ./ddns-updater/ks.yaml
   - ./echo/ks.yaml
   - ./envoy-gateway/ks.yaml
-  - ./pikvm/ks.yaml
   - ./unifi-dns/ks.yaml
