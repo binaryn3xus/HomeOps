@@ -1,0 +1,19 @@
+---
+- resources:
+    cpu: true
+    memory: true
+    disk: /
+- datetime:
+    format:
+      dateStyle: long
+      timeStyle: short
+- kubernetes:
+    cluster:
+      show: true
+      cpu: true
+      memory: true
+    nodes:
+      show: true
+- search:
+    provider: duckduckgo
+    focus: true

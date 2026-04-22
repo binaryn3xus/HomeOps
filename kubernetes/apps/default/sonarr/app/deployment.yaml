@@ -41,7 +41,7 @@ spec:
               value: dark
           envFrom:
             - secretRef:
-                name: radarr-secret
+                name: sonarr-secret
           ports:
             - name: http
               containerPort: 80

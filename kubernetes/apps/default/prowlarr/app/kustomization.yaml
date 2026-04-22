@@ -8,5 +8,6 @@ commonLabels:
   app.kubernetes.io/controller: prowlarr
 resources:
   - ./deployment.yaml
+  - ./externalsecret.yaml
   - ./service.yaml
   - ./httproute.yaml

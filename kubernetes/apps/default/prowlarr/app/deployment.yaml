@@ -39,6 +39,9 @@ spec:
               value: "80"
             - name: PROWLARR__LOG_LEVEL
               value: info
+          envFrom:
+            - secretRef:
+                name: prowlarr-secret
           ports:
             - name: http
               containerPort: 80

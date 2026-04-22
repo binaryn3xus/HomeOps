@@ -1,0 +1,23 @@
+---
+title: HomeOps Portal
+layout:
+  Media:
+    style: columns
+    columns: 4
+  Home / IoT:
+    style: columns
+    columns: 2
+  AI / Tools:
+    style: columns
+    columns: 2
+  Cluster / Ops:
+    style: columns
+    columns: 3
+  Network:
+    style: columns
+    columns: 2
+  Documents:
+    style: columns
+    columns: 1
+headerStyle: boxed
+showStats: true
