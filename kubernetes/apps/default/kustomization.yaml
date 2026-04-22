@@ -11,7 +11,6 @@ resources:
   - ./audiobookshelf/ks.yaml
   - ./bazarr/ks.yaml
   - ./esphome/ks.yaml
-  - ./homepage/ks.yaml
   - ./home-assistant/ks.yaml
   - ./it-tools/ks.yaml
   - ./jellyfin/ks.yaml
