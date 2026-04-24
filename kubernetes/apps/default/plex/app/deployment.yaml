@@ -65,11 +65,11 @@ spec:
           resources:
             requests:
               gpu.intel.com/i915: "1"
-              cpu: 1000m
+              cpu: 2000m
               memory: 4Gi
             limits:
               gpu.intel.com/i915: "1"
-              cpu: 4000m
+              cpu: 3000m
               memory: 12Gi
           volumeMounts:
             - name: config
