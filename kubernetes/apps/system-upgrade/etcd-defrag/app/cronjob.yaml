@@ -16,7 +16,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: defrag-node1
-              image: ghcr.io/siderolabs/talosctl:v1.12.6
+              image: ghcr.io/siderolabs/talosctl:v1.12.7
               command: ["/talosctl"]
               args: ["--nodes", "10.0.30.11", "etcd", "defrag"]
               env:
@@ -33,7 +33,7 @@ spec:
                 capabilities:
                   drop: ["ALL"]
             - name: defrag-node2
-              image: ghcr.io/siderolabs/talosctl:v1.12.6
+              image: ghcr.io/siderolabs/talosctl:v1.12.7
               command: ["/talosctl"]
               args: ["--nodes", "10.0.30.12", "etcd", "defrag"]
               env:
@@ -50,7 +50,7 @@ spec:
                 capabilities:
                   drop: ["ALL"]
             - name: defrag-node3
-              image: ghcr.io/siderolabs/talosctl:v1.12.6
+              image: ghcr.io/siderolabs/talosctl:v1.12.7
               command: ["/talosctl"]
               args: ["--nodes", "10.0.30.13", "etcd", "defrag"]
               env:
