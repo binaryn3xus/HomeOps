@@ -8,7 +8,7 @@ metadata:
 spec:
   accessModes: ["ReadWriteMany"]
   storageClassName: synology-nfs
-  volumeName: synology-media
+  volumeName: synology-media-media
   resources:
     requests:
       storage: 1Mi
