@@ -11,6 +11,7 @@ resources:
   - ./flux-system
   - ./games
   - ./kube-system
+  - ./media
   - ./network
   - ./observability
   - ./openebs-system

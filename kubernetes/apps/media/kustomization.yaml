@@ -1,0 +1,23 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: media
+resources:
+  - ./namespace.yaml
+  # Shared PVCs
+  - ./synology.yaml
+  # Apps
+  # - ./audiobookshelf/ks.yaml
+  - ./bazarr/ks.yaml
+  # - ./jellyfin/ks.yaml
+  # - ./maintainerr/ks.yaml
+  # - ./overseerr/ks.yaml
+  # - ./plex/ks.yaml
+  # - ./prowlarr/ks.yaml
+  # - ./radarr/ks.yaml
+  # - ./sabnzbd/ks.yaml
+  # - ./sonarr/ks.yaml
+  # - ./tautulli/ks.yaml
+  # - ./tdarr/ks.yaml
+  # - ./watchstate/ks.yaml
