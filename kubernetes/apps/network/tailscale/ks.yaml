@@ -12,7 +12,6 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/network/tailscale/operator
   prune: true
-  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -36,7 +35,6 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/network/tailscale/configs
   prune: true
-  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

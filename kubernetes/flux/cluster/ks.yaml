@@ -24,6 +24,7 @@ spec:
           name: _
         spec:
           deletionPolicy: WaitForTermination
+          retryInterval: 1m
           patches:
             - patch: |-
                 apiVersion: helm.toolkit.fluxcd.io/v2

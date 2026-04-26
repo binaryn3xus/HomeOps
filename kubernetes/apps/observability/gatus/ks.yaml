@@ -21,7 +21,6 @@ spec:
       GATUS_SUBDOMAIN: status
       GATUS_WEB_PORT: "80"
   prune: true
-  retryInterval: 1m
   sourceRef:
     kind: GitRepository
     name: flux-system

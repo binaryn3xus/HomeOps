@@ -23,7 +23,6 @@ spec:
       name: *app
       namespace: *namespace
   interval: 30m
-  retryInterval: 1m
   path: ./kubernetes/apps/teleport/cluster/app
   postBuild:
     substitute:

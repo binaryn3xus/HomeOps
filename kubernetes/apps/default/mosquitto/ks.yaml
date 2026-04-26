@@ -15,7 +15,6 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/default/mosquitto/app
   prune: true
-  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system

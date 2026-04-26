@@ -12,7 +12,6 @@ spec:
   interval: 1h
   path: ./kubernetes/apps/network/certificates/import/app
   prune: true
-  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: flux-system
