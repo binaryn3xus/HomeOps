@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: jellyfin
-  namespace: default
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
