@@ -6,8 +6,7 @@ spec:
   ports:
     - name: http
       port: 80
-      targetPort: 80
-      protocol: TCP
+      targetPort: 9696
   selector:
     app.kubernetes.io/name: prowlarr
     app.kubernetes.io/instance: prowlarr
