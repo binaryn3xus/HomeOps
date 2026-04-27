@@ -37,7 +37,7 @@
 # - Scales down the target app to avoid database locks.
 # - Wipes the destination /config directory (leaving lost+found).
 # - Runs a manual Kopia restore Job from the chosen snapshot.
-# - Automatically fixes file ownership (568:1000) and permissions.
+# - Automatically detects file ownership from the deployment or defaults to 1000:1000.
 # - Resumes Flux to bring the app back online.
 # ==============================================================================
 
@@ -97,16 +97,25 @@ else
 fi
 
 # 4. Resolve TO_PVC (Default to detected or to_app_name)
+DEPLOY_INFO=$(kubectl get deployment -n "${TO_NS}" "${TO_APP}" -o json 2>/dev/null)
 if [ -z "$TO_PVC" ]; then
     echo "Attempting to detect PVC name for app '${TO_APP}'..."
-    TO_PVC=$(kubectl get deployment -n "${TO_NS}" "${TO_APP}" -o jsonpath='{.spec.template.spec.volumes[?(@.name=="config")].persistentVolumeClaim.claimName}' 2>/dev/null)
-    if [ -z "$TO_PVC" ]; then
+    TO_PVC=$(echo "$DEPLOY_INFO" | jq -r '.spec.template.spec.volumes[] | select(.name=="config") | .persistentVolumeClaim.claimName' 2>/dev/null)
+    if [ -z "$TO_PVC" ] || [ "$TO_PVC" == "null" ]; then
         TO_PVC=$TO_APP
         echo "Could not detect PVC from deployment 'config' volume. Using: ${TO_PVC}"
     else
         echo "✔ Detected PVC name: ${TO_PVC}"
     fi
 fi
+
+# 5. Detect UID/GID
+RUN_AS_USER=$(echo "$DEPLOY_INFO" | jq -r '.spec.template.spec.securityContext.runAsUser // .spec.template.spec.containers[0].securityContext.runAsUser // 1000' 2>/dev/null)
+RUN_AS_GROUP=$(echo "$DEPLOY_INFO" | jq -r '.spec.template.spec.securityContext.runAsGroup // .spec.template.spec.containers[0].securityContext.runAsGroup // 1000' 2>/dev/null)
+FS_GROUP=$(echo "$DEPLOY_INFO" | jq -r '.spec.template.spec.securityContext.fsGroup // 1000' 2>/dev/null)
+
+# For Arrs, we usually want 568:1000, but we'll trust the deployment if it says 1000
+echo "✔ Detected ownership requirements: UID=${RUN_AS_USER}, GID=${FS_GROUP}"
 
 echo "--- PHASE 1: STORAGE PREPARATION ---"
 
@@ -173,8 +182,8 @@ spec:
               find /config -mindepth 1 -maxdepth 1 ! -name 'lost+found' -exec rm -rf {} +
               echo "Restoring snapshot ${SNAP_ID}..."
               kopia snapshot restore ${SNAP_ID} /config --progress --log-level=info
-              echo "Fixing permissions (568:1000)..."
-              chown -R 568:1000 /config
+              echo "Fixing permissions (${RUN_AS_USER}:${FS_GROUP})..."
+              chown -R ${RUN_AS_USER}:${FS_GROUP} /config
               find /config -type d -exec chmod 775 {} +
               find /config -type f -exec chmod 664 {} +
               echo "Restore complete!"
