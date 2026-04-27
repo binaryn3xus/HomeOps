@@ -109,6 +109,10 @@ fish-restore:
 gemini-settings:
     nano "~/.gemini/settings.json"
 
+[doc('Migrate an app from one namespace to another with VolSync restore')]
+migrate-app app from_ns to_ns="" snap_id="":
+    ./scripts/migrate-app.sh "{{app}}" "{{from_ns}}" "{{to_ns}}" "{{snap_id}}"
+
 [doc('Report Key Vault secret usage in repo')]
 kv-usage-report vault_name="K8sHomeOpsKeyVault":
     ./scripts/kv_usage_report.sh "{{vault_name}}"
