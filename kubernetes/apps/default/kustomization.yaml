@@ -13,7 +13,6 @@ resources:
   - ./home-assistant/ks.yaml
   - ./it-tools/ks.yaml
   - ./jellyfin/ks.yaml
-  - ./maintainerr/ks.yaml
   - ./mosquitto/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml
