@@ -10,7 +10,7 @@ resources:
   # Apps
   # - ./audiobookshelf/ks.yaml
   - ./bazarr/ks.yaml
-  # - ./jellyfin/ks.yaml
+  - ./jellyfin/ks.yaml
   - ./maintainerr/ks.yaml
   # - ./overseerr/ks.yaml
   # - ./plex/ks.yaml
