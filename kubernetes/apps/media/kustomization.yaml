@@ -19,5 +19,5 @@ resources:
   - ./sabnzbd/ks.yaml
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
-  # - ./tdarr/ks.yaml
+  - ./tdarr/ks.yaml
   - ./watchstate/ks.yaml

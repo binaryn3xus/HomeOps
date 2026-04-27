@@ -3,7 +3,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app tdarr
-  namespace: &namespace default
+  namespace: &namespace media
 spec:
   commonMetadata:
     labels:
@@ -16,7 +16,7 @@ spec:
     - name: volsync
       namespace: volsync-system
   interval: 30m
-  path: ./kubernetes/apps/default/tdarr/app
+  path: ./kubernetes/apps/media/tdarr/app
   postBuild:
     substitute:
       APP: *app
@@ -33,16 +33,16 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app tdarr-workers
-  namespace: &namespace default
+  namespace: &namespace media
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: tdarr
-      namespace: default
+      namespace: media
   interval: 30m
-  path: ./kubernetes/apps/default/tdarr/workers
+  path: ./kubernetes/apps/media/tdarr/workers
   prune: true
   sourceRef:
     kind: GitRepository

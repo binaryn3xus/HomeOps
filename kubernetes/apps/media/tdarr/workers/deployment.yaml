@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tdarr-node
-  namespace: default
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
@@ -52,7 +51,7 @@ spec:
             - name: nodeID
               value: "tdarr-node"
             - name: serverIP
-              value: "tdarr.default.svc.cluster.local"
+              value: "tdarr.media.svc.cluster.local"
             - name: serverPort
               value: "8266"
             - name: nodeName
