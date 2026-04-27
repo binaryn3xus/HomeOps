@@ -53,11 +53,9 @@
     {
       "description": "Talos Group",
       "groupName": "talos",
-      "matchDatasources": [
-        "docker"
-      ],
       "matchPackageNames": [
-        "/installer/"
+        "ghcr.io/siderolabs/installer",
+        "aqua:siderolabs/talos"
       ],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
