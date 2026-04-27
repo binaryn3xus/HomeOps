@@ -18,6 +18,5 @@ resources:
   - ./sabnzbd/ks.yaml
   - ./tdarr/ks.yaml
   - ./vert/ks.yaml
-  - ./watchstate/ks.yaml
   - ./zigbee/ks.yaml
   - ./zwave/ks.yaml

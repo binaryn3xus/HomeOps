@@ -20,4 +20,4 @@ resources:
   - ./sonarr/ks.yaml
   - ./tautulli/ks.yaml
   # - ./tdarr/ks.yaml
-  # - ./watchstate/ks.yaml
+  - ./watchstate/ks.yaml
