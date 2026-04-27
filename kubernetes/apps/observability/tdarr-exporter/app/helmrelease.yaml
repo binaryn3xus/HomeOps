@@ -19,7 +19,7 @@ spec:
   values:
     settings:
       config:
-        url: http://tdarr.default.svc.cluster.local:8265
+        url: http://tdarr.media.svc.cluster.local:8265
         verify_ssl: false
 
     metrics:
