@@ -24,8 +24,8 @@ spec:
         runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
-        fsGroup: 568
-        fsGroupChangePolicy: OnRootMismatch
+        # fsGroup: 568 # Temporarily removed to speed up massive volume mounting
+        # fsGroupChangePolicy: OnRootMismatch
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
       containers:
