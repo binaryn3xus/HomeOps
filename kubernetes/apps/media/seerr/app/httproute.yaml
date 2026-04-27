@@ -9,7 +9,7 @@ spec:
       sectionName: https
   hostnames:
     - seerr.unscfleet.com
-    #- requests.unscfleet.com
+    - requests.unscfleet.com
   rules:
     - backendRefs:
         - name: seerr
