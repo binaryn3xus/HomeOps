@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: overseerr
-  namespace: default
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
