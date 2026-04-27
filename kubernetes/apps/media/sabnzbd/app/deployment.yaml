@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sabnzbd
-  namespace: default
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
@@ -34,7 +33,7 @@ spec:
             - name: SABNZBD__PORT
               value: "80"
             - name: SABNZBD__HOST_WHITELIST_ENTRIES
-              value: "sabnzbd, sabnzbd.default, sabnzbd.default.svc, sabnzbd.default.svc.cluster, sabnzbd.default.svc.cluster.local, sabnzbd.unscfleet.com"
+              value: "sabnzbd, sabnzbd.media, sabnzbd.media.svc, sabnzbd.media.svc.cluster, sabnzbd.media.svc.cluster.local, sabnzbd.unscfleet.com"
           ports:
             - name: http
               containerPort: 80
