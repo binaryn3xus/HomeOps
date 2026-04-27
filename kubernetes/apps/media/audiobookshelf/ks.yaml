@@ -3,7 +3,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app audiobookshelf
-  namespace: &namespace default
+  namespace: &namespace media
 spec:
   commonMetadata:
     labels:
@@ -16,7 +16,7 @@ spec:
     - name: volsync
       namespace: volsync-system
   interval: 30m
-  path: ./kubernetes/apps/default/audiobookshelf/app
+  path: ./kubernetes/apps/media/audiobookshelf/app
   postBuild:
     substitute:
       APP: *app
