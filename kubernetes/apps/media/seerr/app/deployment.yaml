@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seerr
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: seerr
+      app.kubernetes.io/instance: seerr
+      app.kubernetes.io/controller: seerr
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: seerr
+        app.kubernetes.io/instance: seerr
+        app.kubernetes.io/controller: seerr
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+      containers:
+        - name: app
+          image: ghcr.io/seerr-team/seerr:sha-d50bdad@sha256:2f2875ce0fd9b20e982f54b0281f61c4f7f969a53498c853eb106e205b2e8c33
+          env:
+            - name: TZ
+              value: "America/New_York"
+            - name: LOG_LEVEL
+              value: "info"
+            - name: PORT
+              value: "80"
+          ports:
+            - name: http
+              containerPort: 80
+          startupProbe:
+            httpGet:
+              path: /api/v1/status
+              port: 80
+            failureThreshold: 30
+            periodSeconds: 10
+          livenessProbe: &probe
+            httpGet:
+              path: /api/v1/status
+              port: 80
+            initialDelaySeconds: 0
+            periodSeconds: 10
+            timeoutSeconds: 1
+            failureThreshold: 3
+          readinessProbe: *probe
+          resources:
+            requests:
+              cpu: 50m
+              memory: 1Gi
+            limits:
+              cpu: 1000m
+              memory: 2Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: config
+              mountPath: /app/config
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: seerr
+        - name: tmp
+          emptyDir: {}
