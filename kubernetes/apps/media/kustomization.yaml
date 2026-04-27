@@ -8,7 +8,7 @@ resources:
   # Shared PVCs
   - ./synology.yaml
   # Apps
-  # - ./audiobookshelf/ks.yaml
+  - ./audiobookshelf/ks.yaml
   - ./bazarr/ks.yaml
   - ./jellyfin/ks.yaml
   - ./maintainerr/ks.yaml
