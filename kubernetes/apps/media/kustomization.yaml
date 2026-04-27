@@ -13,7 +13,7 @@ resources:
   - ./jellyfin/ks.yaml
   - ./maintainerr/ks.yaml
   # - ./overseerr/ks.yaml
-  # - ./plex/ks.yaml
+  - ./plex/ks.yaml
   - ./prowlarr/ks.yaml
   - ./radarr/ks.yaml
   # - ./sabnzbd/ks.yaml
