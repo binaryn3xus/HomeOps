@@ -1,13 +1,14 @@
 ---
+# General Media PVC
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: synology
-  namespace: paperless
+  name: synology-media
+  namespace: automation
 spec:
   accessModes: ["ReadWriteMany"]
   storageClassName: synology-nfs
-  volumeName: synology-paperless
+  volumeName: synology-media-automation
   resources:
     requests:
       storage: 1Mi
