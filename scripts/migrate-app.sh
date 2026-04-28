@@ -62,6 +62,7 @@ if [ -z "$KOPIA_POD" ]; then
 fi
 
 # 1. Fetch snapshot block for this identity
+# Extracts lines starting with spaces under the identity until the next identity or EOF
 BLOCK=$(kubectl exec -n volsync-system "$KOPIA_POD" -- kopia snapshot list --all | \
         sed -n "/^${SRC_APP}@${FROM_NS}:/,/^[a-z]/p" | grep "^  ")
 
@@ -85,13 +86,14 @@ if [ -n "$SEARCH_STR" ] && [ "$SEARCH_STR" != "latest" ]; then
         echo "Error: No snapshot found matching '${SEARCH_STR}'"
         exit 1
     fi
-    SNAP_ID=$(echo "$MATCH" | awk '{print $4}')
+    SNAP_ID=$(echo "$MATCH" | awk '{print $4}' | head -n 1)
     echo "✔ Resolved to snapshot ID: ${SNAP_ID} (${SEARCH_STR})"
 else
     echo "Selecting latest snapshot from ${SRC_APP}@${FROM_NS}..."
-    SNAP_ID=$(echo "$BLOCK" | grep "latest-1" | awk '{print $4}')
+    # Always take the last line of the block for the source namespace and ensure it's a single ID
+    SNAP_ID=$(echo "$BLOCK" | grep "latest-1" | awk '{print $4}' | head -n 1)
     if [ -z "$SNAP_ID" ]; then
-        SNAP_ID=$(echo "$BLOCK" | tail -n 1 | awk '{print $4}')
+        SNAP_ID=$(echo "$BLOCK" | tail -n 1 | awk '{print $4}' | head -n 1)
     fi
     echo "✔ Found latest snapshot: ${SNAP_ID}"
 fi
@@ -114,7 +116,10 @@ RUN_AS_USER=$(echo "$DEPLOY_INFO" | jq -r '.spec.template.spec.securityContext.r
 RUN_AS_GROUP=$(echo "$DEPLOY_INFO" | jq -r '.spec.template.spec.securityContext.runAsGroup // .spec.template.spec.containers[0].securityContext.runAsGroup // 1000' 2>/dev/null)
 FS_GROUP=$(echo "$DEPLOY_INFO" | jq -r '.spec.template.spec.securityContext.fsGroup // 1000' 2>/dev/null)
 
-# For Arrs, we usually want 568:1000, but we'll trust the deployment if it says 1000
+# Fallback for null/empty values from jq
+RUN_AS_USER=${RUN_AS_USER:-1000}
+FS_GROUP=${FS_GROUP:-1000}
+
 echo "✔ Detected ownership requirements: UID=${RUN_AS_USER}, GID=${FS_GROUP}"
 
 echo "--- PHASE 1: STORAGE PREPARATION ---"
