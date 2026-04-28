@@ -6,5 +6,4 @@ namespace: games
 resources:
   - ./namespace.yaml
   - ./externalsecret.yaml
-  - ./minecraft-bedrock/ks.yaml
   - ./minecraft-java/ks.yaml
