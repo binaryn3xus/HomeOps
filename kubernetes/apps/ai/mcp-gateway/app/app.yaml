@@ -1,8 +1,0 @@
-# Lunar App Configuration
-auth:
-  enabled: false
-permissions:
-  default:
-    _type: default-allow
-    block: []
-  consumers: {}
