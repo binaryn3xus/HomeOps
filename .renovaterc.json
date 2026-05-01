@@ -23,10 +23,13 @@
     "prIgnoreNotification"
   ],
   "rebaseWhen": "conflicted",
+  "flux": {
+    "fileMatch": ["\\.yaml(?:\\.j2)?$"]
+  },
   "helm-values": {
-    "managerFilePatterns": ["/\\.yaml(?:\\.j2)?$/"]
+    "fileMatch": ["\\.yaml(?:\\.j2)?$"]
   },
   "kubernetes": {
-    "managerFilePatterns": ["/\\.yaml(?:\\.j2)?$/"]
+    "fileMatch": ["\\.yaml(?:\\.j2)?$"]
   }
 }
