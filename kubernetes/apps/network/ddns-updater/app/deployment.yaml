@@ -27,7 +27,7 @@ spec:
         runAsGroup: 1000
       containers:
         - name: app
-          image: ghcr.io/qdm12/ddns-updater:v2.9.0
+          image: ghcr.io/qdm12/ddns-updater:v2.10.0
           ports:
             - name: http
               containerPort: 8000
