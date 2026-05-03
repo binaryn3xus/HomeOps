@@ -19,9 +19,9 @@ spec:
     storageClass: ceph-block
 
   postgresql:
+    shared_preload_libraries:
+      - "timescaledb"
     parameters:
-      # Required for TimescaleDB extension
-      shared_preload_libraries: "timescaledb"
       # Specific tunings for Tracearr/TimescaleDB
       shared_buffers: 512MB
       effective_cache_size: 2GB
