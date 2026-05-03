@@ -1,0 +1,57 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: tracearr-db
+  namespace: media
+spec:
+  instances: 1
+  # Use an image that includes TimescaleDB. 
+  # This version matches the Tracearr documentation and the user's existing PG18 cluster.
+  # # renovate: datasource=docker depName=timescale/timescaledb-ha
+  imageName: timescale/timescaledb-ha:pg18.1-ts2.25.0
+  
+  primaryUpdateStrategy: unsupervised
+  
+  storage:
+    size: 50Gi
+    storageClass: ceph-block
+
+  postgresql:
+    parameters:
+      # Specific tunings for Tracearr/TimescaleDB
+      shared_buffers: 512MB
+      effective_cache_size: 2GB
+      work_mem: 16MB
+      maintenance_work_mem: 256MB
+      max_locks_per_transaction: "4096"
+      random_page_cost: "1.1"
+      effective_io_concurrency: "200"
+      timescaledb.max_tuples_decompressed_per_dml_transaction: "0"
+      timescaledb.telemetry_level: "off"
+
+  bootstrap:
+    initdb:
+      database: tracearr
+      owner: tracearr
+      secret:
+        name: tracearr-secret # This matches the name in ExternalSecret
+
+  resources:
+    requests:
+      cpu: 500m
+      memory: 2Gi
+    limits:
+      cpu: "2"
+      memory: 4Gi
+
+  monitoring:
+    enablePodMonitor: true
+
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      enabled: true
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: tracearr-db

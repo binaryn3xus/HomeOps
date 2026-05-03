@@ -1,0 +1,64 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tracearr
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: ./docker/helm/tracearr
+      sourceRef:
+        kind: GitRepository
+        name: tracearr
+      interval: 30m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    tracearr:
+      resources:
+        requests:
+          cpu: 100m
+          memory: 512Mi
+        limits:
+          cpu: 1000m
+          memory: 1Gi
+      env:
+        TZ: America/New_York
+      podSecurityContext:
+        fsGroup: 568
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+      backups:
+        enabled: false # Using CNPG for DB management
+      imageCache:
+        enabled: true
+        size: 5Gi
+        storageClass: ceph-block
+    timescale:
+      enabled: false # Using dedicated CNPG cluster
+    redis:
+      enabled: true # Internal redis for low-latency state
+      persistence:
+        enabled: true
+        size: 2Gi
+        storageClass: ceph-block
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 1000m
+          memory: 512Mi
+    ingress:
+      enabled: false
+    secrets:
+      autoGenerate: false
+      existingSecret: tracearr-secret
