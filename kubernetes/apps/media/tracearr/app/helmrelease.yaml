@@ -8,10 +8,12 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: ./docker/helm/tracearr
+      chart: tracearr
+      version: 0.1.0
       sourceRef:
-        kind: GitRepository
+        kind: HelmRepository
         name: tracearr
+        namespace: media
       interval: 30m
   install:
     remediation:

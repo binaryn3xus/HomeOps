@@ -7,7 +7,7 @@ commonLabels:
   app.kubernetes.io/instance: tracearr
   app.kubernetes.io/controller: tracearr
 resources:
-  - ./gitrepository.yaml
+  - ./helmrepository.yaml
   - ./externalsecret.yaml
   - ./db-cluster.yaml
   - ./objectstore.yaml
