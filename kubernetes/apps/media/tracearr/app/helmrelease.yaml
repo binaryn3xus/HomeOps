@@ -31,12 +31,6 @@ spec:
           memory: 1Gi
       env:
         TZ: America/New_York
-      extraEnv:
-        - name: DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: tracearr-secret
-              key: DATABASE_URL
       podSecurityContext:
         fsGroup: 568
       securityContext:
@@ -48,6 +42,11 @@ spec:
         enabled: true
         size: 5Gi
         storageClass: ceph-block
+    externalDatabase:
+      host: tracearr-db-rw.media.svc.cluster.local
+      port: 5432
+      user: tracearr
+      database: tracearr
     timescale:
       enabled: false # Using dedicated CNPG cluster
     redis:

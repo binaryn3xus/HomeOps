@@ -39,6 +39,11 @@ spec:
       owner: tracearr
       secret:
         name: tracearr-secret # This matches the name in ExternalSecret
+      # Required extensions for Tracearr
+      postInitApplicationSQL:
+        - CREATE EXTENSION IF NOT EXISTS timescaledb;
+        - CREATE EXTENSION IF NOT EXISTS timescaledb_toolkit;
+        - CREATE EXTENSION IF NOT EXISTS pg_trgm;
 
   resources:
     requests:
