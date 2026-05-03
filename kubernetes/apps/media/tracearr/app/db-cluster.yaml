@@ -7,10 +7,10 @@ metadata:
   namespace: media
 spec:
   instances: 1
-  # Use an image that includes TimescaleDB. 
-  # This version matches the Tracearr documentation and the user's existing PG18 cluster.
-  # # renovate: datasource=docker depName=timescale/timescaledb-ha
-  imageName: timescale/timescaledb-ha:pg18.1-ts2.25.0
+  # Use an image that is specifically built for CloudNative-PG and includes TimescaleDB.
+  # The official timescale/timescaledb-ha images are incompatible with CNPG's UID/GID and directory layout.
+  # # renovate: datasource=docker depName=ghcr.io/clevyr/cloudnativepg-timescale
+  imageName: ghcr.io/clevyr/cloudnativepg-timescale:16
   
   primaryUpdateStrategy: unsupervised
   
@@ -20,6 +20,8 @@ spec:
 
   postgresql:
     parameters:
+      # Required for TimescaleDB extension
+      shared_preload_libraries: "timescaledb"
       # Specific tunings for Tracearr/TimescaleDB
       shared_buffers: 512MB
       effective_cache_size: 2GB
