@@ -5,6 +5,7 @@ kind: Kustomization
 commonLabels:
   app.kubernetes.io/name: tracearr
   app.kubernetes.io/instance: tracearr
+  app.kubernetes.io/controller: tracearr
 resources:
   - ./externalsecret.yaml
   - ./db-cluster.yaml
