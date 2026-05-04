@@ -3,11 +3,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tracearr
-  namespace: media
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: tracearr
@@ -21,9 +22,12 @@ spec:
         app.kubernetes.io/controller: tracearr
     spec:
       securityContext:
+        runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
         fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
       containers:
         - name: app
           image: ghcr.io/connorgallopo/tracearr:1.4.27
@@ -55,6 +59,11 @@ spec:
             limits:
               cpu: 1000m
               memory: 1Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
           volumeMounts:
             - name: image-cache
               mountPath: /app/data/image-cache
@@ -67,9 +76,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tracearr-redis
-  namespace: media
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/name: tracearr
@@ -83,8 +93,10 @@ spec:
         app.kubernetes.io/controller: redis
     spec:
       securityContext:
+        runAsNonRoot: true
         runAsUser: 65534
         runAsGroup: 65534
+        seccompProfile: { type: RuntimeDefault }
       containers:
         - name: redis
           image: ghcr.io/valkey-io/valkey:8.0.2
@@ -98,16 +110,12 @@ spec:
               containerPort: 6379
           livenessProbe:
             exec:
-              command:
-                - valkey-cli
-                - ping
+              command: [valkey-cli, ping]
             initialDelaySeconds: 5
             periodSeconds: 10
           readinessProbe:
             exec:
-              command:
-                - valkey-cli
-                - ping
+              command: [valkey-cli, ping]
             initialDelaySeconds: 5
             periodSeconds: 10
           resources:
@@ -117,6 +125,11 @@ spec:
             limits:
               cpu: 1000m
               memory: 512Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: [ALL]
           volumeMounts:
             - name: redis-data
               mountPath: /data

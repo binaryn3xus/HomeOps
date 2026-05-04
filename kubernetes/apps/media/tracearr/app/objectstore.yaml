@@ -3,7 +3,6 @@ apiVersion: barmancloud.cnpg.io/v1
 kind: ObjectStore
 metadata:
   name: tracearr-db
-  namespace: media
 spec:
   configuration:
     data:

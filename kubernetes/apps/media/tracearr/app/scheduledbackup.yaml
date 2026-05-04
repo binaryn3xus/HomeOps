@@ -4,7 +4,6 @@ apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
   name: tracearr-db
-  namespace: media
 spec:
   backupOwnerReference: self
   cluster:

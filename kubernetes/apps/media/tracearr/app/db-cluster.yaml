@@ -4,25 +4,17 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: tracearr-db
-  namespace: media
 spec:
   instances: 1
-  # Use an image that is specifically built for CloudNative-PG and includes TimescaleDB.
-  # The official timescale/timescaledb-ha images are incompatible with CNPG's UID/GID and directory layout.
-  # # renovate: datasource=docker depName=ghcr.io/clevyr/cloudnativepg-timescale
   imageName: ghcr.io/clevyr/cloudnativepg-timescale:16
-  
   primaryUpdateStrategy: unsupervised
-  
   storage:
     size: 50Gi
     storageClass: ceph-block
-
   postgresql:
     shared_preload_libraries:
       - "timescaledb"
     parameters:
-      # Specific tunings for Tracearr/TimescaleDB
       shared_buffers: 512MB
       effective_cache_size: 2GB
       work_mem: 16MB
@@ -32,19 +24,16 @@ spec:
       effective_io_concurrency: "200"
       timescaledb.max_tuples_decompressed_per_dml_transaction: "0"
       timescaledb.telemetry_level: "off"
-
   bootstrap:
     initdb:
       database: tracearr
       owner: tracearr
       secret:
-        name: tracearr-secret # This matches the name in ExternalSecret
-      # Required extensions for Tracearr
+        name: tracearr-secret
       postInitApplicationSQL:
         - CREATE EXTENSION IF NOT EXISTS timescaledb;
         - CREATE EXTENSION IF NOT EXISTS timescaledb_toolkit;
         - CREATE EXTENSION IF NOT EXISTS pg_trgm;
-
   resources:
     requests:
       cpu: 500m
@@ -52,10 +41,8 @@ spec:
     limits:
       cpu: "2"
       memory: 4Gi
-
   monitoring:
     enablePodMonitor: true
-
   plugins:
     - name: barman-cloud.cloudnative-pg.io
       enabled: true
