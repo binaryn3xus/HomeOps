@@ -5,12 +5,12 @@ kind: Kustomization
 commonLabels:
   app.kubernetes.io/name: tracearr
   app.kubernetes.io/instance: tracearr
-  app.kubernetes.io/controller: tracearr
 resources:
-  - ./helmrepository.yaml
   - ./externalsecret.yaml
   - ./db-cluster.yaml
   - ./objectstore.yaml
   - ./scheduledbackup.yaml
-  - ./helmrelease.yaml
+  - ./pvc.yaml
+  - ./deployment.yaml
+  - ./service.yaml
   - ./httproute.yaml
