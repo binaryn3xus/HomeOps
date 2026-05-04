@@ -99,7 +99,7 @@ spec:
         seccompProfile: { type: RuntimeDefault }
       containers:
         - name: redis
-          image: ghcr.io/valkey-io/valkey:8.0.2
+          image: ghcr.io/valkey-io/valkey:9.0.3
           args:
             - --save
             - ""
