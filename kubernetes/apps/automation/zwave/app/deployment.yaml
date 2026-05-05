@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: ghcr.io/zwave-js/zwave-js-ui:11.16.2
+          image: ghcr.io/zwave-js/zwave-js-ui:11.17.0
           envFrom:
             - configMapRef:
                 name: zwave-config
