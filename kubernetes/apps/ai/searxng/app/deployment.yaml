@@ -104,7 +104,7 @@ spec:
         runAsGroup: 65534
       containers:
         - name: redis
-          image: ghcr.io/valkey-io/valkey:9.0.3
+          image: ghcr.io/valkey-io/valkey:9.0.4
           args:
             - --save
             - ""
