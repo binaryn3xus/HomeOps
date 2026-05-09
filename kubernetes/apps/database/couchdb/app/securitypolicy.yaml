@@ -1,0 +1,26 @@
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: couchdb
+  namespace: database
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: couchdb
+  cors:
+    allowOrigins:
+      - "*"
+    allowMethods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - OPTIONS
+      - HEAD
+    allowHeaders:
+      - "*"
+    exposeHeaders:
+      - "*"
+    allowCredentials: true
+    maxAge: 24h
