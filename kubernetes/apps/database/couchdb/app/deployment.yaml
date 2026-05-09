@@ -39,26 +39,25 @@ spec:
           ports:
             - name: http
               containerPort: 5984
-          # Temporarily disabled probes to allow debugging
-          # livenessProbe:
-          #   httpGet:
-          #     path: /_up
-          #     port: 5984
-          #   initialDelaySeconds: 10
-          #   periodSeconds: 10
-          # readinessProbe:
-          #   httpGet:
-          #     path: /_up
-          #     port: 5984
-          #   initialDelaySeconds: 5
-          #   periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /_up
+              port: 5984
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /_up
+              port: 5984
+            initialDelaySeconds: 5
+            periodSeconds: 10
           resources:
             requests:
               cpu: 100m
-              memory: 256Mi
+              memory: 1Gi
             limits:
               cpu: 500m
-              memory: 1Gi
+              memory: 2Gi
           volumeMounts:
             - name: data
               mountPath: /opt/couchdb/data

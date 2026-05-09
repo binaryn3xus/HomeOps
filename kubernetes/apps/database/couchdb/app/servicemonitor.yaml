@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: couchdb
+  namespace: database
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: couchdb
+      app.kubernetes.io/instance: couchdb
+      app.kubernetes.io/controller: couchdb
+  endpoints:
+    - port: http
+      interval: 1m
+      path: /_node/_local/_prometheus
