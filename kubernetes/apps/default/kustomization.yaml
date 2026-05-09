@@ -7,4 +7,3 @@ resources:
   - ./namespace.yaml
   # Apps
   - ./it-tools/ks.yaml
-  - ./obsidian/ks.yaml
