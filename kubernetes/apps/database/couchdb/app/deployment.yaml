@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: couchdb
+  namespace: database
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: couchdb
+      app.kubernetes.io/instance: couchdb
+      app.kubernetes.io/controller: couchdb
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: couchdb
+        app.kubernetes.io/instance: couchdb
+        app.kubernetes.io/controller: couchdb
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+      containers:
+        - name: app
+          image: public.ecr.aws/docker/library/couchdb:3.4.2
+          env:
+            - name: TZ
+              value: America/New_York
+          envFrom:
+            - secretRef:
+                name: couchdb-secret
+          ports:
+            - name: http
+              containerPort: 5984
+          livenessProbe:
+            httpGet:
+              path: /_up
+              port: 5984
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /_up
+              port: 5984
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 1Gi
+          volumeMounts:
+            - name: data
+              mountPath: /opt/couchdb/data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: couchdb

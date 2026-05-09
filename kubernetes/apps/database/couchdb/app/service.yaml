@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: couchdb
+  namespace: database
+spec:
+  ports:
+    - name: http
+      port: 5984
+      protocol: TCP
+      targetPort: 5984
+  selector:
+    app.kubernetes.io/name: couchdb
+    app.kubernetes.io/instance: couchdb
+    app.kubernetes.io/controller: couchdb
