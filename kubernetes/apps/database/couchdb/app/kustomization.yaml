@@ -7,3 +7,8 @@ resources:
   - ./externalsecret.yaml
   - ./httproute.yaml
   - ./service.yaml
+
+configMapGenerator:
+  - name: couchdb-config
+    files:
+      - cors.ini
