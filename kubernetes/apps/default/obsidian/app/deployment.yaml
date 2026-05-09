@@ -33,6 +33,8 @@ spec:
               value: "1000"
             - name: PGID
               value: "1000"
+            - name: OBSIDIAN_EXTRA_FLAGS
+              value: --disable-gpu
           ports:
             - name: http
               containerPort: 3000
