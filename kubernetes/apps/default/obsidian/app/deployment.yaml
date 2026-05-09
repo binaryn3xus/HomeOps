@@ -33,8 +33,12 @@ spec:
               value: "1000"
             - name: PGID
               value: "1000"
+            - name: DISABLE_GPU
+              value: "true"
             - name: OBSIDIAN_EXTRA_FLAGS
-              value: "--disable-gpu --no-sandbox"
+              value: "--disable-gpu --no-sandbox --disable-gpu-compositing"
+            - name: LIBGL_ALWAYS_SOFTWARE
+              value: "1"
           ports:
             - name: http
               containerPort: 3000
@@ -48,7 +52,13 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
+            - name: shm
+              mountPath: /dev/shm
       volumes:
         - name: config
           persistentVolumeClaim:
             claimName: obsidian
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 2Gi
