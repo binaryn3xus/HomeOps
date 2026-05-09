@@ -43,15 +43,19 @@ spec:
               value: "--disable-gpu --no-sandbox --disable-gpu-compositing"
             - name: LIBGL_ALWAYS_SOFTWARE
               value: "1"
+            - name: SELKIES_AUDIO_ENABLED
+              value: "false"
+            - name: SELKIES_FRAMERATE
+              value: "30"
           ports:
             - name: http
               containerPort: 3000
           resources:
             requests:
-              cpu: 500m
-              memory: 1Gi
+              cpu: 1000m
+              memory: 2Gi
             limits:
-              cpu: 2000m
+              cpu: 4000m
               memory: 4Gi
           volumeMounts:
             - name: config

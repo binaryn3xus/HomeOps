@@ -6,3 +6,4 @@ resources:
   - ./deployment.yaml
   - ./httproute.yaml
   - ./service.yaml
+  - ./security.yaml

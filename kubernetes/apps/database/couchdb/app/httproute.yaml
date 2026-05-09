@@ -10,7 +10,7 @@ metadata:
         query-type: A
 spec:
   parentRefs:
-    - name: envoy-internal
+    - name: envoy-external
       namespace: network
       sectionName: https
   hostnames:
