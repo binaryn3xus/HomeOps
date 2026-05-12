@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: ghcr.io/open-webui/open-webui:v0.9.2
+          image: ghcr.io/open-webui/open-webui:v0.9.5
           envFrom:
             - configMapRef:
                 name: open-webui-env
