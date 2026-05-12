@@ -1,4 +1,4 @@
 [tools]
 gh = "2.92.0"
 "aqua:kubernetes/kubectl" = "1.35.3"
-"aqua:siderolabs/talos" = "1.13.1"
+"aqua:siderolabs/talos" = "1.13.2"
