@@ -3,11 +3,6 @@ kind: HTTPRoute
 metadata:
   name: couchdb
   namespace: database
-  annotations:
-    gatus.home-operations.com/endpoint: |-
-      dns:
-        query-name: couchdb.unscfleet.com
-        query-type: A
 spec:
   parentRefs:
     - name: envoy-external
