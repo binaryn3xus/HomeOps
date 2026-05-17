@@ -12,6 +12,10 @@ spec:
   hostnames:
     - worksphere.unscfleet.com
   rules:
-    - backendRefs:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
         - name: worksphere
           port: 8080
