@@ -10,5 +10,5 @@ resources:
   - ./deployment.yaml
   - ./externalsecret.yaml
   - ./httproute.yaml
-  # - ./securitypolicy.yaml
+  - ./securitypolicy.yaml
   - ./service.yaml

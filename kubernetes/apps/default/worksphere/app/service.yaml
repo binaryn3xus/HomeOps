@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: worksphere
+  namespace: default
 spec:
   selector:
     app.kubernetes.io/name: worksphere
