@@ -28,7 +28,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: app
-          image: ghcr.io/advplyr/audiobookshelf:2.34.0
+          image: ghcr.io/advplyr/audiobookshelf:2.35.0
           env:
             - name: TZ
               value: America/New_York
