@@ -28,7 +28,7 @@ spec:
           type: RuntimeDefault
       initContainers:
         - name: init-config
-          image: docker.io/library/alpine:3.21
+          image: docker.io/library/alpine:3.23
           command:
             - sh
             - -c
