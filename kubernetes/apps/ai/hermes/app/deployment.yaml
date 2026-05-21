@@ -53,6 +53,8 @@ spec:
               value: /opt/data
             - name: TZ
               value: America/New_York
+            - name: GATEWAY_ALLOW_ALL_USERS
+              value: "true"
           ports:
             - containerPort: 8642
               name: http
@@ -80,6 +82,8 @@ spec:
               value: "http://localhost:8642"
             - name: TZ
               value: America/New_York
+            - name: GATEWAY_ALLOW_ALL_USERS
+              value: "true"
           ports:
             - containerPort: 9119
               name: dashboard
