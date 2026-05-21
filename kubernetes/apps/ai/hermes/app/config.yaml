@@ -1,0 +1,23 @@
+# Hermes Agent CLI Configuration
+model:
+  default: "gemma4:e4b"
+  provider: "custom"
+  base_url: "http://ollama.ai.svc.cluster.local:11434/v1"
+
+agent:
+  max_turns: 60
+  verbose: false
+  reasoning_effort: "medium"
+
+display:
+  skin: default
+  streaming: true
+  tool_progress: all
+
+terminal:
+  backend: "local"
+  cwd: "/opt/data"
+  timeout: 60
+
+skills:
+  creation_nudge_interval: 15

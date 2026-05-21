@@ -6,7 +6,7 @@ metadata:
   namespace: ai
 spec:
   ports:
-    - name: gateway
+    - name: http
       port: 8642
       targetPort: 8642
     - name: dashboard

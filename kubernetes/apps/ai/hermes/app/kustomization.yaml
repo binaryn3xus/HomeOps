@@ -5,3 +5,10 @@ resources:
   - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml
+  - ./rbac.yaml
+configMapGenerator:
+  - name: hermes-config
+    files:
+      - config.yaml
+generatorOptions:
+  disableNameSuffixHash: true
