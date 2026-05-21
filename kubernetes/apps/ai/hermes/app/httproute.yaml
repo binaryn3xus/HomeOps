@@ -5,10 +5,7 @@ metadata:
   name: hermes
   namespace: ai
   annotations:
-    gatus.home-operations.com/endpoint: |-
-      dns:
-        query-name: hermes.unscfleet.com
-        query-type: A
+    gatus.home-operations.com/enabled: "false"
 spec:
   parentRefs:
     - name: envoy-internal
