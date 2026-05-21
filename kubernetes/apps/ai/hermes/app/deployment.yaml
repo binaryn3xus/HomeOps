@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hermes
+  namespace: ai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hermes
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: hermes
+    spec:
+      containers:
+        - name: hermes
+          image: nousresearch/hermes-agent:latest
+          command: ["sh", "-c", "if [ ! -f /opt/data/.env ]; then hermes setup --non-interactive --provider ollama --model gemma4:e4b --url http://ollama.ai.svc.cluster.local:11434; fi && hermes gateway run"]
+          ports:
+            - containerPort: 8642
+              name: gateway
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+          volumeMounts:
+            - name: data
+              mountPath: /opt/data
+        - name: dashboard
+          image: nousresearch/hermes-agent:latest
+          command: ["hermes", "dashboard", "--host", "0.0.0.0", "--insecure"]
+          env:
+            - name: GATEWAY_HEALTH_URL
+              value: "http://localhost:8642"
+          ports:
+            - containerPort: 9119
+              name: dashboard
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          volumeMounts:
+            - name: data
+              mountPath: /opt/data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: hermes
