@@ -14,7 +14,7 @@ spec:
     - name: volsync
       namespace: volsync-system
   components:
-    - ../../../components/volsync
+    - ../../../../components/volsync
   interval: 30m
   path: ./kubernetes/apps/ai/hermes/app
   postBuild:
