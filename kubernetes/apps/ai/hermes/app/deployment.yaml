@@ -57,6 +57,9 @@ spec:
               value: "true"
             - name: PATH
               value: "/opt/hermes/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+          envFrom:
+            - secretRef:
+                name: hermes-agent-secret
           ports:
             - containerPort: 8642
               name: http
@@ -86,6 +89,9 @@ spec:
               value: America/New_York
             - name: GATEWAY_ALLOW_ALL_USERS
               value: "true"
+          envFrom:
+            - secretRef:
+                name: hermes-agent-secret
           ports:
             - containerPort: 9119
               name: dashboard

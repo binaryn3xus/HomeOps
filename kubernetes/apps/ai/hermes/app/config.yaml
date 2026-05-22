@@ -1,23 +1,34 @@
-# Hermes Agent CLI Configuration
 model:
-  default: "gemma4:e4b"
-  provider: "custom"
-  base_url: "http://ollama.ai.svc.cluster.local:11434/v1"
+  default: "gpt-5.3-codex"
+  provider: "openai-codex"
 
 agent:
   max_turns: 60
   verbose: false
   reasoning_effort: "medium"
 
-display:
-  skin: default
-  streaming: true
-  tool_progress: all
-
 terminal:
   backend: "local"
   cwd: "/opt/data"
   timeout: 60
+
+display:
+  personality: "kawaii"
+  streaming: true
+  tool_progress: all
+
+discord:
+  require_mention: false
+  free_response_channels: "1506866536508555414"
+  allowed_channels: "1506866536508555414"
+  auto_thread: false
+  thread_require_mention: false
+  history_backfill: true
+  history_backfill_limit: 50
+  reactions: false
+  channel_prompts: {}
+  dm_role_auth_guild: ""
+  server_actions: ""
 
 skills:
   creation_nudge_interval: 15
