@@ -18,13 +18,13 @@ display:
   tool_progress: all
 
 discord:
-  require_mention: false
+  require_mention: true
   free_response_channels: "1506866536508555414"
   allowed_channels: "1506866536508555414"
-  auto_thread: false
+  auto_thread: true
   thread_require_mention: false
   history_backfill: true
-  history_backfill_limit: 50
+  history_backfill_limit: 30
   reactions: false
   channel_prompts: {}
   dm_role_auth_guild: ""
