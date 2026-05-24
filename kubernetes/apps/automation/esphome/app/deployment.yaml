@@ -28,7 +28,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: app
-          image: ghcr.io/esphome/esphome:2026.5.0
+          image: ghcr.io/esphome/esphome:2026.5.1
           env:
             - name: TZ
               value: America/New_York
