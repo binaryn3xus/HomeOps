@@ -1,0 +1,19 @@
+name: Local Assistant
+version: 1.0.0
+schema: v1
+
+models:
+  - name: LMStudio Local
+    provider: openai
+    model: qwen2.5-coder-7b-instruct
+    apiBase: http://127.0.0.1:1234/v1
+    apiKey: lm-studio
+
+context:
+  - provider: code
+  - provider: docs
+  - provider: diff
+  - provider: terminal
+  - provider: problems
+  - provider: folder
+  - provider: codebase
