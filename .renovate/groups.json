@@ -55,6 +55,7 @@
       "groupName": "talos",
       "matchPackageNames": [
         "ghcr.io/siderolabs/installer",
+        "ghcr.io/siderolabs/talosctl",
         "aqua:siderolabs/talos"
       ],
       "group": {
