@@ -1,0 +1,12 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:
+  app.kubernetes.io/name: qbittorrent
+  app.kubernetes.io/instance: qbittorrent
+  app.kubernetes.io/controller: qbittorrent
+resources:
+  - ./deployment.yaml
+  - ./service.yaml
+  - ./httproute.yaml
