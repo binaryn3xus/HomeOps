@@ -58,10 +58,10 @@ spec:
           resources:
             requests:
               cpu: 10m
-              memory: 250Mi
+              memory: 512Mi
             limits:
               cpu: 1000m
-              memory: 1024Mi
+              memory: 4Gi
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
@@ -73,6 +73,10 @@ spec:
               mountPath: /config
             - name: media
               mountPath: /media
+            - name: tmp
+              mountPath: /tmp
+            - name: shared-memory
+              mountPath: /dev/shm
       volumes:
         - name: config
           persistentVolumeClaim:
@@ -80,3 +84,9 @@ spec:
         - name: media
           persistentVolumeClaim:
             claimName: synology-media
+        - name: tmp
+          emptyDir: {}
+        - name: shared-memory
+          emptyDir:
+            medium: Memory
+            sizeLimit: 1Gi
