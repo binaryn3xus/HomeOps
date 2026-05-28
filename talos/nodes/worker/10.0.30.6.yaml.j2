@@ -6,7 +6,7 @@ machine:
     - 10.0.30.6
   install:
     # Using your custom NVIDIA/Intel schematic
-    image: factory.talos.dev/installer/1a45a19fd1e3d4eba81a2dc53c8874f5a92d1dc5184d29615bef438479f2ec61:v1.13.3
+    image: factory.talos.dev/installer/6f43f6430486b87982702c276babd85036ec0d053be46bbb9419dc658e8d2091:v1.13.3
     diskSelector:
       wwid: "eui.0025388a81b3ccee"
     # Needed for NVIDIA GPU Gen 3+ support
@@ -27,9 +27,26 @@ machine:
         dhcp: false
   kernel:
     modules:
+      - name: nbd
       - name: nvidia
       - name: nvidia_uvm
       - name: nvidia_drm
+      - name: nvidia_modeset
+  files:
+    - op: create
+      path: /etc/cri/conf.d/20-customization.part
+      content: |
+        [plugins."io.containerd.grpc.v1.cri".registry]
+          config_path = "/etc/cri/conf.d/hosts"
+          max_concurrent_downloads = 10
+        [plugins."io.containerd.cri.v1.images"]
+          discard_unpacked_layers = false
+        [plugins."io.containerd.cri.v1.runtime"]
+          device_ownership_from_security_context = true
+        [plugins."io.containerd.cri.v1.runtime".containerd.runtimes.nvidia]
+          runtime_type = "io.containerd.runc.v2"
+          [plugins."io.containerd.cri.v1.runtime".containerd.runtimes.nvidia.options]
+            BinaryName = "/usr/local/bin/nvidia-container-runtime"
   nodeLabels:
     node-role.kubernetes.io/worker: ""
     sku: gpu
@@ -45,5 +62,3 @@ machine:
         - key: sku
           value: gpu
           effect: NoSchedule
-
-
