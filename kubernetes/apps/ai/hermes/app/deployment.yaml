@@ -44,7 +44,7 @@ spec:
               subPath: config.yaml
       containers:
         - name: hermes
-          image: nousresearch/hermes-agent:v2026.5.16@sha256:b6e41c155d6bfce5ad83c5d0fec670086db8a43250e4511c9474134be5482d33
+          image: nousresearch/hermes-agent:v2026.5.28@sha256:497d818208838f2cd3fb992b999450856acc725c6d97c55962289f1fd92b8b91
           args: ["gateway", "run"]
           env:
             - name: HERMES_HOME
@@ -80,7 +80,7 @@ spec:
               add: ["CHOWN"]
               drop: ["ALL"]
         - name: dashboard
-          image: nousresearch/hermes-agent:v2026.5.16@sha256:b6e41c155d6bfce5ad83c5d0fec670086db8a43250e4511c9474134be5482d33
+          image: nousresearch/hermes-agent:v2026.5.28@sha256:497d818208838f2cd3fb992b999450856acc725c6d97c55962289f1fd92b8b91
           args: ["dashboard", "--host", "0.0.0.0", "--insecure"]
           env:
             - name: GATEWAY_HEALTH_URL
