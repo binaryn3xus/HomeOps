@@ -20,15 +20,15 @@ spec:
     spec:
       serviceAccountName: hermes
       securityContext:
-        runAsUser: 10000
-        runAsGroup: 10000
+        runAsUser: 0
+        runAsGroup: 0
         fsGroup: 10000
         fsGroupChangePolicy: OnRootMismatch
-        seccompProfile:
-          type: RuntimeDefault
       initContainers:
         - name: init-config
           image: docker.io/library/alpine:3.23
+          securityContext:
+            runAsUser: 0
           command:
             - sh
             - -c
@@ -36,16 +36,27 @@ spec:
               set -euo pipefail
               cp /tmp/config.yaml /opt/data/config.yaml
               chown 10000:10000 /opt/data/config.yaml
+              chown 10000:10000 /run-hermes /run-dashboard /tmp-hermes /tmp-dashboard
           volumeMounts:
             - name: data
               mountPath: /opt/data
             - name: config-file
               mountPath: /tmp/config.yaml
               subPath: config.yaml
+            - name: run-hermes
+              mountPath: /run-hermes
+            - name: run-dashboard
+              mountPath: /run-dashboard
+            - name: tmp-hermes
+              mountPath: /tmp-hermes
+            - name: tmp-dashboard
+              mountPath: /tmp-dashboard
       containers:
         - name: hermes
           image: nousresearch/hermes-agent:v2026.5.28@sha256:497d818208838f2cd3fb992b999450856acc725c6d97c55962289f1fd92b8b91
           args: ["gateway", "run"]
+          securityContext:
+            runAsUser: 0
           env:
             - name: HERMES_HOME
               value: /opt/data
@@ -73,15 +84,15 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /opt/data
-          securityContext:
-            allowPrivilegeEscalation: false
-            readOnlyRootFilesystem: false
-            capabilities:
-              add: ["CHOWN"]
-              drop: ["ALL"]
+            - name: run-hermes
+              mountPath: /run
+            - name: tmp-hermes
+              mountPath: /tmp
         - name: dashboard
           image: nousresearch/hermes-agent:v2026.5.28@sha256:497d818208838f2cd3fb992b999450856acc725c6d97c55962289f1fd92b8b91
           args: ["dashboard", "--host", "0.0.0.0", "--insecure"]
+          securityContext:
+            runAsUser: 0
           env:
             - name: GATEWAY_HEALTH_URL
               value: "http://localhost:8642"
@@ -105,6 +116,10 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /opt/data
+            - name: run-dashboard
+              mountPath: /run
+            - name: tmp-dashboard
+              mountPath: /tmp
       volumes:
         - name: data
           persistentVolumeClaim:
@@ -112,3 +127,11 @@ spec:
         - name: config-file
           configMap:
             name: hermes-config
+        - name: run-hermes
+          emptyDir: {}
+        - name: run-dashboard
+          emptyDir: {}
+        - name: tmp-hermes
+          emptyDir: {}
+        - name: tmp-dashboard
+          emptyDir: {}
