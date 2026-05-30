@@ -36,27 +36,20 @@ spec:
               set -euo pipefail
               cp /tmp/config.yaml /opt/data/config.yaml
               chown 10000:10000 /opt/data/config.yaml
-              chown 10000:10000 /run-hermes /run-dashboard /tmp-hermes /tmp-dashboard
+              chown 10000:10000 /run /tmp
           volumeMounts:
             - name: data
               mountPath: /opt/data
             - name: config-file
               mountPath: /tmp/config.yaml
               subPath: config.yaml
-            - name: run-hermes
-              mountPath: /run-hermes
-            - name: run-dashboard
-              mountPath: /run-dashboard
-            - name: tmp-hermes
-              mountPath: /tmp-hermes
-            - name: tmp-dashboard
-              mountPath: /tmp-dashboard
+            - name: run
+              mountPath: /run
+            - name: tmp
+              mountPath: /tmp
       containers:
         - name: hermes
           image: nousresearch/hermes-agent:v2026.5.28@sha256:497d818208838f2cd3fb992b999450856acc725c6d97c55962289f1fd92b8b91
-          args: ["gateway", "run"]
-          securityContext:
-            runAsUser: 0
           env:
             - name: HERMES_HOME
               value: /opt/data
@@ -66,6 +59,8 @@ spec:
               value: America/New_York
             - name: GATEWAY_ALLOW_ALL_USERS
               value: "true"
+            - name: GATEWAY_HEALTH_URL
+              value: "http://localhost:8642"
             - name: PATH
               value: "/opt/hermes/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
           envFrom:
@@ -74,6 +69,8 @@ spec:
           ports:
             - containerPort: 8642
               name: http
+            - containerPort: 9119
+              name: dashboard
           resources:
             requests:
               cpu: 500m
@@ -84,41 +81,9 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /opt/data
-            - name: run-hermes
+            - name: run
               mountPath: /run
-            - name: tmp-hermes
-              mountPath: /tmp
-        - name: dashboard
-          image: nousresearch/hermes-agent:v2026.5.28@sha256:497d818208838f2cd3fb992b999450856acc725c6d97c55962289f1fd92b8b91
-          args: ["dashboard", "--host", "0.0.0.0", "--insecure"]
-          securityContext:
-            runAsUser: 0
-          env:
-            - name: GATEWAY_HEALTH_URL
-              value: "http://localhost:8642"
-            - name: TZ
-              value: America/New_York
-            - name: GATEWAY_ALLOW_ALL_USERS
-              value: "true"
-          envFrom:
-            - secretRef:
-                name: hermes-agent-secret
-          ports:
-            - containerPort: 9119
-              name: dashboard
-          resources:
-            requests:
-              cpu: 100m
-              memory: 128Mi
-            limits:
-              cpu: 500m
-              memory: 1Gi
-          volumeMounts:
-            - name: data
-              mountPath: /opt/data
-            - name: run-dashboard
-              mountPath: /run
-            - name: tmp-dashboard
+            - name: tmp
               mountPath: /tmp
       volumes:
         - name: data
@@ -127,11 +92,7 @@ spec:
         - name: config-file
           configMap:
             name: hermes-config
-        - name: run-hermes
+        - name: run
           emptyDir: {}
-        - name: run-dashboard
-          emptyDir: {}
-        - name: tmp-hermes
-          emptyDir: {}
-        - name: tmp-dashboard
+        - name: tmp
           emptyDir: {}
