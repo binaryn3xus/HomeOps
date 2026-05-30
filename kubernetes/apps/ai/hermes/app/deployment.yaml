@@ -60,6 +60,12 @@ spec:
               value: America/New_York
             - name: GATEWAY_ALLOW_ALL_USERS
               value: "true"
+            - name: HERMES_DASHBOARD
+              value: "true"
+            - name: HERMES_DASHBOARD_HOST
+              value: "0.0.0.0"
+            - name: DASHBOARD_INSECURE
+              value: "true"
             - name: GATEWAY_HEALTH_URL
               value: "http://localhost:8642"
             - name: PATH
