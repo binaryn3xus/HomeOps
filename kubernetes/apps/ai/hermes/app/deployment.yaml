@@ -64,7 +64,7 @@ spec:
               value: "true"
             - name: HERMES_DASHBOARD_HOST
               value: "0.0.0.0"
-            - name: DASHBOARD_INSECURE
+            - name: HERMES_DASHBOARD_INSECURE
               value: "true"
             - name: GATEWAY_HEALTH_URL
               value: "http://localhost:8642"
