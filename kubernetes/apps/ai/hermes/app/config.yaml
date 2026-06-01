@@ -24,8 +24,6 @@ consents:
 
 kanban:
   auto_decompose: true
-  dispatch_in_gateway: true
-  dispatch_interval_seconds: 30
 
 terminal:
   backend: "local"
