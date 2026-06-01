@@ -24,6 +24,9 @@ consents:
 
 kanban:
   auto_decompose: true
+  auto_promote_profiles:
+    - "networker"
+    - "default"
 
 terminal:
   backend: "local"
