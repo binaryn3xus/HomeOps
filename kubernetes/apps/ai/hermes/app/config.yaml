@@ -12,6 +12,16 @@ agent:
 approvals:
   mode: "smart"
 
+consents:
+  outbound_access:
+    mode: "smart"
+    allowlist:
+      - "10.0.10.1"
+      - "*.unscfleet.com"
+      - "*.svc.cluster.local"
+      - "api.github.com"
+      - "github.com"
+
 kanban:
   auto_decompose: true
   dispatch_in_gateway: true
