@@ -121,14 +121,3 @@ spec:
           emptyDir: {}
         - name: tmp
           emptyDir: {}
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: hermes
-        - name: config-file
-          configMap:
-            name: hermes-config
-        - name: run
-          emptyDir: {}
-        - name: tmp
-          emptyDir: {}
