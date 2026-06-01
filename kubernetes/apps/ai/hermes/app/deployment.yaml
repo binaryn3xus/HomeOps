@@ -30,7 +30,7 @@ spec:
           securityContext:
             runAsUser: 0
           command:
-            - sh
+            - bash
             - -c
             - |
               set -euo pipefail
