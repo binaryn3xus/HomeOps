@@ -26,7 +26,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       initContainers:
         - name: init-config
-          image: docker.io/library/alpine:3.23
+          image: docker.io/library/debian:12-slim
           securityContext:
             runAsUser: 0
           command:
@@ -34,23 +34,20 @@ spec:
             - -c
             - |
               set -euo pipefail
-              apk add --no-cache curl bash
+              apt-get update && apt-get install -y curl bash ca-certificates
               # Ensure the Master config is in place
               mkdir -p /opt/data/dotnet
               cp /tmp/config.yaml /opt/data/config.yaml
               
               # Install .NET SDK to PVC if missing
               if [ ! -f /opt/data/dotnet/dotnet ]; then
-                echo "Installing .NET SDK..."
-                curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --install-dir /opt/data/dotnet --version 8.0 --no-path
+                echo "Installing .NET 10.0 SDK..."
+                curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --install-dir /opt/data/dotnet --version 10.0 --no-path
               fi
 
               # SCALABLE SYNC: Link every profile's config back to Master
               if [ -d /opt/data/profiles ]; then
-                find /opt/data/profiles -maxdepth 2 -type d -name "networker" -o -name "default" -o -name "coder" | while read -r profile_dir; do
-                  ln -sf /opt/data/config.yaml "$profile_dir/config.yaml"
-                done
-                # Auto-link any future profiles
+                # Ensure every profile subdirectory has a linked config
                 find /opt/data/profiles -mindepth 1 -maxdepth 1 -type d | while read -r profile_dir; do
                   ln -sf /opt/data/config.yaml "$profile_dir/config.yaml"
                 done
