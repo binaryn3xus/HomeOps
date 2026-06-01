@@ -25,6 +25,7 @@ consents:
 kanban:
   auto_decompose: true
   auto_promote_profiles:
+    - "coder"
     - "networker"
     - "default"
 
