@@ -34,15 +34,23 @@ spec:
             - -c
             - |
               set -euo pipefail
+              apk add --no-cache curl bash
               # Ensure the Master config is in place
-              mkdir -p /opt/data
+              mkdir -p /opt/data/dotnet
               cp /tmp/config.yaml /opt/data/config.yaml
+              
+              # Install .NET SDK to PVC if missing
+              if [ ! -f /opt/data/dotnet/dotnet ]; then
+                echo "Installing .NET SDK..."
+                curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --install-dir /opt/data/dotnet --version 8.0 --no-path
+              fi
+
               # SCALABLE SYNC: Link every profile's config back to Master
               if [ -d /opt/data/profiles ]; then
-                find /opt/data/profiles -maxdepth 2 -type d -name "networker" -o -name "default" | while read -r profile_dir; do
+                find /opt/data/profiles -maxdepth 2 -type d -name "networker" -o -name "default" -o -name "coder" | while read -r profile_dir; do
                   ln -sf /opt/data/config.yaml "$profile_dir/config.yaml"
                 done
-                # Auto-link any future profiles by making sure the 'find' catches them
+                # Auto-link any future profiles
                 find /opt/data/profiles -mindepth 1 -maxdepth 1 -type d | while read -r profile_dir; do
                   ln -sf /opt/data/config.yaml "$profile_dir/config.yaml"
                 done
@@ -76,8 +84,10 @@ spec:
               value: America/New_York
             - name: GATEWAY_ALLOW_ALL_USERS
               value: "true"
+            - name: DOTNET_ROOT
+              value: "/opt/data/dotnet"
             - name: PATH
-              value: "/opt/hermes/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+              value: "/opt/data/dotnet:/opt/hermes/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
           envFrom:
             - secretRef:
                 name: hermes-agent-secret
