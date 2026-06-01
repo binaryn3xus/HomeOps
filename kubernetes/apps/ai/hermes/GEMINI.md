@@ -7,8 +7,9 @@ This directory contains the configuration for the Hermes Agent.
 To address friction in the workflow and improve autonomy:
 
 1.  **Auto-Orchestration**: Enabled `kanban.auto_decompose`. Hermes will now automatically break down complex tasks in the **Triage** column without manual intervention.
-2.  **Smart Approvals**: Changed `approvals.mode` from `manual` to `smart`. This reduces the frequency of manual approval requests while still gating high-risk actions.
-3.  **Consent Gates & Allowlists**: Configured `consents.outbound_access` to `smart` mode and added an `allowlist` for internal and trusted external endpoints.
+2.  **Maximum Autonomy (YOLO Mode)**: Changed `approvals.mode` from `smart` to `yolo`. This eliminates manual confirmation for all commands, allowing agents to work at full speed.
+3.  **Command Allowlist**: Pre-populated `command_allowlist` with standard development tools (`git`, `npm`, `python`, etc.) to ensure baseline operations are never gated.
+4.  **Consent Gates & Allowlists**: Configured `consents.outbound_access` to `smart` mode and added an `allowlist` for internal and trusted external endpoints.
     -   **UniFi Controller**: `10.0.10.1` is now pre-approved for configuration audits.
     -   **Internal Cluster**: `*.svc.cluster.local` and `*.unscfleet.com` are trusted for service-to-service communication.
     -   **GitHub API**: Pre-approved for development and audit tasks.

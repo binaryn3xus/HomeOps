@@ -10,7 +10,18 @@ agent:
     - all
 
 approvals:
-  mode: "smart"
+  mode: "yolo"
+
+command_allowlist:
+  - "git *"
+  - "npm *"
+  - "node *"
+  - "python *"
+  - "pip *"
+  - "ls *"
+  - "cat *"
+  - "mkdir *"
+  - "rm -rf /tmp/*"
 
 consents:
   outbound_access:
