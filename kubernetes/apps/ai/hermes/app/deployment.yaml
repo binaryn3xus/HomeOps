@@ -41,9 +41,12 @@ spec:
               
               # Install .NET SDK to PVC if missing
               if [ ! -f /opt/data/dotnet/dotnet ]; then
-                echo "Installing .NET 10.0 SDK..."
-                curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --install-dir /opt/data/dotnet --version 10.0 --no-path
+                echo "Installing .NET SDK..."
+                # Try 10.0 first, fallback to current STS (9.0) if 10.0 is not yet available in the channel
+                curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --install-dir /opt/data/dotnet --channel 10.0 || \
+                curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --install-dir /opt/data/dotnet --channel STS
               fi
+
 
               # SCALABLE SYNC: Link every profile's config back to Master
               if [ -d /opt/data/profiles ]; then
