@@ -57,7 +57,16 @@ spec:
       containers:
         - name: gateway
           image: nousresearch/hermes-agent:v2026.5.29@sha256:192a40783e9227b5f162b76af4d133050557adebd46e1c9cb40cb79a1317a9f7
-          args: ["gateway", "run", "--no-supervise"]
+          # Let s6 manage all gateways (default + profiles) automatically. 
+          # We just need to keep the container alive and show logs.
+          args:
+            - sh
+            - -c
+            - |
+              # Wait for s6 to start the services
+              sleep 5
+              # Follow the main logs so they appear in kubectl logs
+              tail -f /opt/data/logs/agent.log
           env:
             - name: HERMES_HOME
               value: /opt/data
@@ -97,6 +106,9 @@ spec:
               value: /opt/data
             - name: HERMES_DASHBOARD_ONLY
               value: "true"
+            # Redirect s6 profile registration to nowhere so dashboard doesn't start gateways
+            - name: S6_PROFILE_GATEWAY_SCANDIR
+              value: /tmp/ignored-services
             - name: GATEWAY_HEALTH_URL
               value: "http://localhost:8642"
           ports:
