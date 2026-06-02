@@ -40,10 +40,8 @@ if [ -d "$HERMES_DATA/profiles" ]; then
     done
 fi
 
-# 4. Global State Setup
-# Ensure the root (default) gateway is marked as running so S6 starts it
-echo '{"gateway_state": "running"}' > "$HERMES_DATA/gateway_state.json"
-
-# Note: No 'chown' needed here as fsGroup: 10000 handles it at the K8s level.
+# 5. Permission Fix
+echo "🔐 Finalizing permissions for UID 1000..."
+chown -R 1000:1000 "$HERMES_DATA" || true
 
 echo "✨ Setup Complete!"
