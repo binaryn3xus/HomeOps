@@ -25,3 +25,5 @@ spec:
       retries: 3
   values:
     replicaCount: 1
+    image:
+      tag: v0.1.9
