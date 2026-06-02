@@ -33,13 +33,13 @@ spec:
   
   env:
     - name: HERMES_HOME
-      value: "/home/hermes/.hermes"
+      value: "/opt/data"
     - name: HOME
-      value: "/home/hermes/.hermes"
+      value: "/opt/data"
     - name: DOTNET_ROOT
-      value: "/home/hermes/.hermes/dotnet"
+      value: "/opt/data/dotnet"
     - name: PATH
-      value: "/home/hermes/.hermes/dotnet:/opt/hermes/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      value: "/opt/data/dotnet:/opt/hermes/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
     - name: HERMES_DASHBOARD
       value: "true"
   
@@ -53,9 +53,11 @@ spec:
       command: ["bash", "/tmp/scripts/setup.sh"]
       volumeMounts:
         - name: data
-          mountPath: /home/hermes/.hermes
+          mountPath: /opt/data
         - name: scripts
           mountPath: /tmp/scripts
+        - name: config-source
+          mountPath: /tmp/config-source
 
   storage:
     persistence:
@@ -72,6 +74,15 @@ spec:
       configMap:
         name: hermes-scripts
         defaultMode: 0755
+    - name: config-source
+      configMap:
+        name: hermes-config
+    - name: run
+      emptyDir: {}
+
+  extraVolumeMounts:
+    - name: run
+      mountPath: /run
 
   networking:
     service:
