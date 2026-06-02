@@ -24,7 +24,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       initContainers:
         - name: setup
-          image: docker.io/library/debian:12-slim
+          image: docker.io/library/debian:13-slim
           securityContext:
             runAsUser: 0
           command: ["bash", "/tmp/scripts/setup.sh"]
