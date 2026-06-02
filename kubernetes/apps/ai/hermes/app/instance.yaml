@@ -9,6 +9,10 @@ spec:
     repository: nousresearch/hermes-agent
     tag: v2026.5.29@sha256:192a40783e9227b5f162b76af4d133050557adebd46e1c9cb40cb79a1317a9f7
   
+  # BYPASS S6: Essential for stable non-root operation
+  command: ["/opt/hermes/.venv/bin/hermes"]
+  args: ["gateway", "run", "--no-supervise"]
+
   security:
     containerSecurityContext:
       readOnlyRootFilesystem: false
@@ -34,8 +38,6 @@ spec:
   env:
     - name: HERMES_HOME
       value: "/opt/data"
-    - name: HOME
-      value: "/opt/data"
     - name: DOTNET_ROOT
       value: "/opt/data/dotnet"
     - name: PATH
@@ -56,7 +58,7 @@ spec:
           mountPath: /opt/data
         - name: scripts
           mountPath: /tmp/scripts
-        - name: config-source
+        - name: config
           mountPath: /tmp/config-source
 
   storage:
@@ -74,9 +76,6 @@ spec:
       configMap:
         name: hermes-scripts
         defaultMode: 0755
-    - name: config-source
-      configMap:
-        name: hermes-config
     - name: run
       emptyDir: {}
 
