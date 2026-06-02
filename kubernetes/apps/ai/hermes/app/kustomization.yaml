@@ -15,3 +15,26 @@ configMapGenerator:
       - setup.sh
 generatorOptions:
   disableNameSuffixHash: true
+
+# Bypass S6: Overwrite the command/args and add writable /run volume to the operator's StatefulSet
+patches:
+  - target:
+      kind: StatefulSet
+      name: hermes
+    patch: |
+      - op: replace
+        path: /spec/template/spec/containers/0/command
+        value: ["/opt/hermes/.venv/bin/hermes"]
+      - op: replace
+        path: /spec/template/spec/containers/0/args
+        value: ["gateway", "run", "--no-supervise"]
+      - op: add
+        path: /spec/template/spec/volumes/-
+        value:
+          name: run
+          emptyDir: {}
+      - op: add
+        path: /spec/template/spec/containers/0/volumeMounts/-
+        value:
+          name: run
+          mountPath: /run
