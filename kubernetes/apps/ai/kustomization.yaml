@@ -9,4 +9,5 @@ resources:
   - ./open-webui/ks.yaml
   - ./searxng/ks.yaml
   - ./openclaw-operator/ks.yaml
+  - ./hermes-operator/ks.yaml
   - ./hermes/ks.yaml

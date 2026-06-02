@@ -1,0 +1,27 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: hermes-operator
+  namespace: ai
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: hermes-operator
+      version: "*"
+      sourceRef:
+        kind: HelmRepository
+        name: hermes-operator
+        namespace: ai
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  values:
+    replicaCount: 1

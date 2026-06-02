@@ -3,10 +3,11 @@ set -euo pipefail
 
 # --- CONFIGURATION ---
 DOTNET_VERSION="10.0"
-HERMES_DATA="/opt/data"
+HERMES_DATA="/home/hermes/.hermes"
 DOTNET_ROOT="$HERMES_DATA/dotnet"
 
-echo "🌿 Hermes Definitive Setup Starting..."
+echo "🌿 Hermes Operator Setup Starting..."
+
 
 # 1. Ensure directories exist
 mkdir -p "$DOTNET_ROOT"
