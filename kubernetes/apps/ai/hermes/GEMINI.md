@@ -14,9 +14,10 @@ To address friction in the workflow and improve autonomy:
     -   **Internal Cluster**: `*.svc.cluster.local` and `*.unscfleet.com` are trusted for service-to-service communication.
     -   **GitHub API**: Pre-approved for development and audit tasks.
 4.  **Sidecar Architecture**: Split the deployment into two distinct containers:
-    -   **gateway**: The "Primary" container. It runs `tail -f` to follow logs while the internal `s6-overlay` manages all background gateways (default + specialized profiles) and their associated `s6-log` processes.
-    -   **dashboard**: The "Interface" container. Setting `S6_PROFILE_GATEWAY_SCANDIR=/tmp/ignored-services` prevents this container from attempting to start background gateways or lock log files, resolving all "Resource busy" errors.
-5.  **Scalable Profile Sync (Symlinks)**: Re-introduced a lightweight `initContainer` to solve the "Profile Island" problem.
+    -   **gateway**: The "Primary" container. It runs a **Self-Healing Watchdog Loop** that ensures all background gateways (default + specialized profiles) are kept alive. It also hosts Kubernetes `livenessProbe` and `readinessProbe` to verify connection health.
+    -   **dashboard**: The "Interface" container. Setting `S6_PROFILE_GATEWAY_SCANDIR=/tmp/ignored-services` prevents this container from attempting to start background gateways or lock log files.
+5.  **Robust Health Monitoring**: Added native Kubernetes probes that run `hermes gateway status`. This ensures the pod is only considered "Healthy/Ready" if at least one messaging gateway is successfully connected.
+6.  **Scalable Profile Sync (Symlinks)**: Re-introduced a lightweight `initContainer` to solve the "Profile Island" problem.
     -   **Master Link**: Instead of copying, it creates symbolic links from `/opt/data/profiles/*/config.yaml` back to the master `/opt/data/config.yaml`.
     -   **Automatic Scaling**: The `find` command automatically discovers and links any new profiles created in the future, ensuring they all inherit the same security allowlists and auto-orchestration rules.
 6.  **Permission Management**: Used `fsGroup: 10000` and a targeted `chown` in the initContainer to ensure the PVC remains writable by the `hermes` user across all pods.
