@@ -12,12 +12,12 @@ spec:
   security:
     containerSecurityContext:
       readOnlyRootFilesystem: false
-      runAsUser: 1000
-      runAsGroup: 1000
+      runAsUser: 10000
+      runAsGroup: 10000
     podSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+      runAsUser: 10000
+      runAsGroup: 10000
+      fsGroup: 10000
       fsGroupChangePolicy: OnRootMismatch
 
   config:
@@ -33,11 +33,11 @@ spec:
   
   env:
     - name: HERMES_HOME
-      value: "/home/hermes/.hermes"
+      value: "/opt/data"
     - name: DOTNET_ROOT
-      value: "/home/hermes/.hermes/dotnet"
+      value: "/opt/data/dotnet"
     - name: PATH
-      value: "/home/hermes/.hermes/dotnet:/opt/hermes/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      value: "/opt/data/dotnet:/opt/hermes/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
     - name: HERMES_DASHBOARD
       value: "true"
   
@@ -51,7 +51,7 @@ spec:
       command: ["bash", "/tmp/scripts/setup.sh"]
       volumeMounts:
         - name: data
-          mountPath: /home/hermes/.hermes
+          mountPath: /opt/data
         - name: scripts
           mountPath: /tmp/scripts
 
@@ -70,6 +70,14 @@ spec:
       configMap:
         name: hermes-scripts
         defaultMode: 0755
+    - name: run
+      emptyDir: {}
+
+  extraVolumeMounts:
+    - name: run
+      mountPath: /run
+    - name: data
+      mountPath: /opt/data
 
   networking:
     service:

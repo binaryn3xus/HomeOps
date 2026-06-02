@@ -3,7 +3,7 @@ set -euo pipefail
 
 # --- CONFIGURATION ---
 DOTNET_VERSION="10.0"
-HERMES_DATA="/home/hermes/.hermes"
+HERMES_DATA="/opt/data"
 DOTNET_ROOT="$HERMES_DATA/dotnet"
 
 echo "🌿 Hermes Operator Setup Starting..."
@@ -33,15 +33,20 @@ if [ -d "$HERMES_DATA/profiles" ]; then
     find "$HERMES_DATA/profiles" -mindepth 1 -maxdepth 1 -type d | while read -r profile_dir; do
         profile_name=$(basename "$profile_dir")
         echo "  -> Processing @$profile_name"
-        # The operator mounts the master config at /home/hermes/.hermes/config.yaml
+        # The operator mounts the master config at /opt/data/config.yaml
         ln -sf "$HERMES_DATA/config.yaml" "$profile_dir/config.yaml"
         # Force named profiles to "stopped" state so they don't fight over the Discord token
         echo '{"gateway_state": "stopped"}' > "$profile_dir/gateway_state.json"
     done
 fi
 
+# 4. Global State Setup
+# Ensure the root (default) gateway is marked as running so S6 starts it
+echo '{"gateway_state": "running"}' > "$HERMES_DATA/gateway_state.json"
+
 # 5. Permission Fix
-echo "🔐 Finalizing permissions for UID 1000..."
-chown -R 1000:1000 "$HERMES_DATA" || true
+echo "🔐 Finalizing permissions for UID 10000..."
+# Skip lost+found to avoid permission errors
+find "$HERMES_DATA" -name "lost+found" -prune -o -exec chown 10000:10000 {} + || true
 
 echo "✨ Setup Complete!"
