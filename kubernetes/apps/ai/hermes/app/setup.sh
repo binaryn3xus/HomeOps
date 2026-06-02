@@ -44,8 +44,6 @@ fi
 # Ensure the root (default) gateway is marked as running so S6 starts it
 echo '{"gateway_state": "running"}' > "$HERMES_DATA/gateway_state.json"
 
-# 5. Permission Fix
-echo "🔐 Finalizing permissions for UID 10000..."
-chown -R 10000:10000 "$HERMES_DATA" || true
+# Note: No 'chown' needed here as fsGroup: 10000 handles it at the K8s level.
 
 echo "✨ Setup Complete!"
