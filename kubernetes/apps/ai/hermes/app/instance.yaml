@@ -36,8 +36,9 @@ spec:
       value: "/opt/data"
     - name: DOTNET_ROOT
       value: "/opt/data/dotnet"
+    # PATH includes our shims first to bypass S6 privilege drops
     - name: PATH
-      value: "/opt/data/dotnet:/opt/hermes/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      value: "/opt/data/bin:/opt/data/dotnet:/opt/hermes/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
     - name: HERMES_DASHBOARD
       value: "true"
   
@@ -54,6 +55,8 @@ spec:
           mountPath: /opt/data
         - name: scripts
           mountPath: /tmp/scripts
+        - name: config-source
+          mountPath: /tmp/config-source
 
   storage:
     persistence:
@@ -72,6 +75,9 @@ spec:
         defaultMode: 0755
     - name: run
       emptyDir: {}
+    - name: config-source
+      configMap:
+        name: hermes-config
 
   extraVolumeMounts:
     - name: run
