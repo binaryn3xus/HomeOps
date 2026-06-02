@@ -43,8 +43,6 @@ spec:
       volumeMounts:
         - name: data
           mountPath: /home/hermes/.hermes
-        - name: config-source
-          mountPath: /tmp/config-source
         - name: scripts
           mountPath: /tmp/scripts
 
@@ -54,16 +52,15 @@ spec:
       size: 10Gi
       storageClassName: ceph-block
 
+  runtime:
+    uv:
+      enabled: false
+
   extraVolumes:
-    - name: config-source
-      configMap:
-        name: hermes-config
     - name: scripts
       configMap:
         name: hermes-scripts
         defaultMode: 0755
-
-  extraVolumeMounts: []
 
   networking:
     service:
