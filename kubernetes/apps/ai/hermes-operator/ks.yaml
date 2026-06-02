@@ -2,14 +2,18 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: hermes-operator
-  namespace: flux-system
+  name: &app hermes-operator
+  namespace: &namespace ai
 spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
   interval: 1h
   path: ./kubernetes/apps/ai/hermes-operator/operator
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
-  targetNamespace: ai
+    namespace: flux-system
+  targetNamespace: *namespace
   timeout: 5m

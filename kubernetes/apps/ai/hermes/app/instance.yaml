@@ -41,7 +41,7 @@ spec:
         runAsUser: 0
       command: ["bash", "/tmp/scripts/setup.sh"]
       volumeMounts:
-        - name: hermes-data
+        - name: data
           mountPath: /home/hermes/.hermes
         - name: config-source
           mountPath: /tmp/config-source
@@ -50,12 +50,11 @@ spec:
 
   storage:
     persistence:
-      enabled: false
+      enabled: true
+      size: 10Gi
+      storageClassName: ceph-block
 
   extraVolumes:
-    - name: hermes-data
-      persistentVolumeClaim:
-        claimName: hermes
     - name: config-source
       configMap:
         name: hermes-config
@@ -64,9 +63,7 @@ spec:
         name: hermes-scripts
         defaultMode: 0755
 
-  extraVolumeMounts:
-    - name: hermes-data
-      mountPath: /home/hermes/.hermes
+  extraVolumeMounts: []
 
   networking:
     service:

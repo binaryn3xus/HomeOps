@@ -14,14 +14,14 @@ spec:
     - name: volsync
       namespace: volsync-system
     - name: hermes-operator
-      namespace: flux-system
+      namespace: ai
   components:
     - ../../../../components/volsync
   interval: 30m
   path: ./kubernetes/apps/ai/hermes/app
   postBuild:
     substitute:
-      APP: *app
+      APP: hermes-data
       VOLSYNC_CAPACITY: 10Gi
   prune: true
   sourceRef:
