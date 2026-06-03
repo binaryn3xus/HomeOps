@@ -1,0 +1,108 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hermes
+  namespace: ai
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: hermes-agent
+      app.kubernetes.io/instance: hermes
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: hermes-agent
+        app.kubernetes.io/instance: hermes
+    spec:
+      serviceAccountName: hermes
+      securityContext:
+        runAsUser: 10000
+        runAsGroup: 10000
+        fsGroup: 10000
+        fsGroupChangePolicy: OnRootMismatch
+      initContainers:
+        - name: setup
+          image: nousresearch/hermes-agent:v2026.5.29@sha256:192a40783e9227b5f162b76af4d133050557adebd46e1c9cb40cb79a1317a9f7
+          command: ["bash", "/tmp/scripts/setup.sh"]
+          volumeMounts:
+            - name: data
+              mountPath: /opt/data
+            - name: config-source
+              mountPath: /tmp/config-source
+            - name: scripts
+              mountPath: /tmp/scripts
+      containers:
+        - name: hermes
+          image: nousresearch/hermes-agent:v2026.5.29@sha256:192a40783e9227b5f162b76af4d133050557adebd46e1c9cb40cb79a1317a9f7
+          # BYPASS S6: Run processes directly
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              # Start the dashboard in the background
+              /opt/hermes/.venv/bin/hermes dashboard --host 0.0.0.0 --insecure &
+              # Run the gateway in the foreground
+              /opt/hermes/.venv/bin/hermes gateway run --no-supervise
+          env:
+            - name: HERMES_HOME
+              value: /opt/data
+            - name: HOME
+              value: /opt/data
+            - name: DOTNET_ROOT
+              value: "/opt/data/dotnet"
+            - name: PATH
+              value: "/opt/data/dotnet:/opt/hermes/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+            - name: TZ
+              value: America/New_York
+            - name: GATEWAY_ALLOW_ALL_USERS
+              value: "true"
+          envFrom:
+            - secretRef:
+                name: hermes-agent-secret
+          ports:
+            - containerPort: 8642
+              name: gateway
+            - containerPort: 9119
+              name: dashboard
+          livenessProbe:
+            httpGet:
+              path: /
+              port: dashboard
+            initialDelaySeconds: 60
+            periodSeconds: 60
+          readinessProbe:
+            httpGet:
+              path: /
+              port: dashboard
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 2Gi
+          volumeMounts:
+            - name: data
+              mountPath: /opt/data
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: hermes-data
+        - name: config-source
+          configMap:
+            name: hermes-config
+        - name: scripts
+          configMap:
+            name: hermes-scripts
+            defaultMode: 0755
+        - name: tmp
+          emptyDir: {}

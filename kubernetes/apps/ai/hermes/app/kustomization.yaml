@@ -2,7 +2,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./instance.yaml
+  - ./deployment.yaml
+  - ./service.yaml
   - ./externalsecret.yaml
   - ./httproute.yaml
   - ./rbac.yaml
@@ -15,16 +16,3 @@ configMapGenerator:
       - setup.sh
 generatorOptions:
   disableNameSuffixHash: true
-
-# Bypass S6: Overwrite the command/args for the operator's StatefulSet
-patches:
-  - target:
-      kind: StatefulSet
-      name: hermes
-    patch: |
-      - op: replace
-        path: /spec/template/spec/containers/0/command
-        value: ["/opt/hermes/.venv/bin/hermes"]
-      - op: replace
-        path: /spec/template/spec/containers/0/args
-        value: ["gateway", "run", "--no-supervise"]

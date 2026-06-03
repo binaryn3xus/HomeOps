@@ -13,8 +13,6 @@ spec:
       namespace: rook-ceph
     - name: volsync
       namespace: volsync-system
-    - name: hermes-operator
-      namespace: ai
   components:
     - ../../../../components/volsync
   interval: 30m
