@@ -45,8 +45,20 @@ echo "🧪 Verifying .NET installation..."
 if ! "$DOTNET_ROOT/dotnet" --info >/dev/null 2>&1; then
     echo "⚠️ .NET verification failed. Checking for ICU issues..."
     if ! ldconfig -p 2>/dev/null | grep -qi libicu; then
-        echo "❌ ICU not found. Please add 'DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: \"1\"' to your Deployment env."
+        echo "🔧 ICU not found. Enabling globalization invariant mode for verification..."
+        export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+        if "$DOTNET_ROOT/dotnet" --info >/dev/null 2>&1; then
+            echo "✅ .NET verified successfully (Invariant Mode)."
+        else
+            echo "❌ .NET verification failed even in Invariant Mode."
+            exit 1
+        fi
+    else
+        echo "❌ .NET verification failed for unknown reasons."
+        exit 1
     fi
+else
+    echo "✅ .NET verified successfully."
 fi
 
 echo "✨ Setup Complete!"
