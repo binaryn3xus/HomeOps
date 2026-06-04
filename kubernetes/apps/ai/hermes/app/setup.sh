@@ -19,7 +19,7 @@ if [ -f "/tmp/config-source/config.yaml" ]; then
 fi
 
 # 3. .NET SDK Installation (Persistent)
-if [ ! -f "$DOTNET_ROOT/dotnet" ]; then
+if [ ! -x "$DOTNET_ROOT/dotnet" ]; then
     echo "🚀 Installing .NET SDK..."
     curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin \
         --install-dir "$DOTNET_ROOT" \
@@ -35,6 +35,18 @@ if [ -d "$HERMES_DATA/profiles" ]; then
     find "$HERMES_DATA/profiles" -mindepth 1 -maxdepth 1 -type d | while read -r profile_dir; do
         ln -sf "$HERMES_DATA/config.yaml" "$profile_dir/config.yaml"
     done
+fi
+
+# 5. Verify installation
+export DOTNET_ROOT="$DOTNET_ROOT"
+export PATH="$DOTNET_ROOT:$PATH"
+
+echo "🧪 Verifying .NET installation..."
+if ! "$DOTNET_ROOT/dotnet" --info >/dev/null 2>&1; then
+    echo "⚠️ .NET verification failed. Checking for ICU issues..."
+    if ! ldconfig -p 2>/dev/null | grep -qi libicu; then
+        echo "❌ ICU not found. Please add 'DOTNET_SYSTEM_GLOBALIZATION_INVARIANT: \"1\"' to your Deployment env."
+    fi
 fi
 
 echo "✨ Setup Complete!"

@@ -55,6 +55,8 @@ spec:
               value: /opt/data
             - name: DOTNET_ROOT
               value: "/opt/data/dotnet"
+            - name: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT
+              value: "1"
             - name: PATH
               value: "/opt/data/dotnet:/opt/hermes/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
             - name: TZ
