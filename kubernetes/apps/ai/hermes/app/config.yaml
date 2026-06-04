@@ -12,6 +12,16 @@ agent:
 approvals:
   mode: "yolo"
 
+auxiliary:
+  vision:
+    provider: "openai-codex"
+  web_extract:
+    provider: "openai-codex"
+  session_search:
+    provider: "openai-codex"
+  kanban_decomposition:
+    provider: "openai-codex"
+
 command_allowlist:
   - "git *"
   - "npm *"

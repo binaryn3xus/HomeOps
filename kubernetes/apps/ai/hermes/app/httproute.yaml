@@ -19,7 +19,6 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - group: ""
-          kind: Service
-          name: hermes
+        - name: hermes
           port: 9119
+          weight: 1

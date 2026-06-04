@@ -4,13 +4,19 @@ kind: Service
 metadata:
   name: hermes
   namespace: ai
+  labels:
+    app.kubernetes.io/name: hermes-agent
+    app.kubernetes.io/instance: hermes
 spec:
+  selector:
+    app.kubernetes.io/name: hermes-agent
+    app.kubernetes.io/instance: hermes
   ports:
     - name: http
       port: 8642
       targetPort: 8642
+      protocol: TCP
     - name: dashboard
       port: 9119
       targetPort: 9119
-  selector:
-    app: hermes
+      protocol: TCP
