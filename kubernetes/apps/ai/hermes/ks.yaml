@@ -19,7 +19,7 @@ spec:
   path: ./kubernetes/apps/ai/hermes/app
   postBuild:
     substitute:
-      APP: *app
+      APP: hermes-data
       VOLSYNC_CAPACITY: 10Gi
   prune: true
   sourceRef:

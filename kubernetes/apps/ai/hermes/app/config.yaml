@@ -6,6 +6,49 @@ agent:
   max_turns: 60
   verbose: false
   reasoning_effort: "medium"
+  toolsets:
+    - all
+
+approvals:
+  mode: "yolo"
+
+auxiliary:
+  vision:
+    provider: "openai-codex"
+  web_extract:
+    provider: "openai-codex"
+  session_search:
+    provider: "openai-codex"
+  kanban_decomposition:
+    provider: "openai-codex"
+
+command_allowlist:
+  - "git *"
+  - "npm *"
+  - "node *"
+  - "python *"
+  - "pip *"
+  - "ls *"
+  - "cat *"
+  - "mkdir *"
+  - "rm -rf /tmp/*"
+
+consents:
+  outbound_access:
+    mode: "smart"
+    allowlist:
+      - "10.0.10.1"
+      - "*.unscfleet.com"
+      - "*.svc.cluster.local"
+      - "api.github.com"
+      - "github.com"
+
+kanban:
+  auto_decompose: true
+  auto_promote_profiles:
+    - "coder"
+    - "networker"
+    - "default"
 
 terminal:
   backend: "local"
