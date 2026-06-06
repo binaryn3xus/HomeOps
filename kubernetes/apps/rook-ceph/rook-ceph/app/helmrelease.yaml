@@ -19,8 +19,8 @@ spec:
       retries: 3
   values:
     csi:
-      operator:
-        enabled: false
+      serviceMonitor:
+        enabled: true
     enableDiscoveryDaemon: true
     image:
       repository: ghcr.io/rook/ceph
