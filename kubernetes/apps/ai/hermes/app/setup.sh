@@ -61,4 +61,18 @@ else
     echo "✅ .NET verified successfully."
 fi
 
+# 6. Persist environment for the main container and interactive shells
+echo "📝 Persisting environment to $HERMES_DATA/hermes.env and .bashrc..."
+cat > "$HERMES_DATA/hermes.env" <<EOF
+export DOTNET_ROOT="$DOTNET_ROOT"
+export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+export PATH="$DOTNET_ROOT:\$PATH"
+EOF
+
+# Also update .bashrc for interactive shells (since HOME=/opt/data)
+cat > "$HERMES_DATA/.bashrc" <<EOF
+# Hermes Environment
+source "$HERMES_DATA/hermes.env"
+EOF
+
 echo "✨ Setup Complete!"

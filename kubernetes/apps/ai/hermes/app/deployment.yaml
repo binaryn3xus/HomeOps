@@ -47,6 +47,11 @@ spec:
           command: ["/bin/bash", "-c"]
           args:
             - |
+              # Load persisted environment
+              if [ -f /opt/data/hermes.env ]; then
+                source /opt/data/hermes.env
+              fi
+
               # Start the dashboard in the background
               /opt/hermes/.venv/bin/hermes dashboard --host 0.0.0.0 --insecure &
               # Run the gateway in the foreground
@@ -61,7 +66,7 @@ spec:
             - name: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT
               value: "1"
             - name: PATH
-              value: "/opt/data/dotnet:/opt/hermes/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+              value: "/opt/data/dotnet:/opt/data/.dotnet/tools:/opt/hermes/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
             - name: TZ
               value: America/New_York
             - name: GATEWAY_ALLOW_ALL_USERS
