@@ -11,8 +11,8 @@ metrics:
     title: Talos
 
   - name: kubernetes_version
-    query: label_replace(max(kube_node_info) by (git_version), "git_version", "$1", "git_version", "v(.+)")
-    label: git_version
+    query: label_replace(max(kube_node_info) by (kubelet_version), "kubelet_version", "$1", "kubelet_version", "v(.+)")
+    label: kubelet_version
     title: Kubernetes
 
   - name: flux_version
