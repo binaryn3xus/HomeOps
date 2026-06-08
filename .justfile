@@ -65,7 +65,7 @@ write-az-secret secret_name file_path="" overwrite="false":
     #!/usr/bin/env bash
     VAULT="K8sHomeOpsKeyVault"
     EXISTS=$(az keyvault secret list --vault-name "$VAULT" --query "[?name=='{{secret_name}}']" -o tsv)
-    
+
     if [[ -n "$EXISTS" && "{{overwrite}}" != "true" ]]; then
         echo "Error: Secret '{{secret_name}}' already exists in $VAULT."
         echo "Use 'overwrite=true' to force update."
@@ -103,11 +103,6 @@ fish-backup:
 fish-restore:
     mkdir -p ~/.config/fish
     cp ./resources/fish/config.fish ~/.config/fish/config.fish
-
-# --- Gemini ---
-[doc('Open Gemini Settings Json in Editor')]
-gemini-settings:
-    nano "~/.gemini/settings.json"
 
 [doc('Migrate an app from one namespace to another with VolSync restore')]
 migrate-app app from_ns to_ns="" snap_id="" to_app="" to_pvc="":
