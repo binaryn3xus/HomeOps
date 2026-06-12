@@ -30,7 +30,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       initContainers:
         - name: gatus-sidecar
-          image: ghcr.io/home-operations/gatus-sidecar:0.0.19@sha256:a62610509ddb9d04ac562d13e096cecb391aa6647ac97d66ae5ba4db869bc6b8
+          image: ghcr.io/home-operations/gatus-sidecar:0.2.1@sha256:10b6b782c6499115c0858e37401c2be2e3476507d3b5ba9973e1ee72fa4e7988
           args:
             - --auto-httproute
             - --enable-httproute
