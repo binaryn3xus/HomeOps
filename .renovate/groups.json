@@ -94,6 +94,20 @@
       "minimumGroupSize": 1
     },
     {
+      "description": "CloudNativePG Group",
+      "groupName": "CloudNativePG",
+      "matchPackageNames": [
+        "/cloudnative-pg/"
+      ],
+      "excludePackageNames": [
+        "ghcr.io/cloudnative-pg/postgresql"
+      ],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "minimumGroupSize": 1
+    },
+    {
       "description": "Mise TOML File Updates",
       "groupName": "Mise",
       "fileMatch": [
