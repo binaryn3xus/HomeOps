@@ -23,7 +23,7 @@ spec:
         runAsGroup: 1000
       containers:
         - name: app
-          image: ghcr.io/mendhak/http-https-echo:40
+          image: ghcr.io/mendhak/http-https-echo:41
           env:
             - name: HTTP_PORT
               value: "80"
