@@ -39,7 +39,7 @@ spec:
         readOnly: true
     extraEnv:
       - name: SSL_CERT_FILE
-        value: /etc/teleport-proxy-cert/tls.crt
+        value: /etc/teleport-proxy-cert/ca.crt
     teleportConfig:
       discovery_service:
         enabled: true
