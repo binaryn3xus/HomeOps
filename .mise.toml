@@ -9,7 +9,7 @@ node = "latest"
 # Operations tools
 "aqua:charmbracelet/gum" = "0.17.0"
 "aqua:cilium/cilium-cli" = "0.19.4"
-"aqua:cloudflare/cloudflared" = "2026.6.0"
+"aqua:cloudflare/cloudflared" = "2026.6.1"
 "aqua:cloudnative-pg/cloudnative-pg/kubectl-cnpg" = "1.29.1"
 "aqua:fluxcd/flux2" = "2.8.8"
 "aqua:helm/helm" = "4.2.2"
