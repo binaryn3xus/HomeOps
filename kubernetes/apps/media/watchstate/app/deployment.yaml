@@ -28,7 +28,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: app
-          image: ghcr.io/arabcoders/watchstate:v1.8.7
+          image: ghcr.io/arabcoders/watchstate:v1.9.0
           env:
             - name: TZ
               value: "America/New_York"
