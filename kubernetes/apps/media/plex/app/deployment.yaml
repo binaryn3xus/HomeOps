@@ -68,7 +68,7 @@ spec:
               memory: 8Gi
             limits:
               gpu.intel.com/i915: "1"
-              cpu: 6000m
+              cpu: 10000m
               memory: 12Gi
           volumeMounts:
             - name: config

@@ -63,7 +63,7 @@ spec:
               cpu: 100m
               memory: 512Mi
             limits:
-              cpu: 4000m
+              cpu: 6000m
               memory: 2Gi
               gpu.intel.com/i915: "1"
           volumeMounts:
