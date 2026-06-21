@@ -24,3 +24,4 @@ resources:
   - ./system-upgrade
   - ./teleport
   - ./volsync-system
+  - ./kopiur-system
