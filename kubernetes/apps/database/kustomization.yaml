@@ -7,4 +7,3 @@ resources:
   - ./namespace.yaml
   - ./cloudnative-pg/ks.yaml
   - ./cloudbeaver/ks.yaml
-  - ./couchdb/ks.yaml
