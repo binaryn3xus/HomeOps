@@ -8,18 +8,17 @@ spec:
   chartRef:
     kind: OCIRepository
     name: tuppr
-  install:
-    crds: CreateReplace
-    remediation:
-      retries: -1
   interval: 1h
-  upgrade:
-    cleanupOnFail: true
-    crds: CreateReplace
-    remediation:
-      retries: 3
   values:
     replicaCount: 2
     monitoring:
       serviceMonitor:
         enabled: true
+      prometheusRule:
+        enabled: true
+      dashboards:
+        enabled: true
+        grafanaOperator:
+          enabled: true
+          matchLabels:
+            dashboards: grafana
