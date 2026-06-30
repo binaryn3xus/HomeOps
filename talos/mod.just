@@ -19,7 +19,9 @@ apply-node ip *args:
 [doc('Render Talos config for a node')]
 render-config ip:
     mkdir -p ./generated
-    @if [ -f "./nodes/control/{{ip}}.yaml.j2" ]; then node_file="./nodes/control/{{ip}}.yaml.j2"; base_template="talos/machineconfig.yaml.j2"; elif [ -f "./nodes/worker/{{ip}}.yaml.j2" ]; then node_file="./nodes/worker/{{ip}}.yaml.j2"; base_template="talos/workerconfig.yaml.j2"; else echo "Error: Node config not found for {{ip}}" >&2; exit 1; fi; just template "$base_template" | yq eval-all 'select(fileIndex == 0) * select(fileIndex == 1)' - "$node_file" | yq 'select(documentIndex == 0) | with(.machine; sort_keys(.)) | with(.cluster; sort_keys(.))' > "./generated/{{ip}}.yaml"
+    @if [ -f "./nodes/control/{{ip}}.yaml.j2" ]; then node_file="./nodes/control/{{ip}}.yaml.j2"; base_template="talos/machineconfig.yaml.j2"; elif [ -f "./nodes/worker/{{ip}}.yaml.j2" ]; then node_file="./nodes/worker/{{ip}}.yaml.j2"; base_template="talos/workerconfig.yaml.j2"; else echo "Error: Node config not found for {{ip}}" >&2; exit 1; fi; \
+     just template "$base_template" | yq eval-all 'select(fileIndex == 0 and documentIndex == 0) * select(fileIndex == 1 and documentIndex == 0)' - "$node_file" | yq 'select(documentIndex == 0) | with(.machine; sort_keys(.)) | with(.cluster; sort_keys(.))' > "./generated/{{ip}}.yaml"; \
+     extra_docs=$(yq 'select(documentIndex > 0)' "$node_file"); if [ -n "$extra_docs" ]; then echo "---" >> "./generated/{{ip}}.yaml"; echo "$extra_docs" >> "./generated/{{ip}}.yaml"; fi
     @echo "Rendered config for '{{ip}}' written to ./generated/{{ip}}.yaml"
 
 [doc('Render Talos client config with secrets injected')]

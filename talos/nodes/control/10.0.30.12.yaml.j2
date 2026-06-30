@@ -17,3 +17,9 @@ machine:
         dhcp: false
         vip:
           ip: 10.0.30.30
+---
+apiVersion: v1alpha1
+kind: EthernetConfig
+name: enp89s0
+features:
+  tx-tcp-segmentation: false
