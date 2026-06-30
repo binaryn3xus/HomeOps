@@ -16,6 +16,18 @@ spec:
     - name: volsync
       namespace: volsync-system
   interval: 30m
+  # Minecraft Java server has been suspended for now. No need to run backups on it for now.
+  patches:
+    - patch: |
+        apiVersion: volsync.backube/v1alpha1
+        kind: ReplicationSource
+        metadata:
+          name: minecraft-java
+        spec:
+          paused: true
+      target:
+        kind: ReplicationSource
+        name: minecraft-java
   path: ./kubernetes/apps/games/minecraft-java/app
   postBuild:
     substitute:
