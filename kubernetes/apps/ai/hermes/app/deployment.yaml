@@ -81,13 +81,13 @@ spec:
               name: dashboard
           livenessProbe:
             httpGet:
-              path: /
+              path: /login
               port: dashboard
             initialDelaySeconds: 60
             periodSeconds: 60
           readinessProbe:
             httpGet:
-              path: /
+              path: /login
               port: dashboard
             initialDelaySeconds: 30
             periodSeconds: 30
