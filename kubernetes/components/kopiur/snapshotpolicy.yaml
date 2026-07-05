@@ -25,6 +25,8 @@ spec:
         jitter: 1h
         timezone: America/New_York
     quick:
-      cron: H 5 * * *
-      jitter: 1h
-      timezone: America/New_York
+      schedule:
+        cron: H 5 * * *
+        jitter: 1h
+        timezone: America/New_York
+
