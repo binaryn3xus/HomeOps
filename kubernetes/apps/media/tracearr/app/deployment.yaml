@@ -30,7 +30,7 @@ spec:
         seccompProfile: { type: RuntimeDefault }
       containers:
         - name: app
-          image: ghcr.io/connorgallopo/tracearr:1.4.29
+          image: ghcr.io/connorgallopo/tracearr:1.4.30
           env:
             - name: TZ
               value: America/New_York
