@@ -17,6 +17,9 @@ spec:
     remediation:
       retries: 3
   values:
+    defaultRules:
+      disabled:
+        InfoInhibitor: true
     crds:
       enabled: true
     cleanPrometheusOperatorObjectNames: true
