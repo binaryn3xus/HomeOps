@@ -21,6 +21,9 @@ spec:
     monitoring:
       enabled: true
       createPrometheusRules: true
+      prometheusRuleOverrides:
+        CephPoolGrowthWarning:
+          expr: (predict_linear(ceph_pool_percent_used[2d], 3600 * 24 * 5) * on(cluster, pool_id, instance, pod) group_right() ceph_pool_metadata) >= 95
     toolbox:
       enabled: true
     route:
