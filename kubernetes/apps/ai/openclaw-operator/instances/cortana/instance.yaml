@@ -37,6 +37,8 @@ spec:
       value: "/tools/bin:/home/openclaw/.openclaw/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
     - name: TALOSCONFIG
       value: "/home/openclaw/.openclaw/talos/config"
+    - name: NODE_OPTIONS
+      value: "--max-old-space-size=3072"
   initContainers:
 
     - name: install-tools
@@ -97,6 +99,7 @@ spec:
     raw:
       gateway:
         port: 18789
+        channelHealthCheckMinutes: 0
         controlUi:
           allowedOrigins:
             - "https://cortana.unscfleet.com"
