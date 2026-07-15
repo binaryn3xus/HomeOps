@@ -37,7 +37,7 @@ spec:
         runAsGroup: 1000
       containers:
         - name: app
-          image: docker.io/cloudflare/cloudflared:2026.7.1@sha256:188bb03589a32affed3cf4d0590565ffe67b78866e6b5582574afab2b705bafe
+          image: docker.io/cloudflare/cloudflared:2026.7.2@sha256:4f6655284ab3d252b7f28fedb19fe6c8fc82ee5b1295c20ac74d475e5398a52d
           args: ["tunnel", "run"]
           env:
             - name: NO_AUTOUPDATE
