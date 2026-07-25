@@ -8,7 +8,7 @@ metadata:
   annotations:
     cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
-  instances: 3
+  instances: 0
   imageName: ghcr.io/cloudnative-pg/postgresql:18.0
   primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover

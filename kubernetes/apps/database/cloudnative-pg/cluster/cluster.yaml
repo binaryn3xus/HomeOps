@@ -8,7 +8,7 @@ metadata:
     # Required for seamless bootstrap to avoid empty WAL archive check issues
     cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
-  instances: 1
+  instances: 0
   imageName: ghcr.io/cloudnative-pg/postgresql:18.0
   primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover

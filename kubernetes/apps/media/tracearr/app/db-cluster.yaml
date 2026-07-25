@@ -5,7 +5,7 @@ kind: Cluster
 metadata:
   name: tracearr-db
 spec:
-  instances: 1
+  instances: 0
   imageName: ghcr.io/clevyr/cloudnativepg-timescale:16
   primaryUpdateStrategy: unsupervised
   storage:
