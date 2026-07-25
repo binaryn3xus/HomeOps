@@ -46,9 +46,9 @@ spec:
         mgr:
           requests:
             cpu: 500m
-            memory: 1Gi
-          limits:
             memory: 2Gi
+          limits:
+            memory: 4Gi
       cephConfig:
         global:
           mon_clock_drift_allowed: "0.10"
