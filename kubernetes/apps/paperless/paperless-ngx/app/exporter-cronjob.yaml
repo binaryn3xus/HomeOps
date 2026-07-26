@@ -27,6 +27,8 @@ spec:
                 - document_exporter
                 - /usr/src/paperless/export
               env:
+                - name: PAPERLESS_DBENGINE
+                  value: "postgresql"
                 - name: PAPERLESS_REDIS
                   value: redis://valkey.paperless.svc.cluster.local:6379
                 - name: PAPERLESS_DBHOST
