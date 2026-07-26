@@ -29,7 +29,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: app
-          image: ghcr.io/paperless-ngx/paperless-ngx:2.20.15
+          image: ghcr.io/paperless-ngx/paperless-ngx:3.0.3
           env:
             - name: TZ
               value: "America/New_York"
@@ -43,6 +43,8 @@ spec:
               value: https://paperless.unscfleet.com
             - name: PAPERLESS_REDIS
               value: redis://valkey.paperless.svc.cluster.local:6379
+            - name: PAPERLESS_DBENGINE
+              value: "postgresql"
             - name: PAPERLESS_DBHOST
               value: paperless-postgres-rw.paperless.svc.cluster.local
             - name: PAPERLESS_DBNAME
@@ -70,7 +72,7 @@ spec:
               value: '{"optimize":1,"pdfa_image_compression":"jpeg"}'
             - name: PAPERLESS_CONSUMER_RECURSIVE
               value: "true"
-            - name: PAPERLESS_CONSUMER_POLLING
+            - name: PAPERLESS_CONSUMER_POLLING_INTERVAL
               value: "60"
           envFrom:
             - secretRef:
