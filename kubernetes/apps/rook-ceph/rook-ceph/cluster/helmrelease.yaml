@@ -46,9 +46,9 @@ spec:
         mgr:
           requests:
             cpu: 500m
-            memory: 2Gi
+            memory: 512Mi
           limits:
-            memory: 4Gi
+            memory: 1Gi
       cephConfig:
         global:
           mon_clock_drift_allowed: "0.10"
@@ -60,6 +60,12 @@ spec:
           bluestore_slow_ops_warn_lifetime: "0"
           osd_class_update_on_start: "false"
           device_failure_prediction_mode: local # requires mgr module
+        mgr:
+          # Ceph v20.2.2: rook module logs full list_namespaced_pod bodies into
+          # log_max_recent (daemon default 10000), which OOMs the active mgr.
+          # Bound the ring buffer until fixed in a later Ceph release.
+          # https://github.com/rook/rook/issues/17786
+          log_max_recent: "100" # quote
       cleanupPolicy:
         wipeDevicesFromOtherClusters: true
       crashCollector:
