@@ -28,7 +28,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: app
-          image: ghcr.io/home-operations/radarr:6.4.0.10540@sha256:d380d69c729b4116d224ebb0b4909ff22395fc7b78e8a1976c43ae09430ffc5a
+          image: ghcr.io/home-operations/radarr:6.4.1.10545@sha256:260469d707617f4b5be1cd11a40be7e4889c63c5e7cdbc6a429626dc05863b6b
           env:
             - name: RADARR__APP__INSTANCENAME
               value: Radarr
