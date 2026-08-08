@@ -149,6 +149,7 @@ spec:
   timeout:
     http:
       requestReceivedTimeout: 0s
+      streamIdleTimeout: 0s
   tls:
     minVersion: "1.2"
     alpnProtocols:
