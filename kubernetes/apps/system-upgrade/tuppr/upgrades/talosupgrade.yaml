@@ -19,3 +19,38 @@ spec:
   talos:
     # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
     version: v1.13.8
+  hooks:
+    pre:
+      - name: hibernate-postgres
+        image: alpine/k8s:1.30.2
+        serviceAccountName: tuppr-upgrade-hooks
+        command:
+          - /bin/sh
+          - -c
+          - |
+            # Suspend Flux Kustomizations
+            kubectl patch kustomization -n database cloudnative-pg-cluster -p '{"spec":{"suspend":true}}' --type=merge
+            kubectl patch kustomization -n paperless paperless-postgres -p '{"spec":{"suspend":true}}' --type=merge
+            kubectl patch kustomization -n media tracearr -p '{"spec":{"suspend":true}}' --type=merge
+
+            # Hibernate CNPG Clusters (scale to 0)
+            kubectl annotate cluster -n database home-ops cnpg.io/hibernation=on --overwrite
+            kubectl annotate cluster -n paperless paperless-postgres cnpg.io/hibernation=on --overwrite
+            kubectl annotate cluster -n media tracearr-db cnpg.io/hibernation=on --overwrite
+    post:
+      - name: resume-postgres
+        image: alpine/k8s:1.30.2
+        serviceAccountName: tuppr-upgrade-hooks
+        command:
+          - /bin/sh
+          - -c
+          - |
+            # Turn off hibernation on Postgres Clusters
+            kubectl annotate cluster -n database home-ops cnpg.io/hibernation=off --overwrite
+            kubectl annotate cluster -n paperless paperless-postgres cnpg.io/hibernation=off --overwrite
+            kubectl annotate cluster -n media tracearr-db cnpg.io/hibernation=off --overwrite
+
+            # Resume Flux Kustomizations
+            kubectl patch kustomization -n database cloudnative-pg-cluster -p '{"spec":{"suspend":false}}' --type=merge
+            kubectl patch kustomization -n paperless paperless-postgres -p '{"spec":{"suspend":false}}' --type=merge
+            kubectl patch kustomization -n media tracearr -p '{"spec":{"suspend":false}}' --type=merge
