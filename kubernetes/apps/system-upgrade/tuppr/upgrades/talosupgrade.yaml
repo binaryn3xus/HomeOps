@@ -22,7 +22,7 @@ spec:
   hooks:
     pre:
       - name: hibernate-postgres
-        image: alpine/k8s:1.30.2
+        image: alpine/k8s:1.36.2
         serviceAccountName: tuppr-upgrade-hooks
         command:
           - /bin/sh
@@ -39,7 +39,7 @@ spec:
             kubectl annotate cluster -n media tracearr-db cnpg.io/hibernation=on --overwrite
     post:
       - name: resume-postgres
-        image: alpine/k8s:1.30.2
+        image: alpine/k8s:1.36.2
         serviceAccountName: tuppr-upgrade-hooks
         command:
           - /bin/sh
