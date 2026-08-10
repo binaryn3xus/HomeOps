@@ -1,6 +1,6 @@
 ---
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: Tag
+name: Release
 
 on:
   workflow_dispatch:
@@ -8,11 +8,11 @@ on:
     - cron: 0 0 1 * *
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   main:
-    name: Tag
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Generate Token
@@ -46,7 +46,7 @@ jobs:
 
             return `${nextMajorMinor}.${nextPatch}`;
 
-      - name: Create Tag
+      - name: Create Release
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           TAG_NAME: ${{ steps.determine-next-tag.outputs.result }}
@@ -55,18 +55,11 @@ jobs:
           script: |-
             const tagName = process.env.TAG_NAME;
 
-            const tag = await github.rest.git.createTag({
+            await github.rest.repos.createRelease({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              tag: tagName,
-              message: tagName,
-              object: context.sha,
-              type: "commit"
-            });
-
-            github.rest.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: `refs/tags/${tagName}`,
-              sha: tag.data.sha
+              tag_name: tagName,
+              name: tagName,
+              target_commitish: context.sha,
+              generate_release_notes: true,
             });
