@@ -28,6 +28,9 @@ spec:
           - /bin/sh
           - -c
           - |
+            # Set Ceph noout to prevent backfilling during maintenance
+            kubectl -n rook-ceph exec deploy/rook-ceph-tools -- ceph osd set noout
+
             # Suspend Flux Kustomizations
             kubectl patch kustomization -n database cloudnative-pg-cluster -p '{"spec":{"suspend":true}}' --type=merge
             kubectl patch kustomization -n paperless paperless-postgres -p '{"spec":{"suspend":true}}' --type=merge
@@ -54,3 +57,6 @@ spec:
             kubectl patch kustomization -n database cloudnative-pg-cluster -p '{"spec":{"suspend":false}}' --type=merge
             kubectl patch kustomization -n paperless paperless-postgres -p '{"spec":{"suspend":false}}' --type=merge
             kubectl patch kustomization -n media tracearr -p '{"spec":{"suspend":false}}' --type=merge
+
+            # Unset Ceph noout to resume normal replication behavior
+            kubectl -n rook-ceph exec deploy/rook-ceph-tools -- ceph osd unset noout
