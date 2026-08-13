@@ -7,8 +7,5 @@ commonLabels:
   app.kubernetes.io/instance: palworld-server-dashboard
   app.kubernetes.io/controller: palworld-server-dashboard
 resources:
-  - ./externalsecret.yaml
-  - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml
-  - ./external-service.yaml
