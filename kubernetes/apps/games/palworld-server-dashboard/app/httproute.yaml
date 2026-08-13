@@ -1,0 +1,15 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: palworld-server-dashboard
+spec:
+  parentRefs:
+    - name: envoy-external
+      namespace: network
+      sectionName: https
+  hostnames:
+    - palworld-dashboard.unscfleet.com
+  rules:
+    - backendRefs:
+        - name: palworld-server-dashboard
+          port: 3000
