@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: palworld-server-dashboard-external
+  annotations:
+    tailscale.com/tailnet-fqdn: pal-world-server.tail7ad738.ts.net
+spec:
+  type: ExternalName
+  externalName: placeholder
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 3000
+      protocol: TCP

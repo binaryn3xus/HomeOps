@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: palworld-server-dashboard-proxy
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: palworld-server-dashboard-proxy
+      app.kubernetes.io/instance: palworld-server-dashboard-proxy
+      app.kubernetes.io/controller: palworld-server-dashboard-proxy
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: palworld-server-dashboard-proxy
+        app.kubernetes.io/instance: palworld-server-dashboard-proxy
+        app.kubernetes.io/controller: palworld-server-dashboard-proxy
+    spec:
+      containers:
+        - name: proxy
+          image: alpine:latest
+          command:
+            - sh
+            - -c
+            - "apk add --no-cache socat && socat tcp-listen:3000,fork,reuseaddr tcp:palworld-server-dashboard-external:3000"
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 5m
+              memory: 16Mi
+            limits:
+              cpu: 50m
+              memory: 32Mi
+          securityContext:
+            allowPrivilegeEscalation: false
