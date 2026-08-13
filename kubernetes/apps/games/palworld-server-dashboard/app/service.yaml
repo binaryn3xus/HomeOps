@@ -9,6 +9,6 @@ spec:
       targetPort: 3000
       protocol: TCP
   selector:
-    app.kubernetes.io/name: palworld-server-dashboard-proxy
-    app.kubernetes.io/instance: palworld-server-dashboard-proxy
-    app.kubernetes.io/controller: palworld-server-dashboard-proxy
+    app.kubernetes.io/name: palworld-server-dashboard
+    app.kubernetes.io/instance: palworld-server-dashboard
+    app.kubernetes.io/controller: palworld-server-dashboard

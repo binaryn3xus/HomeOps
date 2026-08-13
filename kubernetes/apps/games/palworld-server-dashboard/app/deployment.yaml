@@ -1,40 +1,51 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: palworld-server-dashboard-proxy
+  name: palworld-server-dashboard
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: palworld-server-dashboard-proxy
-      app.kubernetes.io/instance: palworld-server-dashboard-proxy
-      app.kubernetes.io/controller: palworld-server-dashboard-proxy
+      app.kubernetes.io/name: palworld-server-dashboard
+      app.kubernetes.io/instance: palworld-server-dashboard
+      app.kubernetes.io/controller: palworld-server-dashboard
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: palworld-server-dashboard-proxy
-        app.kubernetes.io/instance: palworld-server-dashboard-proxy
-        app.kubernetes.io/controller: palworld-server-dashboard-proxy
+        app.kubernetes.io/name: palworld-server-dashboard
+        app.kubernetes.io/instance: palworld-server-dashboard
+        app.kubernetes.io/controller: palworld-server-dashboard
     spec:
       containers:
-        - name: proxy
-          image: alpine:latest
-          command:
-            - sh
-            - -c
-            - "apk add --no-cache socat && socat tcp-listen:3000,fork,reuseaddr tcp:palworld-server-dashboard-external:3000"
+        - name: app
+          image: ghcr.io/rnz01/palworld-server-dashboard:latest
+          env:
+            - name: TZ
+              value: "America/New_York"
+            - name: PALWORLD_REST_URL
+              value: "http://palworld-server:8212"
+            - name: PANEL_INITIAL_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: palworld-server-dashboard-secrets
+                  key: PANEL_INITIAL_ADMIN_PASSWORD
+            - name: PALWORLD_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: palworld-server-dashboard-secrets
+                  key: PALWORLD_ADMIN_PASSWORD
           ports:
             - name: http
               containerPort: 3000
               protocol: TCP
           resources:
             requests:
-              cpu: 5m
-              memory: 16Mi
-            limits:
               cpu: 50m
-              memory: 32Mi
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
           securityContext:
             allowPrivilegeEscalation: false
