@@ -14,9 +14,64 @@ concurrency:
   group: deploy-palworld
   cancel-in-progress: false
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
+  build-image:
+    name: Build and Push Palworld Save Pal Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout HomeOps Repo
+        uses: actions/checkout@v4
+
+      - name: Get Palworld Save Pal Version
+        id: get-version
+        run: |
+          VERSION=$(grep -A 1 "oMaN-Rod/palworld-save-pal" resources/palworld-server/docker/docker-compose.template.yaml | grep "image:" | sed -E 's/.*:([^:]+)$/\1/')
+          echo "Extracted Version: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Checkout Palworld Save Pal Repo
+        uses: actions/checkout@v4
+        with:
+          repository: oMaN-Rod/palworld-save-pal
+          ref: ${{ steps.get-version.outputs.version }}
+          path: src/palworld-save-pal
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Downcase GitHub Repository Owner
+        id: prep
+        run: |
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          echo "owner=$OWNER" >> $GITHUB_OUTPUT
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v6
+        with:
+          context: src/palworld-save-pal
+          push: true
+          tags: |
+            ghcr.io/${{ steps.prep.outputs.owner }}/palworld-save-pal:${{ steps.get-version.outputs.version }}
+            ghcr.io/${{ steps.prep.outputs.owner }}/palworld-save-pal:latest
+          build-args: |
+            PUBLIC_WS_URL=localhost:5174/ws
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
   deploy:
     name: Deploy to Remote Docker Host
+    needs: build-image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
