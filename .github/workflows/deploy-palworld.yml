@@ -74,16 +74,18 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ env.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          cat << 'EOF' > ~/.ssh/id_ed25519
+          ${{ env.SSH_PRIVATE_KEY }}
+          EOF
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ env.SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Copy docker-compose.yaml to Remote Host (Test Directory)
         run: |
-          ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "mkdir -p /home/joshua/palworld/test"
-          scp docker-compose.yaml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:/home/joshua/palworld/test/docker-compose.yml
+          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "mkdir -p /home/joshua/palworld/test"
+          scp -i ~/.ssh/id_ed25519 docker-compose.yaml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:/home/joshua/palworld/test/docker-compose.yml
 
       # Commented out for initial test deployment verification
       # - name: Deploy Stack
       #   run: |
-      #     ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "cd /home/joshua/palworld && docker compose pull && docker compose up -d --remove-orphans"
+      #     ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "cd /home/joshua/palworld && docker compose pull && docker compose up -d --remove-orphans"

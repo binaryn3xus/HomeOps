@@ -11,8 +11,8 @@ services:
       - PGID=1000
       - TZ=America/New_York
       - SERVER_NAME=UNSC-Palworld
-      - SERVER_PASSWORD=azkv://K8sHomeOpsKeyVault/palworld-server-password
-      - ADMIN_PASSWORD=azkv://K8sHomeOpsKeyVault/palworld-admin-password
+      - SERVER_PASSWORD=azkv://K8sHomeOpsKeyVault/Palworld-Server-Password
+      - ADMIN_PASSWORD=azkv://K8sHomeOpsKeyVault/Palworld-Admin-Password
       - PLAYERS=16
       - MULTITHREADING=true
       - UPDATE_ON_BOOT=true
@@ -41,7 +41,7 @@ services:
       - LOG_LEVEL=INFO
       - LOG_FORMAT_TYPE=default
 
-      - DISCORD_WEBHOOK_URL=azkv://K8sHomeOpsKeyVault/palworld-discord-webhook-url
+      - DISCORD_WEBHOOK_URL=azkv://K8sHomeOpsKeyVault/Palworld-Discord-Webhook-Url
       - DISCORD_SUPPRESS_NOTIFICATIONS=true
       - DISCORD_CONNECT_TIMEOUT=30
       - DISCORD_MAX_TIMEOUT=30
@@ -208,8 +208,8 @@ services:
       - "3000:3000"
     environment:
       - TZ=America/New_York
-      - PANEL_INITIAL_ADMIN_PASSWORD=azkv://K8sHomeOpsKeyVault/palworld-dashboard-admin-password
-      - PALWORLD_ADMIN_PASSWORD=azkv://K8sHomeOpsKeyVault/palworld-admin-password
+      - PANEL_INITIAL_ADMIN_PASSWORD=azkv://K8sHomeOpsKeyVault/Palworld-Dashboard-Admin-Password
+      - PALWORLD_ADMIN_PASSWORD=azkv://K8sHomeOpsKeyVault/Palworld-Admin-Password
       - PALWORLD_REST_URL=http://palworld-server:8212
     depends_on:
       - palworld
