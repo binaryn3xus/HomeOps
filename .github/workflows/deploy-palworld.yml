@@ -1,0 +1,89 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Deploy Palworld Server
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'resources/palworld-server/docker/**'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-palworld
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to Remote Docker Host
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Log in to Azure
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Fetch Deploy Secrets from Azure Key Vault
+        run: |
+          # 1. Fetch values from Key Vault
+          TS_ID=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Tailscale-HomeOps-Kubernetes-OAuth-Client-Id" --query 'value' -o tsv)
+          TS_SECRET=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Tailscale-HomeOps-Kubernetes-OAuth-Key" --query 'value' -o tsv)
+          SSH_KEY=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Palworld-Server-SSH-Private-Key" --query 'value' -o tsv)
+          SSH_HOST=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Palworld-Server-SSH-Host" --query 'value' -o tsv)
+          SSH_USER=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Palworld-Server-SSH-User" --query 'value' -o tsv)
+
+          # 2. Mask secrets in GitHub logs
+          echo "::add-mask::$TS_ID"
+          echo "::add-mask::$TS_SECRET"
+          echo "::add-mask::$SSH_HOST"
+          echo "::add-mask::$SSH_USER"
+          # Mask each line of the SSH key
+          while IFS= read -r line; do
+            if [[ -n "$line" ]]; then
+              echo "::add-mask::$line"
+            fi
+          done <<< "$SSH_KEY"
+
+          # 3. Export to GitHub Environment for subsequent steps
+          echo "TAILSCALE_OAUTH_CLIENT_ID=$TS_ID" >> $GITHUB_ENV
+          echo "TAILSCALE_OAUTH_CLIENT_SECRET=$TS_SECRET" >> $GITHUB_ENV
+          echo "SSH_HOST=$SSH_HOST" >> $GITHUB_ENV
+          echo "SSH_USER=$SSH_USER" >> $GITHUB_ENV
+          
+          # Multiline output for SSH private key
+          echo "SSH_PRIVATE_KEY<<EOF" >> $GITHUB_ENV
+          echo "$SSH_KEY" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v2
+        with:
+          oauth-client-id: ${{ env.TAILSCALE_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ env.TAILSCALE_OAUTH_CLIENT_SECRET }}
+          tags: tag:github-actions
+
+      - name: Inject Secrets using az-inject.sh
+        run: |
+          chmod +x ./az-inject.sh
+          cat resources/palworld-server/docker/docker-compose.template.yaml | ./az-inject.sh > docker-compose.yaml
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ env.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ env.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Copy docker-compose.yaml to Remote Host (Test Directory)
+        run: |
+          ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "mkdir -p /home/joshua/palworld/test"
+          scp docker-compose.yaml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:/home/joshua/palworld/test/docker-compose.yml
+
+      # Commented out for initial test deployment verification
+      # - name: Deploy Stack
+      #   run: |
+      #     ssh ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "cd /home/joshua/palworld && docker compose pull && docker compose up -d --remove-orphans"
