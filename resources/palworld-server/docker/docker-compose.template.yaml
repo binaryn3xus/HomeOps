@@ -215,7 +215,7 @@ services:
       - palworld
   palworld-save-pal:
     # renovate: datasource=github-releases depName=oMaN-Rod/palworld-save-pal
-    image: ghcr.io/binaryn3xus/palworld-save-pal:v1.3.0
+    image: ghcr.io/binaryn3xus/palworld-save-pal:v1.3.2
     container_name: palworld-save-pal
     ports:
       - "5174:5174"
