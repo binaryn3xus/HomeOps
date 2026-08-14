@@ -90,6 +90,7 @@ spec:
         - 10.0.30.12
         - 10.0.30.13
       serviceMonitor:
+        enabled: true
         metricRelabelings:
     kubeEtcd:
       enabled: true
