@@ -85,8 +85,6 @@ metadata:
     external-dns.alpha.kubernetes.io/target: &hostname internal.unscfleet.com
     gatus.home-operations.com/endpoint: |-
       group: internal
-      url: 1.1.1.1
-      conditions: ["len([BODY]) == 0"]
 spec:
   gatewayClassName: envoy
   infrastructure:
