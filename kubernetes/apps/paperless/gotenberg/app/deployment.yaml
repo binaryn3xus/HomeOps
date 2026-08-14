@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: docker.io/gotenberg/gotenberg:8.35.0
+          image: docker.io/gotenberg/gotenberg:8.36.0
           ports:
             - name: http
               containerPort: 3000
