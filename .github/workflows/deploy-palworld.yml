@@ -30,8 +30,8 @@ jobs:
       - name: Fetch Deploy Secrets from Azure Key Vault
         run: |
           # 1. Fetch values from Key Vault
-          TS_ID=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Tailscale-HomeOps-Kubernetes-OAuth-Client-Id" --query 'value' -o tsv)
-          TS_SECRET=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Tailscale-HomeOps-Kubernetes-OAuth-Key" --query 'value' -o tsv)
+          TS_ID=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Github-Actions-Tailscale-OAuth-Client-Id" --query 'value' -o tsv)
+          TS_SECRET=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Github-Actions-Tailscale-OAuth-Client-Secret" --query 'value' -o tsv)
           SSH_KEY=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Palworld-Server-SSH-Private-Key" --query 'value' -o tsv)
           SSH_HOST=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Palworld-Server-SSH-Host" --query 'value' -o tsv)
           SSH_USER=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Palworld-Server-SSH-User" --query 'value' -o tsv)
