@@ -213,3 +213,14 @@ services:
       - PALWORLD_REST_URL=http://palworld-server:8212
     depends_on:
       - palworld
+  palworld-save-pal:
+    image: omanrod/palworld-save-pal:latest
+    container_name: palworld-save-pal
+    ports:
+      - "5174:5174"
+    volumes:
+      - /mnt/fastdata/palworld-data:/app/data/palworld:ro
+      - ./psp-data:/app/data/psp
+    restart: unless-stopped
+    environment:
+      - PUBLIC_WS_URL=localhost:5174/ws
