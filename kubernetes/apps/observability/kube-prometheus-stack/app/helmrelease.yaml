@@ -29,9 +29,13 @@ spec:
           annotations:
             gatus.home-operations.com/enabled: "true"
             gatus.home-operations.com/endpoint: |-
+              group: internal
               dns:
                 query-name: alertmanager.unscfleet.com
                 query-type: A
+              url: 1.1.1.1
+              conditions:
+                - len([BODY]) == 0
           enabled: true
           hostnames: ["alertmanager.unscfleet.com"]
           parentRefs:
@@ -105,9 +109,13 @@ spec:
         main:
           annotations:
             gatus.home-operations.com/endpoint: |-
+              group: internal
               dns:
                 query-name: prometheus.unscfleet.com
                 query-type: A
+              url: 1.1.1.1
+              conditions:
+                - len([BODY]) == 0
           enabled: true
           hostnames: ["prometheus.unscfleet.com"]
           parentRefs:

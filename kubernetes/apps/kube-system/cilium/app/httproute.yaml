@@ -6,9 +6,13 @@ metadata:
   name: hubble-ui
   annotations:
     gatus.home-operations.com/endpoint: |-
+      group: internal
       dns:
         query-name: hubble.unscfleet.com
         query-type: A
+      url: 1.1.1.1
+      conditions:
+        - len([BODY]) == 0
 spec:
   hostnames: ["hubble.unscfleet.com"]
   parentRefs:

@@ -30,9 +30,13 @@ spec:
       dashboard:
         annotations:
           gatus.home-operations.com/endpoint: |-
+            group: internal
             dns:
               query-name: rook.unscfleet.com
               query-type: A
+            url: 1.1.1.1
+            conditions:
+              - len([BODY]) == 0
         host:
           name: rook.unscfleet.com
           path: /
