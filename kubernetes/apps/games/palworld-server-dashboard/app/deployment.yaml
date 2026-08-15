@@ -26,6 +26,10 @@ spec:
               value: "America/New_York"
             - name: PALWORLD_REST_URL
               value: "http://palworld-server:8212"
+            - name: RATE_LIMIT_TRUST_PROXY
+              value: "true"
+            - name: PALWORLD_PLAYER_ACTIVITY
+              value: "true"
             - name: PANEL_INITIAL_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
