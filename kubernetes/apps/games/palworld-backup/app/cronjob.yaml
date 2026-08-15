@@ -30,7 +30,7 @@ spec:
                   echo "Starting rsync from palworld-server-ssh..."
                   rsync -rltvz --ignore-errors --no-owner --no-group --no-perms \
                     -e "ssh -i /ssh/id_ed25519 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
-                    "${SSH_USER}@palworld-server-ssh:/mnt/fastdata/palworld-data/Pal/Saved/SaveGames/0/72597299B08041C5A9572392CEF9D3B1/backup/world/" \
+                    "$${SSH_USER}@palworld-server-ssh:/mnt/fastdata/palworld-data/Pal/Saved/SaveGames/0/72597299B08041C5A9572392CEF9D3B1/backup/world/" \
                     "/media/Gaming/Palworld/UNSC-Palworld/Backups/"
                   echo "Backup complete successfully!"
               env:
