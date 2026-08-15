@@ -40,6 +40,10 @@ jobs:
           ref: ${{ steps.get-version.outputs.version }}
           path: src/palworld-save-pal
 
+      - name: Fix Dockerfile Workspace Members
+        run: |
+          sed -i '/COPY psp-desktop psp-desktop/a \COPY psp-app psp-app\nCOPY psp-web psp-web' src/palworld-save-pal/Dockerfile
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
