@@ -8,3 +8,5 @@ resources:
   - ./externalsecret.yaml
   - ./minecraft-java/ks.yaml
   - ./palworld-server-dashboard/ks.yaml
+  - ./palworld-backup/ks.yaml
+

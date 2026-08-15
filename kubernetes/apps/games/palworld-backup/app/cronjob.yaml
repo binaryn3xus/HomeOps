@@ -1,0 +1,59 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: palworld-backup
+spec:
+  schedule: "30 */12 * * *"
+  timeZone: "America/New_York"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+
+          containers:
+            - name: rsync
+              image: docker.io/instrumentisto/rsync-ssh:alpine
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  set -eu
+                  echo "Creating target directory on Synology if it doesn't exist..."
+                  mkdir -p /media/Gaming/Palworld/UNSC-Palworld/Backups
+                  echo "Starting rsync from palworld-server-ssh..."
+                  rsync -rltvz --ignore-errors --no-owner --no-group --no-perms \
+                    -e "ssh -i /ssh/id_ed25519 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" \
+                    "${SSH_USER}@palworld-server-ssh:/mnt/fastdata/palworld-data/Pal/Saved/SaveGames/0/72597299B08041C5A9572392CEF9D3B1/backup/world/" \
+                    "/media/Gaming/Palworld/UNSC-Palworld/Backups/"
+                  echo "Backup complete successfully!"
+              env:
+                - name: SSH_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: palworld-backup-secrets
+                      key: SSH_USER
+              volumeMounts:
+                - name: ssh-key
+                  mountPath: /ssh
+                  readOnly: true
+                - name: synology-media
+                  mountPath: /media
+          volumes:
+            - name: ssh-key
+              secret:
+                secretName: palworld-backup-secrets
+                defaultMode: 0400
+                items:
+                  - key: SSH_PRIVATE_KEY
+                    path: id_ed25519
+            - name: synology-media
+              nfs:
+                server: "10.0.30.4"
+                path: /volume1/Media

@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: palworld-server-ssh
+  annotations:
+    tailscale.com/tailnet-fqdn: pal-world-server.tail7ad738.ts.net
+    tailscale.com/tags: tag:palworld-backup
+spec:
+  type: ExternalName
+  externalName: placeholder
+  ports:
+    - name: ssh
+      port: 22
+      targetPort: 22
+      protocol: TCP
