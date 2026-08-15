@@ -214,13 +214,13 @@ services:
     depends_on:
       - palworld
   palworld-save-pal:
-    # renovate: datasource=github-releases depName=oMaN-Rod/palworld-save-pal
-    image: ghcr.io/binaryn3xus/palworld-save-pal:v1.3.0
+    image: omanrod/palworld-save-pal:latest
     container_name: palworld-save-pal
     ports:
-      - "5174:5174"
+      - "127.0.0.1:5174:5174"
     volumes:
-      - /mnt/fastdata/palworld-data:/app/data/palworld:ro
+      # Mount your specific world folder directly into the app's readable path
+      - /mnt/fastdata/palworld-data/Pal/Saved/SaveGames/0/72597299B08041C5A9572392CEF9D3B1:/app/data/world:rw
       - ./psp-data:/app/data/psp
     restart: unless-stopped
     environment:
