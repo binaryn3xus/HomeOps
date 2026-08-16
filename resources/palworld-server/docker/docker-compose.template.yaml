@@ -16,7 +16,7 @@ services:
       - PLAYERS=16
       - MULTITHREADING=true
       - UPDATE_ON_BOOT=true
-      - RCON_ENABLED=false
+      - RCON_ENABLED=true
       - RCON_PORT=25575
       - QUERY_PORT=27015
       - BACKUP_ENABLED=true
