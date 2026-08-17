@@ -11,31 +11,33 @@ $WorldFolderID = "72597299B08041C5A9572392CEF9D3B1"
 $LocalWorkDir = "C:\Users\Joshua\Desktop\pal"
 $ZipName = "world_backup.zip"
 $LocalTargetFolder = "$LocalWorkDir\world_backup"
+$RemoteZipPath = "$RemoteSaveDir/$ZipName"
+$LocalZipPath = "$LocalWorkDir\$ZipName"
 
-Write-Host "--- Step 1: Connecting to server to create a fresh backup ---" -ForegroundColor Cyan
-$RemoteCommands = @"
-cd $RemoteSaveDir
-zip -r $ZipName $WorldFolderID -x '$WorldFolderID/backup/*'
-"@
-$UnixRemoteCommands = $RemoteCommands -replace "`r`n", "`n"
-ssh "${ServerUser}@${ServerIP}" $UnixRemoteCommands
+Write-Host "--- Step 1: Creating fresh backup zip on remote server ---" -ForegroundColor Cyan
+Write-Host "Target remote directory: $RemoteSaveDir"
+Write-Host "Archiving world folder: $WorldFolderID (excluding backups)"
+ssh "${ServerUser}@${ServerIP}" "cd $RemoteSaveDir && rm -f $ZipName && zip -r $ZipName $WorldFolderID -x '$WorldFolderID/backup/*'"
 
-Write-Host "--- Step 2: Cleaning up old local workspace ---" -ForegroundColor Cyan
+Write-Host "--- Step 2: Preparing local workspace ---" -ForegroundColor Cyan
 if (Test-Path $LocalTargetFolder) {
+    Write-Host "Removing existing local target folder: $LocalTargetFolder"
     Remove-Item -Path $LocalTargetFolder -Recurse -Force
 }
-if (!(Test-Path $LocalTargetFolder)) {
-    New-Item -ItemType Directory -Path $LocalTargetFolder | Out-Null
-}
+Write-Host "Creating local target directory: $LocalTargetFolder"
+New-Item -ItemType Directory -Path $LocalTargetFolder -Force | Out-Null
 
-Write-Host "--- Step 3: Downloading the backup zip to local machine ---" -ForegroundColor Cyan
-scp "${ServerUser}@${ServerIP}:${RemoteSaveDir}/$ZipName" "$LocalWorkDir\$ZipName"
+Write-Host "--- Step 3: Downloading remote backup package ---" -ForegroundColor Cyan
+Write-Host "Downloading from ${ServerUser}@${ServerIP}:$RemoteZipPath"
+Write-Host "Saving to local path: $LocalZipPath"
+scp "${ServerUser}@${ServerIP}:$RemoteZipPath" $LocalZipPath
 
-Write-Host "--- Step 4: Extracting files locally ---" -ForegroundColor Cyan
-Expand-Archive -Path "$LocalWorkDir\$ZipName" -DestinationPath "$LocalTargetFolder" -Force
-Remove-Item -Path "$LocalWorkDir\$ZipName" -Force
-
-Write-Host "--- Step 5: Cleaning up remote zip ---" -ForegroundColor Cyan
-ssh "${ServerUser}@${ServerIP}" "rm $RemoteSaveDir/$ZipName"
+Write-Host "--- Step 4: Extracting and cleaning up ---" -ForegroundColor Cyan
+Write-Host "Extracting archive to: $LocalTargetFolder"
+Expand-Archive -Path $LocalZipPath -DestinationPath $LocalTargetFolder -Force
+Write-Host "Removing temporary local zip file..."
+Remove-Item -Path $LocalZipPath -Force
+Write-Host "Removing temporary remote zip file..."
+ssh "${ServerUser}@${ServerIP}" "rm -v $RemoteZipPath"
 
 Write-Host "`n[SUCCESS] Backup downloaded and extracted to: $LocalTargetFolder\$WorldFolderID" -ForegroundColor Green
