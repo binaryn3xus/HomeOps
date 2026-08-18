@@ -211,5 +211,7 @@ services:
       - PANEL_INITIAL_ADMIN_PASSWORD=azkv://K8sHomeOpsKeyVault/Palworld-Dashboard-Admin-Password
       - PALWORLD_ADMIN_PASSWORD=azkv://K8sHomeOpsKeyVault/Palworld-Admin-Password
       - PALWORLD_REST_URL=http://palworld-server:8212
+      - PALWORLD_DOCKER_CONTAINER=palworld-server
+      - PUBLIC_VIEW_ENABLED=true
     depends_on:
       - palworld
