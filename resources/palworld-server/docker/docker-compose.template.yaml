@@ -6,6 +6,7 @@ services:
     ports:
       - "8211:8211/udp"
       - "8212:8212/tcp"
+      - "27015:27015/udp"
     environment:
       - PUID=1000
       - PGID=1000
@@ -13,6 +14,7 @@ services:
       - SERVER_NAME=UNSC-Palworld
       - SERVER_PASSWORD=azkv://K8sHomeOpsKeyVault/Palworld-Server-Password
       - ADMIN_PASSWORD=azkv://K8sHomeOpsKeyVault/Palworld-Admin-Password
+      - COMMUNITY=true
       - PLAYERS=16
       - MULTITHREADING=true
       - UPDATE_ON_BOOT=true
