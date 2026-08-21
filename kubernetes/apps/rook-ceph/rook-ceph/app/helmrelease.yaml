@@ -6,22 +6,13 @@ metadata:
   name: rook-ceph
 spec:
   interval: 1h
-  timeout: 15m
   chartRef:
     kind: OCIRepository
     name: rook-ceph
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   values:
     csi:
       serviceMonitor:
         enabled: true
-    enableDiscoveryDaemon: true
     image:
       repository: ghcr.io/rook/ceph
     monitoring:
