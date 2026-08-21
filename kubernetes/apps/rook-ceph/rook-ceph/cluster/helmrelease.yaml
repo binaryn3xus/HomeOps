@@ -94,6 +94,13 @@ spec:
         provider: host
         connections:
           requireMsgr2: true
+      security:
+        cephx:
+          csi:
+            keyType: aes # aes256k requires kernel 7.0+
+          daemon:
+            keyRotationPolicy: KeyGeneration
+            keyGeneration: 2
       storage:
         useAllNodes: false
         useAllDevices: false
