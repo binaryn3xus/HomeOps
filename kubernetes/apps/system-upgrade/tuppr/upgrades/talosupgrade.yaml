@@ -12,8 +12,10 @@ spec:
       kind: ReplicationSource
     - apiVersion: ceph.rook.io/v1
       expr: |-
-        status.ceph.health in ['HEALTH_OK']
+        status.ceph.health in ['HEALTH_OK', 'HEALTH_WARN']
       kind: CephCluster
+      name: rook-ceph
+      namespace: rook-ceph
   policy:
     rebootMode: powercycle
   talos:
@@ -24,6 +26,7 @@ spec:
       - name: hibernate-postgres
         image: alpine/k8s:1.36.2
         serviceAccountName: tuppr-upgrade-hooks
+        backoffLimit: 1
         command:
           - /bin/sh
           - -c
@@ -44,6 +47,7 @@ spec:
       - name: resume-postgres
         image: alpine/k8s:1.36.2
         serviceAccountName: tuppr-upgrade-hooks
+        backoffLimit: 1
         command:
           - /bin/sh
           - -c
