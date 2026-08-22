@@ -74,6 +74,9 @@ jobs:
         run: |
           chmod +x ./az-inject.sh
           cat resources/palworld-server/docker/docker-compose.template.yaml | ./az-inject.sh > docker-compose.yaml
+          cat resources/palworld-server/docker/palworld.env.template | ./az-inject.sh > palworld.env
+          cat resources/palworld-server/docker/dashboard.env.template | ./az-inject.sh > dashboard.env
+          chmod 600 palworld.env dashboard.env
 
       - name: Setup SSH
         run: |
@@ -84,11 +87,13 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ env.SSH_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Copy docker-compose.yaml to Remote Host
+      - name: Copy Compose and environment files to Remote Host
         run: |
-          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "mkdir -p /home/joshua/palworld"
+          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "mkdir -p /home/joshua/palworld /home/joshua/docker/palworld-dashboard/data"
           scp -i ~/.ssh/id_ed25519 docker-compose.yaml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:/home/joshua/palworld/docker-compose.yml
+          scp -i ~/.ssh/id_ed25519 palworld.env dashboard.env ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:/home/joshua/palworld/
+          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "chmod 600 /home/joshua/palworld/palworld.env /home/joshua/palworld/dashboard.env"
 
       - name: Deploy Stack
         run: |
-          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "cd /home/joshua/palworld && docker compose pull && docker compose up -d --remove-orphans"
+          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "cd /home/joshua/palworld && docker compose config --quiet && docker compose pull && docker compose up -d --remove-orphans"
