@@ -73,7 +73,7 @@ jobs:
       - name: Inject Secrets using az-inject.sh
         run: |
           chmod +x ./az-inject.sh
-          cat resources/palworld-server/docker/docker-compose.template.yaml | ./az-inject.sh > docker-compose.yaml
+          cp resources/palworld-server/docker/docker-compose.template.yaml docker-compose.yaml
           cat resources/palworld-server/docker/palworld.env.template | ./az-inject.sh > palworld.env
           cat resources/palworld-server/docker/dashboard.env.template | ./az-inject.sh > dashboard.env
           chmod 600 palworld.env dashboard.env
