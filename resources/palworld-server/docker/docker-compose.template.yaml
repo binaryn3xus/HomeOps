@@ -38,15 +38,11 @@ services:
     restart: unless-stopped
     ports:
       - "9000:9000"
-    env_file:
-      - ./portainer.env
-    entrypoint:
-      - /bin/sh
-      - -ec
     command:
-      - |
-          printf '%s' "$$PORTAINER_ADMIN_PASSWORD" > /tmp/admin-password
-          exec /portainer --http-enabled --admin-password-file /tmp/admin-password
+      - --http-enabled
+      - --admin-password-file
+      - /run/secrets/portainer-admin-password
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /home/joshua/docker/palworld-portainer/data:/data
+      - ./portainer-admin-password:/run/secrets/portainer-admin-password:ro

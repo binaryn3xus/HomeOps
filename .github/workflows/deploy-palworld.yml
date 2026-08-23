@@ -78,7 +78,8 @@ jobs:
           cat resources/palworld-server/docker/palworld.env.template | ./az-inject.sh > palworld.env
           cat resources/palworld-server/docker/dashboard.env.template | ./az-inject.sh > dashboard.env
           cat resources/palworld-server/docker/portainer.env.template | ./az-inject.sh > portainer.env
-          chmod 600 palworld.env dashboard.env portainer.env
+          sed -n 's/^PORTAINER_ADMIN_PASSWORD=//p' portainer.env | tr -d '\r\n' > portainer-admin-password
+          chmod 600 palworld.env dashboard.env portainer-admin-password
 
       - name: Setup SSH
         run: |
@@ -93,8 +94,8 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "mkdir -p /home/joshua/palworld /home/joshua/docker/palworld-dashboard/data /home/joshua/docker/palworld-portainer/data"
           scp -i ~/.ssh/id_ed25519 docker-compose.yaml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:/home/joshua/palworld/docker-compose.yml
-          scp -i ~/.ssh/id_ed25519 palworld.env dashboard.env portainer.env ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:/home/joshua/palworld/
-          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "chmod 600 /home/joshua/palworld/palworld.env /home/joshua/palworld/dashboard.env /home/joshua/palworld/portainer.env"
+          scp -i ~/.ssh/id_ed25519 palworld.env dashboard.env portainer-admin-password ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:/home/joshua/palworld/
+          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "chmod 600 /home/joshua/palworld/palworld.env /home/joshua/palworld/dashboard.env /home/joshua/palworld/portainer-admin-password"
 
       - name: Deploy Stack
         run: |
