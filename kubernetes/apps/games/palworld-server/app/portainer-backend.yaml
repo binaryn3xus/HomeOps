@@ -1,0 +1,12 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: palworld-portainer
+spec:
+  endpoints:
+    - fqdn:
+        # The Tailscale operator resolves this ExternalName Service to its
+        # egress proxy, which forwards the connection to the Palworld host.
+        hostname: palworld-server.games.svc.cluster.local
+        port: 9000

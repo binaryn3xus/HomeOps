@@ -86,6 +86,8 @@ This Git repository contains the following directories under [kubernetes](./kube
 
 ## 📡 Networking
 
+The current gateway, split-DNS, Cloudflare Tunnel, TLS, and troubleshooting model is documented in [Network and DNS Reference](./docs/networking.md).
+
  <div align="center">
 
  ```mermaid

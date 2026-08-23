@@ -2,13 +2,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app palworld-server-dashboard
+  name: &app palworld-server
   namespace: &namespace games
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/games/palworld-server-dashboard/app
+  path: ./kubernetes/apps/games/palworld-server/app
   postBuild:
     substitute:
       APP: *app

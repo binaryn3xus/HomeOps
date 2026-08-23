@@ -32,3 +32,21 @@ services:
       - /home/joshua/docker/palworld-dashboard/data:/app/data
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker:ro
+  portainer:
+    image: portainer/portainer-ce:2.39.5
+    container_name: palworld-portainer
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    env_file:
+      - ./portainer.env
+    entrypoint:
+      - /bin/sh
+      - -ec
+    command:
+      - |
+          printf '%s' "$$PORTAINER_ADMIN_PASSWORD" > /tmp/admin-password
+          exec /portainer --http-enabled --admin-password-file /tmp/admin-password
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/joshua/docker/palworld-portainer/data:/data

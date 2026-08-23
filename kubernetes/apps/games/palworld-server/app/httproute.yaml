@@ -1,3 +1,4 @@
+---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -11,7 +12,6 @@ metadata:
       url: 1.1.1.1
       conditions:
         - len([BODY]) == 0
-
 spec:
   parentRefs:
     - name: envoy-internal
@@ -21,5 +21,6 @@ spec:
     - palworld-dashboard.unscfleet.com
   rules:
     - backendRefs:
-        - name: palworld-server-dashboard
-          port: 3000
+        - group: gateway.envoyproxy.io
+          kind: Backend
+          name: palworld-server-dashboard

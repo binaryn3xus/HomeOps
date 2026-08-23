@@ -7,6 +7,5 @@ resources:
   - ./namespace.yaml
   - ./externalsecret.yaml
   - ./minecraft-java/ks.yaml
-  - ./palworld-server-dashboard/ks.yaml
+  - ./palworld-server/ks.yaml
   - ./palworld-backup/ks.yaml
-
