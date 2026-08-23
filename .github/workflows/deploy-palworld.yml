@@ -8,6 +8,7 @@ on:
       - main
     paths:
       - 'resources/palworld-server/docker/**'
+      - '.github/workflows/deploy-palworld.yml'
   workflow_dispatch:
 
 concurrency:
@@ -76,7 +77,8 @@ jobs:
           cp resources/palworld-server/docker/docker-compose.template.yaml docker-compose.yaml
           cat resources/palworld-server/docker/palworld.env.template | ./az-inject.sh > palworld.env
           cat resources/palworld-server/docker/dashboard.env.template | ./az-inject.sh > dashboard.env
-          chmod 600 palworld.env dashboard.env
+          cat resources/palworld-server/docker/portainer.env.template | ./az-inject.sh > portainer.env
+          chmod 600 palworld.env dashboard.env portainer.env
 
       - name: Setup SSH
         run: |
@@ -89,10 +91,10 @@ jobs:
 
       - name: Copy Compose and environment files to Remote Host
         run: |
-          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "mkdir -p /home/joshua/palworld /home/joshua/docker/palworld-dashboard/data"
+          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "mkdir -p /home/joshua/palworld /home/joshua/docker/palworld-dashboard/data /home/joshua/docker/palworld-portainer/data"
           scp -i ~/.ssh/id_ed25519 docker-compose.yaml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:/home/joshua/palworld/docker-compose.yml
-          scp -i ~/.ssh/id_ed25519 palworld.env dashboard.env ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:/home/joshua/palworld/
-          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "chmod 600 /home/joshua/palworld/palworld.env /home/joshua/palworld/dashboard.env"
+          scp -i ~/.ssh/id_ed25519 palworld.env dashboard.env portainer.env ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:/home/joshua/palworld/
+          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "chmod 600 /home/joshua/palworld/palworld.env /home/joshua/palworld/dashboard.env /home/joshua/palworld/portainer.env"
 
       - name: Deploy Stack
         run: |
