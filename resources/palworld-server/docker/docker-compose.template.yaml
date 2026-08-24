@@ -33,7 +33,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker:ro
   portainer:
-    image: portainer/portainer-ce:2.39.5
+    image: portainer/portainer-ce:2.44.0
     container_name: palworld-portainer
     restart: unless-stopped
     ports:
