@@ -20,8 +20,8 @@ permissions:
   packages: write
 
 jobs:
-  deploy:
-    name: Deploy to Remote Docker Host
+  deploy-management:
+    name: Stage configuration and deploy management services
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -97,6 +97,84 @@ jobs:
           scp -i ~/.ssh/id_ed25519 palworld.env dashboard.env portainer-admin-password ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:/home/joshua/palworld/
           ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "chmod 600 /home/joshua/palworld/palworld.env /home/joshua/palworld/dashboard.env /home/joshua/palworld/portainer-admin-password"
 
-      - name: Deploy Stack
+      - name: Deploy Dashboard and Portainer
         run: |
-          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "cd /home/joshua/palworld && docker compose config --quiet && docker compose pull && docker compose up -d --remove-orphans"
+          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "cd /home/joshua/palworld && docker compose config --quiet && docker compose pull palworld-server-dashboard portainer && docker compose up -d --no-deps palworld-server-dashboard portainer"
+
+  deploy-palworld:
+    name: Deploy Palworld game server
+    needs: deploy-management
+    runs-on: ubuntu-latest
+    environment:
+      name: palworld-production
+      url: https://palworld-dashboard.unscfleet.com
+    steps:
+      - name: Log in to Azure
+        uses: azure/login@f5d393ae46f8fde4be8b75f32e3fc50e654ad0ca # v3
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Fetch Remote Access Secrets from Azure Key Vault
+        run: |
+          TS_ID=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Github-Actions-Tailscale-OAuth-Client-Id" --query 'value' -o tsv)
+          TS_SECRET=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Github-Actions-Tailscale-OAuth-Client-Secret" --query 'value' -o tsv)
+          SSH_KEY=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Palworld-Server-SSH-Private-Key" --query 'value' -o tsv)
+          SSH_HOST=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Palworld-Server-SSH-Host" --query 'value' -o tsv)
+          SSH_USER=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Palworld-Server-SSH-User" --query 'value' -o tsv)
+
+          echo "::add-mask::$TS_ID"
+          echo "::add-mask::$TS_SECRET"
+          echo "::add-mask::$SSH_HOST"
+          echo "::add-mask::$SSH_USER"
+          while IFS= read -r line; do
+            if [[ -n "$line" ]]; then
+              echo "::add-mask::$line"
+            fi
+          done <<< "$SSH_KEY"
+
+          echo "TAILSCALE_OAUTH_CLIENT_ID=$TS_ID" >> $GITHUB_ENV
+          echo "TAILSCALE_OAUTH_CLIENT_SECRET=$TS_SECRET" >> $GITHUB_ENV
+          echo "SSH_HOST=$SSH_HOST" >> $GITHUB_ENV
+          echo "SSH_USER=$SSH_USER" >> $GITHUB_ENV
+          echo "SSH_PRIVATE_KEY<<EOF" >> $GITHUB_ENV
+          echo "$SSH_KEY" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@306e68a486fd2350f2bfc3b19fcd143891a4a2d8 # v4
+        with:
+          oauth-client-id: ${{ env.TAILSCALE_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ env.TAILSCALE_OAUTH_CLIENT_SECRET }}
+          tags: tag:github-actions
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          cat << 'EOF' > ~/.ssh/id_ed25519
+          ${{ env.SSH_PRIVATE_KEY }}
+          EOF
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ env.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Verify that no players are online and deploy Palworld
+        run: |
+          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} 'bash -s' <<'REMOTE'
+          set -euo pipefail
+          cd /home/joshua/palworld
+          docker compose config --quiet
+
+          if [[ "$(docker inspect --format '{{.State.Running}}' palworld-server 2>/dev/null || true)" == "true" ]]; then
+            player_count="$(docker exec palworld-server rest-cli players | python3 -c 'import json, sys; payload = json.load(sys.stdin); players = payload.get("players"); assert isinstance(players, list); print(len(players))')" || {
+              echo "Unable to determine whether players are online; leaving Palworld untouched." >&2
+              exit 1
+            }
+
+            if (( player_count > 0 )); then
+              echo "${player_count} player(s) are online; Palworld deployment was not started." >&2
+              exit 1
+            fi
+          fi
+
+          docker compose pull palworld
+          docker compose up -d --no-deps palworld
+          REMOTE
