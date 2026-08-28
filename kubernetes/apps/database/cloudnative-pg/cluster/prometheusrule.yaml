@@ -1,0 +1,61 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: cloudnative-pg-rules
+spec:
+  groups:
+    - name: cloudnative-pg.rules
+      rules:
+        - alert: CNPGInstanceDown
+          expr: |-
+            cnpg_collector_up{namespace=~"database|media|paperless"} == 0
+          for: 5m
+          annotations:
+            summary: >-
+              PostgreSQL instance {{ $labels.namespace }}/{{ $labels.pod }} is unavailable
+          labels:
+            severity: critical
+
+        - alert: CNPGWALArchivingFailed
+          expr: |-
+            (cnpg_pg_stat_archiver_seconds_since_last_failure{namespace=~"database|media|paperless"} >= 0)
+              and (cnpg_pg_stat_archiver_seconds_since_last_failure{namespace=~"database|media|paperless"} < 900)
+          for: 5m
+          annotations:
+            summary: >-
+              PostgreSQL WAL archiving recently failed for {{ $labels.namespace }}/{{ $labels.pod }}
+          labels:
+            severity: critical
+
+        - alert: CNPGBackupStale
+          expr: |-
+            time() - max by (namespace, job) (barman_cloud_cloudnative_pg_io_last_available_backup_timestamp{namespace=~"database|media|paperless"}) > 93600
+          for: 15m
+          annotations:
+            summary: >-
+              PostgreSQL cluster {{ $labels.job }} has not completed a base backup in 26 hours
+          labels:
+            severity: critical
+
+        - alert: CNPGStorageLow
+          expr: |-
+            kubelet_volume_stats_available_bytes{namespace=~"database|media|paperless",persistentvolumeclaim=~"home-ops-1|tracearr-db-1|paperless-postgres-[0-9]+"}
+              / kubelet_volume_stats_capacity_bytes{namespace=~"database|media|paperless",persistentvolumeclaim=~"home-ops-1|tracearr-db-1|paperless-postgres-[0-9]+"} < 0.20
+          for: 15m
+          annotations:
+            summary: >-
+              PostgreSQL volume {{ $labels.namespace }}/{{ $labels.persistentvolumeclaim }} has less than 20% free space
+          labels:
+            severity: warning
+
+        - alert: CNPGPaperlessReplicaDegraded
+          expr: |-
+            max by (namespace) (cnpg_pg_replication_streaming_replicas{namespace="paperless",pod=~"paperless-postgres-.*"}) < 2
+          for: 10m
+          annotations:
+            summary: >-
+              Paperless PostgreSQL has fewer than two streaming replicas
+          labels:
+            severity: warning
