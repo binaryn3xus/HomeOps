@@ -11,6 +11,9 @@ spec:
   interval: 1h
   values:
     installScope: cluster
+    features:
+      credentialProjection:
+        enabled: true
     metrics:
       serviceMonitor:
         enabled: true
