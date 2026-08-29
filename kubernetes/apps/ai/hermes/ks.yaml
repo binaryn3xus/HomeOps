@@ -20,6 +20,7 @@ spec:
   postBuild:
     substitute:
       APP: hermes-data
+      VOLSYNC_SCHEDULE: "0 1-21/4 * * *"
       VOLSYNC_CAPACITY: 10Gi
   prune: true
   sourceRef:

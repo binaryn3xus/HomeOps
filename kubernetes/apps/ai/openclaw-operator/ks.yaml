@@ -42,6 +42,7 @@ spec:
   postBuild:
     substitute:
       APP: openclaw-cortana
+      VOLSYNC_SCHEDULE: "0 2-22/4 * * *"
       VOLSYNC_CAPACITY: 10Gi
   prune: true
   sourceRef:
