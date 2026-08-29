@@ -14,6 +14,8 @@ resources:
   - ./servicemonitor.yaml
   - ./httproute.yaml
   - ./externalsecret.yaml
+  - ./volsync-externalsecret.yaml
+  - ./volsync-replicationsource.yaml
   - ./prometheusrule.yaml
 configMapGenerator:
   - name: gatus-configmap
