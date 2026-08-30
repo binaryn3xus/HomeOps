@@ -11,6 +11,14 @@ echo "🌿 Hermes Clean Setup Starting..."
 # 1. Ensure directories exist
 mkdir -p "$DOTNET_ROOT"
 mkdir -p "$HERMES_DATA/profiles"
+mkdir -p "$HERMES_DATA/bin"
+
+# Git uses GIT_ASKPASS for HTTPS credentials.  The helper reads GH_TOKEN only
+# at invocation time, so credentials are not written to git config, remotes,
+# or the persistent volume.
+install -m 0700 /tmp/scripts/git-askpass.sh "$HERMES_DATA/bin/git-askpass"
+git config --global credential.helper ""
+git config --global credential.useHttpPath true
 
 # 2. Master Config Setup
 if [ -f "/tmp/config-source/config.yaml" ]; then
@@ -40,6 +48,8 @@ fi
 # 5. Verify installation
 export DOTNET_ROOT="$DOTNET_ROOT"
 export PATH="$DOTNET_ROOT:$PATH"
+export GIT_ASKPASS="$HERMES_DATA/bin/git-askpass"
+export GIT_TERMINAL_PROMPT=0
 
 echo "🧪 Verifying .NET installation..."
 if ! "$DOTNET_ROOT/dotnet" --info >/dev/null 2>&1; then
@@ -67,6 +77,8 @@ cat > "$HERMES_DATA/hermes.env" <<EOF
 export DOTNET_ROOT="$DOTNET_ROOT"
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 export PATH="$DOTNET_ROOT:\$PATH"
+export GIT_ASKPASS="$HERMES_DATA/bin/git-askpass"
+export GIT_TERMINAL_PROMPT=0
 EOF
 
 # Also update .bashrc for interactive shells (since HOME=/opt/data)

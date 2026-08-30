@@ -14,5 +14,6 @@ configMapGenerator:
   - name: hermes-scripts
     files:
       - setup.sh
+      - git-askpass.sh
 generatorOptions:
   disableNameSuffixHash: true

@@ -10,7 +10,9 @@ agent:
     - all
 
 approvals:
-  mode: "yolo"
+  # Permit routine, low-risk repository work but require confirmation for
+  # destructive or ambiguous shell operations.
+  mode: "smart"
 
 auxiliary:
   vision:
@@ -53,7 +55,15 @@ kanban:
 terminal:
   backend: "local"
   cwd: "/opt/data"
-  timeout: 60
+  # Builds, dependency restores, and test suites regularly exceed one minute.
+  timeout: 900
+
+security:
+  redact_secrets: true
+
+checkpoints:
+  enabled: true
+  max_snapshots: 20
 
 display:
   personality: "kawaii"

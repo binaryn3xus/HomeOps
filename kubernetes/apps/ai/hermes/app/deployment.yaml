@@ -21,6 +21,10 @@ spec:
         app.kubernetes.io/instance: hermes
     spec:
       serviceAccountName: hermes
+      # Hermes performs repository work through GitHub; it does not need an
+      # in-cluster API token. This also makes the removed cluster-admin binding
+      # ineffective even if it were accidentally restored.
+      automountServiceAccountToken: false
       securityContext:
         runAsUser: 10000
         runAsGroup: 10000
@@ -52,10 +56,26 @@ spec:
                 source /opt/data/hermes.env
               fi
 
-              # Start the dashboard in the background
+              # Supervise both long-lived processes so Kubernetes termination
+              # is graceful and SQLite state is flushed before the pod exits.
               /opt/hermes/.venv/bin/hermes dashboard --host 0.0.0.0 --insecure &
-              # Run the gateway in the foreground
-              /opt/hermes/.venv/bin/hermes gateway run --no-supervise
+              dashboard_pid=$!
+
+              /opt/hermes/.venv/bin/hermes gateway run --no-supervise &
+              gateway_pid=$!
+
+              shutdown() {
+                kill -TERM "$gateway_pid" "$dashboard_pid" 2>/dev/null || true
+                wait "$gateway_pid" 2>/dev/null || true
+                wait "$dashboard_pid" 2>/dev/null || true
+              }
+              trap shutdown TERM INT
+
+              wait "$gateway_pid"
+              gateway_status=$?
+              kill -TERM "$dashboard_pid" 2>/dev/null || true
+              wait "$dashboard_pid" 2>/dev/null || true
+              exit "$gateway_status"
           env:
             - name: HERMES_HOME
               value: /opt/data
@@ -70,7 +90,21 @@ spec:
             - name: TZ
               value: America/New_York
             - name: GATEWAY_ALLOW_ALL_USERS
-              value: "true"
+              value: "false"
+            # Hermes and common developer tools look for different conventional
+            # token names. Keep GH_TOKEN for existing integrations and provide
+            # GITHUB_TOKEN for repository automation.
+            - name: GITHUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: hermes-agent-secret
+                  key: GH_TOKEN
+            # Make HTTPS git operations non-interactive and authenticate with
+            # the token without persisting it in .gitconfig or repository URLs.
+            - name: GIT_ASKPASS
+              value: /opt/data/bin/git-askpass
+            - name: GIT_TERMINAL_PROMPT
+              value: "0"
           envFrom:
             - secretRef:
                 name: hermes-agent-secret
