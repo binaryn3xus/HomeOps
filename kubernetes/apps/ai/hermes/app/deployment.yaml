@@ -99,6 +99,10 @@ spec:
                 secretKeyRef:
                   name: hermes-agent-secret
                   key: GH_TOKEN
+            # The GitHub PAT belongs to this account. GitHub accepts it as the
+            # HTTPS password only when paired with the account username.
+            - name: GITHUB_USERNAME
+              value: binaryn3xus
             # Make HTTPS git operations non-interactive and authenticate with
             # the token without persisting it in .gitconfig or repository URLs.
             - name: GIT_ASKPASS
