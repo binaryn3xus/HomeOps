@@ -74,6 +74,8 @@ spec:
                 - SETUID
                 - SETGID
                 - CHOWN
+                - FOWNER
+                - DAC_OVERRIDE
               drop:
                 - ALL
           volumeMounts:
