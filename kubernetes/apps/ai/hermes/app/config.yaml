@@ -7,17 +7,17 @@ model:
 # inexpensive triage, summaries, and lightweight code review.
 providers:
   ollama:
-    base_url: "http://ollama.ai.svc.cluster.local:11434"
+    base_url: "http://ollama.ai.svc.cluster.local:11434/v1"
 
 model_aliases:
   local-fast:
     model: "llama3.2:latest"
     provider: "ollama"
-    base_url: "http://ollama.ai.svc.cluster.local:11434"
+    base_url: "http://ollama.ai.svc.cluster.local:11434/v1"
   local-code:
     model: "qwen2.5-coder:7b"
     provider: "ollama"
-    base_url: "http://ollama.ai.svc.cluster.local:11434"
+    base_url: "http://ollama.ai.svc.cluster.local:11434/v1"
 
 agent:
   max_turns: 60
