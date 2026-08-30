@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: readmeabook
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: readmeabook
+      app.kubernetes.io/instance: readmeabook
+      app.kubernetes.io/controller: readmeabook
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: readmeabook
+        app.kubernetes.io/instance: readmeabook
+        app.kubernetes.io/controller: readmeabook
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/kikootwo/readmeabook:1.2.2
+          env:
+            - name: TZ
+              value: America/New_York
+            - name: PUID
+              value: "568"
+            - name: PGID
+              value: "568"
+            - name: PUBLIC_URL
+              value: https://readmeabook.unscfleet.com
+            - name: USE_EXTERNAL_POSTGRES
+              value: "false"
+            - name: USE_EXTERNAL_REDIS
+              value: "false"
+            - name: LOG_LEVEL
+              value: info
+          envFrom:
+            - secretRef:
+                name: readmeabook-secret
+          ports:
+            - name: http
+              containerPort: 3030
+          startupProbe:
+            httpGet:
+              path: /api/health
+              port: 3030
+            failureThreshold: 30
+            periodSeconds: 10
+          livenessProbe: &probe
+            httpGet:
+              path: /api/health
+              port: 3030
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 5
+          readinessProbe: *probe
+          resources:
+            requests:
+              cpu: 100m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 2Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              add:
+                - SETUID
+                - SETGID
+                - CHOWN
+              drop:
+                - ALL
+          volumeMounts:
+            - name: config
+              mountPath: /app/config
+              subPath: config
+            - name: config
+              mountPath: /app/cache
+              subPath: cache
+            - name: config
+              mountPath: /var/lib/postgresql/data
+              subPath: pgdata
+            - name: config
+              mountPath: /var/lib/redis
+              subPath: redis
+            - name: media
+              mountPath: /media
+            - name: media
+              mountPath: /downloads
+              subPath: downloads
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: readmeabook
+        - name: media
+          persistentVolumeClaim:
+            claimName: synology-media

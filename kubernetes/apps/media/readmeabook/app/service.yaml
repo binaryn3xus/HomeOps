@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: readmeabook
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3030
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: readmeabook
+    app.kubernetes.io/instance: readmeabook
+    app.kubernetes.io/controller: readmeabook
