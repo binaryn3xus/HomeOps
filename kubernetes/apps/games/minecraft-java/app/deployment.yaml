@@ -6,7 +6,8 @@ metadata:
   annotations:
     reloader.stakater.com/auto: "true"
 spec:
-  replicas: 1
+  # Server is currently inactive; keep it suspended until it is needed again.
+  replicas: 0
   strategy:
     type: Recreate
   selector:
