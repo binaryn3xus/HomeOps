@@ -2,6 +2,23 @@ model:
   default: "gpt-5.4"
   provider: "openai-codex"
 
+# Keep Codex as the default for dependable repository work. These aliases let
+# a Kanban task or chat session deliberately choose a cluster-local model for
+# inexpensive triage, summaries, and lightweight code review.
+providers:
+  ollama:
+    base_url: "http://ollama.ai.svc.cluster.local:11434"
+
+model_aliases:
+  local-fast:
+    model: "llama3.2:latest"
+    provider: "ollama"
+    base_url: "http://ollama.ai.svc.cluster.local:11434"
+  local-code:
+    model: "qwen2.5-coder:7b"
+    provider: "ollama"
+    base_url: "http://ollama.ai.svc.cluster.local:11434"
+
 agent:
   max_turns: 60
   verbose: false
