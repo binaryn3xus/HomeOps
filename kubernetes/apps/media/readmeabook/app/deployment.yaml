@@ -69,15 +69,6 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: false
-            capabilities:
-              add:
-                - SETUID
-                - SETGID
-                - CHOWN
-                - FOWNER
-                - DAC_OVERRIDE
-              drop:
-                - ALL
           volumeMounts:
             - name: config
               mountPath: /app/config
