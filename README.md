@@ -86,11 +86,11 @@ This Git repository contains the following directories under [kubernetes](./kube
 
 ## 📡 Networking
 
-The current gateway, split-DNS, Cloudflare Tunnel, TLS, and troubleshooting model is documented in [Network and DNS Reference](./docs/networking.md).
+The current gateway, split-DNS, Cloudflare Tunnel, TLS, and troubleshooting model is documented in [Network and DNS Reference](./resources/docs/networking.md).
 
 ## 🎮 Game Services
 
-The dedicated Docker-host deployment, internal dashboard, Portainer access, and Tailscale requirements are documented in [Palworld Server](./docs/palworld-server.md).
+The dedicated Docker-host deployment, internal dashboard, Portainer access, and Tailscale requirements are documented in [Palworld Server](./resources/docs/palworld-server.md).
 
  <div align="center">
 

@@ -106,8 +106,8 @@ fish-restore:
 
 [doc('Migrate an app from one namespace to another with VolSync restore')]
 migrate-app app from_ns to_ns="" snap_id="" to_app="" to_pvc="":
-    ./scripts/migrate-app.sh "{{app}}" "{{from_ns}}" "{{to_ns}}" "{{snap_id}}" "{{to_app}}" "{{to_pvc}}"
+    ./resources/scripts/migrate-app.sh "{{app}}" "{{from_ns}}" "{{to_ns}}" "{{snap_id}}" "{{to_app}}" "{{to_pvc}}"
 
 [doc('Report Key Vault secret usage in repo')]
 kv-usage-report vault_name="K8sHomeOpsKeyVault":
-    ./scripts/kv_usage_report.sh "{{vault_name}}"
+    ./resources/scripts/kv_usage_report.sh "{{vault_name}}"

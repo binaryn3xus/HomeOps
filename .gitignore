@@ -1,4 +1,6 @@
 .private/
+.pytest_cache/
+.venv/
 *.crt
 *.env
 *.iso
