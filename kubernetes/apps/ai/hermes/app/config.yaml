@@ -74,6 +74,13 @@ terminal:
   cwd: "/opt/data"
   # Builds, dependency restores, and test suites regularly exceed one minute.
   timeout: 900
+  # GitHub repository tasks need these credentials inside the model-driven
+  # terminal process for non-interactive clone, push, and PR workflows.
+  # Keep the PAT repository-scoped and rotate it if a task handles untrusted
+  # content.
+  env_passthrough:
+    - "GH_TOKEN"
+    - "GITHUB_TOKEN"
 
 security:
   redact_secrets: true
