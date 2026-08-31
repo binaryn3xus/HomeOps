@@ -16,6 +16,10 @@ spec:
       app.kubernetes.io/instance: hermes
   template:
     metadata:
+      annotations:
+        # ConfigMap volumes update in place; this revision also reruns the init
+        # setup so persistent helper scripts are refreshed with the mounted copy.
+        hermes.binaryn3xus.io/setup-revision: "2026-08-30-1"
       labels:
         app.kubernetes.io/name: hermes-agent
         app.kubernetes.io/instance: hermes

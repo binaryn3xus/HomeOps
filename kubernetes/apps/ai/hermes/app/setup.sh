@@ -13,7 +13,7 @@ mkdir -p "$DOTNET_ROOT"
 mkdir -p "$HERMES_DATA/profiles"
 mkdir -p "$HERMES_DATA/bin"
 
-# Git uses GIT_ASKPASS for HTTPS credentials.  The helper reads GH_TOKEN only
+# Git uses GIT_ASKPASS for HTTPS credentials. The helper reads the token only
 # at invocation time, so credentials are not written to git config, remotes,
 # or the persistent volume.
 install -m 0700 /tmp/scripts/git-askpass.sh "$HERMES_DATA/bin/git-askpass"
