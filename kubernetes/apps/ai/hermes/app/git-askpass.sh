@@ -3,5 +3,5 @@
 # fail in Hermes' non-interactive container.
 case "$1" in
   *Username*) printf '%s\n' "${GITHUB_USERNAME:-x-access-token}" ;;
-  *Password*) printf '%s\n' "${GH_TOKEN:?GH_TOKEN is required for GitHub HTTPS authentication}" ;;
+  *Password*) printf '%s\n' "${GH_TOKEN:-${GITHUB_TOKEN:?A GitHub token is required for HTTPS authentication}}" ;;
 esac
