@@ -29,7 +29,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: app
-          image: dbeaver/cloudbeaver:26.1.5@sha256:bb4968967796856e3b89e3ece33654d69aaed52113b6bf9d2d2d0056956a4722
+          image: dbeaver/cloudbeaver:26.2.0@sha256:c06c1859700bd9202d9d49ebc10ee2512d745997d05e7ca6423267b227af1ca7
           env:
             - name: TZ
               value: America/New_York
