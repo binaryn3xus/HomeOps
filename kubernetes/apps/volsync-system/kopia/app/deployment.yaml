@@ -76,7 +76,6 @@ spec:
               cpu: 100m
               memory: 512Mi
             limits:
-              cpu: 1000m
               memory: 2Gi
           volumeMounts:
             - name: config-file
