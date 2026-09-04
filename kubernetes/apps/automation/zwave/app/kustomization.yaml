@@ -12,3 +12,15 @@ resources:
   - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml
+patches:
+  # zwave-js-ui runs as root and writes files with root:1000 ownership and restrictive perms.
+  # The root mover requires DAC capabilities to read and snapshot these files cleanly.
+  - target:
+      kind: SnapshotPolicy
+    patch: |-
+      - op: add
+        path: /spec/mover/securityContext/capabilities
+        value:
+          add:
+            - DAC_READ_SEARCH
+            - DAC_OVERRIDE
