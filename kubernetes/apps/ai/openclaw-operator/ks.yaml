@@ -28,22 +28,26 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
+    - name: external-secrets
+      namespace: external-secrets
+    - name: kopiur
+      namespace: kopiur-system
     - name: openclaw-operator
       namespace: ai
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
-      namespace: volsync-system
   components:
-    - ../../../../../components/volsync
+    - ../../../../../components/kopiur
 
   interval: 30m
   path: ./kubernetes/apps/ai/openclaw-operator/instances/cortana
   postBuild:
     substitute:
       APP: openclaw-cortana
-      VOLSYNC_SCHEDULE: "0 2-22/4 * * *"
-      VOLSYNC_CAPACITY: 10Gi
+      KOPIUR_CAPACITY: 10Gi
+      KOPIUR_CACHE_CAPACITY: 10Gi
+      KOPIUR_PUID: "1000"
+      KOPIUR_PGID: "1000"
   prune: true
   sourceRef:
     kind: GitRepository
