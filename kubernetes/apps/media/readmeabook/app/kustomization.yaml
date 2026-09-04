@@ -11,3 +11,16 @@ resources:
   - ./deployment.yaml
   - ./service.yaml
   - ./httproute.yaml
+patches:
+  # ReadMeABook runs internal daemons across multiple users (node: 568, postgres: 102).
+  # Postgres files are created with 0700 permissions; the root mover requires DAC
+  # capabilities to read and snapshot these multi-user directories without permission errors.
+  - target:
+      kind: SnapshotPolicy
+    patch: |-
+      - op: add
+        path: /spec/mover/securityContext/capabilities
+        value:
+          add:
+            - DAC_READ_SEARCH
+            - DAC_OVERRIDE
