@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: ghcr.io/binaryn3xus/worksphere:1.0.13
+          image: ghcr.io/binaryn3xus/worksphere:1.0.14
           envFrom:
             - secretRef:
                 name: worksphere-secret
