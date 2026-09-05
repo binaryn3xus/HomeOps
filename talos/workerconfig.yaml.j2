@@ -42,6 +42,10 @@ machine:
         hard=True
         nconnect=16
         noatime=True
+    - op: overwrite
+      path: /var/mnt/miroir/.keep
+      permissions: 0o644
+      content: ""
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
@@ -57,7 +61,14 @@ machine:
           - bind
           - rshared
           - rw
-    image: ghcr.io/siderolabs/kubelet:v1.37.0
+      - destination: /var/mnt/miroir
+        type: bind
+        source: /var/mnt/miroir
+        options:
+          - bind
+          - rshared
+          - rw
+    image: ghcr.io/siderolabs/kubelet:v1.36.4
     nodeIP:
       validSubnets:
         - 10.0.30.0/24

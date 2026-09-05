@@ -47,6 +47,10 @@ machine:
         hard=True
         nconnect=16
         noatime=True
+    - op: overwrite
+      path: /var/mnt/miroir/.keep
+      permissions: 0o644
+      content: ""
   install:
     diskSelector: {}
     image: factory.talos.dev/installer/c4bb4fd007801d9db1492d85067f5624d9df03e6b27ac61e5bed9837dea5cb99:v1.13.9
@@ -71,7 +75,14 @@ machine:
           - bind
           - rshared
           - rw
-    image: ghcr.io/siderolabs/kubelet:v1.37.0
+      - destination: /var/mnt/miroir
+        type: bind
+        source: /var/mnt/miroir
+        options:
+          - bind
+          - rshared
+          - rw
+    image: ghcr.io/siderolabs/kubelet:v1.36.4
     nodeIP:
       validSubnets:
         - 10.0.30.0/24
@@ -154,11 +165,11 @@ cluster:
     extraArgs:
       feature-gates: ImageVolume=true,MutatingAdmissionPolicy=true
       runtime-config: admissionregistration.k8s.io/v1beta1=true
-    image: registry.k8s.io/kube-apiserver:v1.37.0
+    image: registry.k8s.io/kube-apiserver:v1.36.4
   controllerManager:
     extraArgs:
       bind-address: 0.0.0.0
-    image: registry.k8s.io/kube-controller-manager:v1.37.0
+    image: registry.k8s.io/kube-controller-manager:v1.36.4
   coreDNS:
     disabled: true
   etcd:
@@ -171,7 +182,7 @@ cluster:
       listen-metrics-urls: http://0.0.0.0:2381
   proxy:
     disabled: true
-    image: registry.k8s.io/kube-proxy:v1.37.0
+    image: registry.k8s.io/kube-proxy:v1.36.4
   scheduler:
     config:
       apiVersion: kubescheduler.config.k8s.io/v1
@@ -192,7 +203,7 @@ cluster:
                     whenUnsatisfiable: ScheduleAnyway
     extraArgs:
       bind-address: 0.0.0.0
-    image: registry.k8s.io/kube-scheduler:v1.37.0
+    image: registry.k8s.io/kube-scheduler:v1.36.4
   secretboxEncryptionSecret: azkv://K8sHomeOpsKeyVault/Talos-Cluster-SecretboxEncryptionSecret
   serviceAccount:
     key: azkv://K8sHomeOpsKeyVault/Talos-Cluster-ServiceAccount-Key
