@@ -117,4 +117,4 @@ spec:
       volumes:
         - name: models
           persistentVolumeClaim:
-            claimName: ollama-openebs-pvc
+            claimName: ollama-models

@@ -53,14 +53,14 @@ spec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: openebs-hostpath
+              storageClassName: miroir-local
               resources:
                 requests:
                   storage: 1Gi
     prometheus-node-exporter:
       fullnameOverride: node-exporter
       extraArgs:
-        - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|run/containerd/.+|var/lib/docker/.+|var/lib/kubelet/.+|etc/nfsmount.conf|var/mnt/local-hostpath)($|/)
+        - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|run/containerd/.+|var/lib/docker/.+|var/lib/kubelet/.+|etc/nfsmount.conf|var/mnt/.*)($|/)
       prometheus:
         monitor:
           enabled: true
@@ -142,7 +142,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: openebs-hostpath
+              storageClassName: miroir-local
               resources:
                 requests:
                   storage: 10Gi
