@@ -60,10 +60,11 @@ My Kubernetes cluster is deploy with [Talos](https://www.talos.dev). This is a s
 - [cloudflared](https://github.com/cloudflare/cloudflared): Enables Cloudflare secure access to certain ingresses.
 - [external-dns](https://github.com/kubernetes-sigs/external-dns): Automatically syncs ingress DNS records to a DNS provider.
 - [external-secrets](https://github.com/external-secrets/external-secrets): Managed Kubernetes secrets using [Azure Keyvault](https://azure.microsoft.com/en-us/products/key-vault).
-- [rook](https://github.com/rook/rook): Distributed block storage for peristent storage.
+- [kopiur](https://github.com/home-operations/kopiur): Backup and recovery of persistent volume claims.
+- [miroir](https://github.com/home-operations/miroir): Local and replicated node storage management.
+- [rook](https://github.com/rook/rook): Distributed block storage for persistent storage.
 - [spegel](https://github.com/spegel-org/spegel): Stateless cluster local OCI registry mirror.
-- [teleport](https://goteleport.com/): Manage some network resources remotely
-- [volsync](https://github.com/backube/volsync): Backup and recovery of persistent volume claims.
+- [teleport](https://goteleport.com/): Manage some network resources remotely.
 
 ### GitOps
 
