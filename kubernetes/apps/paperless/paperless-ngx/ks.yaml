@@ -8,6 +8,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/gatus/internal
   dependsOn:
     - name: paperless-postgres
       namespace: paperless
@@ -19,6 +21,9 @@ spec:
       namespace: paperless
   interval: 30m
   path: ./kubernetes/apps/paperless/paperless-ngx/app
+  postBuild:
+    substitute:
+      APP: *app
   prune: true
   sourceRef:
     kind: GitRepository

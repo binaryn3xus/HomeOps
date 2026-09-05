@@ -8,6 +8,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/gatus/internal
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -15,6 +17,9 @@ spec:
       namespace: external-secrets
   interval: 30m
   path: ./kubernetes/apps/media/tracearr/app
+  postBuild:
+    substitute:
+      APP: *app
   prune: true
   sourceRef:
     kind: GitRepository

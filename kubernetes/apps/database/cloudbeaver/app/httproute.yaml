@@ -3,15 +3,6 @@ kind: HTTPRoute
 metadata:
   name: cloudbeaver
   namespace: database
-  annotations:
-    gatus.home-operations.com/endpoint: |-
-      group: internal
-      dns:
-        query-name: cloudbeaver.unscfleet.com
-        query-type: A
-      url: 1.1.1.1
-      conditions:
-        - len([BODY]) == 0
 spec:
   parentRefs:
     - name: envoy-internal

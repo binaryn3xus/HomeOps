@@ -27,6 +27,8 @@ metadata:
   name: grafana-instance
   namespace: &namespace observability
 spec:
+  components:
+    - ../../../../components/gatus/internal
   dependsOn:
     - name: grafana
       namespace: *namespace
@@ -34,6 +36,9 @@ spec:
       namespace: rook-ceph
   interval: 1h
   path: ./kubernetes/apps/observability/grafana/instance
+  postBuild:
+    substitute:
+      APP: grafana
   prune: true
   sourceRef:
     kind: GitRepository
