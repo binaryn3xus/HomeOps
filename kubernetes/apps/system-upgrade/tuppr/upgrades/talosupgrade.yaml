@@ -20,7 +20,7 @@ spec:
     rebootMode: powercycle
   talos:
     # renovate: datasource=custom.talos-factory depName=siderolabs/talos
-    version: v1.13.10
+    version: v1.14.0
   hooks:
     pre:
       - name: hibernate-postgres
