@@ -19,7 +19,7 @@ spec:
   policy:
     rebootMode: powercycle
   talos:
-    # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+    # renovate: datasource=custom.talos-factory depName=siderolabs/talos
     version: v1.13.10
   hooks:
     pre:

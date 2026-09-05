@@ -92,7 +92,6 @@ machine:
     vm.nr_hugepages: "1024"
   install:
     diskSelector: {}
-    # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
     image: factory.talos.dev/installer/{{ schematic }}:v1.13.10
     wipe: false
   kernel:

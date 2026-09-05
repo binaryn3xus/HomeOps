@@ -1,0 +1,195 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
+    "github>home-operations/renovate-presets#8.1.0",
+    "github>home-operations/renovate-presets//apps/grafanaDashboards.json5#8.1.0",
+    "github>home-operations/renovate-presets//apps/talosFactory.json5#8.1.0",
+    ":timezone(America/New_York)",
+  ],
+  lockFileMaintenance: {
+    enabled: true,
+    schedule: ["before 3am on the first day of the month"],
+    commitMessageExtra: "({{manager}})",
+    additionalBranchPrefix: "{{manager}}-",
+  },
+  packageRules: [
+    // Auto-merge rules
+    {
+      description: "Auto-merge trusted container digests",
+      matchDatasources: ["docker"],
+      matchUpdateTypes: ["digest"],
+      matchPackageNames: ["/home-operations/"],
+      automerge: true,
+      automergeType: "pr",
+      ignoreTests: false,
+    },
+    {
+      description: "Auto-merge high-cadence OCI packages weekly",
+      matchDatasources: ["docker"],
+      matchUpdateTypes: ["minor", "patch"],
+      matchPackageNames: ["/kube-prometheus-stack/"],
+      automerge: true,
+      automergeType: "pr",
+      ignoreTests: false,
+      schedule: ["before 6am on Monday"],
+    },
+    {
+      description: "Auto-merge GitHub Actions",
+      matchManagers: ["github-actions"],
+      matchUpdateTypes: ["minor", "patch", "digest"],
+      automerge: true,
+      automergeType: "branch",
+      minimumReleaseAge: "3 days",
+      ignoreTests: true,
+    },
+    {
+      description: "Auto-merge trusted GitHub Actions",
+      matchManagers: ["github-actions"],
+      matchPackageNames: ["/^actions\\//", "/^renovatebot\\//"],
+      matchUpdateTypes: ["minor", "patch", "digest"],
+      automerge: true,
+      automergeType: "branch",
+      minimumReleaseAge: "1 minute",
+      ignoreTests: true,
+    },
+    {
+      description: "Auto-merge GitHub Releases",
+      matchDatasources: ["github-releases"],
+      matchUpdateTypes: ["minor", "patch"],
+      matchPackageNames: ["/external-dns/", "/gateway-api/", "/prometheus-operator/"],
+      automerge: true,
+      automergeType: "branch",
+      ignoreTests: true,
+    },
+    {
+      description: "Auto-merge Grafana dashboards",
+      matchDatasources: ["custom.grafana-dashboards"],
+      matchUpdateTypes: ["major"],
+      automerge: true,
+      automergeType: "branch",
+      ignoreTests: true,
+    },
+    {
+      description: "Auto-merge Renovate Presets",
+      matchPackageNames: ["/renovate-presets/"],
+      matchUpdateTypes: ["minor", "patch"],
+      automerge: true,
+      automergeType: "branch",
+      ignoreTests: true,
+    },
+    {
+      description: "Auto-merge Mise TOML file updates",
+      matchManagers: ["mise"],
+      matchFileNames: [".mise.toml"],
+      automerge: true,
+      automergeType: "pr",
+      automergeStrategy: "squash",
+    },
+
+    // Grouping rules
+    {
+      description: "Flux Operator Group",
+      groupName: "flux-operator",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/flux-operator/", "/flux-instance/", "/flux-operator-manifests/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+    },
+    {
+      description: "Kubernetes Group",
+      groupName: "kubernetes",
+      matchDatasources: ["docker"],
+      matchPackageNames: [
+        "/kube-apiserver/",
+        "/kube-controller-manager/",
+        "/kube-proxy/",
+        "/kube-scheduler/",
+        "/kubelet/",
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+    },
+    {
+      description: "Rook-Ceph Group",
+      groupName: "rook-ceph",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["/rook-ceph/", "/rook-ceph-cluster/"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+    },
+    {
+      description: "Talos Group",
+      groupName: "talos",
+      matchPackageNames: [
+        "siderolabs/talos",
+        "ghcr.io/siderolabs/talosctl",
+        "aqua:siderolabs/talos",
+      ],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+    },
+    {
+      description: "Teleport Group",
+      groupName: "Teleport",
+      matchPackagePatterns: ["teleport-cluster", "teleport-kube-agent"],
+      matchDatasources: ["helm"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+    },
+    {
+      description: "Tdarr Group",
+      groupName: "tdarr",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/haveagitgat/tdarr", "ghcr.io/haveagitgat/tdarr_node"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+    },
+    {
+      description: "CloudNativePG Group",
+      groupName: "CloudNativePG",
+      matchPackageNames: ["/cloudnative-pg/"],
+      excludePackageNames: ["ghcr.io/cloudnative-pg/postgresql"],
+      group: {
+        commitMessageTopic: "{{{groupName}}} group",
+      },
+    },
+    {
+      description: "Mise Tools Group",
+      matchManagers: ["mise"],
+      groupName: "mise tools",
+      groupSlug: "mise-tools",
+    },
+
+    // Package-specific overrides
+    {
+      description: "Override docker versioning for corentinth/it-tools",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["corentinth/it-tools"],
+      versioning: "regex:^(?<major>\\d{4})\\.(?<minor>\\d{1,2})\\.(?<patch>\\d{1,2})-(?<sha>[a-f0-9]{7,})$",
+    },
+
+    // Labeling rules
+    {
+      matchUpdateTypes: ["major"],
+      addLabels: ["type/major"],
+    },
+    {
+      matchUpdateTypes: ["minor"],
+      addLabels: ["type/minor"],
+    },
+    {
+      matchUpdateTypes: ["patch"],
+      addLabels: ["type/patch"],
+    },
+    {
+      matchUpdateTypes: ["digest"],
+      addLabels: ["type/digest"],
+    },
+  ],
+}
