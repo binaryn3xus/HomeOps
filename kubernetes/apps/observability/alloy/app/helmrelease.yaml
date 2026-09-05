@@ -29,9 +29,6 @@ spec:
         extra:
           - name: run-alloy
             mountPath: /run/alloy
-          - name: run-promtail
-            mountPath: /run/promtail
-            readOnly: true
       configMap:
         content: |-
           discovery.kubernetes "kubernetes_pods" {
@@ -121,9 +118,8 @@ spec:
           }
 
           loki.source.file "kubernetes_pods" {
-            targets               = local.file_match.kubernetes_pods.targets
-            forward_to            = [loki.process.kubernetes_pods.receiver]
-            legacy_positions_file = "/run/promtail/positions.yaml"
+            targets    = local.file_match.kubernetes_pods.targets
+            forward_to = [loki.process.kubernetes_pods.receiver]
           }
 
           loki.write "default" {
@@ -144,8 +140,5 @@ spec:
             hostPath:
               path: /run/alloy
               type: DirectoryOrCreate
-          - name: run-promtail
-            hostPath:
-              path: /run/promtail
     serviceMonitor:
       enabled: true
