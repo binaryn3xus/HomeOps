@@ -11,17 +11,18 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
-      namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
   components:
-    - ../../../../components/volsync
+    - ../../../../components/kopiur
   interval: 30m
   path: ./kubernetes/apps/ai/hermes/app
   postBuild:
     substitute:
       APP: hermes-data
-      VOLSYNC_SCHEDULE: "0 1-21/4 * * *"
-      VOLSYNC_CAPACITY: 10Gi
+      KOPIUR_CAPACITY: 10Gi
+      KOPIUR_PUID: "10000"
+      KOPIUR_PGID: "10000"
   prune: true
   sourceRef:
     kind: GitRepository
