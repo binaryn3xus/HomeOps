@@ -8,10 +8,11 @@ spec:
   schedule: "30 */12 * * *"
   timeZone: "America/New_York"
   concurrencyPolicy: Forbid
-  successfulJobsHistoryLimit: 2
-  failedJobsHistoryLimit: 2
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
+      ttlSecondsAfterFinished: 3600
       template:
         spec:
           restartPolicy: OnFailure

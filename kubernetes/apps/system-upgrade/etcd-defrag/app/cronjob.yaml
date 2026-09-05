@@ -7,11 +7,11 @@ metadata:
 spec:
   schedule: "0 4 * * 0" # Every Sunday at 4am UTC
   concurrencyPolicy: Forbid
-  successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
-      ttlSecondsAfterFinished: 86400
+      ttlSecondsAfterFinished: 3600
       template:
         spec:
           restartPolicy: OnFailure
