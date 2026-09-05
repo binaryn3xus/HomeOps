@@ -2,6 +2,12 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+labels:
+  - pairs:
+      app.kubernetes.io/name: esphome
+      app.kubernetes.io/instance: esphome
+      app.kubernetes.io/controller: esphome
+    includeSelectors: true
 resources:
   - ./deployment.yaml
   - ./service.yaml

@@ -11,7 +11,6 @@ spec:
   components:
     - ../../../../components/kopiur
     - ../../../../components/gatus/internal
-    - ../../../../components/common/labels
   dependsOn:
     - name: external-secrets
       namespace: external-secrets
