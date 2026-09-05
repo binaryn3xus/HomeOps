@@ -10,18 +10,21 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/kopiur
   dependsOn:
     - name: external-secrets
       namespace: external-secrets
     - name: rook-ceph-cluster
       namespace: rook-ceph
-    - name: volsync
-      namespace: volsync-system
+    - name: kopiur
+      namespace: kopiur-system
   interval: 30m
   path: ./kubernetes/apps/observability/gatus/app
   postBuild:
     substitute:
-      APP: *app
+      APP: gatus-config
+      KOPIUR_CAPACITY: 5Gi
       GATUS_SUBDOMAIN: status
       GATUS_WEB_PORT: "80"
   prune: true
