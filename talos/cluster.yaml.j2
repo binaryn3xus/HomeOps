@@ -1,9 +1,9 @@
+---
 version: v1alpha1
 debug: false
 persist: true
 
 machine:
-  type: worker
   token: azkv://K8sHomeOpsKeyVault/Talos-Machine-Token
   ca:
     crt: azkv://K8sHomeOpsKeyVault/Talos-Machine-CA-Crt
@@ -57,19 +57,12 @@ machine:
           - bind
           - rshared
           - rw
+    # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
     image: ghcr.io/siderolabs/kubelet:v1.36.4
     nodeIP:
       validSubnets:
         - 10.0.30.0/24
   network:
-    interfaces:
-      - deviceSelector: {}
-        addresses: []
-        routes:
-          - network: 0.0.0.0/0
-            gateway: 10.0.30.1
-        mtu: 9000
-        dhcp: false
     nameservers:
       - 1.1.1.1
       - 1.0.0.1
@@ -99,7 +92,8 @@ machine:
     vm.nr_hugepages: "1024"
   install:
     diskSelector: {}
-    image: factory.talos.dev/installer/7114037f940580e18d06c4d469c1afc96f2ca33f087a08493daba2602b444a2c:v1.13.10
+    # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+    image: factory.talos.dev/installer/{{ schematic }}:v1.13.10
     wipe: false
   kernel:
     modules:

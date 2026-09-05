@@ -13,7 +13,7 @@ default:
 
 [private]
 template file *args:
-    minijinja-cli "{{ file }}" {{ args }} | ./az-inject.sh
+    minijinja-cli -a none "{{ file }}" {{ args }} | ./az-inject.sh
 
 # --- PikVM Backup ---
 [doc('Backup PiKVM Override File')]

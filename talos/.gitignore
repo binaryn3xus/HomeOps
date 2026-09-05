@@ -1,3 +1,4 @@
 # Ignore generated private configs
 generated/
 talosconfig
+*.iso
