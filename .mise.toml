@@ -5,7 +5,7 @@ K9S_CONFIG_DIR = "{{config_root}}/resources/k9s"
 KUBE_EDITOR = "nano"
 
 [tools]
-node = "latest"
+node = "26.8.1"
 
 # Kubernetes & Infrastructure
 cilium-cli = "0.20.0"
@@ -34,3 +34,4 @@ codex = "0.153.4"
 copilot-cli = "1.0.83"
 opencode = "1.18.29"
 wrangler = "4.129.0"
+gh = "2.100.0"
