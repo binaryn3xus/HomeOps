@@ -20,7 +20,6 @@ resources:
   - ./miroir-system
   - ./network
   - ./observability
-  - ./openebs-system
   - ./paperless
   - ./rook-ceph
   - ./system-upgrade

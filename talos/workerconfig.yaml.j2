@@ -50,13 +50,6 @@ machine:
         ImageVolume: true
       serializeImagePulls: false
     extraMounts:
-      - destination: /var/mnt/local-hostpath
-        type: bind
-        source: /var/mnt/local-hostpath
-        options:
-          - bind
-          - rshared
-          - rw
       - destination: /var/mnt/miroir
         type: bind
         source: /var/mnt/miroir
