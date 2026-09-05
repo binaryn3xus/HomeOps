@@ -3,4 +3,3 @@ kind: Namespace
 metadata:
   name: paperless
   annotations:
-    volsync.backube/privileged-movers: "true"

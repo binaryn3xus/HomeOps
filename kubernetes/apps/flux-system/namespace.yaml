@@ -7,4 +7,3 @@ metadata:
     app.kubernetes.io/instance: flux-system
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
-    volsync.backube/privileged-movers: "true"

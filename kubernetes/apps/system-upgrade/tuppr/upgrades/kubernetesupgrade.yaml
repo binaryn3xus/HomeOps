@@ -6,10 +6,10 @@ metadata:
   name: kubernetes
 spec:
   healthChecks:
-    - apiVersion: volsync.backube/v1alpha1
+    - apiVersion: kopiur.home-operations.com/v1alpha1
       expr: |-
-        status.conditions.filter(c, c.type == "Synchronizing").all(c, c.status == "False")
-      kind: ReplicationSource
+        !has(status.phase) || status.phase in ['Succeeded', 'Failed', 'Orphaned']
+      kind: Snapshot
     - apiVersion: ceph.rook.io/v1
       expr: |-
         status.ceph.health in ['HEALTH_OK', 'HEALTH_WARN']

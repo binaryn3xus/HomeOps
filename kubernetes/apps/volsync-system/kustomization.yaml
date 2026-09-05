@@ -5,6 +5,4 @@ kind: Kustomization
 namespace: volsync-system
 resources:
   - ./namespace.yaml
-  - ./kopia/ks.yaml
   - ./snapshot-controller/ks.yaml
-  - ./volsync/ks.yaml
