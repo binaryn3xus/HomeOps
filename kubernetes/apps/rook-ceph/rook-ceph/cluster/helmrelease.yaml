@@ -105,6 +105,8 @@ spec:
           failureDomain: host
           replicated:
             size: 3
+          parameters:
+            target_size_ratio: ".85"
         storageClass:
           enabled: true
           name: ceph-block

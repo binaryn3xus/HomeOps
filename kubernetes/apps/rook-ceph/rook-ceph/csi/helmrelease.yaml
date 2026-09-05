@@ -27,6 +27,10 @@ spec:
         enabled: true
         name: rook-ceph.cephfs.csi.ceph.com
         snapshotPolicy: volumeSnapshot
+      nfs:
+        enabled: false
+      nvmeof:
+        enabled: false
     csi:
       cephFSKernelMountOptions: ms_mode=prefer-crc
       enableLiveness: true
