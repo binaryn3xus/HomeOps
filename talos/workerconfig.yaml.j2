@@ -42,10 +42,6 @@ machine:
         hard=True
         nconnect=16
         noatime=True
-    - op: overwrite
-      path: /var/mnt/miroir/.keep
-      permissions: 0o644
-      content: ""
   kubelet:
     defaultRuntimeSeccompProfileEnabled: true
     disableManifestsDirectory: true
