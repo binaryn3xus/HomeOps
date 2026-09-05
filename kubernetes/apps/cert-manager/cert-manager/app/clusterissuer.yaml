@@ -18,6 +18,7 @@ spec:
         selector:
           dnsZones: ["unscfleet.com"]
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cert-manager.io/clusterissuer_v1.json
 # Used to sign internal certificates - Teleport
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -26,6 +27,7 @@ metadata:
 spec:
   selfSigned: {}
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cert-manager.io/certificate_v1.json
 # Create the root certificate
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -40,6 +42,7 @@ spec:
     name: selfsigned-ca
   secretName: root-ca-secret
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cert-manager.io/clusterissuer_v1.json
 # Create an intermediary CA using the root CA
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer

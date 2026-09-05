@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/batch/cronjob_v1.json
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -71,6 +72,7 @@ spec:
               secret:
                 secretName: etcd-defrag-talos-secrets
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/talos.dev/serviceaccount_v1alpha1.json
 apiVersion: talos.dev/v1alpha1
 kind: ServiceAccount
 metadata:

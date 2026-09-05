@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/storage.k8s.io/storageclass_v1.json
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -7,6 +8,7 @@ provisioner: nfs
 parameters:
   archiveOnDelete: "false"
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/persistentvolume_v1.json
 # PV for automation namespace
 apiVersion: v1
 kind: PersistentVolume
@@ -29,6 +31,7 @@ spec:
     - rsize=131072
     - wsize=131072
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/persistentvolume_v1.json
 # PV for media namespace
 apiVersion: v1
 kind: PersistentVolume
@@ -51,6 +54,7 @@ spec:
     - rsize=131072
     - wsize=131072
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/persistentvolume_v1.json
 apiVersion: v1
 kind: PersistentVolume
 metadata:

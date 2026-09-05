@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cert-manager.io/certificate_v1.json
 # ============================================================================
 # Teleport Certificate Authority & Trust Infrastructure
 # ============================================================================
@@ -28,6 +29,7 @@ spec:
     kind: ClusterIssuer
     group: cert-manager.io
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cert-manager.io/issuer_v1.json
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
@@ -43,6 +45,7 @@ spec:
 # Used by the Proxy for incoming user connections.
 # ----------------------------------------------------------------------------
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cert-manager.io/certificate_v1.json
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -69,6 +72,7 @@ spec:
 # Used for internal gRPC communication between Proxy and Agents.
 # ----------------------------------------------------------------------------
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cert-manager.io/certificate_v1.json
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:

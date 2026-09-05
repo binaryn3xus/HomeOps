@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/service_v1.json
 apiVersion: v1
 kind: Service
 metadata:
@@ -14,6 +15,7 @@ spec:
     app.kubernetes.io/instance: tracearr
     app.kubernetes.io/controller: tracearr
 ---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/service_v1.json
 apiVersion: v1
 kind: Service
 metadata:
