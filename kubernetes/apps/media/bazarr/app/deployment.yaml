@@ -8,17 +8,7 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: bazarr
-      app.kubernetes.io/instance: bazarr
-      app.kubernetes.io/controller: bazarr
   template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: bazarr
-        app.kubernetes.io/instance: bazarr
-        app.kubernetes.io/controller: bazarr
     spec:
       securityContext:
         runAsNonRoot: true

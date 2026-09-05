@@ -9,7 +9,4 @@ spec:
       port: 80
       targetPort: 80
       protocol: TCP
-  selector:
-    app.kubernetes.io/name: unpoller
-    app.kubernetes.io/instance: unpoller
-    app.kubernetes.io/controller: unpoller
+

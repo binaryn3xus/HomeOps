@@ -8,17 +8,7 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: zigbee
-      app.kubernetes.io/instance: zigbee
-      app.kubernetes.io/controller: zigbee
   template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: zigbee
-        app.kubernetes.io/instance: zigbee
-        app.kubernetes.io/controller: zigbee
     spec:
       securityContext:
         runAsNonRoot: true

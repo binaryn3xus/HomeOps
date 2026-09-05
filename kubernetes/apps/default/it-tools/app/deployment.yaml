@@ -7,17 +7,7 @@ metadata:
     reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: it-tools
-      app.kubernetes.io/instance: it-tools
-      app.kubernetes.io/controller: it-tools
   template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: it-tools
-        app.kubernetes.io/instance: it-tools
-        app.kubernetes.io/controller: it-tools
     spec:
       containers:
         - name: app

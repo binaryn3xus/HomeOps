@@ -8,7 +8,4 @@ spec:
       port: 80
       targetPort: 80
       protocol: TCP
-  selector:
-    app.kubernetes.io/name: bazarr
-    app.kubernetes.io/instance: bazarr
-    app.kubernetes.io/controller: bazarr
+

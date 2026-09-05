@@ -8,17 +8,7 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: sonarr
-      app.kubernetes.io/instance: sonarr
-      app.kubernetes.io/controller: sonarr
   template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: sonarr
-        app.kubernetes.io/instance: sonarr
-        app.kubernetes.io/controller: sonarr
     spec:
       securityContext:
         runAsNonRoot: true

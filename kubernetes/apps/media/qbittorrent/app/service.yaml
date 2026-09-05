@@ -12,7 +12,4 @@ spec:
       port: 50413
       targetPort: 50413
       protocol: TCP
-  selector:
-    app.kubernetes.io/name: qbittorrent
-    app.kubernetes.io/instance: qbittorrent
-    app.kubernetes.io/controller: qbittorrent
+

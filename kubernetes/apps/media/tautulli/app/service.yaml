@@ -8,7 +8,4 @@ spec:
       port: 8181
       targetPort: 8181
       protocol: TCP
-  selector:
-    app.kubernetes.io/name: tautulli
-    app.kubernetes.io/instance: tautulli
-    app.kubernetes.io/controller: tautulli
+

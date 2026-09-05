@@ -8,17 +8,7 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: mosquitto
-      app.kubernetes.io/instance: mosquitto
-      app.kubernetes.io/controller: mosquitto
   template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: mosquitto
-        app.kubernetes.io/instance: mosquitto
-        app.kubernetes.io/controller: mosquitto
     spec:
       securityContext:
         runAsNonRoot: true

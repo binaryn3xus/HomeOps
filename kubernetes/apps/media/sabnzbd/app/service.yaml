@@ -8,7 +8,4 @@ spec:
       port: 80
       targetPort: 80
       protocol: TCP
-  selector:
-    app.kubernetes.io/name: sabnzbd
-    app.kubernetes.io/instance: sabnzbd
-    app.kubernetes.io/controller: sabnzbd
+

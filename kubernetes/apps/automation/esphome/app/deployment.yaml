@@ -8,17 +8,7 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: esphome
-      app.kubernetes.io/instance: esphome
-      app.kubernetes.io/controller: esphome
   template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: esphome
-        app.kubernetes.io/instance: esphome
-        app.kubernetes.io/controller: esphome
     spec:
       securityContext:
         runAsNonRoot: true

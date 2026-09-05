@@ -8,7 +8,4 @@ spec:
       port: 80
       targetPort: 80
       protocol: TCP
-  selector:
-    app.kubernetes.io/name: seerr
-    app.kubernetes.io/instance: seerr
-    app.kubernetes.io/controller: seerr
+

@@ -8,17 +8,7 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: zwave
-      app.kubernetes.io/instance: zwave
-      app.kubernetes.io/controller: zwave
   template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: zwave
-        app.kubernetes.io/instance: zwave
-        app.kubernetes.io/controller: zwave
     spec:
       containers:
         - name: app

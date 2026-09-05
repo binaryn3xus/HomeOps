@@ -12,7 +12,4 @@ spec:
       port: 8266
       targetPort: server
       protocol: TCP
-  selector:
-    app.kubernetes.io/name: tdarr
-    app.kubernetes.io/instance: tdarr
-    app.kubernetes.io/controller: tdarr
+

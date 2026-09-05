@@ -11,7 +11,4 @@ spec:
       port: 32400
       targetPort: 32400
       protocol: TCP
-  selector:
-    app.kubernetes.io/name: plex
-    app.kubernetes.io/instance: plex
-    app.kubernetes.io/controller: plex
+

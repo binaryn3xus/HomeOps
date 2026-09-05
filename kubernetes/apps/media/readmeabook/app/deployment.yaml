@@ -8,17 +8,7 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: readmeabook
-      app.kubernetes.io/instance: readmeabook
-      app.kubernetes.io/controller: readmeabook
   template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: readmeabook
-        app.kubernetes.io/instance: readmeabook
-        app.kubernetes.io/controller: readmeabook
     spec:
       containers:
         - name: app

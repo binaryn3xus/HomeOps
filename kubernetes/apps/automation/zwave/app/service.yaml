@@ -12,7 +12,4 @@ spec:
       port: 3000
       targetPort: 3000
       protocol: TCP
-  selector:
-    app.kubernetes.io/name: zwave
-    app.kubernetes.io/instance: zwave
-    app.kubernetes.io/controller: zwave
+

@@ -8,7 +8,4 @@ spec:
       port: 80
       targetPort: 80
       protocol: TCP
-  selector:
-    app.kubernetes.io/name: audiobookshelf
-    app.kubernetes.io/instance: audiobookshelf
-    app.kubernetes.io/controller: audiobookshelf
+

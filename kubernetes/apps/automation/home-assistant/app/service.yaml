@@ -15,10 +15,6 @@ spec:
       port: 5683
       targetPort: 5683
       protocol: UDP
-  selector:
-    app.kubernetes.io/name: home-assistant
-    app.kubernetes.io/instance: home-assistant
-    app.kubernetes.io/controller: home-assistant
 ---
 apiVersion: v1
 kind: Service
@@ -31,7 +27,3 @@ spec:
       port: 12321
       targetPort: 12321
       protocol: TCP
-  selector:
-    app.kubernetes.io/name: home-assistant
-    app.kubernetes.io/instance: home-assistant
-    app.kubernetes.io/controller: home-assistant

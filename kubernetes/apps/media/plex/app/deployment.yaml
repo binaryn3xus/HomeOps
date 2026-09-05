@@ -8,17 +8,7 @@ spec:
   replicas: 1
   strategy:
     type: Recreate
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: plex
-      app.kubernetes.io/instance: plex
-      app.kubernetes.io/controller: plex
   template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: plex
-        app.kubernetes.io/instance: plex
-        app.kubernetes.io/controller: plex
     spec:
       securityContext:
         runAsNonRoot: true

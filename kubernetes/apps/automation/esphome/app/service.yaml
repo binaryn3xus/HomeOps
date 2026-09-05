@@ -8,7 +8,4 @@ spec:
       port: 6052
       targetPort: 6052
       protocol: TCP
-  selector:
-    app.kubernetes.io/name: esphome
-    app.kubernetes.io/instance: esphome
-    app.kubernetes.io/controller: esphome
+

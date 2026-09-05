@@ -9,7 +9,4 @@ spec:
       port: 80
       targetPort: 80
       protocol: TCP
-  selector:
-    app.kubernetes.io/name: it-tools
-    app.kubernetes.io/instance: it-tools
-    app.kubernetes.io/controller: it-tools
+

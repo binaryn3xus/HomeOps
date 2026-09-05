@@ -5,17 +5,7 @@ metadata:
   namespace: observability
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: unpoller
-      app.kubernetes.io/instance: unpoller
-      app.kubernetes.io/controller: unpoller
   template:
-    metadata:
-      labels:
-        app.kubernetes.io/name: unpoller
-        app.kubernetes.io/instance: unpoller
-        app.kubernetes.io/controller: unpoller
     spec:
       securityContext:
         runAsNonRoot: true
