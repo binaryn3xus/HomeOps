@@ -1,0 +1,151 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: alloy
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: alloy
+      version: 1.12.1
+      sourceRef:
+        kind: HelmRepository
+        name: alloy
+        namespace: observability
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    alloy:
+      storagePath: /run/alloy
+      mounts:
+        varlog: true
+        extra:
+          - name: run-alloy
+            mountPath: /run/alloy
+          - name: run-promtail
+            mountPath: /run/promtail
+            readOnly: true
+      configMap:
+        content: |-
+          discovery.kubernetes "kubernetes_pods" {
+            role = "pod"
+
+            selectors {
+              role  = "pod"
+              field = "spec.nodeName=" + coalesce(sys.env("HOSTNAME"), constants.hostname)
+            }
+          }
+
+          discovery.relabel "kubernetes_pods" {
+            targets = discovery.kubernetes.kubernetes_pods.targets
+
+            rule {
+              source_labels = ["__meta_kubernetes_pod_controller_name"]
+              regex         = "([0-9a-z-.]+?)(-[0-9a-f]{8,10})?"
+              target_label  = "__tmp_controller_name"
+            }
+
+            rule {
+              source_labels = ["__meta_kubernetes_pod_label_app_kubernetes_io_name", "__meta_kubernetes_pod_label_app", "__tmp_controller_name", "__meta_kubernetes_pod_name"]
+              regex         = "^;*([^;]+)(;.*)?$"
+              target_label  = "app"
+            }
+
+            rule {
+              source_labels = ["__meta_kubernetes_pod_label_app_kubernetes_io_instance", "__meta_kubernetes_pod_label_instance"]
+              regex         = "^;*([^;]+)(;.*)?$"
+              target_label  = "instance"
+            }
+
+            rule {
+              source_labels = ["__meta_kubernetes_pod_label_app_kubernetes_io_component", "__meta_kubernetes_pod_label_component"]
+              regex         = "^;*([^;]+)(;.*)?$"
+              target_label  = "component"
+            }
+
+            rule {
+              source_labels = ["__meta_kubernetes_pod_node_name"]
+              target_label  = "node_name"
+            }
+
+            rule {
+              source_labels = ["__meta_kubernetes_namespace"]
+              target_label  = "namespace"
+            }
+
+            rule {
+              source_labels = ["namespace", "app"]
+              separator     = "/"
+              target_label  = "job"
+            }
+
+            rule {
+              source_labels = ["__meta_kubernetes_pod_name"]
+              target_label  = "pod"
+            }
+
+            rule {
+              source_labels = ["__meta_kubernetes_pod_container_name"]
+              target_label  = "container"
+            }
+
+            rule {
+              source_labels = ["__meta_kubernetes_pod_uid", "__meta_kubernetes_pod_container_name"]
+              separator     = "/"
+              target_label  = "__path__"
+              replacement   = "/var/log/pods/*$1/*.log"
+            }
+          }
+
+          local.file_match "kubernetes_pods" {
+            path_targets = discovery.relabel.kubernetes_pods.output
+          }
+
+          loki.process "kubernetes_pods" {
+            forward_to = [loki.write.default.receiver]
+
+            stage.cri { }
+
+            stage.labels {
+              values = {
+                stream = "",
+              }
+            }
+          }
+
+          loki.source.file "kubernetes_pods" {
+            targets               = local.file_match.kubernetes_pods.targets
+            forward_to            = [loki.process.kubernetes_pods.receiver]
+            legacy_positions_file = "/run/promtail/positions.yaml"
+          }
+
+          loki.write "default" {
+            endpoint {
+              url = "http://loki.observability.svc.cluster.local:3100/loki/api/v1/push"
+            }
+          }
+    controller:
+      type: daemonset
+      tolerations:
+        - key: sku
+          operator: Equal
+          value: gpu
+          effect: NoSchedule
+      volumes:
+        extra:
+          - name: run-alloy
+            hostPath:
+              path: /run/alloy
+              type: DirectoryOrCreate
+          - name: run-promtail
+            hostPath:
+              path: /run/promtail
+    serviceMonitor:
+      enabled: true

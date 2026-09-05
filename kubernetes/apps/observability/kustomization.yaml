@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: observability
 resources:
   - ./namespace.yaml
+  - ./alloy/ks.yaml
   - ./gatus/ks.yaml
   - ./grafana/ks.yaml
   - ./kromgo/ks.yaml
