@@ -17,6 +17,7 @@ resources:
   - ./kopiur-system
   - ./kube-system
   - ./media
+  - ./miroir-system
   - ./network
   - ./observability
   - ./openebs-system
