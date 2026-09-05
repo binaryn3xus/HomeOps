@@ -14,6 +14,7 @@ resources:
   - ./external-secrets
   - ./flux-system
   - ./games
+  - ./kopiur-system
   - ./kube-system
   - ./media
   - ./network
@@ -23,5 +24,3 @@ resources:
   - ./rook-ceph
   - ./system-upgrade
   - ./teleport
-  - ./volsync-system
-  - ./kopiur-system
