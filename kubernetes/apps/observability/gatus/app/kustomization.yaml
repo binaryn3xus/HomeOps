@@ -2,10 +2,12 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-commonLabels:
-  app.kubernetes.io/name: gatus
-  app.kubernetes.io/instance: gatus
-  app.kubernetes.io/controller: gatus
+labels:
+  - pairs:
+      app.kubernetes.io/name: gatus
+      app.kubernetes.io/instance: gatus
+      app.kubernetes.io/controller: gatus
+    includeSelectors: true
 resources:
   - ./rbac.yaml
   - ./deployment.yaml

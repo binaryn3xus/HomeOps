@@ -2,10 +2,6 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-commonLabels:
-  app.kubernetes.io/name: palworld-server
-  app.kubernetes.io/instance: palworld-server
-  app.kubernetes.io/controller: palworld-server
 resources:
   - ./external-service.yaml
   - ./backend.yaml

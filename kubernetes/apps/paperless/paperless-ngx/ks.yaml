@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/gatus/internal
+    - ../../../../components/common/labels
   dependsOn:
     - name: paperless-postgres
       namespace: paperless

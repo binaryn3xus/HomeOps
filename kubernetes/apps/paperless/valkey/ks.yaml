@@ -9,8 +9,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/common/labels
   interval: 30m
   path: ./kubernetes/apps/paperless/valkey/app
+  postBuild:
+    substitute:
+      APP: *app
   prune: true
   sourceRef:
     kind: GitRepository

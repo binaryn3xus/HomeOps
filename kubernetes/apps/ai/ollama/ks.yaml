@@ -9,6 +9,8 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/common/labels
   dependsOn:
     - name: rook-ceph-cluster
       namespace: rook-ceph
@@ -16,6 +18,9 @@ spec:
       namespace: kube-system
   interval: 30m
   path: ./kubernetes/apps/ai/ollama/app
+  postBuild:
+    substitute:
+      APP: *app
   prune: true
   sourceRef:
     kind: GitRepository

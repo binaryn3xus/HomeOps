@@ -9,8 +9,13 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/common/labels
   interval: 1h
   path: ./kubernetes/apps/network/ddns-updater/app
+  postBuild:
+    substitute:
+      APP: *app
   prune: true
   sourceRef:
     kind: GitRepository

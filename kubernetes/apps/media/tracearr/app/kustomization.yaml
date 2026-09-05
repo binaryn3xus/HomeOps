@@ -2,9 +2,11 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-commonLabels:
-  app.kubernetes.io/name: tracearr
-  app.kubernetes.io/instance: tracearr
+labels:
+  - pairs:
+      app.kubernetes.io/name: tracearr
+      app.kubernetes.io/instance: tracearr
+    includeSelectors: true
 resources:
   - ./externalsecret.yaml
   - ./db-cluster.yaml

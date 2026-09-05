@@ -2,10 +2,12 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-commonLabels:
-  app.kubernetes.io/name: cortana
-  app.kubernetes.io/instance: cortana
-  app.kubernetes.io/controller: cortana
+labels:
+  - pairs:
+      app.kubernetes.io/name: cortana
+      app.kubernetes.io/instance: cortana
+      app.kubernetes.io/controller: cortana
+    includeSelectors: true
 resources:
   - ./instance.yaml
   - ./httproute.yaml

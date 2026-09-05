@@ -11,6 +11,8 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/kopiur
+    - ../../../../components/common/labels
+    - ../../../../components/gatus/external
   dependsOn:
     - name: external-secrets
       namespace: external-secrets
@@ -23,6 +25,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      GATUS_SUBDOMAIN: ai
       KOPIUR_CAPACITY: 20Gi
       KOPIUR_PUID: "1000"
       KOPIUR_PGID: "1000"

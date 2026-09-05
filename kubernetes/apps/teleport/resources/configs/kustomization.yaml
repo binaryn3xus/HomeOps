@@ -6,6 +6,8 @@ resources:
   - ./externalsecret.yaml
   - ./github.yaml
   - ./roles.yaml
-commonLabels:
-  app.kubernetes.io/name: teleport
-  app.kubernetes.io/instance: teleport
+labels:
+  - pairs:
+      app.kubernetes.io/name: teleport
+      app.kubernetes.io/instance: teleport
+    includeSelectors: true

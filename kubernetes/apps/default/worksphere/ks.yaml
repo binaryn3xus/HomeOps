@@ -11,6 +11,7 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/common/labels
+    - ../../../../components/gatus/internal
   path: ./kubernetes/apps/default/worksphere/app
   postBuild:
     substitute:

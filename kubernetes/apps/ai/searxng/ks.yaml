@@ -9,11 +9,15 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/common/labels
+    - ../../../../components/gatus/internal
   interval: 30m
   path: ./kubernetes/apps/ai/searxng/app
   postBuild:
     substitute:
       APP: *app
+      GATUS_SUBDOMAIN: search
   prune: true
   sourceRef:
     kind: GitRepository
