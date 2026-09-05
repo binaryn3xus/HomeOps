@@ -7,7 +7,6 @@ KUBE_EDITOR = "nano"
 [tools]
 node = "latest"
 # Operations tools
-"aqua:charmbracelet/gum" = "2.0.0"
 "aqua:cilium/cilium-cli" = "0.20.0"
 "aqua:cloudflare/cloudflared" = "2026.8.3"
 "aqua:cloudnative-pg/cloudnative-pg/kubectl-cnpg" = "1.30.0"
