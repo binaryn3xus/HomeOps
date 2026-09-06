@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/monitoring.coreos.com/prometheusrule_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: kopiur-rules
+  namespace: kopiur-system
+spec:
+  groups:
+    - name: kopiur.rules
+      rules:
+        - alert: KopiurScheduleConsecutiveFailures
+          annotations:
+            summary: "SnapshotSchedule {{ $labels.namespace }}/{{ $labels.name }} is failing"
+            description: "SnapshotSchedule {{ $labels.namespace }}/{{ $labels.name }} has experienced {{ $value }} consecutive snapshot failure(s)."
+          expr: |-
+            kopiur_snapshot_consecutive_failures > 0
+          for: 15m
+          labels:
+            severity: warning
+        - alert: KopiurSnapshotPolicyFailing
+          annotations:
+            summary: "SnapshotPolicy {{ $labels.namespace }}/{{ $labels.policy }} latest backup failed"
+            description: "The most recent backup for SnapshotPolicy {{ $labels.namespace }}/{{ $labels.policy }} did not succeed."
+          expr: |-
+            min by (namespace, policy) (kopiur_snapshotpolicy_last_backup_success) == 0
+          for: 15m
+          labels:
+            severity: warning

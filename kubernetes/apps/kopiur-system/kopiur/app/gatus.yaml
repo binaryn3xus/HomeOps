@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/configmap_v1.json
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kopiur-gatus-ep
+  namespace: kopiur-system
+  labels:
+    gatus.io/enabled: "true"
+data:
+  config.yaml: |
+    endpoints:
+      - name: kopiur
+        group: infrastructure
+        url: http://kopiur-controller-metrics.kopiur-system.svc.cluster.local:8081/healthz
+        interval: 1m
+        conditions:
+          - "[STATUS] == 200"
+          - "[BODY] == ok"
+        alerts:
+          - type: pushover
