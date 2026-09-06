@@ -92,7 +92,7 @@ spec:
             - name: OLLAMA_MODELS
               value: /models
             - name: OLLAMA_KEEP_ALIVE
-              value: "5m"
+              value: "30m"
             - name: OLLAMA_NUM_PARALLEL
               value: "1"
             - name: OLLAMA_CONTEXT_LENGTH

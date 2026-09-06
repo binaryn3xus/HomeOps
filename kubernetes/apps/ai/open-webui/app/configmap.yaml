@@ -32,6 +32,12 @@ data:
   OPENAI_API_BASE_URL: "https://generativelanguage.googleapis.com/v1beta/openai"
   MODELS_CACHE_TTL: "3600"
 
+  # --- MODEL EXPERIENCE ---
+  DEFAULT_MODELS: "gemma4:e2b"
+  DEFAULT_PINNED_MODELS: "gemma4:e2b,qwen2.5-coder:7b,gemma4:e4b"
+  MODEL_ORDER_LIST: '["gemma4:e2b", "qwen2.5-coder:7b", "gemma4:e4b", "llama3.2:latest"]'
+  TASK_MODEL: "gemma4:e2b"
+
   # --- CODE EXECUTION ---
   ENABLE_CODE_INTERPRETER: "True"
   CODE_INTERPRETER_ENGINE: "pyodide"
@@ -57,4 +63,3 @@ data:
   AUDIO_TTS_ENGINE: "azure"
   AUDIO_TTS_AZURE_SPEECH_REGION: "eastus"
   AUDIO_TTS_VOICE: "en-US-AvaNeural"
-
