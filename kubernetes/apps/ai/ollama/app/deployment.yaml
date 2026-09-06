@@ -96,7 +96,7 @@ spec:
             - name: OLLAMA_NUM_PARALLEL
               value: "1"
             - name: OLLAMA_CONTEXT_LENGTH
-              value: "8192"
+              value: "32768"
             - name: OLLAMA_MAX_LOADED_MODELS
               value: "1"
             - name: OLLAMA_FLASH_ATTENTION
