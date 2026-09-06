@@ -14,11 +14,17 @@ spec:
     features:
       credentialProjection:
         enabled: true
-    metrics:
+    monitoring:
       serviceMonitor:
         enabled: true
       prometheusRule:
         enabled: true
+      dashboards:
+        enabled: true
+        grafanaOperator:
+          enabled: true
+          matchLabels:
+            dashboards: grafana
     secretProjection:
       enabled: true
     webhook:
