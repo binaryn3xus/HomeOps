@@ -130,3 +130,8 @@ spec:
       name: csi-ceph-blockpool
       isDefault: true
       deletionPolicy: Delete
+    # Note: Explicitly set to empty to override rook-ceph-cluster chart defaults (which deploy ceph-filesystem and ceph-objectstore if omitted)
+    cephFileSystems: []
+    cephFileSystemVolumeSnapshotClass:
+      enabled: false
+    cephObjectStores: []
