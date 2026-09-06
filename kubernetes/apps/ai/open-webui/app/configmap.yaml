@@ -33,10 +33,10 @@ data:
   MODELS_CACHE_TTL: "3600"
 
   # --- MODEL EXPERIENCE ---
-  DEFAULT_MODELS: "gemma4:e2b"
-  DEFAULT_PINNED_MODELS: "gemma4:e2b,qwen2.5-coder:7b,gemma4:e4b"
-  MODEL_ORDER_LIST: '["gemma4:e2b", "qwen2.5-coder:7b", "gemma4:e4b", "llama3.2:latest"]'
-  TASK_MODEL: "gemma4:e2b"
+  DEFAULT_MODELS: "llama3.2:latest"
+  DEFAULT_PINNED_MODELS: "llama3.2:latest,qwen2.5-coder:7b,gemma4:e4b"
+  MODEL_ORDER_LIST: '["llama3.2:latest", "qwen2.5-coder:7b", "gemma4:e4b", "gemma4:e2b"]'
+  TASK_MODEL: "llama3.2:latest"
 
   # --- CODE EXECUTION ---
   ENABLE_CODE_INTERPRETER: "True"
