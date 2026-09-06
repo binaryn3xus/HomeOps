@@ -90,12 +90,22 @@ spec:
     operator:
       dashboards:
         enabled: true
+      podDisruptionBudget:
+        enabled: true
+        maxUnavailable: 1
       prometheus:
         enabled: true
         serviceMonitor:
           enabled: true
       replicas: 2
       rollOutPods: true
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              io.cilium/app: operator
     prometheus:
       enabled: true
       serviceMonitor:

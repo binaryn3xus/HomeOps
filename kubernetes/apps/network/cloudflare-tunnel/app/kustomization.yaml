@@ -8,4 +8,5 @@ resources:
   - ./grafanadashboard.yaml
   - ./configmap.yaml
   - ./deployment.yaml
+  - ./poddisruptionbudget.yaml
   - ./service.yaml
