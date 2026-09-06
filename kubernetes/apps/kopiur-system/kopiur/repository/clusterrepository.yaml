@@ -34,5 +34,8 @@ spec:
       fsGroup: 1000
       fsGroupChangePolicy: OnRootMismatch
     ttlSecondsAfterFinished: 3600
+    scratch:
+      storageClassName: ceph-block
+      capacity: 10Gi
   maintenance:
     enabled: true

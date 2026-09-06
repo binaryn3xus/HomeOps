@@ -32,13 +32,17 @@ spec:
     keepWeekly: 4
   verification:
     deep:
+      capacity: ${KOPIUR_CAPACITY:=5Gi}
+      storageClassName: ${KOPIUR_VERIFY_STORAGECLASS:=ceph-block}
+      parallel: ${KOPIUR_VERIFY_PARALLEL:=2}
       schedule:
-        cron: H 5 * * 0
-        jitter: 1h
+        cron: ${KOPIUR_DEEP_VERIFY_CRON:=H 5 * * 0}
+        jitter: ${KOPIUR_DEEP_VERIFY_JITTER:=3h}
         timezone: America/New_York
     quick:
       schedule:
-        cron: H 5 * * *
-        jitter: 1h
+        cron: ${KOPIUR_QUICK_VERIFY_CRON:=H 5 * * *}
+        jitter: ${KOPIUR_QUICK_VERIFY_JITTER:=1h}
         timezone: America/New_York
+
 

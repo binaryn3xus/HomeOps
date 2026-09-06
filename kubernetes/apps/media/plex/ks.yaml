@@ -31,6 +31,7 @@ spec:
       KOPIUR_CACHE_CAPACITY: 50Gi
       KOPIUR_PUID: "568"
       KOPIUR_PGID: "568"
+      KOPIUR_DEEP_VERIFY_CRON: "H 5 * * 1"
   prune: true
   sourceRef:
     kind: GitRepository
