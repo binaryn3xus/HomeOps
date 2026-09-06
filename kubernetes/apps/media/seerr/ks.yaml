@@ -12,7 +12,7 @@ spec:
   components:
     - ../../../../components/kopiur
     - ../../../../components/common/labels
-    - ../../../../components/gatus/internal
+    - ../../../../components/gatus/external
   dependsOn:
     - name: external-secrets
       namespace: external-secrets
@@ -25,6 +25,7 @@ spec:
   postBuild:
     substitute:
       APP: *app
+      GATUS_SUBDOMAIN: requests
       KOPIUR_CAPACITY: 1Gi
   prune: true
   sourceRef:
