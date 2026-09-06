@@ -15,6 +15,7 @@ spec:
     app.kubernetes.io/name: searxng
     app.kubernetes.io/instance: searxng
     app.kubernetes.io/controller: searxng
+    app.kubernetes.io/component: app
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/service_v1.json
 apiVersion: v1
@@ -31,4 +32,4 @@ spec:
   selector:
     app.kubernetes.io/name: searxng
     app.kubernetes.io/instance: searxng
-    app.kubernetes.io/controller: redis
+    app.kubernetes.io/component: redis
