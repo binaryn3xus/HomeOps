@@ -6,4 +6,3 @@ resources:
   - ./externalsecret.yaml
   - ./external-service.yaml
   - ./cronjob.yaml
-

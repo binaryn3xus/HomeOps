@@ -2,8 +2,7 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: games
+namespace: default
 resources:
-  - ./namespace.yaml
-  - ./externalsecret.yaml
-  - ./minecraft-java/ks.yaml
+  - ./access/ks.yaml
+  - ./backup/ks.yaml

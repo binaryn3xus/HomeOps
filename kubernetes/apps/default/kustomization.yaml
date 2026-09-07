@@ -7,4 +7,5 @@ resources:
   - ./namespace.yaml
   # Apps
   - ./it-tools/ks.yaml
+  - ./palworld
   - ./worksphere/ks.yaml

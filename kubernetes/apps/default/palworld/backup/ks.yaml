@@ -4,13 +4,13 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app palworld-backup
-  namespace: &namespace games
+  namespace: &namespace default
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   interval: 30m
-  path: ./kubernetes/apps/games/palworld-backup/app
+  path: ./kubernetes/apps/default/palworld/backup/app
   postBuild:
     substitute:
       APP: *app
