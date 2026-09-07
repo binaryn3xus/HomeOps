@@ -12,4 +12,117 @@ spec:
   datasources:
     - datasourceName: loki
       inputName: DS_LOKI
-  url: https://grafana.com/api/dashboards/15141/revisions/1/download
+  # The upstream dashboard only exposes namespace, stream, and container. The
+  # latter is often just "app", so use Alloy's logical workload labels first.
+  json: |
+    {
+      "title": "Loki Kubernetes Logs",
+      "uid": "o6-BGgnnk",
+      "schemaVersion": 41,
+      "version": 1,
+      "time": { "from": "now-1h", "to": "now" },
+      "templating": {
+        "list": [
+          {
+            "name": "query",
+            "label": "Search Query",
+            "type": "textbox",
+            "query": "",
+            "current": { "selected": true, "text": "", "value": "" }
+          },
+          {
+            "name": "namespace",
+            "label": "Namespace",
+            "type": "query",
+            "datasource": "${DS_LOKI}",
+            "definition": "label_values(namespace)",
+            "query": "label_values(namespace)",
+            "refresh": 1,
+            "includeAll": true,
+            "allValue": ".*",
+            "multi": true
+          },
+          {
+            "name": "app",
+            "label": "Application",
+            "type": "query",
+            "datasource": "${DS_LOKI}",
+            "definition": "label_values({namespace=~\"$namespace\"}, app)",
+            "query": "label_values({namespace=~\"$namespace\"}, app)",
+            "refresh": 1,
+            "includeAll": true,
+            "allValue": ".*",
+            "multi": true
+          },
+          {
+            "name": "instance",
+            "label": "Instance",
+            "type": "query",
+            "datasource": "${DS_LOKI}",
+            "definition": "label_values({namespace=~\"$namespace\", app=~\"$app\"}, instance)",
+            "query": "label_values({namespace=~\"$namespace\", app=~\"$app\"}, instance)",
+            "refresh": 1,
+            "includeAll": true,
+            "allValue": ".*",
+            "multi": true
+          },
+          {
+            "name": "stream",
+            "label": "Stream",
+            "type": "query",
+            "datasource": "${DS_LOKI}",
+            "definition": "label_values({namespace=~\"$namespace\", app=~\"$app\"}, stream)",
+            "query": "label_values({namespace=~\"$namespace\", app=~\"$app\"}, stream)",
+            "refresh": 1,
+            "includeAll": true,
+            "allValue": ".*",
+            "multi": true
+          },
+          {
+            "name": "container",
+            "label": "Container",
+            "type": "query",
+            "datasource": "${DS_LOKI}",
+            "definition": "label_values({namespace=~\"$namespace\", app=~\"$app\"}, container)",
+            "query": "label_values({namespace=~\"$namespace\", app=~\"$app\"}, container)",
+            "refresh": 1,
+            "includeAll": true,
+            "allValue": ".*",
+            "multi": true
+          }
+        ]
+      },
+      "panels": [
+        {
+          "id": 1,
+          "title": "Log volume",
+          "type": "timeseries",
+          "datasource": "${DS_LOKI}",
+          "gridPos": { "h": 5, "w": 24, "x": 0, "y": 0 },
+          "fieldConfig": { "defaults": { "custom": { "drawStyle": "bars", "fillOpacity": 20 } }, "overrides": [] },
+          "options": { "legend": { "displayMode": "hidden" }, "tooltip": { "mode": "single" } },
+          "targets": [
+            {
+              "refId": "A",
+              "expr": "sum(count_over_time({namespace=~\"$namespace\", app=~\"$app\", instance=~\"$instance\", stream=~\"$stream\", container=~\"$container\"} |= \"$query\" [$__interval]))",
+              "legendFormat": "Log count"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Logs",
+          "type": "logs",
+          "datasource": "${DS_LOKI}",
+          "description": "Kubernetes logs filtered by logical workload labels.",
+          "gridPos": { "h": 25, "w": 24, "x": 0, "y": 5 },
+          "options": { "dedupStrategy": "none", "enableLogDetails": true, "showCommonLabels": false, "showLabels": false, "showTime": false, "sortOrder": "Descending", "wrapLogMessage": false },
+          "targets": [
+            {
+              "refId": "A",
+              "expr": "{namespace=~\"$namespace\", app=~\"$app\", instance=~\"$instance\", stream=~\"$stream\", container=~\"$container\"} |= \"$query\""
+            }
+          ]
+        }
+      ]
+    }
