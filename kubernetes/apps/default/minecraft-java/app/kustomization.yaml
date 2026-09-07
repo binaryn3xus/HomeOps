@@ -8,4 +8,6 @@ resources:
   - ./minecraft-configmaps.yaml
   - ./migration-restore.yaml
   - ./pvc.yaml
+  - ./snapshotpolicy.yaml
+  - ./snapshotschedule.yaml
   - ./deployment.yaml

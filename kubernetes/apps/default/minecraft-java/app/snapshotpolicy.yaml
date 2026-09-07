@@ -1,0 +1,48 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kopiur.home-operations.com/snapshotpolicy_v1alpha1.json
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: SnapshotPolicy
+metadata:
+  name: minecraft-java
+spec:
+  repository:
+    kind: ClusterRepository
+    name: nas
+  credentialProjection:
+    enabled: true
+  sources:
+    - pvc:
+        name: minecraft-java
+      readOnly: true
+      sourcePathStrategy: PvcName
+  copyMethod: Snapshot
+  volumeSnapshotClassName: csi-ceph-blockpool
+  compression:
+    compressor: zstd
+  mover:
+    cache:
+      capacity: 5Gi
+      mode: Persistent
+      storageClassName: miroir-local
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+  retention:
+    keepLatest: 3
+    keepHourly: 24
+    keepDaily: 7
+    keepWeekly: 4
+  verification:
+    deep:
+      capacity: 10Gi
+      storageClassName: ceph-block
+      parallel: 2
+      schedule:
+        cron: H 5 * * 0
+        jitter: 3h
+        timezone: America/New_York
+    quick:
+      schedule:
+        cron: H 5 * * *
+        jitter: 1h
+        timezone: America/New_York
