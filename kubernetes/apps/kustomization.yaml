@@ -13,7 +13,6 @@ resources:
   - ./default
   - ./external-secrets
   - ./flux-system
-  - ./games
   - ./kopiur-system
   - ./kube-system
   - ./media
