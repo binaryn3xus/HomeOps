@@ -11,3 +11,5 @@ resources:
   - ./snapshotpolicy.yaml
   - ./snapshotschedule.yaml
   - ./deployment.yaml
+  - ./service.yaml
+  - ./gatus.yaml

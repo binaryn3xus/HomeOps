@@ -5,4 +5,3 @@ kind: Kustomization
 resources:
   - ./configmap.yaml
   - ./deployment.yaml
-  - ./gatus.yaml
