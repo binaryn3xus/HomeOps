@@ -39,7 +39,7 @@ spec:
             "query": "label_values(namespace)",
             "refresh": 1,
             "includeAll": true,
-            "allValue": ".*",
+            "allValue": ".+",
             "multi": true
           },
           {
