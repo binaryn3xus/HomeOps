@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kopiur.home-operations.com/restore_v1alpha1.json
+apiVersion: kopiur.home-operations.com/v1alpha1
+kind: Restore
+metadata:
+  name: minecraft-java-migration
+spec:
+  credentialProjection:
+    enabled: true
+  source:
+    snapshotRef:
+      name: minecraft-java-20260907145039
+      namespace: games
+  target:
+    populator: {}

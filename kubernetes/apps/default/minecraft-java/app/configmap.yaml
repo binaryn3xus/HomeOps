@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/configmap_v1.json
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: minecraft-java-env
+data:
+  DIFFICULTY: "2"
+  ENABLE_COMMAND_BLOCK: "true"
+  ENABLE_WHITELIST: "true"
+  EULA: "TRUE"
+  EXISTING_OPS_FILE: "SKIP"
+  LEVEL: "Valley-of-Vanilla"
+  MEMORY: "4G"
+  MOTD: "Powered by BinaryNexus"
+  ONLINE_MODE: "true"
+  OVERRIDE_WHITELIST: "true"
+  PAUSE_WHEN_EMPTY_SECONDS: "600"
+  TYPE: "VANILLA"
+  TZ: "America/New_York"
+  VERSION: "LATEST"

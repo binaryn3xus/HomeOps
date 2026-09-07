@@ -2,11 +2,10 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: default
 resources:
-  - ./namespace.yaml
-  # Apps
-  - ./it-tools/ks.yaml
-  - ./minecraft-java/ks.yaml
-  - ./palworld
-  - ./worksphere/ks.yaml
+  - ./configmap.yaml
+  - ./externalsecret.yaml
+  - ./minecraft-configmaps.yaml
+  - ./migration-restore.yaml
+  - ./pvc.yaml
+  - ./deployment.yaml
