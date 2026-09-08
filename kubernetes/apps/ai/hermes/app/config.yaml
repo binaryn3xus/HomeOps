@@ -4,20 +4,20 @@ model:
 
 # Keep Codex as the default for dependable repository work. These aliases let
 # a Kanban task or chat session deliberately choose a cluster-local model for
-# inexpensive triage, summaries, and lightweight code review.
-providers:
-  ollama:
-    base_url: "http://ollama.ai.svc.cluster.local:11434/v1"
-
+# inexpensive triage, summaries, and lightweight code review. Route through
+# LiteLLM so usage is attributed to Hermes and Ollama stays private to the
+# gateway.
 model_aliases:
   local-fast:
-    model: "llama3.2:latest"
-    provider: "ollama"
-    base_url: "http://ollama.ai.svc.cluster.local:11434/v1"
+    model: "homeops/local-fast"
+    provider: "custom"
+    base_url: "http://litellm.ai.svc.cluster.local:4000/v1"
+    key_env: "LITELLM_API_KEY"
   local-code:
-    model: "qwen2.5-coder:7b"
-    provider: "ollama"
-    base_url: "http://ollama.ai.svc.cluster.local:11434/v1"
+    model: "homeops/local-code"
+    provider: "custom"
+    base_url: "http://litellm.ai.svc.cluster.local:4000/v1"
+    key_env: "LITELLM_API_KEY"
 
 agent:
   max_turns: 60
