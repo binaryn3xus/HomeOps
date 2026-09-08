@@ -13,6 +13,8 @@ spec:
     - ../../../../components/common/labels
     - ../../../../components/gatus/internal
   dependsOn:
+    - name: cloudnative-pg-plugin-barman-cloud
+      namespace: database
     - name: external-secrets
       namespace: external-secrets
     - name: ollama

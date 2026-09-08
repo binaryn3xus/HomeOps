@@ -4,9 +4,14 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./deployment.yaml
+  - ./db-cluster.yaml
   - ./service.yaml
   - ./externalsecret.yaml
+  - ./externalsecret-db.yaml
   - ./httproute.yaml
+  - ./objectstore.yaml
+  - ./podmonitor.yaml
+  - ./scheduledbackup.yaml
 configMapGenerator:
   - name: litellm-config
     files:

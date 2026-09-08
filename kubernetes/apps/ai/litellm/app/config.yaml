@@ -16,6 +16,7 @@ model_list:
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY
+  database_url: os.environ/DATABASE_URL
 
 litellm_settings:
   set_verbose: false

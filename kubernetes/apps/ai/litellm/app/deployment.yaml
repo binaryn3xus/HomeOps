@@ -36,6 +36,11 @@ spec:
             - --port
             - "4000"
           env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: litellm-db-secret
+                  key: DATABASE_URL
             - name: LITELLM_MASTER_KEY
               valueFrom:
                 secretKeyRef:
