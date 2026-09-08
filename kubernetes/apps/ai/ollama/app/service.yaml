@@ -6,6 +6,7 @@ metadata:
   name: ollama
   namespace: ai
 spec:
+  type: ClusterIP
   ports:
     - name: http
       port: 11434
