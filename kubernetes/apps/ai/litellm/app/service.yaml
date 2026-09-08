@@ -3,15 +3,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ollama
+  name: litellm
   namespace: ai
 spec:
   ports:
     - name: http
-      port: 11434
-      targetPort: 11434
+      port: 4000
+      targetPort: http
       protocol: TCP
   selector:
-    app.kubernetes.io/name: ollama
-    app.kubernetes.io/instance: ollama
-    app.kubernetes.io/controller: ollama
+    app.kubernetes.io/name: litellm
+    app.kubernetes.io/instance: litellm
+    app.kubernetes.io/controller: litellm
