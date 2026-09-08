@@ -7,6 +7,18 @@ model:
 # inexpensive triage, summaries, and lightweight code review. Route through
 # LiteLLM so usage is attributed to Hermes and Ollama stays private to the
 # gateway.
+providers:
+  homeops:
+    name: "HomeOps LiteLLM"
+    base_url: "http://litellm.ai.svc.cluster.local:4000/v1"
+    key_env: "LITELLM_API_KEY"
+    # Keep the picker stable and avoid an unnecessary discovery request on
+    # every dashboard open. LiteLLM owns the full model catalog.
+    discover_models: false
+    models:
+      - "homeops/local-fast"
+      - "homeops/local-code"
+
 model_aliases:
   local-fast:
     model: "homeops/local-fast"
