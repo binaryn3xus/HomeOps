@@ -30,10 +30,10 @@ spec:
             - "8787"
             - --no-telemetry
           env:
-            # LiteLLM calls the compression-only endpoint over the cluster
-            # network. The service is deliberately not exposed by an HTTPRoute.
-            - name: HEADROOM_COMPRESS_ALLOW_REMOTE
-              value: "1"
+            # The canary clients call Headroom, which forwards their original
+            # LiteLLM virtual-key authorization to this internal gateway.
+            - name: OPENAI_TARGET_API_URL
+              value: http://litellm.ai.svc.cluster.local:4000/v1
             - name: HEADROOM_WORKSPACE_DIR
               value: /tmp/headroom
           ports:
