@@ -30,10 +30,15 @@ spec:
             - "8787"
             - --no-telemetry
           env:
-            # The canary clients call Headroom, which forwards their original
-            # LiteLLM virtual-key authorization to this internal gateway.
+            # Headroom is the canary client to LiteLLM. Its virtual key stays
+            # private to this workload; Hermes authenticates only to Headroom.
             - name: OPENAI_TARGET_API_URL
               value: http://litellm.ai.svc.cluster.local:4000/v1
+            - name: OPENAI_TARGET_API_HEADERS
+              valueFrom:
+                secretKeyRef:
+                  name: headroom-secret
+                  key: OPENAI_TARGET_API_HEADERS
             - name: HEADROOM_PROXY_TOKEN
               valueFrom:
                 secretKeyRef:
