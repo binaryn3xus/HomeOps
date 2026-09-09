@@ -13,6 +13,9 @@ spec:
     - ../../../../components/common/labels
   interval: 30m
   path: ./kubernetes/apps/ai/headroom/app
+  postBuild:
+    substitute:
+      APP: *app
   prune: true
   sourceRef:
     kind: GitRepository
