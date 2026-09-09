@@ -18,15 +18,6 @@ providers:
     models:
       - "homeops/local-fast"
       - "homeops/local-code"
-  homeops-canary:
-    name: "HomeOps LiteLLM Canary"
-    base_url: "http://headroom.ai.svc.cluster.local:8787/v1"
-    key_env: "HEADROOM_PROXY_TOKEN"
-    discover_models: false
-    models:
-      - "homeops/local-fast"
-      - "homeops/local-code"
-
 model_aliases:
   local-fast:
     model: "homeops/local-fast"
@@ -38,19 +29,13 @@ model_aliases:
     provider: "custom"
     base_url: "http://litellm.ai.svc.cluster.local:4000/v1"
     key_env: "LITELLM_API_KEY"
-  local-fast-canary:
-    model: "homeops/local-fast"
-    provider: "homeops-canary"
-  local-code-canary:
-    model: "homeops/local-code"
-    provider: "homeops-canary"
-
 agent:
   max_turns: 60
   verbose: false
   reasoning_effort: "medium"
   toolsets:
-    - all
+    - terminal
+    - file
 
 approvals:
   # Permit routine, low-risk repository work but require confirmation for
