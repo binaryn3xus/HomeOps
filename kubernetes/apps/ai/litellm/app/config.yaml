@@ -9,12 +9,6 @@ model_list:
     litellm_params:
       model: ollama/llama3.2:latest
       api_base: http://ollama.ai.svc.cluster.local:11434
-  # Qwen3 is trained for multi-step tool use and reliably handles Hermes'
-  # agent tool schemas. Keep it separate from lightweight chat/code models.
-  - model_name: homeops/local-agent
-    litellm_params:
-      model: ollama/qwen3:8b
-      api_base: http://ollama.ai.svc.cluster.local:11434
   - model_name: homeops/embed
     litellm_params:
       model: ollama/nomic-embed-text

@@ -62,9 +62,6 @@ spec:
               echo "Pulling qwen2.5-coder:7b..."
               ollama pull qwen2.5-coder:7b
 
-              echo "Pulling qwen3:8b for agentic tool use..."
-              ollama pull qwen3:8b
-
               echo "Pulling gemma4:e2b..."
               ollama pull gemma4:e2b
 
