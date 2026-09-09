@@ -23,7 +23,7 @@ providers:
     base_url: "http://headroom.ai.svc.cluster.local:8787/v1"
     key_env: "LITELLM_HEADROOM_CANARY_API_KEY"
     extra_headers:
-      X-Headroom-Proxy-Token: "${HEADROOM_PROXY_TOKEN}"
+      X-Headroom-Proxy-Token: "$${HEADROOM_PROXY_TOKEN}"
     discover_models: false
     models:
       - "homeops/local-fast"
