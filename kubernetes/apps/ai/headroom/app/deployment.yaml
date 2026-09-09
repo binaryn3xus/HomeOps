@@ -22,7 +22,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: app
-          image: ghcr.io/chopratejas/headroom:0.27.0
+          image: ghcr.io/headroomlabs-ai/headroom:0.37.0@sha256:4e559273659ebc5ce8711a60278e288550fa596377af18a7058e10036d63ef0b
           args:
             - --host
             - 0.0.0.0
