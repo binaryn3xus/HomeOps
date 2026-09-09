@@ -18,6 +18,14 @@ providers:
     models:
       - "homeops/local-fast"
       - "homeops/local-code"
+  homeops-canary:
+    name: "HomeOps LiteLLM Canary"
+    base_url: "http://litellm.ai.svc.cluster.local:4000/v1"
+    key_env: "LITELLM_HEADROOM_CANARY_API_KEY"
+    discover_models: false
+    models:
+      - "homeops/local-fast"
+      - "homeops/local-code"
 
 model_aliases:
   local-fast:
@@ -30,6 +38,16 @@ model_aliases:
     provider: "custom"
     base_url: "http://litellm.ai.svc.cluster.local:4000/v1"
     key_env: "LITELLM_API_KEY"
+  local-fast-canary:
+    model: "homeops/local-fast"
+    provider: "custom"
+    base_url: "http://litellm.ai.svc.cluster.local:4000/v1"
+    key_env: "LITELLM_HEADROOM_CANARY_API_KEY"
+  local-code-canary:
+    model: "homeops/local-code"
+    provider: "custom"
+    base_url: "http://litellm.ai.svc.cluster.local:4000/v1"
+    key_env: "LITELLM_HEADROOM_CANARY_API_KEY"
 
 agent:
   max_turns: 60

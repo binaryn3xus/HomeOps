@@ -7,6 +7,7 @@ resources:
   - ./namespace.yaml
   - ./ollama/ks.yaml
   - ./litellm/ks.yaml
+  - ./headroom/ks.yaml
   - ./open-webui/ks.yaml
   - ./searxng/ks.yaml
   - ./openclaw-operator/ks.yaml

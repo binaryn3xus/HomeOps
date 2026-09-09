@@ -1,0 +1,72 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/apps/deployment_v1.json
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: headroom
+  namespace: ai
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: headroom
+      app.kubernetes.io/instance: headroom
+      app.kubernetes.io/controller: headroom
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: headroom
+        app.kubernetes.io/instance: headroom
+        app.kubernetes.io/controller: headroom
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: app
+          image: ghcr.io/chopratejas/headroom:0.5.26
+          args:
+            - proxy
+            - --host
+            - 0.0.0.0
+            - --port
+            - "8787"
+            - --no-telemetry
+          env:
+            # LiteLLM calls the compression-only endpoint over the cluster
+            # network. The service is deliberately not exposed by an HTTPRoute.
+            - name: HEADROOM_COMPRESS_ALLOW_REMOTE
+              value: "1"
+            - name: HEADROOM_WORKSPACE_DIR
+              value: /tmp/headroom
+          ports:
+            - name: http
+              containerPort: 8787
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 15
+          resources:
+            requests:
+              cpu: 250m
+              memory: 1Gi
+            limits:
+              cpu: 1000m
+              memory: 2Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir: {}

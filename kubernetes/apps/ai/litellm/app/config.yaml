@@ -18,5 +18,16 @@ general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY
   database_url: os.environ/DATABASE_URL
 
+# Keep compression opt-in while its effect on long-running agent sessions is
+# measured. Attach this guardrail only to the Headroom canary virtual key.
+guardrails:
+  - guardrail_name: headroom-compression
+    litellm_params:
+      guardrail: headroom
+      mode: pre_call
+      api_base: http://headroom.ai.svc.cluster.local:8787
+      default_on: false
+      unreachable_fallback: fail_open
+
 litellm_settings:
   set_verbose: false
