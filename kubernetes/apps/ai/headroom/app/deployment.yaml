@@ -34,6 +34,11 @@ spec:
             # LiteLLM virtual-key authorization to this internal gateway.
             - name: OPENAI_TARGET_API_URL
               value: http://litellm.ai.svc.cluster.local:4000/v1
+            - name: HEADROOM_PROXY_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: headroom-secret
+                  key: HEADROOM_PROXY_TOKEN
             - name: HEADROOM_WORKSPACE_DIR
               value: /tmp/headroom
           ports:

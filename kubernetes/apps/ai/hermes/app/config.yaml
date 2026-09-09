@@ -22,6 +22,8 @@ providers:
     name: "HomeOps LiteLLM Canary"
     base_url: "http://headroom.ai.svc.cluster.local:8787/v1"
     key_env: "LITELLM_HEADROOM_CANARY_API_KEY"
+    extra_headers:
+      X-Headroom-Proxy-Token: "${HEADROOM_PROXY_TOKEN}"
     discover_models: false
     models:
       - "homeops/local-fast"
@@ -40,14 +42,10 @@ model_aliases:
     key_env: "LITELLM_API_KEY"
   local-fast-canary:
     model: "homeops/local-fast"
-    provider: "custom"
-    base_url: "http://headroom.ai.svc.cluster.local:8787/v1"
-    key_env: "LITELLM_HEADROOM_CANARY_API_KEY"
+    provider: "homeops-canary"
   local-code-canary:
     model: "homeops/local-code"
-    provider: "custom"
-    base_url: "http://headroom.ai.svc.cluster.local:8787/v1"
-    key_env: "LITELLM_HEADROOM_CANARY_API_KEY"
+    provider: "homeops-canary"
 
 agent:
   max_turns: 60
