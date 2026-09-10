@@ -22,7 +22,7 @@ metadata:
 spec:
   isCA: true
   commonName: "HomeOps Intermediary CA"
-  duration: 720h # 30 days
+  duration: 26280h # 3 years
   secretName: teleport-intermediary-ca-secret
   issuerRef:
     name: root-ca-issuer

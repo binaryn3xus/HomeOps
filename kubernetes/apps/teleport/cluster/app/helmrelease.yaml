@@ -57,9 +57,10 @@ spec:
       level: DEBUG
       output: stderr
 
+    installCRDs: true
+
     operator:
       enabled: true
-      installCRDs: "dynamic"
 
     persistence:
       enabled: true
@@ -71,13 +72,11 @@ spec:
       enabled: true
       interval: 30s
 
-    podSecurityPolicy:
-      enabled: true
-
     proxy:
       annotations:
         service:
           coredns.io/hostname: teleport.unscfleet.com
+          lbipam.cilium.io/ips: "10.0.30.42"
         deployment:
           reloader.stakater.com/auto: 'true'
       teleportConfig:
@@ -127,10 +126,6 @@ spec:
 
     service:
       type: LoadBalancer
-      # annotations:
-      #   lbipam.cilium.io/ips: "10.0.30.42"
-      spec:
-        loadBalancerIP: 10.0.30.42
 
     serviceAccount:
       create: true

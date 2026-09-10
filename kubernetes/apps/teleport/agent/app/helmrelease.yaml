@@ -18,7 +18,7 @@ spec:
   values:
     log:
       level: DEBUG
-    roles: kube,app,discovery,node,windowsdesktop
+    roles: kube,app,discovery
     proxyAddr: teleport.teleport.svc.cluster.local:443
     joinParams:
       method: kubernetes
