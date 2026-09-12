@@ -17,7 +17,7 @@ spec:
         namespace: teleport
   values:
     log:
-      level: DEBUG
+      level: INFO
     roles: kube,app,discovery
     proxyAddr: teleport.unscfleet.com:443
     hostAliases:
@@ -31,8 +31,6 @@ spec:
     updater:
       # Make absolutely certain that the auto updater is never enabled
       enabled: false
-    podMonitor:
-      enabled: true
     teleportConfig:
       discovery_service:
         enabled: true

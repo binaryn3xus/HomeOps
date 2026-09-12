@@ -6,7 +6,6 @@ resources:
   - certificates.yaml
   - helmrelease.yaml
   - ocirepository.yaml
-  - podmonitor.yaml
 labels:
   - pairs:
       app.kubernetes.io/name: teleport

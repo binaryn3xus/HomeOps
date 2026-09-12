@@ -43,7 +43,7 @@ spec:
     log:
       extraFields: ["timestamp", "level", "component", "caller"]
       format: text
-      level: DEBUG
+      level: INFO
       output: stderr
 
     installCRDs: true
@@ -54,12 +54,6 @@ spec:
     persistence:
       enabled: true
       existingClaimName: teleport
-
-    podMonitor:
-      additionalLabels:
-        prometheus: default
-      enabled: true
-      interval: 30s
 
     proxy:
       annotations:
