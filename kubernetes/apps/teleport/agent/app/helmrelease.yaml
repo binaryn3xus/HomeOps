@@ -18,7 +18,7 @@ spec:
   values:
     log:
       level: INFO
-    roles: kube,app,discovery
+    roles: kube
     proxyAddr: teleport.unscfleet.com:443
     hostAliases:
       - ip: "10.0.30.42"
@@ -32,12 +32,6 @@ spec:
       # Make absolutely certain that the auto updater is never enabled
       enabled: false
     teleportConfig:
-      discovery_service:
-        enabled: true
-        kubernetes:
-          - types: ["app"]
-            labels:
-              "teleport.dev/discover": "true"
       windows_desktop_service:
         enabled: true
         static_hosts:

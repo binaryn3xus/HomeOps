@@ -33,7 +33,6 @@ spec:
 
     authentication:
       type: github
-
     chartMode: standalone
     clusterName: teleport.unscfleet.com
     enterprise: false
@@ -58,7 +57,6 @@ spec:
     proxy:
       annotations:
         service:
-          coredns.io/hostname: teleport.unscfleet.com
           lbipam.cilium.io/ips: "10.0.30.42"
         deployment:
           reloader.stakater.com/auto: 'true'
@@ -85,5 +83,3 @@ spec:
 
     serviceAccount:
       create: true
-
-    validateConfigOnDeploy: true
