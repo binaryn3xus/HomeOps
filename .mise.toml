@@ -29,7 +29,7 @@ just = "1.58.0"
 yq = "4.53.6"
 
 # Assistant & Cloud Tools
-antigravity-cli = "1.2.1"
+antigravity-cli = "1.2.2"
 codex = "0.153.4"
 copilot-cli = "1.0.83"
 opencode = "1.18.30"
