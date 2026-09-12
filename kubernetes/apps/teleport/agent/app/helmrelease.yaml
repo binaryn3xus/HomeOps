@@ -19,7 +19,11 @@ spec:
     log:
       level: DEBUG
     roles: kube,app,discovery
-    proxyAddr: teleport.teleport.svc.cluster.local:443
+    proxyAddr: teleport.unscfleet.com:443
+    hostAliases:
+      - ip: "10.0.30.42"
+        hostnames:
+          - "teleport.unscfleet.com"
     joinParams:
       method: kubernetes
       tokenName: agent-join-token
@@ -29,17 +33,6 @@ spec:
       enabled: false
     podMonitor:
       enabled: true
-    extraVolumes:
-      - name: proxy-cert-ca
-        secret:
-          secretName: teleport-intermediary-ca-secret
-    extraVolumeMounts:
-      - name: proxy-cert-ca
-        mountPath: /etc/teleport-proxy-cert
-        readOnly: true
-    extraEnv:
-      - name: SSL_CERT_FILE
-        value: /etc/teleport-proxy-cert/ca.crt
     teleportConfig:
       discovery_service:
         enabled: true
