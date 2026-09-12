@@ -74,14 +74,16 @@ kind: Gateway
 metadata:
   name: envoy-external
   annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname external.unscfleet.com
+    external-dns.alpha.kubernetes.io/target: &external-hostname external.unscfleet.com
+    external-dns.kubernetes.io/target: *external-hostname
     gatus.home-operations.com/endpoint: |-
       group: external
 spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: *hostname
+      external-dns.alpha.kubernetes.io/hostname: *external-hostname
+      external-dns.kubernetes.io/hostname: *external-hostname
       lbipam.cilium.io/ips: 10.0.30.32
   listeners:
     - name: http
@@ -107,14 +109,16 @@ kind: Gateway
 metadata:
   name: envoy-internal
   annotations:
-    external-dns.alpha.kubernetes.io/target: &hostname internal.unscfleet.com
+    external-dns.alpha.kubernetes.io/target: &internal-hostname internal.unscfleet.com
+    external-dns.kubernetes.io/target: *internal-hostname
     gatus.home-operations.com/endpoint: |-
       group: internal
 spec:
   gatewayClassName: envoy
   infrastructure:
     annotations:
-      external-dns.alpha.kubernetes.io/hostname: *hostname
+      external-dns.alpha.kubernetes.io/hostname: *internal-hostname
+      external-dns.kubernetes.io/hostname: *internal-hostname
       lbipam.cilium.io/ips: 10.0.30.33
   listeners:
     - name: http
