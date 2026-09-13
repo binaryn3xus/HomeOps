@@ -26,6 +26,10 @@ spec:
               value: America/New_York
             - name: PLATFORMIO_CORE_DIR
               value: /config/.esphome/platformio
+            - name: CCACHE_DIR
+              value: /config/.esphome/ccache
+            - name: PYTHONPATH
+              value: /etc/python-sitecustomize:/esphome
           ports:
             - name: http
               containerPort: 6052
@@ -140,6 +144,10 @@ spec:
             - name: esphome-configs
               mountPath: /config/packages/athom-presence-sensor.yaml
               subPath: athom-presence-sensor.yaml
+            # --- Python Customizations ---
+            - name: esphome-configs
+              mountPath: /etc/python-sitecustomize/sitecustomize.py
+              subPath: sitecustomize.py
       volumes:
         - name: config
           persistentVolumeClaim:
