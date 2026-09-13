@@ -1,7 +1,7 @@
 substitutions:
   node_name: "blinds-011"
   friendly_name: "Office Blinds Left"
-  static_ip: "10.0.20.121"
+  static_ip: "10.0.20.123"
   # Motor Hardware Config
   step_pin: GPIO13
   dir_pin: GPIO12
