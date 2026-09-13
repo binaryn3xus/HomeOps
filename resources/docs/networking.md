@@ -13,7 +13,7 @@ This document describes the GitOps-managed network paths in this cluster. The ma
 | `envoy-external` | `10.0.30.32` | Publicly exposed application routes and their LAN path |
 | `envoy-internal` | `10.0.30.33` | LAN-only application routes |
 
-Talos nodes use static addresses on the server VLAN and a 9000-byte MTU. Cilium advertises load-balancer services to UniFi through BGP and also has L2 announcements enabled; the definitions are in [`networks.yaml`](../kubernetes/apps/kube-system/cilium/app/networks.yaml).
+Talos nodes use static addresses on the server VLAN and a 9000-byte MTU. Cilium advertises load-balancer services to UniFi through BGP and also has L2 announcements enabled; the definitions are in [`networks.yaml`](../kubernetes/apps/kube-system/cilium/config/networks.yaml).
 
 ## Request paths
 
@@ -39,8 +39,8 @@ Envoy Gateway terminates HTTPS for two Gateway API `Gateway` resources. Both use
 
 | Gateway | Intended audience | DNS anchor | GitOps source |
 | --- | --- | --- | --- |
-| `envoy-external` | Internet and LAN | `external.unscfleet.com` | [`envoy.yaml`](../kubernetes/apps/network/envoy-gateway/app/envoy.yaml) |
-| `envoy-internal` | LAN only | `internal.unscfleet.com` | [`envoy.yaml`](../kubernetes/apps/network/envoy-gateway/app/envoy.yaml) |
+| `envoy-external` | Internet and LAN | `external.unscfleet.com` | [`envoy.yaml`](../kubernetes/apps/network/envoy-gateway/gateways/envoy.yaml) |
+| `envoy-internal` | LAN only | `internal.unscfleet.com` | [`envoy.yaml`](../kubernetes/apps/network/envoy-gateway/gateways/envoy.yaml) |
 
 An application is exposed by an `HTTPRoute`. Its `parentRefs` selects the gateway, and its `hostnames` selects the DNS name. The gateway selection is the access-policy decision: do not repoint DNS between the two gateways to work around an application issue. Change the application's `HTTPRoute` in Git instead.
 
