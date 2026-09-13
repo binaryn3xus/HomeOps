@@ -27,6 +27,8 @@ configMapGenerator:
       - blinds-008.yaml=./resources/blinds-008.yaml
       - blinds-009.yaml=./resources/blinds-009.yaml
       - blinds-010.yaml=./resources/blinds-010.yaml
+      - blinds-011.yaml=./resources/blinds-011.yaml
+      - blinds-012.yaml=./resources/blinds-012.yaml
 
       # --- Standalone Devices ---
       - pantry-leds.yaml=./resources/pantry-leds.yaml

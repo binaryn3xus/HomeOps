@@ -102,6 +102,12 @@ spec:
             - name: esphome-configs
               mountPath: /config/blinds-010.yaml
               subPath: blinds-010.yaml
+            - name: esphome-configs
+              mountPath: /config/blinds-011.yaml
+              subPath: blinds-011.yaml
+            - name: esphome-configs
+              mountPath: /config/blinds-012.yaml
+              subPath: blinds-012.yaml
             # --- Standalone Devices ---
             - name: esphome-configs
               mountPath: /config/pantry-leds.yaml
