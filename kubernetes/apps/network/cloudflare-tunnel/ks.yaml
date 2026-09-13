@@ -11,6 +11,11 @@ spec:
       app.kubernetes.io/name: *app
   components:
     - ../../../../components/common/labels
+  dependsOn:
+    - name: external-secrets
+      namespace: external-secrets
+    - name: cloudflare-dns
+      namespace: network
   interval: 1h
   path: ./kubernetes/apps/network/cloudflare-tunnel/app
   postBuild:

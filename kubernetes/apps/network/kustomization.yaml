@@ -5,8 +5,7 @@ kind: Kustomization
 namespace: network
 resources:
   - ./namespace.yaml
-  - ./certificates/import/ks.yaml
-  - ./certificates/export/ks.yaml
+  - ./certificates/ks.yaml
   - ./cloudflare-dns/ks.yaml
   - ./cloudflare-tunnel/ks.yaml
   - ./ddns-updater/ks.yaml

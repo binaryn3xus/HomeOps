@@ -4,6 +4,8 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: unscfleet-com
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
 spec:
   secretName: unscfleet-com-tls
   issuerRef:
