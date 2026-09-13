@@ -4,9 +4,12 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: tracearr-db
+  annotations:
+    # Required for seamless bootstrap to avoid empty WAL archive check issues
+    cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   instances: 1
-  imageName: ghcr.io/cloudnative-pg/postgresql:16.8
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.6
   primaryUpdateStrategy: unsupervised
   storage:
     size: 50Gi
