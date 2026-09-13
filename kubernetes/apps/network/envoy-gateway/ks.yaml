@@ -29,8 +29,8 @@ spec:
   dependsOn:
     - name: envoy-gateway
       namespace: *namespace
-    - name: certificates
-      namespace: *namespace
+    - name: cert-manager-issuers
+      namespace: cert-manager
   interval: 1h
   path: ./kubernetes/apps/network/envoy-gateway/gateways
   prune: true
