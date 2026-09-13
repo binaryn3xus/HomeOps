@@ -6,14 +6,12 @@ metadata:
   name: tracearr-db
 spec:
   instances: 1
-  imageName: ghcr.io/clevyr/cloudnativepg-timescale:16
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.8
   primaryUpdateStrategy: unsupervised
   storage:
     size: 50Gi
     storageClass: ceph-block
   postgresql:
-    shared_preload_libraries:
-      - "timescaledb"
     parameters:
       shared_buffers: 512MB
       effective_cache_size: 2GB
@@ -22,8 +20,6 @@ spec:
       max_locks_per_transaction: "4096"
       random_page_cost: "1.1"
       effective_io_concurrency: "200"
-      timescaledb.max_tuples_decompressed_per_dml_transaction: "0"
-      timescaledb.telemetry_level: "off"
   bootstrap:
     initdb:
       database: tracearr
@@ -31,8 +27,6 @@ spec:
       secret:
         name: tracearr-secret
       postInitApplicationSQL:
-        - CREATE EXTENSION IF NOT EXISTS timescaledb;
-        - CREATE EXTENSION IF NOT EXISTS timescaledb_toolkit;
         - CREATE EXTENSION IF NOT EXISTS pg_trgm;
   resources:
     requests:
