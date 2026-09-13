@@ -13,7 +13,7 @@ This document describes the GitOps-managed network paths in this cluster. The ma
 | `envoy-external` | `10.0.30.32` | Publicly exposed application routes and their LAN path |
 | `envoy-internal` | `10.0.30.33` | LAN-only application routes |
 
-Talos nodes use static addresses on the server VLAN and a 9000-byte MTU. Cilium advertises load-balancer services to UniFi through BGP and also has L2 announcements enabled; the definitions are in [`networks.yaml`](../kubernetes/apps/kube-system/cilium/config/networks.yaml).
+Talos nodes use static addresses on the server VLAN and a 9000-byte MTU. Cilium advertises load-balancer services to UniFi through BGP and also has L2 announcements enabled; the definitions are in [`networks.yaml`](../../kubernetes/apps/kube-system/cilium/config/networks.yaml).
 
 ## Request paths
 
@@ -39,8 +39,8 @@ Envoy Gateway terminates HTTPS for two Gateway API `Gateway` resources. Both use
 
 | Gateway | Intended audience | DNS anchor | GitOps source |
 | --- | --- | --- | --- |
-| `envoy-external` | Internet and LAN | `external.unscfleet.com` | [`envoy.yaml`](../kubernetes/apps/network/envoy-gateway/gateways/envoy.yaml) |
-| `envoy-internal` | LAN only | `internal.unscfleet.com` | [`envoy.yaml`](../kubernetes/apps/network/envoy-gateway/gateways/envoy.yaml) |
+| `envoy-external` | Internet and LAN | `external.unscfleet.com` | [`envoy.yaml`](../../kubernetes/apps/network/envoy-gateway/gateways/envoy.yaml) |
+| `envoy-internal` | LAN only | `internal.unscfleet.com` | [`envoy.yaml`](../../kubernetes/apps/network/envoy-gateway/gateways/envoy.yaml) |
 
 An application is exposed by an `HTTPRoute`. Its `parentRefs` selects the gateway, and its `hostnames` selects the DNS name. The gateway selection is the access-policy decision: do not repoint DNS between the two gateways to work around an application issue. Change the application's `HTTPRoute` in Git instead.
 
@@ -71,11 +71,11 @@ The `zz.k8s.main.*` TXT records are ExternalDNS ownership metadata, not applicat
 
 ## Public DNS and tunnel
 
-`cloudflare-dns` publishes records for the external gateway only. The Cloudflare Tunnel configuration forwards the apex and wildcard hostname traffic to `envoy-external` in the cluster; `teleport.unscfleet.com` is an explicit exception that is forwarded directly to its service. See [`cloudflare-tunnel`](../kubernetes/apps/network/cloudflare-tunnel/app/) and [`cloudflare-dns`](../kubernetes/apps/network/cloudflare-dns/app/).
+`cloudflare-dns` publishes records for the external gateway only. The Cloudflare Tunnel configuration forwards the apex and wildcard hostname traffic to `envoy-external` in the cluster; `teleport.unscfleet.com` is an explicit exception that is forwarded directly to its service. See [`cloudflare-tunnel`](../../kubernetes/apps/network/cloudflare-tunnel/app/) and [`cloudflare-dns`](../../kubernetes/apps/network/cloudflare-dns/app/).
 
 ## TLS
 
-cert-manager issues a Let's Encrypt production certificate for the apex domain and wildcard subdomain. The `Certificate` resource stores it as `network/unscfleet-com-tls`, which both Envoy gateways reference. See [`certificate.yaml`](../kubernetes/apps/network/certificates/export/app/certificate.yaml).
+cert-manager issues a Let's Encrypt production certificate for the apex domain and wildcard subdomain. The `Certificate` resource stores it as `network/unscfleet-com-tls`, which both Envoy gateways reference. See [`certificate.yaml`](../../kubernetes/apps/network/envoy-gateway/gateways/certificate.yaml).
 
 A gateway `404` usually indicates that no matching `HTTPRoute` exists on that gateway; it is not, by itself, a certificate failure.
 
