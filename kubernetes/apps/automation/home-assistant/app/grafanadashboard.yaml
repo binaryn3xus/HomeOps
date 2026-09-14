@@ -310,7 +310,7 @@ spec:
           },
           "targets": [
             {
-              "expr": "count({__name__=~\"(homeassistant_)?(battery_level_percent|sensor_battery_percent|sensor_unit_percent)\", entity=~\"sensor.*battery.*\"} < 20) or vector(0)",
+              "expr": "count(max by (entity) ({__name__=~\"(homeassistant_)?(battery_level_percent|sensor_battery_percent|sensor_unit_percent)\", entity=~\"sensor.*battery.*\"}) < 20) or vector(0)",
               "refId": "A"
             }
           ],
@@ -1361,15 +1361,23 @@ spec:
           },
           "targets": [
             {
-              "expr": "sort({__name__=~\"(homeassistant_)?(battery_level_percent|sensor_battery_percent|sensor_unit_percent)\", entity=~\"sensor.*battery.*\"})",
-              "legendFormat": "{{friendly_name}}",
-              "refId": "A"
+              "expr": "sort(label_replace(max by (friendly_name) ({__name__=~\"(homeassistant_)?(battery_level_percent|sensor_battery_percent|sensor_unit_percent)\", entity=~\"sensor.*battery.*\"}), \"device_name\", \"$$1\", \"friendly_name\", \"(.*) (Battery level|Battery)\"))",
+              "legendFormat": "{{device_name}}",
+              "refId": "A",
+              "instant": true
             }
           ],
           "options": {
             "displayMode": "gradient",
             "orientation": "horizontal",
-            "showUnfilled": true
+            "showUnfilled": true,
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            }
           },
           "fieldConfig": {
             "defaults": {
@@ -1536,5 +1544,5 @@ spec:
       "timezone": "browser",
       "title": "Home Assistant Overview",
       "uid": "home-assistant-overview",
-      "version": 6
+      "version": 7
     }
