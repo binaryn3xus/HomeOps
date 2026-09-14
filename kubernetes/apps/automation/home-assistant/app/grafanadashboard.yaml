@@ -520,7 +520,7 @@ spec:
           },
           "targets": [
             {
-              "expr": "count({__name__=~\"(homeassistant_)?entity_available\", entity=~\"sensor.(blinds_.*_wifi_signal|washer_monitor_wifi_signal|office_presence.*|pantry_light_wifi_signal|holiday_leds.*|joshua_office_.*_wifi_signal)\"} == 0) or vector(0)",
+              "expr": "count({__name__=~\"(homeassistant_)?entity_available\", entity=~\"sensor.(master_bedroom_athom_bulb|office_presence_sensor_9bccda|pantry_light|holiday_lights_main|washer_monitor|blinds_.*|joshua_office_.*)_uptime\"} == 0) or vector(0)",
               "refId": "A"
             }
           ],
@@ -554,7 +554,7 @@ spec:
                     "from": 1,
                     "to": 9999,
                     "result": {
-                      "text": "OFFLINE NODES",
+                      "text": "$${__value} OFFLINE",
                       "color": "red"
                     }
                   }
@@ -592,7 +592,7 @@ spec:
           },
           "targets": [
             {
-              "expr": "count({__name__=~\"(homeassistant_)?entity_available\", entity=~\"(cover.(primary|secondary)_garage_door|switch.*exhaust_fan|switch.*jennifers_office|switch.*master_bathroom)\"} == 0) or vector(0)",
+              "expr": "count({__name__=~\"(homeassistant_)?entity_available\", entity=~\"switch.(primary_garage_door|secondary_garage_door|shellyswitch25_68f3db_channel_1|shellyswitch25_68f3db_channel_2)\"} == 0) or vector(0)",
               "refId": "A"
             }
           ],
@@ -626,7 +626,7 @@ spec:
                     "from": 1,
                     "to": 9999,
                     "result": {
-                      "text": "OFFLINE RELAYS",
+                      "text": "$${__value} OFFLINE",
                       "color": "red"
                     }
                   }
@@ -664,7 +664,7 @@ spec:
           },
           "targets": [
             {
-              "expr": "count({__name__=~\"(homeassistant_)?entity_available\", domain=\"camera\"} == 0) or vector(0)",
+              "expr": "count({__name__=~\"(homeassistant_)?entity_available\", domain=\"camera\", entity!~\"camera.(living_room_motion_camera|front_porch_alert)\"} == 0) or vector(0)",
               "refId": "A"
             }
           ],
@@ -698,7 +698,7 @@ spec:
                     "from": 1,
                     "to": 9999,
                     "result": {
-                      "text": "OFFLINE CAMS",
+                      "text": "$${__value} OFFLINE",
                       "color": "red"
                     }
                   }
@@ -726,7 +726,7 @@ spec:
           "type": "stat",
           "gridPos": {
             "h": 10,
-            "w": 12,
+            "w": 8,
             "x": 0,
             "y": 10
           },
@@ -795,8 +795,8 @@ spec:
           "type": "stat",
           "gridPos": {
             "h": 10,
-            "w": 12,
-            "x": 12,
+            "w": 8,
+            "x": 8,
             "y": 10
           },
           "datasource": {
@@ -807,6 +807,66 @@ spec:
             {
               "expr": "{__name__=~\"(homeassistant_)?entity_available\", entity=~\"switch.(master_bedroom_lamp|master_bedroom_tree|living_room_string_lights|christmastreeoutlet|living_room_tv_main_power|desklowerlights|deskupperlights)|binary_sensor.zigbee2mqtt_bridge_connection_state\"}",
               "legendFormat": "{{friendly_name}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [
+                {
+                  "type": "value",
+                  "options": {
+                    "0": {
+                      "text": "OFFLINE",
+                      "color": "red"
+                    },
+                    "1": {
+                      "text": "ONLINE",
+                      "color": "green"
+                    }
+                  }
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": 57,
+          "title": "ESPHome Devices Availability",
+          "type": "stat",
+          "gridPos": {
+            "h": 10,
+            "w": 8,
+            "x": 16,
+            "y": 10
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
+          "targets": [
+            {
+              "expr": "label_replace({__name__=~\"(homeassistant_)?entity_available\", entity=~\"sensor.(master_bedroom_athom_bulb|office_presence_sensor_9bccda|pantry_light|holiday_lights_main|washer_monitor|blinds_.*|joshua_office_.*)_uptime\"}, \"device_name\", \"$$1\", \"friendly_name\", \"(.*) Uptime\")",
+              "legendFormat": "{{device_name}}",
               "refId": "A"
             }
           ],
@@ -1422,5 +1482,5 @@ spec:
       "timezone": "browser",
       "title": "Home Assistant Overview",
       "uid": "home-assistant-overview",
-      "version": 3
+      "version": 4
     }
