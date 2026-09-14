@@ -14,7 +14,9 @@ spec:
       inputName: DS_PROMETHEUS
   json: |
     {
-      "annotations": { "list": [] },
+      "annotations": {
+        "list": []
+      },
       "editable": true,
       "fiscalYearStartMonth": 0,
       "graphTooltip": 1,
@@ -24,7 +26,12 @@ spec:
       "panels": [
         {
           "collapsed": false,
-          "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
           "id": 100,
           "title": "Home Overview",
           "type": "row"
@@ -33,8 +40,16 @@ spec:
           "id": 1,
           "title": "Available Entities",
           "type": "stat",
-          "gridPos": { "h": 4, "w": 5, "x": 0, "y": 1 },
-          "datasource": { "type": "prometheus", "uid": "$${DS_PROMETHEUS}" },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 0,
+            "y": 1
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
           "targets": [
             {
               "expr": "count({__name__=~\"(homeassistant_)?entity_available\"} == 1)",
@@ -45,13 +60,30 @@ spec:
             "colorMode": "value",
             "graphMode": "none",
             "justifyMode": "auto",
-            "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            }
           },
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "fixed", "fixedColor": "green" },
+              "color": {
+                "mode": "fixed",
+                "fixedColor": "green"
+              },
               "mappings": [],
-              "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }] }
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  }
+                ]
+              }
             }
           }
         },
@@ -59,8 +91,16 @@ spec:
           "id": 2,
           "title": "Unavailable Entities",
           "type": "stat",
-          "gridPos": { "h": 4, "w": 5, "x": 5, "y": 1 },
-          "datasource": { "type": "prometheus", "uid": "$${DS_PROMETHEUS}" },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 4,
+            "y": 1
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
           "targets": [
             {
               "expr": "count({__name__=~\"(homeassistant_)?entity_available\"} == 0) or vector(0)",
@@ -71,17 +111,31 @@ spec:
             "colorMode": "value",
             "graphMode": "none",
             "justifyMode": "auto",
-            "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            }
           },
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "thresholds" },
+              "color": {
+                "mode": "thresholds"
+              },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "red", "value": 1 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 1
+                  }
                 ]
               }
             }
@@ -91,8 +145,16 @@ spec:
           "id": 3,
           "title": "Active Lights On",
           "type": "stat",
-          "gridPos": { "h": 4, "w": 5, "x": 10, "y": 1 },
-          "datasource": { "type": "prometheus", "uid": "$${DS_PROMETHEUS}" },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 8,
+            "y": 1
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
           "targets": [
             {
               "expr": "count({__name__=~\"(homeassistant_)?light_state\"} == 1) or vector(0)",
@@ -103,13 +165,30 @@ spec:
             "colorMode": "value",
             "graphMode": "none",
             "justifyMode": "auto",
-            "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            }
           },
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "fixed", "fixedColor": "yellow" },
+              "color": {
+                "mode": "fixed",
+                "fixedColor": "yellow"
+              },
               "mappings": [],
-              "thresholds": { "mode": "absolute", "steps": [{ "color": "yellow", "value": null }] }
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "yellow",
+                    "value": null
+                  }
+                ]
+              }
             }
           }
         },
@@ -117,8 +196,16 @@ spec:
           "id": 4,
           "title": "Active Switches On",
           "type": "stat",
-          "gridPos": { "h": 4, "w": 5, "x": 15, "y": 1 },
-          "datasource": { "type": "prometheus", "uid": "$${DS_PROMETHEUS}" },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 12,
+            "y": 1
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
           "targets": [
             {
               "expr": "count({__name__=~\"(homeassistant_)?switch_state\"} == 1) or vector(0)",
@@ -129,22 +216,98 @@ spec:
             "colorMode": "value",
             "graphMode": "none",
             "justifyMode": "auto",
-            "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            }
           },
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "fixed", "fixedColor": "blue" },
+              "color": {
+                "mode": "fixed",
+                "fixedColor": "blue"
+              },
               "mappings": [],
-              "thresholds": { "mode": "absolute", "steps": [{ "color": "blue", "value": null }] }
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue",
+                    "value": null
+                  }
+                ]
+              }
             }
           }
         },
         {
           "id": 5,
+          "title": "Tracked Devices",
+          "type": "stat",
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 16,
+            "y": 1
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
+          "targets": [
+            {
+              "expr": "count({__name__=~\"(homeassistant_)?device_tracker_state\"}) or vector(0)",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            }
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "fixed",
+                "fixedColor": "purple"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "purple",
+                    "value": null
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": 6,
           "title": "Low Battery Alert (<20%)",
           "type": "stat",
-          "gridPos": { "h": 4, "w": 4, "x": 20, "y": 1 },
-          "datasource": { "type": "prometheus", "uid": "$${DS_PROMETHEUS}" },
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 20,
+            "y": 1
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
           "targets": [
             {
               "expr": "count({__name__=~\"(homeassistant_)?(battery_level_percent|sensor_battery_percent|sensor_unit_percent)\", entity=~\"sensor.*battery.*\"} < 20) or vector(0)",
@@ -155,17 +318,31 @@ spec:
             "colorMode": "value",
             "graphMode": "none",
             "justifyMode": "auto",
-            "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            }
           },
           "fieldConfig": {
             "defaults": {
-              "color": { "mode": "thresholds" },
+              "color": {
+                "mode": "thresholds"
+              },
               "mappings": [],
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "green", "value": null },
-                  { "color": "red", "value": 1 }
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 1
+                  }
                 ]
               }
             }
@@ -173,7 +350,513 @@ spec:
         },
         {
           "collapsed": false,
-          "gridPos": { "h": 1, "w": 24, "x": 0, "y": 5 },
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 5
+          },
+          "id": 105,
+          "title": "Integration Health & Device Availability",
+          "type": "row"
+        },
+        {
+          "id": 50,
+          "title": "Z-Wave Status",
+          "type": "stat",
+          "gridPos": {
+            "h": 4,
+            "w": 5,
+            "x": 0,
+            "y": 6
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
+          "targets": [
+            {
+              "expr": "count({__name__=~\"(homeassistant_)?entity_available\", entity=~\"sensor.*node_status.*\"} == 0) or vector(0)",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            }
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [
+                {
+                  "type": "value",
+                  "options": {
+                    "0": {
+                      "text": "ALL ONLINE",
+                      "color": "green"
+                    }
+                  }
+                },
+                {
+                  "type": "range",
+                  "options": {
+                    "from": 1,
+                    "to": 9999,
+                    "result": {
+                      "text": "OFFLINE NODES",
+                      "color": "red"
+                    }
+                  }
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": 51,
+          "title": "Zigbee (Z2M) Status",
+          "type": "stat",
+          "gridPos": {
+            "h": 4,
+            "w": 5,
+            "x": 5,
+            "y": 6
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
+          "targets": [
+            {
+              "expr": "count({__name__=~\"(homeassistant_)?entity_available\", entity=~\"switch.(master_bedroom_lamp|master_bedroom_tree|living_room_string_lights|christmastreeoutlet|living_room_tv_main_power|desklowerlights|deskupperlights|slzb_06m)|binary_sensor.zigbee2mqtt_bridge_connection_state\"} == 0) or vector(0)",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            }
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [
+                {
+                  "type": "value",
+                  "options": {
+                    "0": {
+                      "text": "ALL ONLINE",
+                      "color": "green"
+                    }
+                  }
+                },
+                {
+                  "type": "range",
+                  "options": {
+                    "from": 1,
+                    "to": 9999,
+                    "result": {
+                      "text": "OFFLINE DEVICES",
+                      "color": "red"
+                    }
+                  }
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": 52,
+          "title": "ESPHome Status",
+          "type": "stat",
+          "gridPos": {
+            "h": 4,
+            "w": 5,
+            "x": 10,
+            "y": 6
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
+          "targets": [
+            {
+              "expr": "count({__name__=~\"(homeassistant_)?entity_available\", entity=~\"sensor.(blinds_.*_wifi_signal|washer_monitor_wifi_signal|office_presence.*|pantry_light_wifi_signal|holiday_leds.*|joshua_office_.*_wifi_signal)\"} == 0) or vector(0)",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            }
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [
+                {
+                  "type": "value",
+                  "options": {
+                    "0": {
+                      "text": "ALL ONLINE",
+                      "color": "green"
+                    }
+                  }
+                },
+                {
+                  "type": "range",
+                  "options": {
+                    "from": 1,
+                    "to": 9999,
+                    "result": {
+                      "text": "OFFLINE NODES",
+                      "color": "red"
+                    }
+                  }
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": 53,
+          "title": "Shelly Status",
+          "type": "stat",
+          "gridPos": {
+            "h": 4,
+            "w": 5,
+            "x": 15,
+            "y": 6
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
+          "targets": [
+            {
+              "expr": "count({__name__=~\"(homeassistant_)?entity_available\", entity=~\"(cover.(primary|secondary)_garage_door|switch.*exhaust_fan|switch.*jennifers_office|switch.*master_bathroom)\"} == 0) or vector(0)",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            }
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [
+                {
+                  "type": "value",
+                  "options": {
+                    "0": {
+                      "text": "ALL ONLINE",
+                      "color": "green"
+                    }
+                  }
+                },
+                {
+                  "type": "range",
+                  "options": {
+                    "from": 1,
+                    "to": 9999,
+                    "result": {
+                      "text": "OFFLINE RELAYS",
+                      "color": "red"
+                    }
+                  }
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": 54,
+          "title": "UniFi Cameras",
+          "type": "stat",
+          "gridPos": {
+            "h": 4,
+            "w": 4,
+            "x": 20,
+            "y": 6
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
+          "targets": [
+            {
+              "expr": "count({__name__=~\"(homeassistant_)?entity_available\", domain=\"camera\"} == 0) or vector(0)",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            }
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [
+                {
+                  "type": "value",
+                  "options": {
+                    "0": {
+                      "text": "ALL ONLINE",
+                      "color": "green"
+                    }
+                  }
+                },
+                {
+                  "type": "range",
+                  "options": {
+                    "from": 1,
+                    "to": 9999,
+                    "result": {
+                      "text": "OFFLINE CAMS",
+                      "color": "red"
+                    }
+                  }
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": 55,
+          "title": "Z-Wave Devices Availability",
+          "type": "stat",
+          "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 0,
+            "y": 10
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
+          "targets": [
+            {
+              "expr": "{__name__=~\"(homeassistant_)?entity_available\", entity=~\"sensor.*node_status.*\"}",
+              "legendFormat": "{{friendly_name}}",
+              "refId": "A"
+            }
+          ],
+          "transformations": [
+            {
+              "id": "renameByRegex",
+              "options": {
+                "regex": "(.*) Node status.*",
+                "rename": "$1"
+              }
+            }
+          ],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [
+                {
+                  "type": "value",
+                  "options": {
+                    "0": {
+                      "text": "OFFLINE",
+                      "color": "red"
+                    },
+                    "1": {
+                      "text": "ONLINE",
+                      "color": "green"
+                    }
+                  }
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": 56,
+          "title": "Zigbee Devices Availability",
+          "type": "stat",
+          "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 12,
+            "y": 10
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
+          "targets": [
+            {
+              "expr": "{__name__=~\"(homeassistant_)?entity_available\", entity=~\"switch.(master_bedroom_lamp|master_bedroom_tree|living_room_string_lights|christmastreeoutlet|living_room_tv_main_power|desklowerlights|deskupperlights|slzb_06m)|binary_sensor.zigbee2mqtt_bridge_connection_state\"}",
+              "legendFormat": "{{friendly_name}}",
+              "refId": "A"
+            }
+          ],
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto",
+            "orientation": "auto"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "mappings": [
+                {
+                  "type": "value",
+                  "options": {
+                    "0": {
+                      "text": "OFFLINE",
+                      "color": "red"
+                    },
+                    "1": {
+                      "text": "ONLINE",
+                      "color": "green"
+                    }
+                  }
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 20
+          },
           "id": 101,
           "title": "Climate & Environment",
           "type": "row"
@@ -182,8 +865,16 @@ spec:
           "id": 10,
           "title": "Temperature History",
           "type": "timeseries",
-          "gridPos": { "h": 8, "w": 16, "x": 0, "y": 6 },
-          "datasource": { "type": "prometheus", "uid": "$${DS_PROMETHEUS}" },
+          "gridPos": {
+            "h": 8,
+            "w": 16,
+            "x": 0,
+            "y": 21
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
           "targets": [
             {
               "expr": "{__name__=~\"(homeassistant_)?(sensor_temperature_celsius|sensor_temperature_c|sensor_unit_celsius)\"}",
@@ -193,7 +884,10 @@ spec:
           ],
           "fieldConfig": {
             "defaults": {
-              "custom": { "lineWidth": 2, "fillOpacity": 10 },
+              "custom": {
+                "lineWidth": 2,
+                "fillOpacity": 10
+              },
               "unit": "celsius"
             }
           }
@@ -202,8 +896,16 @@ spec:
           "id": 11,
           "title": "Current Temperatures",
           "type": "gauge",
-          "gridPos": { "h": 8, "w": 8, "x": 16, "y": 6 },
-          "datasource": { "type": "prometheus", "uid": "$${DS_PROMETHEUS}" },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 21
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
           "targets": [
             {
               "expr": "{__name__=~\"(homeassistant_)?(sensor_temperature_celsius|sensor_temperature_c|sensor_unit_celsius)\"}",
@@ -219,10 +921,22 @@ spec:
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "blue", "value": null },
-                  { "color": "green", "value": 18 },
-                  { "color": "orange", "value": 24 },
-                  { "color": "red", "value": 28 }
+                  {
+                    "color": "blue",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 18
+                  },
+                  {
+                    "color": "orange",
+                    "value": 24
+                  },
+                  {
+                    "color": "red",
+                    "value": 28
+                  }
                 ]
               }
             }
@@ -232,8 +946,16 @@ spec:
           "id": 12,
           "title": "Humidity History",
           "type": "timeseries",
-          "gridPos": { "h": 8, "w": 16, "x": 0, "y": 14 },
-          "datasource": { "type": "prometheus", "uid": "$${DS_PROMETHEUS}" },
+          "gridPos": {
+            "h": 8,
+            "w": 16,
+            "x": 0,
+            "y": 29
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
           "targets": [
             {
               "expr": "{__name__=~\"(homeassistant_)?(sensor_humidity_percent|sensor_unit_percent)\", entity=~\"sensor.*humid.*\"}",
@@ -243,7 +965,10 @@ spec:
           ],
           "fieldConfig": {
             "defaults": {
-              "custom": { "lineWidth": 2, "fillOpacity": 10 },
+              "custom": {
+                "lineWidth": 2,
+                "fillOpacity": 10
+              },
               "unit": "percent",
               "min": 0,
               "max": 100
@@ -254,8 +979,16 @@ spec:
           "id": 13,
           "title": "Current Humidity",
           "type": "gauge",
-          "gridPos": { "h": 8, "w": 8, "x": 16, "y": 14 },
-          "datasource": { "type": "prometheus", "uid": "$${DS_PROMETHEUS}" },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 29
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
           "targets": [
             {
               "expr": "{__name__=~\"(homeassistant_)?(sensor_humidity_percent|sensor_unit_percent)\", entity=~\"sensor.*humid.*\"}",
@@ -271,10 +1004,22 @@ spec:
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "orange", "value": null },
-                  { "color": "green", "value": 30 },
-                  { "color": "blue", "value": 60 },
-                  { "color": "red", "value": 75 }
+                  {
+                    "color": "orange",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 30
+                  },
+                  {
+                    "color": "blue",
+                    "value": 60
+                  },
+                  {
+                    "color": "red",
+                    "value": 75
+                  }
                 ]
               }
             }
@@ -282,7 +1027,12 @@ spec:
         },
         {
           "collapsed": false,
-          "gridPos": { "h": 1, "w": 24, "x": 0, "y": 22 },
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 37
+          },
           "id": 102,
           "title": "Security, Covers & Presence",
           "type": "row"
@@ -291,8 +1041,16 @@ spec:
           "id": 20,
           "title": "Garage & Cover States",
           "type": "stat",
-          "gridPos": { "h": 6, "w": 8, "x": 0, "y": 23 },
-          "datasource": { "type": "prometheus", "uid": "$${DS_PROMETHEUS}" },
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 0,
+            "y": 38
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
           "targets": [
             {
               "expr": "{__name__=~\"(homeassistant_)?cover_state\"}",
@@ -300,19 +1058,41 @@ spec:
               "refId": "A"
             }
           ],
-          "options": { "colorMode": "background", "graphMode": "none", "justifyMode": "auto" },
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto"
+          },
           "fieldConfig": {
             "defaults": {
               "mappings": [
                 {
                   "type": "value",
                   "options": {
-                    "0": { "text": "CLOSED", "color": "green" },
-                    "1": { "text": "OPEN", "color": "red" }
+                    "0": {
+                      "text": "CLOSED",
+                      "color": "green"
+                    },
+                    "1": {
+                      "text": "OPEN",
+                      "color": "red"
+                    }
                   }
                 }
               ],
-              "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }, { "color": "red", "value": 1 }] }
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 1
+                  }
+                ]
+              }
             }
           }
         },
@@ -320,8 +1100,16 @@ spec:
           "id": 21,
           "title": "Doors & Windows Contact Sensors",
           "type": "stat",
-          "gridPos": { "h": 6, "w": 8, "x": 8, "y": 23 },
-          "datasource": { "type": "prometheus", "uid": "$${DS_PROMETHEUS}" },
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 8,
+            "y": 38
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
           "targets": [
             {
               "expr": "{__name__=~\"(homeassistant_)?binary_sensor_state\", device_class=~\"door|window|opening|garage_door\"}",
@@ -329,19 +1117,41 @@ spec:
               "refId": "A"
             }
           ],
-          "options": { "colorMode": "background", "graphMode": "none", "justifyMode": "auto" },
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto"
+          },
           "fieldConfig": {
             "defaults": {
               "mappings": [
                 {
                   "type": "value",
                   "options": {
-                    "0": { "text": "CLOSED", "color": "green" },
-                    "1": { "text": "OPEN", "color": "red" }
+                    "0": {
+                      "text": "CLOSED",
+                      "color": "green"
+                    },
+                    "1": {
+                      "text": "OPEN",
+                      "color": "red"
+                    }
                   }
                 }
               ],
-              "thresholds": { "mode": "absolute", "steps": [{ "color": "green", "value": null }, { "color": "red", "value": 1 }] }
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 1
+                  }
+                ]
+              }
             }
           }
         },
@@ -349,8 +1159,16 @@ spec:
           "id": 22,
           "title": "Presence & Motion",
           "type": "stat",
-          "gridPos": { "h": 6, "w": 8, "x": 16, "y": 23 },
-          "datasource": { "type": "prometheus", "uid": "$${DS_PROMETHEUS}" },
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 16,
+            "y": 38
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
           "targets": [
             {
               "expr": "{__name__=~\"(homeassistant_)?person_state\"}",
@@ -363,25 +1181,52 @@ spec:
               "refId": "B"
             }
           ],
-          "options": { "colorMode": "background", "graphMode": "none", "justifyMode": "auto" },
+          "options": {
+            "colorMode": "background",
+            "graphMode": "none",
+            "justifyMode": "auto"
+          },
           "fieldConfig": {
             "defaults": {
               "mappings": [
                 {
                   "type": "value",
                   "options": {
-                    "0": { "text": "CLEAR / AWAY", "color": "text" },
-                    "1": { "text": "DETECTED / HOME", "color": "blue" }
+                    "0": {
+                      "text": "CLEAR / AWAY",
+                      "color": "text"
+                    },
+                    "1": {
+                      "text": "DETECTED / HOME",
+                      "color": "blue"
+                    }
                   }
                 }
               ],
-              "thresholds": { "mode": "absolute", "steps": [{ "color": "text", "value": null }, { "color": "blue", "value": 1 }] }
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "text",
+                    "value": null
+                  },
+                  {
+                    "color": "blue",
+                    "value": 1
+                  }
+                ]
+              }
             }
           }
         },
         {
           "collapsed": false,
-          "gridPos": { "h": 1, "w": 24, "x": 0, "y": 29 },
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 44
+          },
           "id": 103,
           "title": "Battery Levels",
           "type": "row"
@@ -390,8 +1235,16 @@ spec:
           "id": 30,
           "title": "Device Battery Levels",
           "type": "bargauge",
-          "gridPos": { "h": 8, "w": 24, "x": 0, "y": 30 },
-          "datasource": { "type": "prometheus", "uid": "$${DS_PROMETHEUS}" },
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 45
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
           "targets": [
             {
               "expr": "sort({__name__=~\"(homeassistant_)?(battery_level_percent|sensor_battery_percent|sensor_unit_percent)\", entity=~\"sensor.*battery.*\"})",
@@ -412,10 +1265,22 @@ spec:
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
-                  { "color": "red", "value": null },
-                  { "color": "orange", "value": 20 },
-                  { "color": "yellow", "value": 40 },
-                  { "color": "green", "value": 60 }
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "orange",
+                    "value": 20
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 40
+                  },
+                  {
+                    "color": "green",
+                    "value": 60
+                  }
                 ]
               }
             }
@@ -423,7 +1288,12 @@ spec:
         },
         {
           "collapsed": false,
-          "gridPos": { "h": 1, "w": 24, "x": 0, "y": 38 },
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 53
+          },
           "id": 104,
           "title": "Home Assistant System Health",
           "type": "row"
@@ -432,8 +1302,16 @@ spec:
           "id": 40,
           "title": "CPU Usage",
           "type": "timeseries",
-          "gridPos": { "h": 6, "w": 8, "x": 0, "y": 39 },
-          "datasource": { "type": "prometheus", "uid": "$${DS_PROMETHEUS}" },
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 0,
+            "y": 54
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
           "targets": [
             {
               "expr": "rate(process_cpu_seconds_total{job=~\"automation/home-assistant|.*home-assistant.*\"}[1m]) * 100",
@@ -444,7 +1322,10 @@ spec:
           "fieldConfig": {
             "defaults": {
               "unit": "percent",
-              "custom": { "fillOpacity": 15, "lineWidth": 2 }
+              "custom": {
+                "fillOpacity": 15,
+                "lineWidth": 2
+              }
             }
           }
         },
@@ -452,8 +1333,16 @@ spec:
           "id": 41,
           "title": "Memory Usage (Resident Set)",
           "type": "timeseries",
-          "gridPos": { "h": 6, "w": 8, "x": 8, "y": 39 },
-          "datasource": { "type": "prometheus", "uid": "$${DS_PROMETHEUS}" },
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 8,
+            "y": 54
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
           "targets": [
             {
               "expr": "process_resident_memory_bytes{job=~\"automation/home-assistant|.*home-assistant.*\"}",
@@ -464,7 +1353,10 @@ spec:
           "fieldConfig": {
             "defaults": {
               "unit": "bytes",
-              "custom": { "fillOpacity": 15, "lineWidth": 2 }
+              "custom": {
+                "fillOpacity": 15,
+                "lineWidth": 2
+              }
             }
           }
         },
@@ -472,8 +1364,16 @@ spec:
           "id": 42,
           "title": "Process Uptime",
           "type": "stat",
-          "gridPos": { "h": 6, "w": 8, "x": 16, "y": 39 },
-          "datasource": { "type": "prometheus", "uid": "$${DS_PROMETHEUS}" },
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 16,
+            "y": 54
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
           "targets": [
             {
               "expr": "time() - process_start_time_seconds{job=~\"automation/home-assistant|.*home-assistant.*\"}",
@@ -483,7 +1383,10 @@ spec:
           "fieldConfig": {
             "defaults": {
               "unit": "s",
-              "color": { "mode": "fixed", "fixedColor": "purple" }
+              "color": {
+                "mode": "fixed",
+                "fixedColor": "purple"
+              }
             }
           }
         }
@@ -491,11 +1394,33 @@ spec:
       "refresh": "30s",
       "schemaVersion": 39,
       "style": "dark",
-      "tags": ["home-assistant", "smart-home", "iot"],
-      "time": { "from": "now-6h", "to": "now" },
-      "timepicker": { "refresh_intervals": ["5s", "10s", "30s", "1m", "5m", "15m", "30m", "1h", "2h", "1d"] },
+      "tags": [
+        "home-assistant",
+        "smart-home",
+        "iot",
+        "zwave",
+        "zigbee"
+      ],
+      "time": {
+        "from": "now-6h",
+        "to": "now"
+      },
+      "timepicker": {
+        "refresh_intervals": [
+          "5s",
+          "10s",
+          "30s",
+          "1m",
+          "5m",
+          "15m",
+          "30m",
+          "1h",
+          "2h",
+          "1d"
+        ]
+      },
       "timezone": "browser",
       "title": "Home Assistant Overview",
       "uid": "home-assistant-overview",
-      "version": 1
+      "version": 2
     }
