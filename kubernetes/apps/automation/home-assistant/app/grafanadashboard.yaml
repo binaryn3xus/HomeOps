@@ -1113,7 +1113,7 @@ spec:
           },
           "targets": [
             {
-              "expr": "{__name__=~\"(homeassistant_)?cover_state\"}",
+              "expr": "{__name__=~\"(homeassistant_)?cover_state\", state=\"open\", entity=~\"cover.(primary_garage_door_2|secondary_garage_door_cover|.*_blinds)\"}",
               "legendFormat": "{{friendly_name}}",
               "refId": "A"
             }
@@ -1172,7 +1172,7 @@ spec:
           },
           "targets": [
             {
-              "expr": "{__name__=~\"(homeassistant_)?binary_sensor_state\", device_class=~\"door|window|opening|garage_door\"}",
+              "expr": "{__name__=~\"(homeassistant_)?binary_sensor_state\", entity=~\"binary_sensor.(lr_front_window_.*|side_lr_.*_window|back_kitchen_window_.*|front_door|back_door|garage_entry_door|pantry_light_pantry_leds_door_sensor)\"}",
               "legendFormat": "{{friendly_name}}",
               "refId": "A"
             }
@@ -1236,7 +1236,7 @@ spec:
               "refId": "A"
             },
             {
-              "expr": "{__name__=~\"(homeassistant_)?binary_sensor_state\", device_class=~\"motion|occupancy|presence\"}",
+              "expr": "{__name__=~\"(homeassistant_)?binary_sensor_state\", entity=~\"binary_sensor.(master_bedroom_occupancy|upstairs_occupancy|office_occupancy|main_floor_occupancy|bedroom_2_occupancy|athom_presence_sensor_9bccda_occupancy)\"}",
               "legendFormat": "Motion: {{friendly_name}}",
               "refId": "B"
             }
@@ -1482,5 +1482,5 @@ spec:
       "timezone": "browser",
       "title": "Home Assistant Overview",
       "uid": "home-assistant-overview",
-      "version": 4
+      "version": 5
     }
