@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: ghcr.io/kikootwo/readmeabook:1.2.2
+          image: ghcr.io/kikootwo/readmeabook:1.2.3
           env:
             - name: TZ
               value: America/New_York
