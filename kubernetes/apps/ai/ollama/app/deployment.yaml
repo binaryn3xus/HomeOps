@@ -33,7 +33,7 @@ spec:
           effect: NoSchedule
       initContainers:
         - name: pull-models
-          image: docker.io/ollama/ollama:0.34.0
+          image: docker.io/ollama/ollama:0.34.1
           command:
             - /bin/sh
             - -c
@@ -81,7 +81,7 @@ spec:
               mountPath: /models
       containers:
         - name: app
-          image: docker.io/ollama/ollama:0.34.0
+          image: docker.io/ollama/ollama:0.34.1
           env:
             - name: TZ
               value: "America/New_York"
