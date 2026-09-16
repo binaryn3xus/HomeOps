@@ -38,11 +38,19 @@ spec:
             kubectl patch kustomization -n database cloudnative-pg-cluster -p '{"spec":{"suspend":true}}' --type=merge
             kubectl patch kustomization -n paperless paperless-postgres -p '{"spec":{"suspend":true}}' --type=merge
             kubectl patch kustomization -n media tracearr -p '{"spec":{"suspend":true}}' --type=merge
+            kubectl patch kustomization -n ai litellm -p '{"spec":{"suspend":true}}' --type=merge
 
             # Hibernate CNPG Clusters (scale to 0)
             kubectl annotate cluster -n database home-ops cnpg.io/hibernation=on --overwrite
             kubectl annotate cluster -n paperless paperless-postgres cnpg.io/hibernation=on --overwrite
             kubectl annotate cluster -n media tracearr-db cnpg.io/hibernation=on --overwrite
+            kubectl annotate cluster -n ai litellm-db cnpg.io/hibernation=on --overwrite
+
+            # Wait for clusters to finish hibernating
+            kubectl wait --for=condition=cnpg.io/hibernation --timeout=120s cluster/home-ops -n database
+            kubectl wait --for=condition=cnpg.io/hibernation --timeout=120s cluster/paperless-postgres -n paperless
+            kubectl wait --for=condition=cnpg.io/hibernation --timeout=120s cluster/tracearr-db -n media
+            kubectl wait --for=condition=cnpg.io/hibernation --timeout=120s cluster/litellm-db -n ai
     post:
       - name: resume-postgres
         image: alpine/k8s:1.37.0
@@ -56,11 +64,13 @@ spec:
             kubectl annotate cluster -n database home-ops cnpg.io/hibernation=off --overwrite
             kubectl annotate cluster -n paperless paperless-postgres cnpg.io/hibernation=off --overwrite
             kubectl annotate cluster -n media tracearr-db cnpg.io/hibernation=off --overwrite
+            kubectl annotate cluster -n ai litellm-db cnpg.io/hibernation=off --overwrite
 
             # Resume Flux Kustomizations
             kubectl patch kustomization -n database cloudnative-pg-cluster -p '{"spec":{"suspend":false}}' --type=merge
             kubectl patch kustomization -n paperless paperless-postgres -p '{"spec":{"suspend":false}}' --type=merge
             kubectl patch kustomization -n media tracearr -p '{"spec":{"suspend":false}}' --type=merge
+            kubectl patch kustomization -n ai litellm -p '{"spec":{"suspend":false}}' --type=merge
 
             # Unset Ceph noout to resume normal replication behavior
             kubectl -n rook-ceph exec deploy/rook-ceph-tools -- ceph osd unset noout
