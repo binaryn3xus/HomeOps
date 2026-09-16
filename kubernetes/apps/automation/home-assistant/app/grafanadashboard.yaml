@@ -1436,7 +1436,7 @@ spec:
           },
           "targets": [
             {
-              "expr": "rate(process_cpu_seconds_total{job=~\"automation/home-assistant|.*home-assistant.*\"}[1m]) * 100",
+              "expr": "sum(rate(process_cpu_seconds_total{job=~\"automation/home-assistant|.*home-assistant.*\"}[5m])) * 100",
               "legendFormat": "CPU %",
               "refId": "A"
             }
@@ -1447,7 +1447,8 @@ spec:
               "custom": {
                 "fillOpacity": 15,
                 "lineWidth": 2
-              }
+              },
+              "min": 0
             }
           }
         },
@@ -1467,7 +1468,7 @@ spec:
           },
           "targets": [
             {
-              "expr": "process_resident_memory_bytes{job=~\"automation/home-assistant|.*home-assistant.*\"}",
+              "expr": "sum(process_resident_memory_bytes{job=~\"automation/home-assistant|.*home-assistant.*\"})",
               "legendFormat": "RSS Memory",
               "refId": "A"
             }
@@ -1478,7 +1479,8 @@ spec:
               "custom": {
                 "fillOpacity": 15,
                 "lineWidth": 2
-              }
+              },
+              "min": 0
             }
           }
         },
@@ -1498,7 +1500,7 @@ spec:
           },
           "targets": [
             {
-              "expr": "time() - process_start_time_seconds{job=~\"automation/home-assistant|.*home-assistant.*\"}",
+              "expr": "max(time() - process_start_time_seconds{job=~\"automation/home-assistant|.*home-assistant.*\"})",
               "refId": "A"
             }
           ],
@@ -1544,5 +1546,5 @@ spec:
       "timezone": "browser",
       "title": "Home Assistant Overview",
       "uid": "home-assistant-overview",
-      "version": 7
+      "version": 8
     }
