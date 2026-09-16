@@ -35,6 +35,7 @@ spec:
             kubectl -n rook-ceph exec deploy/rook-ceph-tools -- ceph osd set noout
 
             # Suspend Flux Kustomizations
+            kubectl patch kustomization -n flux-system cluster-apps -p '{"spec":{"suspend":true}}' --type=merge
             kubectl patch kustomization -n database cloudnative-pg-cluster -p '{"spec":{"suspend":true}}' --type=merge
             kubectl patch kustomization -n paperless paperless-postgres -p '{"spec":{"suspend":true}}' --type=merge
             kubectl patch kustomization -n media tracearr -p '{"spec":{"suspend":true}}' --type=merge
@@ -67,6 +68,7 @@ spec:
             kubectl annotate cluster -n ai litellm-db cnpg.io/hibernation=off --overwrite
 
             # Resume Flux Kustomizations
+            kubectl patch kustomization -n flux-system cluster-apps -p '{"spec":{"suspend":false}}' --type=merge
             kubectl patch kustomization -n database cloudnative-pg-cluster -p '{"spec":{"suspend":false}}' --type=merge
             kubectl patch kustomization -n paperless paperless-postgres -p '{"spec":{"suspend":false}}' --type=merge
             kubectl patch kustomization -n media tracearr -p '{"spec":{"suspend":false}}' --type=merge
