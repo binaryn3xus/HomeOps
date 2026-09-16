@@ -139,7 +139,19 @@ spec:
                 ]
               }
             }
-          }
+          },
+          "links": [
+            {
+              "title": "Jump to Unavailable Entities Table",
+              "url": "#panel-60",
+              "targetBlank": false
+            },
+            {
+              "title": "Open Unavailable Entities in Home Assistant",
+              "url": "https://hass.unscfleet.com/config/entities?historyBack=1",
+              "targetBlank": true
+            }
+          ]
         },
         {
           "id": 3,
@@ -190,7 +202,14 @@ spec:
                 ]
               }
             }
-          }
+          },
+          "links": [
+            {
+              "title": "Jump to Active Devices Table",
+              "url": "#panel-61",
+              "targetBlank": false
+            }
+          ]
         },
         {
           "id": 4,
@@ -241,7 +260,14 @@ spec:
                 ]
               }
             }
-          }
+          },
+          "links": [
+            {
+              "title": "Jump to Active Devices Table",
+              "url": "#panel-61",
+              "targetBlank": false
+            }
+          ]
         },
         {
           "id": 5,
@@ -917,182 +943,6 @@ spec:
             "x": 0,
             "y": 20
           },
-          "id": 101,
-          "title": "Climate & Environment",
-          "type": "row"
-        },
-        {
-          "id": 10,
-          "title": "Temperature History",
-          "type": "timeseries",
-          "gridPos": {
-            "h": 8,
-            "w": 16,
-            "x": 0,
-            "y": 21
-          },
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$${DS_PROMETHEUS}"
-          },
-          "targets": [
-            {
-              "expr": "{__name__=~\"(homeassistant_)?(sensor_temperature_celsius|sensor_temperature_c|sensor_unit_celsius)\"}",
-              "legendFormat": "{{friendly_name}} ({{entity}})",
-              "refId": "A"
-            }
-          ],
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "lineWidth": 2,
-                "fillOpacity": 10
-              },
-              "unit": "celsius"
-            }
-          }
-        },
-        {
-          "id": 11,
-          "title": "Current Temperatures",
-          "type": "gauge",
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 16,
-            "y": 21
-          },
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$${DS_PROMETHEUS}"
-          },
-          "targets": [
-            {
-              "expr": "{__name__=~\"(homeassistant_)?(sensor_temperature_celsius|sensor_temperature_c|sensor_unit_celsius)\"}",
-              "legendFormat": "{{friendly_name}}",
-              "refId": "A"
-            }
-          ],
-          "fieldConfig": {
-            "defaults": {
-              "unit": "celsius",
-              "min": 10,
-              "max": 35,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "blue",
-                    "value": null
-                  },
-                  {
-                    "color": "green",
-                    "value": 18
-                  },
-                  {
-                    "color": "orange",
-                    "value": 24
-                  },
-                  {
-                    "color": "red",
-                    "value": 28
-                  }
-                ]
-              }
-            }
-          }
-        },
-        {
-          "id": 12,
-          "title": "Humidity History",
-          "type": "timeseries",
-          "gridPos": {
-            "h": 8,
-            "w": 16,
-            "x": 0,
-            "y": 29
-          },
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$${DS_PROMETHEUS}"
-          },
-          "targets": [
-            {
-              "expr": "{__name__=~\"(homeassistant_)?(sensor_humidity_percent|sensor_unit_percent)\", entity=~\"sensor.*humid.*\"}",
-              "legendFormat": "{{friendly_name}}",
-              "refId": "A"
-            }
-          ],
-          "fieldConfig": {
-            "defaults": {
-              "custom": {
-                "lineWidth": 2,
-                "fillOpacity": 10
-              },
-              "unit": "percent",
-              "min": 0,
-              "max": 100
-            }
-          }
-        },
-        {
-          "id": 13,
-          "title": "Current Humidity",
-          "type": "gauge",
-          "gridPos": {
-            "h": 8,
-            "w": 8,
-            "x": 16,
-            "y": 29
-          },
-          "datasource": {
-            "type": "prometheus",
-            "uid": "$${DS_PROMETHEUS}"
-          },
-          "targets": [
-            {
-              "expr": "{__name__=~\"(homeassistant_)?(sensor_humidity_percent|sensor_unit_percent)\", entity=~\"sensor.*humid.*\"}",
-              "legendFormat": "{{friendly_name}}",
-              "refId": "A"
-            }
-          ],
-          "fieldConfig": {
-            "defaults": {
-              "unit": "percent",
-              "min": 0,
-              "max": 100,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "orange",
-                    "value": null
-                  },
-                  {
-                    "color": "green",
-                    "value": 30
-                  },
-                  {
-                    "color": "blue",
-                    "value": 60
-                  },
-                  {
-                    "color": "red",
-                    "value": 75
-                  }
-                ]
-              }
-            }
-          }
-        },
-        {
-          "collapsed": false,
-          "gridPos": {
-            "h": 1,
-            "w": 24,
-            "x": 0,
-            "y": 37
-          },
           "id": 102,
           "title": "Security, Covers & Presence",
           "type": "row"
@@ -1105,7 +955,7 @@ spec:
             "h": 6,
             "w": 6,
             "x": 0,
-            "y": 38
+            "y": 21
           },
           "datasource": {
             "type": "prometheus",
@@ -1164,7 +1014,7 @@ spec:
             "h": 6,
             "w": 6,
             "x": 6,
-            "y": 38
+            "y": 21
           },
           "datasource": {
             "type": "prometheus",
@@ -1223,7 +1073,7 @@ spec:
             "h": 6,
             "w": 6,
             "x": 12,
-            "y": 38
+            "y": 21
           },
           "datasource": {
             "type": "prometheus",
@@ -1282,7 +1132,7 @@ spec:
             "h": 6,
             "w": 6,
             "x": 18,
-            "y": 38
+            "y": 21
           },
           "datasource": {
             "type": "prometheus",
@@ -1327,6 +1177,182 @@ spec:
                   {
                     "color": "blue",
                     "value": 1
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 27
+          },
+          "id": 101,
+          "title": "Climate & Environment",
+          "type": "row"
+        },
+        {
+          "id": 10,
+          "title": "Temperature History",
+          "type": "timeseries",
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 28
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
+          "targets": [
+            {
+              "expr": "({__name__=~\"(homeassistant_)?sensor_temperature_celsius\", entity=~\"sensor.(bedroom_2|old_office|upstairs|office|main_floor|master_bedroom)_temperature.*\"} * 1.8) + 32",
+              "legendFormat": "{{friendly_name}}",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "lineWidth": 2,
+                "fillOpacity": 10
+              },
+              "unit": "fahrenheit"
+            }
+          }
+        },
+        {
+          "id": 11,
+          "title": "Current Temperatures",
+          "type": "gauge",
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 28
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
+          "targets": [
+            {
+              "expr": "({__name__=~\"(homeassistant_)?sensor_temperature_celsius\", entity=~\"sensor.(bedroom_2|old_office|upstairs|office|main_floor|master_bedroom)_temperature.*\"} * 1.8) + 32",
+              "legendFormat": "{{friendly_name}}",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "fahrenheit",
+              "min": 50,
+              "max": 90,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "blue",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 65
+                  },
+                  {
+                    "color": "orange",
+                    "value": 75
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "id": 12,
+          "title": "Humidity History",
+          "type": "timeseries",
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 36
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
+          "targets": [
+            {
+              "expr": "{__name__=~\"(homeassistant_)?(sensor_humidity_percent|sensor_unit_percent)\", entity=~\"sensor.*humid.*\"}",
+              "legendFormat": "{{friendly_name}}",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "lineWidth": 2,
+                "fillOpacity": 10
+              },
+              "unit": "percent",
+              "min": 0,
+              "max": 100
+            }
+          }
+        },
+        {
+          "id": 13,
+          "title": "Current Humidity",
+          "type": "gauge",
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 36
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
+          "targets": [
+            {
+              "expr": "{__name__=~\"(homeassistant_)?(sensor_humidity_percent|sensor_unit_percent)\", entity=~\"sensor.*humid.*\"}",
+              "legendFormat": "{{friendly_name}}",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "percent",
+              "min": 0,
+              "max": 100,
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "orange",
+                    "value": null
+                  },
+                  {
+                    "color": "green",
+                    "value": 30
+                  },
+                  {
+                    "color": "blue",
+                    "value": 60
+                  },
+                  {
+                    "color": "red",
+                    "value": 75
                   }
                 ]
               }
@@ -1513,6 +1539,174 @@ spec:
               }
             }
           }
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 60
+          },
+          "id": 106,
+          "title": "Entity Explorer & Diagnostics",
+          "type": "row"
+        },
+        {
+          "id": 60,
+          "title": "Unavailable Entities Drill-Down",
+          "type": "table",
+          "gridPos": {
+            "h": 12,
+            "w": 12,
+            "x": 0,
+            "y": 61
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
+          "targets": [
+            {
+              "expr": "{__name__=~\"(homeassistant_)?entity_available\"} == 0",
+              "format": "table",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "__name__": true,
+                  "container": true,
+                  "endpoint": true,
+                  "instance": true,
+                  "job": true,
+                  "namespace": true,
+                  "pod": true,
+                  "service": true,
+                  "Value": true
+                },
+                "indexByName": {
+                  "domain": 0,
+                  "friendly_name": 1,
+                  "entity": 2
+                },
+                "renameByName": {
+                  "domain": "Domain",
+                  "friendly_name": "Friendly Name",
+                  "entity": "Entity ID"
+                }
+              }
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "filterable": true
+              }
+            }
+          },
+          "options": {
+            "footer": {
+              "countRows": true,
+              "fields": "",
+              "reducer": [
+                "count"
+              ],
+              "show": true
+            },
+            "showHeader": true,
+            "sortBy": [
+              {
+                "displayName": "Domain",
+                "desc": false
+              }
+            ]
+          }
+        },
+        {
+          "id": 61,
+          "title": "Active Switches & Lights Drill-Down",
+          "type": "table",
+          "gridPos": {
+            "h": 12,
+            "w": 12,
+            "x": 12,
+            "y": 61
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "$${DS_PROMETHEUS}"
+          },
+          "targets": [
+            {
+              "expr": "{__name__=~\"(homeassistant_)?(switch_state|light_state)\"} == 1",
+              "format": "table",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "Time": true,
+                  "__name__": true,
+                  "container": true,
+                  "endpoint": true,
+                  "instance": true,
+                  "job": true,
+                  "namespace": true,
+                  "pod": true,
+                  "service": true,
+                  "Value": true
+                },
+                "indexByName": {
+                  "domain": 0,
+                  "friendly_name": 1,
+                  "entity": 2
+                },
+                "renameByName": {
+                  "domain": "Domain",
+                  "friendly_name": "Friendly Name",
+                  "entity": "Entity ID"
+                }
+              }
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "custom": {
+                "align": "auto",
+                "displayMode": "auto",
+                "filterable": true
+              }
+            }
+          },
+          "options": {
+            "footer": {
+              "countRows": true,
+              "fields": "",
+              "reducer": [
+                "count"
+              ],
+              "show": true
+            },
+            "showHeader": true,
+            "sortBy": [
+              {
+                "displayName": "Domain",
+                "desc": false
+              }
+            ]
+          }
         }
       ],
       "refresh": "30s",
@@ -1546,5 +1740,5 @@ spec:
       "timezone": "browser",
       "title": "Home Assistant Overview",
       "uid": "home-assistant-overview",
-      "version": 8
+      "version": 9
     }
