@@ -6,7 +6,8 @@ metadata:
   name: paperless-exporter
   namespace: paperless
 spec:
-  schedule: "0 2 * * *" # Daily at 2 AM
+  timeZone: "America/New_York"
+  schedule: "30 5 * * *" # Daily at 5:30 AM
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
@@ -26,11 +27,23 @@ spec:
             - name: exporter
               image: ghcr.io/paperless-ngx/paperless-ngx:3.2.0
               command:
-                - /usr/local/bin/python3
-                - /usr/src/paperless/src/manage.py
-                - document_exporter
-                - /usr/src/paperless/export
+                - /bin/sh
+                - -c
+                - |
+                  echo "Starting Paperless document export..."
+                  /usr/local/bin/python3 /usr/src/paperless/src/manage.py document_exporter /usr/src/paperless/export \
+                    --no-progress-bar -c -cj -d -f -nt -sm
+                  STATUS=$?
+                  if [ $STATUS -eq 0 ]; then
+                    echo "Export completed successfully at $(date)!"
+                    echo "Total files in export: $(find /usr/src/paperless/export -type f | wc -l)"
+                  else
+                    echo "Export failed with exit code $STATUS"
+                    exit $STATUS
+                  fi
               env:
+                - name: TZ
+                  value: "America/New_York"
                 - name: PAPERLESS_DBENGINE
                   value: "postgresql"
                 - name: PAPERLESS_REDIS
@@ -46,20 +59,31 @@ spec:
                     secretKeyRef:
                       name: paperless-secrets
                       key: PAPERLESS_ADMIN_PASSWORD
+                - name: PAPERLESS_FILENAME_FORMAT
+                  value: "{{ created_year }}/{{ correspondent }}/{{ document_type }}/{{ title }}"
+                - name: PAPERLESS_FILENAME_FORMAT_REMOVE_NONE
+                  value: "true"
               envFrom:
                 - secretRef:
                     name: paperless-secrets
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 256Mi
+                limits:
+                  cpu: 2000m
+                  memory: 2048Mi
               volumeMounts:
-                - name: storage
+                - name: synology
                   mountPath: /usr/src/paperless/export
                   subPath: export
-                - name: storage
+                - name: synology
                   mountPath: /usr/src/paperless/data
                   subPath: data
-                - name: storage
+                - name: synology
                   mountPath: /usr/src/paperless/media
                   subPath: media
           volumes:
-            - name: storage
+            - name: synology
               persistentVolumeClaim:
                 claimName: synology
