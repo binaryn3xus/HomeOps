@@ -33,4 +33,7 @@ spec:
         enabled: true
       prometheusRule:
         enabled: true
+        overrides:
+          MiroirPoolUsageHigh:
+            disabled: true
     replicaCount: 2
