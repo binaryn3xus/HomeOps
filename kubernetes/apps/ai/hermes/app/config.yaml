@@ -115,6 +115,7 @@ discord:
   require_mention: true
   free_response_channels: ""
   allowed_channels: "1506866536508555414"
+  allow_from: "210731922320523264"
   auto_thread: true
   thread_require_mention: false
   history_backfill: true

@@ -103,6 +103,10 @@ spec:
               value: America/New_York
             - name: GATEWAY_ALLOW_ALL_USERS
               value: "false"
+            - name: GATEWAY_ALLOWED_USERS
+              value: "210731922320523264,BinaryNexus"
+            - name: DISCORD_ALLOWED_USERS
+              value: "210731922320523264,BinaryNexus"
             # Hermes and common developer tools look for different conventional
             # token names. Keep GH_TOKEN for existing integrations and provide
             # GITHUB_TOKEN for repository automation.

@@ -34,6 +34,7 @@ if [ -d "/tmp/souls" ]; then
     [ -f "/tmp/souls/cortana.md" ] && cp /tmp/souls/cortana.md "$HERMES_DATA/profiles/cortana/SOUL.md"
     [ -f "/tmp/souls/skippy.md" ] && cp /tmp/souls/skippy.md "$HERMES_DATA/profiles/skippy/SOUL.md" && cp /tmp/souls/skippy.md "$HERMES_DATA/SOUL.md"
     [ -f "/tmp/souls/superintendent.md" ] && cp /tmp/souls/superintendent.md "$HERMES_DATA/profiles/networker/SOUL.md"
+    echo "skippy" > "$HERMES_DATA/active_profile"
 fi
 
 # Normalize PVC ownership so unprivileged Hermes (uid 10000) can manage state.db and sqlite stores
