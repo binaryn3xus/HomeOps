@@ -20,7 +20,7 @@ spec:
       annotations:
         # ConfigMap volumes update in place; this revision also reruns the init
         # setup so persistent helper scripts are refreshed with the mounted copy.
-        hermes.binaryn3xus.io/setup-revision: "2026-09-20-3"
+        hermes.binaryn3xus.io/setup-revision: "2026-09-20-4"
       labels:
         app.kubernetes.io/name: hermes-agent
         app.kubernetes.io/instance: hermes
@@ -70,7 +70,7 @@ spec:
 
               # Supervise both long-lived processes so Kubernetes termination
               # is graceful and SQLite state is flushed before the pod exits.
-              /opt/hermes/.venv/bin/hermes dashboard --host 0.0.0.0 --insecure --open-profile cortana &
+              /opt/hermes/.venv/bin/hermes dashboard --host 0.0.0.0 --insecure --open-profile skippy &
               dashboard_pid=$!
 
               /opt/hermes/.venv/bin/hermes gateway run --no-supervise &
