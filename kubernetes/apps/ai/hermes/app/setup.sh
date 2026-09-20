@@ -11,6 +11,9 @@ echo "🌿 Hermes Clean Setup Starting..."
 # 1. Ensure directories exist
 mkdir -p "$DOTNET_ROOT"
 mkdir -p "$HERMES_DATA/profiles"
+mkdir -p "$HERMES_DATA/profiles/cortana"
+mkdir -p "$HERMES_DATA/profiles/skippy"
+mkdir -p "$HERMES_DATA/profiles/networker"
 mkdir -p "$HERMES_DATA/bin"
 
 # Git uses GIT_ASKPASS for HTTPS credentials. The helper reads the token only
@@ -20,11 +23,22 @@ install -m 0700 /tmp/scripts/git-askpass.sh "$HERMES_DATA/bin/git-askpass"
 git config --global credential.helper ""
 git config --global credential.useHttpPath true
 
-# 2. Master Config Setup
+# 2. Master Config & Souls Setup
 if [ -f "/tmp/config-source/config.yaml" ]; then
     echo "📝 Synchronizing master configuration..."
     cp /tmp/config-source/config.yaml "$HERMES_DATA/config.yaml"
 fi
+
+if [ -d "/tmp/souls" ]; then
+    echo "🧠 Synchronizing agent personas (Souls)..."
+    [ -f "/tmp/souls/cortana.md" ] && cp /tmp/souls/cortana.md "$HERMES_DATA/profiles/cortana/SOUL.md"
+    [ -f "/tmp/souls/skippy.md" ] && cp /tmp/souls/skippy.md "$HERMES_DATA/profiles/skippy/SOUL.md" && cp /tmp/souls/skippy.md "$HERMES_DATA/SOUL.md"
+    [ -f "/tmp/souls/superintendent.md" ] && cp /tmp/souls/superintendent.md "$HERMES_DATA/profiles/networker/SOUL.md"
+fi
+
+# Normalize PVC ownership so unprivileged Hermes (uid 10000) can manage state.db and sqlite stores
+echo "🔒 Normalizing PVC file ownership..."
+chown -R 10000:10000 "$HERMES_DATA"
 
 # 3. .NET SDK Installation (Persistent)
 if [ ! -x "$DOTNET_ROOT/dotnet" ]; then

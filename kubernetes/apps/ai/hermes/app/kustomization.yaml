@@ -16,5 +16,10 @@ configMapGenerator:
     files:
       - setup.sh
       - git-askpass.sh
+  - name: hermes-souls
+    files:
+      - souls/cortana.md
+      - souls/skippy.md
+      - souls/superintendent.md
 generatorOptions:
   disableNameSuffixHash: true

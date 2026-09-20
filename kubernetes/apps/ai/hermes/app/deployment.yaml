@@ -20,7 +20,7 @@ spec:
       annotations:
         # ConfigMap volumes update in place; this revision also reruns the init
         # setup so persistent helper scripts are refreshed with the mounted copy.
-        hermes.binaryn3xus.io/setup-revision: "2026-09-08-1"
+        hermes.binaryn3xus.io/setup-revision: "2026-09-20-2"
       labels:
         app.kubernetes.io/name: hermes-agent
         app.kubernetes.io/instance: hermes
@@ -39,6 +39,9 @@ spec:
         - name: setup
           image: nousresearch/hermes-agent:v2026.9.14@sha256:99641e57ec762c59e54cb44aa6746b7fc68c18b3c5ddb088af54234c613d9294
           command: ["bash", "/tmp/scripts/setup.sh"]
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
           env:
             - name: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT
               value: "1"
@@ -49,6 +52,8 @@ spec:
               mountPath: /tmp/config-source
             - name: scripts
               mountPath: /tmp/scripts
+            - name: souls
+              mountPath: /tmp/souls
       containers:
         - name: hermes
           image: nousresearch/hermes-agent:v2026.9.14@sha256:99641e57ec762c59e54cb44aa6746b7fc68c18b3c5ddb088af54234c613d9294
@@ -63,7 +68,7 @@ spec:
 
               # Supervise both long-lived processes so Kubernetes termination
               # is graceful and SQLite state is flushed before the pod exits.
-              /opt/hermes/.venv/bin/hermes dashboard --host 0.0.0.0 --insecure &
+              /opt/hermes/.venv/bin/hermes dashboard --host 0.0.0.0 --insecure --open-profile cortana &
               dashboard_pid=$!
 
               /opt/hermes/.venv/bin/hermes gateway run --no-supervise &
@@ -157,5 +162,8 @@ spec:
           configMap:
             name: hermes-scripts
             defaultMode: 0755
+        - name: souls
+          configMap:
+            name: hermes-souls
         - name: tmp
           emptyDir: {}
