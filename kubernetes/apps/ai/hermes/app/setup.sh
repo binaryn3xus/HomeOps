@@ -51,6 +51,38 @@ if [ ! -x "$DOTNET_ROOT/dotnet" ]; then
         --channel STS
 fi
 
+# 3b. SRE & Development Tooling (kubectl, talosctl, gh)
+BIN_DIR="$HERMES_DATA/bin"
+mkdir -p "$BIN_DIR"
+
+if [ ! -x "$BIN_DIR/kubectl" ]; then
+    echo "📦 Installing kubectl..."
+    curl -fsSL -o "$BIN_DIR/kubectl" "https://dl.k8s.io/release/v1.35.3/bin/linux/amd64/kubectl"
+    chmod +x "$BIN_DIR/kubectl"
+fi
+
+if [ ! -x "$BIN_DIR/talosctl" ]; then
+    echo "📦 Installing talosctl..."
+    curl -fsSL -o "$BIN_DIR/talosctl" "https://github.com/siderolabs/talos/releases/download/v1.14.1/talosctl-linux-amd64"
+    chmod +x "$BIN_DIR/talosctl"
+fi
+
+if [ ! -x "$BIN_DIR/gh" ]; then
+    echo "📦 Installing GitHub CLI (gh)..."
+    curl -fsSL "https://github.com/cli/cli/releases/download/v2.101.0/gh_2.101.0_linux_amd64.tar.gz" | tar -xz -C /tmp
+    cp /tmp/gh_2.101.0_linux_amd64/bin/gh "$BIN_DIR/gh"
+    chmod +x "$BIN_DIR/gh"
+    rm -rf /tmp/gh_*
+fi
+
+# 3c. Talos Configuration Setup
+if [ -n "${TALOS_CONFIG:-}" ]; then
+    echo "🔑 Configuring Talos credentials..."
+    mkdir -p "$HERMES_DATA/.talos"
+    echo "$TALOS_CONFIG" > "$HERMES_DATA/.talos/config"
+    chmod 600 "$HERMES_DATA/.talos/config"
+fi
+
 # 4. Profile Symlinking (Scalable)
 if [ -d "$HERMES_DATA/profiles" ]; then
     echo "🔗 Linking profile configurations..."
@@ -90,9 +122,10 @@ echo "📝 Persisting environment to $HERMES_DATA/hermes.env and .bashrc..."
 cat > "$HERMES_DATA/hermes.env" <<EOF
 export DOTNET_ROOT="$DOTNET_ROOT"
 export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
-export PATH="$DOTNET_ROOT:\$PATH"
+export PATH="$BIN_DIR:$DOTNET_ROOT:\$PATH"
 export GIT_ASKPASS="$HERMES_DATA/bin/git-askpass"
 export GIT_TERMINAL_PROMPT=0
+export TALOSCONFIG="$HERMES_DATA/.talos/config"
 EOF
 
 # Also update .bashrc for interactive shells (since HOME=/opt/data)
@@ -100,5 +133,8 @@ cat > "$HERMES_DATA/.bashrc" <<EOF
 # Hermes Environment
 source "$HERMES_DATA/hermes.env"
 EOF
+
+# Ensure all newly installed binaries and configs are owned by Hermes (uid 10000)
+chown -R 10000:10000 "$HERMES_DATA"
 
 echo "✨ Setup Complete!"

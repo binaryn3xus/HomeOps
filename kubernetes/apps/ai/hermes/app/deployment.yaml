@@ -20,16 +20,15 @@ spec:
       annotations:
         # ConfigMap volumes update in place; this revision also reruns the init
         # setup so persistent helper scripts are refreshed with the mounted copy.
-        hermes.binaryn3xus.io/setup-revision: "2026-09-20-2"
+        hermes.binaryn3xus.io/setup-revision: "2026-09-20-3"
       labels:
         app.kubernetes.io/name: hermes-agent
         app.kubernetes.io/instance: hermes
     spec:
       serviceAccountName: hermes
-      # Hermes performs repository work through GitHub; it does not need an
-      # in-cluster API token. This also makes the removed cluster-admin binding
-      # ineffective even if it were accidentally restored.
-      automountServiceAccountToken: false
+      # Hermes uses the in-cluster service account token for cluster administration
+      # tasks executed by Cortana and Skippy.
+      automountServiceAccountToken: true
       securityContext:
         runAsUser: 10000
         runAsGroup: 10000
@@ -42,6 +41,9 @@ spec:
           securityContext:
             runAsUser: 0
             runAsGroup: 0
+          envFrom:
+            - secretRef:
+                name: hermes-agent-secret
           env:
             - name: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT
               value: "1"
@@ -96,7 +98,7 @@ spec:
             - name: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT
               value: "1"
             - name: PATH
-              value: "/opt/data/dotnet:/opt/data/.dotnet/tools:/opt/hermes/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+              value: "/opt/data/bin:/opt/data/dotnet:/opt/data/.dotnet/tools:/opt/hermes/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
             - name: TZ
               value: America/New_York
             - name: GATEWAY_ALLOW_ALL_USERS
