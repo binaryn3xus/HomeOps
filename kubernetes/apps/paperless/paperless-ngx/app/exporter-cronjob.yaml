@@ -25,7 +25,7 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
           containers:
             - name: exporter
-              image: ghcr.io/paperless-ngx/paperless-ngx:3.2.0
+              image: ghcr.io/paperless-ngx/paperless-ngx:3.2.1
               command:
                 - /bin/sh
                 - -c

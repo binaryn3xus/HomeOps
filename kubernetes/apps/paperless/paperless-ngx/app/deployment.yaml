@@ -31,7 +31,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: app
-          image: ghcr.io/paperless-ngx/paperless-ngx:3.2.0
+          image: ghcr.io/paperless-ngx/paperless-ngx:3.2.1
           env:
             - name: TZ
               value: "America/New_York"
