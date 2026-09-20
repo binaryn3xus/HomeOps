@@ -107,6 +107,8 @@ spec:
               value: "210731922320523264,BinaryNexus"
             - name: DISCORD_ALLOWED_USERS
               value: "210731922320523264,BinaryNexus"
+            - name: DISCORD_HOME_CHANNEL
+              value: "1506866536508555414"
             # Hermes and common developer tools look for different conventional
             # token names. Keep GH_TOKEN for existing integrations and provide
             # GITHUB_TOKEN for repository automation.

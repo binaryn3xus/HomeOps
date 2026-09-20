@@ -1,5 +1,5 @@
 model:
-  default: "gpt-5.4"
+  default: "gpt-5.6-sol"
   provider: "openai-codex"
 
 # Keep Codex as the default for dependable repository work. These aliases let
