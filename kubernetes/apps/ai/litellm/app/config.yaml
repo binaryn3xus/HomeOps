@@ -13,6 +13,21 @@ model_list:
     litellm_params:
       model: ollama/nomic-embed-text
       api_base: http://ollama.ai.svc.cluster.local:11434
+  - model_name: gemini-flash
+    litellm_params:
+      model: gemini/gemini-flash-latest
+      api_key: os.environ/GEMINI_API_KEY
+  - model_name: gemini-flash-lite
+    litellm_params:
+      model: gemini/gemini-flash-lite-latest
+      api_key: os.environ/GEMINI_API_KEY
+  # ChatGPT models require device OAuth login and persistent token storage
+  # - model_name: chatgpt-5.6-sol
+  #   litellm_params:
+  #     model: chatgpt/gpt-5.6-sol
+  # - model_name: chatgpt-5.6-terra
+  #   litellm_params:
+  #     model: chatgpt/gpt-5.6-terra
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY

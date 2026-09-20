@@ -27,16 +27,16 @@ data:
   SEARXNG_LANGUAGE: "all"
   WEB_SEARCH_RESULT_COUNT: "3"
 
-  # --- OPENAI / GEMINI API BRIDGE ---
+  # --- OPENAI / LITELLM API BRIDGE ---
   ENABLE_OPENAI_API: "True"
-  OPENAI_API_BASE_URL: "https://generativelanguage.googleapis.com/v1beta/openai"
-  MODELS_CACHE_TTL: "3600"
+  OPENAI_API_BASE_URL: "http://litellm.ai.svc.cluster.local:4000/v1"
+  MODELS_CACHE_TTL: "300"
 
   # --- MODEL EXPERIENCE ---
-  DEFAULT_MODELS: "llama3.2:latest"
-  DEFAULT_PINNED_MODELS: "llama3.2:latest,qwen2.5-coder:7b,gemma4:e4b"
-  MODEL_ORDER_LIST: '["llama3.2:latest", "qwen2.5-coder:7b", "gemma4:e4b", "gemma4:e2b"]'
-  TASK_MODEL: "llama3.2:latest"
+  DEFAULT_MODELS: "homeops/local-fast"
+  DEFAULT_PINNED_MODELS: "homeops/local-fast,homeops/local-code,gemini-flash,gemini-flash-lite"
+  MODEL_ORDER_LIST: '["homeops/local-fast", "homeops/local-code", "gemini-flash", "gemini-flash-lite"]'
+  TASK_MODEL: "homeops/local-fast"
 
   # --- CODE EXECUTION ---
   ENABLE_CODE_INTERPRETER: "True"

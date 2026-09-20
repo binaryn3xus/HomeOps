@@ -46,6 +46,13 @@ spec:
                 secretKeyRef:
                   name: litellm-secret
                   key: LITELLM_MASTER_KEY
+            - name: GEMINI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: litellm-secret
+                  key: GEMINI_API_KEY
+            - name: CHATGPT_TOKEN_DIR
+              value: /tmp/litellm
           ports:
             - name: http
               containerPort: 4000
