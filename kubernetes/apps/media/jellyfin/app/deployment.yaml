@@ -56,10 +56,10 @@ spec:
             httpGet:
               path: /health
               port: 8096
-            initialDelaySeconds: 0
+            initialDelaySeconds: 10
             periodSeconds: 10
-            timeoutSeconds: 1
-            failureThreshold: 3
+            timeoutSeconds: 5
+            failureThreshold: 5
           readinessProbe: *probe
           securityContext:
             allowPrivilegeEscalation: false
