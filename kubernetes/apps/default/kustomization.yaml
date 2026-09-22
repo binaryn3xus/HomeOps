@@ -5,6 +5,8 @@ kind: Kustomization
 namespace: default
 resources:
   - ./namespace.yaml
+  # Shared PVCs
+  - ./synology.yaml
   # Apps
   - ./it-tools/ks.yaml
   - ./minecraft-java/ks.yaml

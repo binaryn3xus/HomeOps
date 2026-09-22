@@ -75,3 +75,26 @@ spec:
     - noatime
     - rsize=131072
     - wsize=131072
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/persistentvolume_v1.json
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: synology-kubernetes
+spec:
+  storageClassName: synology-nfs
+  capacity:
+    storage: 1Mi
+  accessModes: ["ReadWriteMany"]
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: "10.0.30.4"
+    path: /volume1/Kubernetes
+  mountOptions:
+    - nfsvers=4.1
+    - nconnect=8
+    - hard
+    - noatime
+    - rsize=131072
+    - wsize=131072
+

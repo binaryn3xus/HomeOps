@@ -9,11 +9,24 @@ metadata:
     reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   template:
     spec:
       containers:
         - name: app
-          image: ghcr.io/binaryn3xus/worksphere:1.0.16
+          image: ghcr.io/binaryn3xus/worksphere:1.0.17
+          env:
+            - name: EXPORT_PATH
+              value: "/backups"
+            - name: Export__OutputPath
+              value: "/backups"
+            - name: Export__ScheduledBackup__Enabled
+              value: "true"
+            - name: Export__ScheduledBackup__CronExpression
+              value: "0 2 * * *"
+            - name: Export__ScheduledBackup__MaxBackupHistory
+              value: "60"
           envFrom:
             - secretRef:
                 name: worksphere-secret
@@ -32,6 +45,14 @@ spec:
           volumeMounts:
             - name: tmp
               mountPath: /tmp
+            - name: backup-storage
+              mountPath: /backups
+              subPath: Worksphere/backups
       volumes:
         - name: tmp
           emptyDir: {}
+        - name: backup-storage
+          persistentVolumeClaim:
+            claimName: synology-kubernetes
+
+
