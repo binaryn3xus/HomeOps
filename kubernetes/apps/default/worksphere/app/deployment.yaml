@@ -13,8 +13,10 @@ spec:
     spec:
       containers:
         - name: app
-          image: ghcr.io/binaryn3xus/worksphere:1.0.17
+          image: ghcr.io/binaryn3xus/worksphere:1.0.18
           env:
+            - name: TZ
+              value: America/New_York
             - name: EXPORT_PATH
               value: "/backups"
             - name: Export__OutputPath
