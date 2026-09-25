@@ -73,7 +73,7 @@ spec:
               /opt/hermes/.venv/bin/hermes dashboard --host 0.0.0.0 --insecure --open-profile skippy &
               dashboard_pid=$!
 
-              /opt/hermes/.venv/bin/hermes gateway run --no-supervise &
+              /opt/hermes/.venv/bin/hermes -p default gateway run --no-supervise &
               gateway_pid=$!
 
               shutdown() {
