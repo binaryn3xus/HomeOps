@@ -48,19 +48,26 @@ spec:
             - name: http
               containerPort: 8096
           startupProbe:
-            tcpSocket:
-              port: 8096
-            failureThreshold: 30
-            periodSeconds: 10
-          livenessProbe: &probe
             httpGet:
               path: /health
               port: 8096
-            initialDelaySeconds: 10
             periodSeconds: 10
             timeoutSeconds: 5
-            failureThreshold: 5
-          readinessProbe: *probe
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8096
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8096
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 6
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
@@ -69,11 +76,10 @@ spec:
                 - ALL
           resources:
             requests:
-              cpu: 100m
+              cpu: 250m
               memory: 2Gi
               gpu.intel.com/i915: "1"
             limits:
-              cpu: "1"
               memory: 6Gi
               gpu.intel.com/i915: "1"
           volumeMounts:
