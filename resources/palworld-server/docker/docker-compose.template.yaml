@@ -46,3 +46,27 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - /home/joshua/docker/palworld-portainer/data:/data
       - ./portainer-admin-password:/run/secrets/portainer-admin-password:ro
+  # -------------------------------------------------------------
+  # Satisfactory 1.2 Dedicated Server (Temporary Pre-Testing)
+  # Decommission/Clean Up: see docs/satisfactory-testing.md
+  # -------------------------------------------------------------
+  satisfactory:
+    image: wolveix/satisfactory-server:latest
+    container_name: satisfactory-server
+    hostname: satisfactory-server
+    restart: unless-stopped
+    ports:
+      - "7777:7777/udp"
+      - "7777:7777/tcp"
+      - "8888:8888/tcp"
+    env_file:
+      - ./satisfactory.env
+    volumes:
+      - /mnt/fastdata/satisfactory-data:/config
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          memory: 4G
+

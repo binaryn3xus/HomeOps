@@ -21,6 +21,8 @@ The Docker ports are still bound on the host, so direct access is limited by the
 | Palworld server dashboard | TCP 3000 | Dashboard, accessed through the internal route |
 | Portainer | TCP 9000 | Docker management UI, accessed through the internal route |
 | Palworld REST API | TCP 8212 | Used inside the Docker network by the dashboard; no route is required |
+| Satisfactory (pre-testing) | UDP/TCP 7777, TCP 8888 | Temporary test server; see [Satisfactory Testing](satisfactory-testing.md) |
+
 
 ## Tailscale
 

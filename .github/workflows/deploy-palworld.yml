@@ -78,8 +78,9 @@ jobs:
           cat resources/palworld-server/docker/palworld.env.template | ./az-inject.sh > palworld.env
           cat resources/palworld-server/docker/dashboard.env.template | ./az-inject.sh > dashboard.env
           cat resources/palworld-server/docker/portainer.env.template | ./az-inject.sh > portainer.env
+          cat resources/palworld-server/docker/satisfactory.env.template | ./az-inject.sh > satisfactory.env
           sed -n 's/^PORTAINER_ADMIN_PASSWORD=//p' portainer.env | tr -d '\r\n' > portainer-admin-password
-          chmod 600 palworld.env dashboard.env portainer-admin-password
+          chmod 600 palworld.env dashboard.env portainer-admin-password satisfactory.env
 
       - name: Setup SSH
         run: |
@@ -92,14 +93,19 @@ jobs:
 
       - name: Copy Compose and environment files to Remote Host
         run: |
-          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "mkdir -p /home/joshua/palworld /home/joshua/docker/palworld-dashboard/data /home/joshua/docker/palworld-portainer/data"
+          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "mkdir -p /home/joshua/palworld /home/joshua/docker/palworld-dashboard/data /home/joshua/docker/palworld-portainer/data /mnt/fastdata/satisfactory-data"
           scp -i ~/.ssh/id_ed25519 docker-compose.yaml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:/home/joshua/palworld/docker-compose.yml
-          scp -i ~/.ssh/id_ed25519 palworld.env dashboard.env portainer-admin-password ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:/home/joshua/palworld/
-          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "chmod 600 /home/joshua/palworld/palworld.env /home/joshua/palworld/dashboard.env /home/joshua/palworld/portainer-admin-password"
+          scp -i ~/.ssh/id_ed25519 palworld.env dashboard.env portainer-admin-password satisfactory.env ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:/home/joshua/palworld/
+          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "chmod 600 /home/joshua/palworld/palworld.env /home/joshua/palworld/dashboard.env /home/joshua/palworld/portainer-admin-password /home/joshua/palworld/satisfactory.env"
 
       - name: Deploy Dashboard and Portainer
         run: |
           ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "cd /home/joshua/palworld && docker compose config --quiet && docker compose pull palworld-server-dashboard portainer && docker compose up -d --no-deps palworld-server-dashboard portainer"
+
+      - name: Deploy Satisfactory (Testing)
+        run: |
+          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "cd /home/joshua/palworld && docker compose pull satisfactory && docker compose up -d --no-deps satisfactory"
+
 
   deploy-palworld:
     name: Deploy Palworld game server
