@@ -8,6 +8,7 @@ resources:
   # Shared PVCs
   - ./synology.yaml
   # Apps
+  - ./help-docs/ks.yaml
   - ./it-tools/ks.yaml
   - ./minecraft-java/ks.yaml
   - ./palworld
