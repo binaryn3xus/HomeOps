@@ -24,7 +24,7 @@ spec:
   hooks:
     pre:
       - name: hibernate-postgres
-        image: alpine/k8s:1.37.0
+        image: alpine/k8s:1.37.1
         serviceAccountName: tuppr-upgrade-hooks
         backoffLimit: 1
         command:
@@ -54,7 +54,7 @@ spec:
             kubectl wait --for=condition=cnpg.io/hibernation --timeout=120s cluster/litellm-db -n ai
     post:
       - name: resume-postgres
-        image: alpine/k8s:1.37.0
+        image: alpine/k8s:1.37.1
         serviceAccountName: tuppr-upgrade-hooks
         backoffLimit: 1
         command:
