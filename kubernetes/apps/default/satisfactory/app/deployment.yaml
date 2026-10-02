@@ -32,6 +32,24 @@ spec:
       securityContext:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+      initContainers:
+        - name: sync-certificates
+          image: docker.io/library/busybox:1.37.0
+          command:
+            - /bin/sh
+            - -c
+            - |
+              mkdir -p /config/gamefiles/FactoryGame/Certificates
+              cp -L /certs/cert_chain.pem /config/gamefiles/FactoryGame/Certificates/cert_chain.pem
+              cp -L /certs/private_key.pem /config/gamefiles/FactoryGame/Certificates/private_key.pem
+              chown -R 1000:1000 /config/gamefiles/FactoryGame/Certificates
+              chmod 600 /config/gamefiles/FactoryGame/Certificates/*
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: certificates
+              mountPath: /certs
+              readOnly: true
       containers:
         - name: app
           image: docker.io/wolveix/satisfactory-server:latest
@@ -63,9 +81,7 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
-            - name: certificates
-              mountPath: /config/gamefiles/FactoryGame/Certificates
-              readOnly: true
+
       volumes:
         - name: config
           persistentVolumeClaim:
