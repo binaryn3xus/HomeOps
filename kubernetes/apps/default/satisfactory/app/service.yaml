@@ -6,7 +6,9 @@ metadata:
   name: satisfactory
   annotations:
     lbipam.cilium.io/ips: "10.0.30.37"
+    external-dns.kubernetes.io/hostname: "satisfactory.unscfleet.com"
     external-dns.alpha.kubernetes.io/hostname: "satisfactory.unscfleet.com"
+
 
 spec:
   type: LoadBalancer
