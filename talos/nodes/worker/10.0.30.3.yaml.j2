@@ -1,0 +1,44 @@
+---
+machine:
+  certSANs:
+    - 10.0.30.3
+  install:
+    diskSelector:
+      wwid: "eui.335a48304d3435480025385800000001"
+    wipe: true
+    extraKernelArgs:
+      - pcie_aspm=off
+      - nvidia.NVreg_RegistryDwords="PowerMizerEnable=0x1; PerfLevelSrc=0x2222; PowerMizerDefaultAC=0x1"
+  network:
+    hostname: fleetcom-node5
+    interfaces:
+      - deviceSelector:
+          hardwareAddr: "b8:85:84:98:d9:6f"
+        addresses:
+          - 10.0.30.3/24
+        routes:
+          - network: 0.0.0.0/0
+            gateway: 10.0.30.1
+        mtu: 9000
+        dhcp: false
+  kernel:
+    modules:
+      - name: nvidia
+      - name: nvidia_uvm
+      - name: nvidia_drm
+      - name: nvidia_modeset
+  nodeLabels:
+    node-role.kubernetes.io/worker: ""
+    sku: gaming
+    workload: gaming
+    hardware-type: nvidia-gpu
+    gpu-model: quadro
+  kubelet:
+    extraConfig:
+      imageGCHighThresholdPercent: 75
+      imageGCLowThresholdPercent: 60
+      imageMinimumGCAge: "5m"
+      registerWithTaints:
+        - key: sku
+          value: gaming
+          effect: NoSchedule
