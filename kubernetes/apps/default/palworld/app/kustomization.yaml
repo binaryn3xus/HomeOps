@@ -2,8 +2,8 @@
 # yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: default
 resources:
-  - ./access/ks.yaml
-  - ./backup/ks.yaml
-  - ./ks.yaml
+  - ./externalsecret.yaml
+  - ./configmap.yaml
+  - ./deployment.yaml
+  - ./service.yaml

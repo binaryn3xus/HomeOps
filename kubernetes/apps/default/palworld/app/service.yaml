@@ -1,0 +1,37 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/service_v1.json
+apiVersion: v1
+kind: Service
+metadata:
+  name: palworld
+  annotations:
+    lbipam.cilium.io/ips: "10.0.30.40"
+    external-dns.kubernetes.io/hostname: "palworld.unscfleet.com"
+    external-dns.alpha.kubernetes.io/hostname: "palworld.unscfleet.com"
+    tailscale.com/expose: "true"
+    tailscale.com/hostname: "unsc-palworld"
+    tailscale.com/tags: "tag:gameserver"
+spec:
+  type: LoadBalancer
+  ports:
+    - name: game-udp
+      port: 8211
+      targetPort: 8211
+      protocol: UDP
+    - name: query-udp
+      port: 27015
+      targetPort: 27015
+      protocol: UDP
+    - name: rest-api
+      port: 8212
+      targetPort: 8212
+      protocol: TCP
+    - name: rcon
+      port: 25575
+      targetPort: 25575
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: palworld
+    app.kubernetes.io/instance: palworld
+    app.kubernetes.io/controller: palworld
+

@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/apps/deployment_v1.json
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: palworld
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: palworld
+      app.kubernetes.io/instance: palworld
+      app.kubernetes.io/controller: palworld
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: palworld
+        app.kubernetes.io/instance: palworld
+        app.kubernetes.io/controller: palworld
+    spec:
+      nodeSelector:
+        sku: gaming
+      tolerations:
+        - key: sku
+          operator: Equal
+          value: gaming
+          effect: NoSchedule
+      containers:
+        - name: server
+          image: thijsvanloef/palworld-server-docker:latest
+          envFrom:
+            - configMapRef:
+                name: palworld-env
+            - secretRef:
+                name: palworld-secrets
+          ports:
+            - name: game-udp
+              containerPort: 8211
+              protocol: UDP
+            - name: query-udp
+              containerPort: 27015
+              protocol: UDP
+            - name: rest-api
+              containerPort: 8212
+              protocol: TCP
+            - name: rcon
+              containerPort: 25575
+              protocol: TCP
+          volumeMounts:
+            - name: palworld-data
+              mountPath: /palworld
+          resources:
+            requests:
+              cpu: 2000m
+              memory: 8Gi
+            limits:
+              memory: 14Gi
+
+      volumes:
+        - name: palworld-data
+          persistentVolumeClaim:
+            claimName: palworld
+
