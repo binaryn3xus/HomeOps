@@ -1,0 +1,69 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/apps/deployment_v1.json
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: satisfactory
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: satisfactory
+      app.kubernetes.io/instance: satisfactory
+      app.kubernetes.io/controller: satisfactory
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: satisfactory
+        app.kubernetes.io/instance: satisfactory
+        app.kubernetes.io/controller: satisfactory
+    spec:
+      nodeSelector:
+        sku: gaming
+      tolerations:
+        - key: sku
+          operator: Equal
+          value: gaming
+          effect: NoSchedule
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+      containers:
+        - name: app
+          image: docker.io/wolveix/satisfactory-server:latest
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+          envFrom:
+            - configMapRef:
+                name: satisfactory-env
+          ports:
+            - name: game-udp
+              containerPort: 7777
+              protocol: UDP
+            - name: game-tcp
+              containerPort: 7777
+              protocol: TCP
+            - name: messaging-tcp
+              containerPort: 8888
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "2"
+              memory: 4Gi
+            limits:
+              cpu: "4"
+              memory: 8Gi
+          volumeMounts:
+            - name: config
+              mountPath: /config
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: satisfactory

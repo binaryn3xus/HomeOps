@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/service_v1.json
+apiVersion: v1
+kind: Service
+metadata:
+  name: satisfactory
+  annotations:
+    lbipam.cilium.io/ips: "10.0.30.37"
+spec:
+  type: LoadBalancer
+  ports:
+    - name: game-udp
+      port: 7777
+      targetPort: 7777
+      protocol: UDP
+    - name: game-tcp
+      port: 7777
+      targetPort: 7777
+      protocol: TCP
+    - name: messaging-tcp
+      port: 8888
+      targetPort: 8888
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: satisfactory
+    app.kubernetes.io/instance: satisfactory
+    app.kubernetes.io/controller: satisfactory

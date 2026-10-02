@@ -11,4 +11,6 @@ resources:
   - ./it-tools/ks.yaml
   - ./minecraft-java/ks.yaml
   - ./palworld
+  - ./satisfactory/ks.yaml
   - ./worksphere/ks.yaml
+

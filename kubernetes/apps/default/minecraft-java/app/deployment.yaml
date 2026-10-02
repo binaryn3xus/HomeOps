@@ -23,6 +23,13 @@ spec:
         app.kubernetes.io/instance: minecraft-java
         app.kubernetes.io/controller: minecraft-java
     spec:
+      nodeSelector:
+        sku: gaming
+      tolerations:
+        - key: sku
+          operator: Equal
+          value: gaming
+          effect: NoSchedule
       securityContext:
         runAsNonRoot: true
         runAsUser: 1000
