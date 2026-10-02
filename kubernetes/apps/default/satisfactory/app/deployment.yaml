@@ -63,7 +63,19 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
+            - name: certificates
+              mountPath: /config/gamefiles/FactoryGame/Certificates
+              readOnly: true
       volumes:
         - name: config
           persistentVolumeClaim:
             claimName: satisfactory
+        - name: certificates
+          secret:
+            secretName: satisfactory-tls
+            items:
+              - key: tls.crt
+                path: cert_chain.pem
+              - key: tls.key
+                path: private_key.pem
+
