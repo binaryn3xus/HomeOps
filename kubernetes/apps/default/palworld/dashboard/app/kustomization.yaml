@@ -8,3 +8,5 @@ resources:
   - ./externalsecret.yaml
   - ./service.yaml
   - ./deployment.yaml
+  - ./httproute.yaml
+

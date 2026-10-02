@@ -3,12 +3,12 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: palworld-portainer
+  name: palworld-dashboard
   annotations:
     gatus.home-operations.com/endpoint: |-
       group: internal
       dns:
-        query-name: portainer.unscfleet.com
+        query-name: palworld-dashboard.unscfleet.com
         query-type: A
       url: 1.1.1.1
       conditions:
@@ -19,9 +19,8 @@ spec:
       namespace: network
       sectionName: https
   hostnames:
-    - portainer.unscfleet.com
+    - palworld-dashboard.unscfleet.com
   rules:
     - backendRefs:
-        - group: gateway.envoyproxy.io
-          kind: Backend
-          name: palworld-portainer
+        - name: palworld-dashboard
+          port: 3000

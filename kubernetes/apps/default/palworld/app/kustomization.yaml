@@ -7,3 +7,5 @@ resources:
   - ./configmap.yaml
   - ./deployment.yaml
   - ./service.yaml
+  - ./cronjob.yaml
+
