@@ -16,6 +16,11 @@ spec:
       labels:
         app.kubernetes.io/name: palworld-dashboard
     spec:
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+        fsGroup: 1001
+        fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: app
           image: ghcr.io/rnz01/palworld-server-dashboard:latest
