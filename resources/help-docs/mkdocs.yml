@@ -64,4 +64,6 @@ nav:
       - Palworld: gaming/palworld.md
       - Minecraft: gaming/minecraft.md
   - Media & Streaming:
-      - Streaming & Requests: media/overview.md
+      - Video Streaming: media/video.md
+      - Audiobooks: media/audiobooks.md
+      - Requesting Content: media/requests.md

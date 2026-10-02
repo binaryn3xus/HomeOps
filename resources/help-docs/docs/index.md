@@ -32,11 +32,23 @@ Welcome to the community help portal and guide repository for **UNSC Fleet** ser
 
     Join the community Minecraft server. Connection details and version requirements.
 
--   :material-movie-open:{ .lg .middle } **[Media & Streaming](media/overview.md)**
+-   :material-movie-open:{ .lg .middle } **[Video Streaming](media/video.md)**
 
     ---
 
-    Watch movies/shows on Jellyfin/Plex, listen on Audiobookshelf, and request new titles.
+    Watch movies and TV shows on Plex & Jellyfin across smart TVs, mobile, and web.
+
+-   :material-headphones:{ .lg .middle } **[Audiobooks](media/audiobooks.md)**
+
+    ---
+
+    Listen to audiobooks on Audiobookshelf with offline playback and progress syncing.
+
+-   :material-cloud-search:{ .lg .middle } **[Requesting Content](media/requests.md)**
+
+    ---
+
+    Search and request new movies and series via our automated Seerr portal.
 
 </div>
 
