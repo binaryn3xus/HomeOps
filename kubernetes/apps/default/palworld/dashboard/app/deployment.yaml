@@ -1,0 +1,43 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/apps/deployment_v1.json
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: palworld-dashboard
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: palworld-dashboard
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: palworld-dashboard
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/rnz01/palworld-server-dashboard:latest
+          envFrom:
+            - configMapRef:
+                name: palworld-dashboard-env
+            - secretRef:
+                name: palworld-dashboard-secrets
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              memory: 256Mi
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: palworld-dashboard

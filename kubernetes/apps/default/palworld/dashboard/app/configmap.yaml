@@ -1,0 +1,15 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/configmap_v1.json
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: palworld-dashboard-env
+data:
+  TZ: "America/New_York"
+  PALWORLD_REST_URL: "http://palworld.default.svc.cluster.local:8212"
+  PANEL_AUTH_FILE: "/app/data/panel-auth.json"
+  PALWORLD_FPS_SAMPLER: "false"
+  PALWORLD_PLAYER_ACTIVITY: "false"
+  PUBLIC_VIEW_ENABLED: "true"
+  PUBLIC_VIEW_ANONYMIZE_NAMES: "false"
+  PUBLIC_VIEW_CACHE_SECONDS: "15"
