@@ -23,6 +23,10 @@ spec:
         enabled: true
         name: rook-ceph.rbd.csi.ceph.com
         snapshotPolicy: volumeSnapshot
+        nodePlugin:
+          tolerations:
+            - operator: Exists
+
       cephfs:
         enabled: false
       nfs:
