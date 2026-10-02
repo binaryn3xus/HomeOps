@@ -10,7 +10,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   components:
-    - ../../../../components/common/labels
+    - ../../../../../components/common/labels
   dependsOn:
     - name: external-secrets
       namespace: external-secrets
