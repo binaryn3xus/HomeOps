@@ -10,6 +10,7 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: "satisfactory.unscfleet.com"
     tailscale.com/expose: "true"
     tailscale.com/hostname: "unsc-gaming"
+    tailscale.com/tags: "tag:gameserver"
 
 
 spec:
