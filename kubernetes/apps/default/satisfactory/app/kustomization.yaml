@@ -8,4 +8,5 @@ resources:
   - ./pvc.yaml
   - ./deployment.yaml
   - ./service.yaml
+  - ./dnsendpoint.yaml
 
