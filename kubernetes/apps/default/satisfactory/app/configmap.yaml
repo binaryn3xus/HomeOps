@@ -13,7 +13,7 @@ data:
   TIMEOUT: "30"
   DISABLESEASONALEVENTS: "false"
   STEAMBETA: "false"
-  SKIPUPDATE: "false"
+  SKIPUPDATE: "true"
   VMOVERRIDE: "false"
   DEBUG: "false"
   SERVERGAMEPORT: "7777"
