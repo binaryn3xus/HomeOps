@@ -1,7 +1,7 @@
 site_name: UNSC Fleet Community & Help
 site_description: Guides, service information, and help documentation for UNSC Fleet services.
 site_url: https://help.unscfleet.com
-site_author: Joshua Garrison
+site_author: BinaryNexus
 
 theme:
   name: material

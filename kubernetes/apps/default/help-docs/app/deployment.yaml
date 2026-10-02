@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: help-docs
-          image: ghcr.io/binaryn3xus/help-docs:latest
+          image: ghcr.io/binaryn3xus/help-docs:1.0.0
           imagePullPolicy: Always
           ports:
             - name: http

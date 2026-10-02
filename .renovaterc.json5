@@ -17,6 +17,18 @@
   },
   packageRules: [
     {
+      description: 'Auto-merge help-docs image updates',
+      matchDatasources: [
+        'docker',
+      ],
+      matchPackageNames: [
+        'ghcr.io/binaryn3xus/help-docs',
+      ],
+      automerge: true,
+      automergeType: 'pr',
+      ignoreTests: false,
+    },
+    {
       description: 'Auto-merge trusted container digests',
       matchDatasources: [
         'docker',

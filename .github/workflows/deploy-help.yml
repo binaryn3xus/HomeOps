@@ -24,8 +24,17 @@ jobs:
     name: Build & Push Help Site
     runs-on: ubuntu-latest
     steps:
+      - name: Generate Bot Token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: app-token
+        with:
+          client-id: ${{ secrets.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+
       - name: Checkout Repository
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
@@ -41,6 +50,8 @@ jobs:
           images: ghcr.io/${{ github.repository_owner }}/help-docs
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=1.0.${{ github.run_number }}
+            type=raw,value=1.0.0
             type=sha,prefix=sha-,format=short
 
       - name: Set up Docker Buildx
@@ -56,3 +67,9 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Trigger Renovate
+        run: |
+          gh workflow run renovate.yaml
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}

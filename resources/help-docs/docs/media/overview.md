@@ -12,7 +12,7 @@ Enjoy our movie and television library across your Smart TV, PC, phone, or table
 - **Recommended Apps:** Official Apps Suggested
   - **TVs & Streamers:** Download the official Jellyfin or Plex app on Apple TV, Roku, Google TV, or FireTV.
   - **Mobile:** Download Jellyfin or Plex from the App Store / Google Play Store.
-- **Login:** Contact Joshua for your personal account credentials.
+- **Login:** Contact an Admin for your personal account credentials.
 
 ---
 

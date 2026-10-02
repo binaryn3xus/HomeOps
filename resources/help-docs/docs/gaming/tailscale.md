@@ -25,7 +25,7 @@ Download and install the official Tailscale client for your device:
 
 ## 🤝 2. Accept the Share Invitation
 
-1. Ask Joshua to send you an invitation to the **`unsc-gaming`** server.
+1. Ask an Admin to send you an invitation to the **`unsc-gaming`** server.
 2. Check your email or open the share link directly.
 3. Click **Accept Share** while logged into your Tailscale account.
 
