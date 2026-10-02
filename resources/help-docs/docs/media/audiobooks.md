@@ -55,4 +55,4 @@ Enjoy seamless offline downloads, Apple CarPlay, and Android Auto by downloading
 4. Once authenticated, your personal audiobook library will load and start streaming!
 
 > [!IMPORTANT] Google Account Authorization Required
-> Before logging in for the first time, send your Google email address to an **Admin** so they can add your account to the approved Google test users list.
+> Before logging in for the first time, send your Google email address to an **Admin** so they can add your account to the approved Google users list.

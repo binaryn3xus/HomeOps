@@ -24,7 +24,7 @@ Want a movie, anime, or new TV series added to our library? UNSC Fleet uses an a
 2. **Select:** Click on any movie or TV series to view trailers, release dates, reviews, and current library availability.
 3. **Request:**
    - **For Movies:** Click the green **Request** button.
-   - **For TV Shows:** Click **Request** and choose whether you want the entire series, recent seasons, or specific upcoming episodes.
+   - **For TV Shows:** _Disabled for most users_
 4. **Automated Processing:**
    - Once submitted, our media automation pipeline checks quality criteria and downloads the release automatically.
    - The media is indexed into **Plex** and **Jellyfin** as soon as the download finishes!
