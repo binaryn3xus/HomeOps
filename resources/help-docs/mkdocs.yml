@@ -41,6 +41,8 @@ extra:
       link: https://github.com/binaryn3xus
 
 markdown_extensions:
+  - attr_list
+  - md_in_html
   - admonition
   - pymdownx.details
   - pymdownx.superfences
@@ -56,9 +58,8 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Network Access:
-      - Getting Connected (Tailscale): access/tailscale.md
   - Dedicated Game Servers:
+      - Connect with Tailscale: gaming/tailscale.md
       - Satisfactory: gaming/satisfactory.md
       - Palworld: gaming/palworld.md
       - Minecraft: gaming/minecraft.md

@@ -9,17 +9,17 @@ We run several media services for watching movies, streaming TV shows, and liste
 ### Jellyfin / Plex
 Enjoy our movie and television library across your Smart TV, PC, phone, or tablet.
 
-- **Recommended Apps:**
+- **Recommended Apps:** Official Apps Suggested
   - **TVs & Streamers:** Download the official Jellyfin or Plex app on Apple TV, Roku, Google TV, or FireTV.
   - **Mobile:** Download Jellyfin or Plex from the App Store / Google Play Store.
 - **Login:** Contact Joshua for your personal account credentials.
 
 ---
 
-## 📚 Audiobooks & Podcasts
+## 📚 Audiobooks
 
 ### Audiobookshelf
-A dedicated streaming server for audiobooks and podcasts with progress syncing across devices.
+A dedicated streaming server for audiobooks with progress syncing across devices.
 
 - **Web Access:** Stream directly in your browser.
 - **Mobile Apps:** Download the free **Audiobookshelf** app for iOS and Android. Connect using your personal user login.

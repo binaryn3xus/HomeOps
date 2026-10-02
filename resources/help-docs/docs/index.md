@@ -8,7 +8,7 @@ Welcome to the community help portal and guide repository for **UNSC Fleet** ser
 
 <div class="grid cards" markdown>
 
--   :material-vpn:{ .lg .middle } **[Getting Connected (Tailscale)](access/tailscale.md)**
+-   :material-vpn:{ .lg .middle } **[Getting Connected (Tailscale)](gaming/tailscale.md)**
 
     ---
 
@@ -44,4 +44,4 @@ Welcome to the community help portal and guide repository for **UNSC Fleet** ser
 
 ## ❓ Need Assistance?
 
-If you run into any connection issues, check the [Tailscale Guide](access/tailscale.md) first or ping Joshua directly on Discord!
+If you run into any connection issues, check the [Tailscale Guide](gaming/tailscale.md) first or ping Joshua directly on Discord!
