@@ -1,0 +1,49 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/service_v1.json
+apiVersion: v1
+kind: Service
+metadata:
+  name: unsc-gaming
+  namespace: default
+  annotations:
+    tailscale.com/expose: "true"
+    tailscale.com/hostname: "unsc-gaming"
+    tailscale.com/tags: "tag:gameserver"
+spec:
+  type: ClusterIP
+  ports:
+    # Satisfactory
+    - name: satisfactory-udp
+      port: 7777
+      targetPort: 7777
+      protocol: UDP
+    - name: satisfactory-tcp
+      port: 7777
+      targetPort: 7777
+      protocol: TCP
+    - name: satisfactory-api
+      port: 8888
+      targetPort: 8888
+      protocol: TCP
+    # Palworld
+    - name: palworld-udp
+      port: 8211
+      targetPort: 8211
+      protocol: UDP
+    - name: palworld-query
+      port: 27015
+      targetPort: 27015
+      protocol: UDP
+    - name: palworld-api
+      port: 8212
+      targetPort: 8212
+      protocol: TCP
+    - name: palworld-rcon
+      port: 25575
+      targetPort: 25575
+      protocol: TCP
+    # Minecraft
+    - name: minecraft-tcp
+      port: 25565
+      targetPort: 25565
+      protocol: TCP

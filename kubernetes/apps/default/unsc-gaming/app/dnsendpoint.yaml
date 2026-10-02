@@ -3,11 +3,25 @@
 apiVersion: externaldns.k8s.io/v1alpha1
 kind: DNSEndpoint
 metadata:
-  name: satisfactory
+  name: unsc-gaming
   namespace: default
 spec:
   endpoints:
     - dnsName: "satisfactory.unscfleet.com"
+      recordType: A
+      targets:
+        - "100.91.15.5"
+      providerSpecific:
+        - name: cloudflare/proxied
+          value: "false"
+    - dnsName: "palworld.unscfleet.com"
+      recordType: A
+      targets:
+        - "100.91.15.5"
+      providerSpecific:
+        - name: cloudflare/proxied
+          value: "false"
+    - dnsName: "minecraft.unscfleet.com"
       recordType: A
       targets:
         - "100.91.15.5"

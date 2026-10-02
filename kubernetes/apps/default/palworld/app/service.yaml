@@ -8,9 +8,6 @@ metadata:
     lbipam.cilium.io/ips: "10.0.30.40"
     external-dns.kubernetes.io/hostname: "palworld.unscfleet.com"
     external-dns.alpha.kubernetes.io/hostname: "palworld.unscfleet.com"
-    tailscale.com/expose: "true"
-    tailscale.com/hostname: "unsc-palworld"
-    tailscale.com/tags: "tag:gameserver"
 spec:
   type: LoadBalancer
   ports:

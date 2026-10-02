@@ -1,0 +1,43 @@
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: unsc-gaming
+  namespace: default
+subsets:
+  # Satisfactory (LoadBalancer VIP)
+  - addresses:
+      - ip: 10.0.30.37
+    ports:
+      - name: satisfactory-udp
+        port: 7777
+        protocol: UDP
+      - name: satisfactory-tcp
+        port: 7777
+        protocol: TCP
+      - name: satisfactory-api
+        port: 8888
+        protocol: TCP
+  # Palworld (LoadBalancer VIP)
+  - addresses:
+      - ip: 10.0.30.40
+    ports:
+      - name: palworld-udp
+        port: 8211
+        protocol: UDP
+      - name: palworld-query
+        port: 27015
+        protocol: UDP
+      - name: palworld-api
+        port: 8212
+        protocol: TCP
+      - name: palworld-rcon
+        port: 25575
+        protocol: TCP
+  # Minecraft (LoadBalancer VIP)
+  - addresses:
+      - ip: 10.0.30.36
+    ports:
+      - name: minecraft-tcp
+        port: 25565
+        protocol: TCP
