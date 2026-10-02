@@ -46,13 +46,16 @@ spec:
                   operator: In
                   values:
                     - gpu
+                    - gaming
     runtimeClassName: nvidia
     nfd:
       enabled: false
-    nodeSelector:
-      sku: "gpu"
     tolerations:
       - key: "sku"
         operator: "Equal"
         value: "gpu"
+        effect: "NoSchedule"
+      - key: "sku"
+        operator: "Equal"
+        value: "gaming"
         effect: "NoSchedule"

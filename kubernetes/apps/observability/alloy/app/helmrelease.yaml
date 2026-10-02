@@ -134,6 +134,10 @@ spec:
           operator: Equal
           value: gpu
           effect: NoSchedule
+        - key: sku
+          operator: Equal
+          value: gaming
+          effect: NoSchedule
       volumes:
         extra:
           - name: run-alloy

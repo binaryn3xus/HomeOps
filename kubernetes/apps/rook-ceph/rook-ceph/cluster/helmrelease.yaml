@@ -84,6 +84,19 @@ spec:
           daemon:
             keyRotationPolicy: KeyGeneration
             keyGeneration: 2
+      placement:
+        osd:
+          tolerations:
+            - key: sku
+              operator: Equal
+              value: gaming
+              effect: NoSchedule
+        prepareosd:
+          tolerations:
+            - key: sku
+              operator: Equal
+              value: gaming
+              effect: NoSchedule
       storage:
         useAllNodes: false
         useAllDevices: false
@@ -99,6 +112,9 @@ spec:
           - name: fleetcom-node3
             devices:
               - name: "/dev/disk/by-id/nvme-eui.002538da114551c2"
+          - name: fleetcom-node5
+            devices:
+              - name: "/dev/disk/by-id/nvme-SPCC_M.2_PCIe_SSD_AA000000000000003080"
     cephBlockPools:
       - name: ceph-blockpool
         spec:
