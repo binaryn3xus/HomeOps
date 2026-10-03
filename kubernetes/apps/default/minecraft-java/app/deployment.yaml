@@ -4,8 +4,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: minecraft-java
-  annotations:
-    reloader.stakater.com/auto: "true"
 spec:
   # Do not start the restored world until the PVC has been verified.
   replicas: 0
@@ -23,6 +21,7 @@ spec:
         app.kubernetes.io/instance: minecraft-java
         app.kubernetes.io/controller: minecraft-java
     spec:
+      terminationGracePeriodSeconds: 120
       nodeSelector:
         sku: gaming
       tolerations:

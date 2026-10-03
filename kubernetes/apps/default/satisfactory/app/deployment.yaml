@@ -4,8 +4,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: satisfactory
-  annotations:
-    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   strategy:
@@ -22,6 +20,7 @@ spec:
         app.kubernetes.io/instance: satisfactory
         app.kubernetes.io/controller: satisfactory
     spec:
+      terminationGracePeriodSeconds: 120
       nodeSelector:
         sku: gaming
       tolerations:
