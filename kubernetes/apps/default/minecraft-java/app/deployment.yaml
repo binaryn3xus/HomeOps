@@ -5,8 +5,7 @@ kind: Deployment
 metadata:
   name: minecraft-java
 spec:
-  # Do not start the restored world until the PVC has been verified.
-  replicas: 0
+  replicas: 1
   strategy:
     type: Recreate
   selector:

@@ -21,12 +21,17 @@ Download and install the official Tailscale client for your device:
     1. Download **Tailscale** from the App Store or Google Play Store.
     2. Open the app and log in.
 
+> [!TIP] First-Time Users: Skip the "Set Up a Server / Tailnet" Wizard!
+> When you create a fresh Tailscale account, the web dashboard or app might show an onboarding checklist asking you to *"Add your first machine"*, *"Set up a server"*, or *"Configure a tailnet"*.
+> 
+> **You can completely ignore or skip this!** You are connecting as a player to our gaming server—you do not need to create or configure a server of your own. Simply log in to the Tailscale app on your device, then proceed to Step 2 below.
+
 ---
 
 ## 🤝 2. Accept the Share Invitation
 
 1. Ask an Admin to send you an invitation to the **`unsc-gaming`** server.
-2. Check your email or open the share link directly.
+2. Check your email or open the share link directly in your browser.
 3. Click **Accept Share** while logged into your Tailscale account.
 
 > [!NOTE]
