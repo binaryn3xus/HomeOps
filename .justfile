@@ -111,3 +111,8 @@ migrate-app app from_ns to_ns="" snap_id="" to_app="" to_pvc="":
 [doc('Report Key Vault secret usage in repo')]
 kv-usage-report vault_name="K8sHomeOpsKeyVault":
     ./resources/scripts/kv_usage_report.sh "{{vault_name}}"
+
+# --- Gaming ---
+[doc('Import Satisfactory blueprints from .private/satisfactory/blueprints to server pod')]
+import-satisfactory-blueprints source_dir="./.private/satisfactory/blueprints" session="Project-MJOLNIR":
+    ./resources/scripts/import-satisfactory-blueprints.sh "{{source_dir}}" "{{session}}"
