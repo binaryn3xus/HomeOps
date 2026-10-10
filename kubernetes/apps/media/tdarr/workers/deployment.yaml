@@ -42,7 +42,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: app
-          image: ghcr.io/haveagitgat/tdarr_node:2.95.01
+          image: ghcr.io/haveagitgat/tdarr_node:2.96.01
           env:
             - name: TZ
               value: "America/New_York"
