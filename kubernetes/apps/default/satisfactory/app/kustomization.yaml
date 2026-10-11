@@ -5,7 +5,9 @@ kind: Kustomization
 resources:
   - ./certificate.yaml
   - ./configmap.yaml
+  - ./save-server-configmap.yaml
   - ./pvc.yaml
   - ./deployment.yaml
   - ./service.yaml
+  - ./httproute.yaml
 

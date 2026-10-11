@@ -27,3 +27,21 @@ spec:
     app.kubernetes.io/name: satisfactory
     app.kubernetes.io/instance: satisfactory
     app.kubernetes.io/controller: satisfactory
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/service_v1.json
+apiVersion: v1
+kind: Service
+metadata:
+  name: satisfactory-saves
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: satisfactory
+    app.kubernetes.io/instance: satisfactory
+    app.kubernetes.io/controller: satisfactory
+

@@ -116,3 +116,8 @@ kv-usage-report vault_name="K8sHomeOpsKeyVault":
 [doc('Import Satisfactory blueprints from .private/satisfactory/blueprints to server pod')]
 import-satisfactory-blueprints source_dir="./.private/satisfactory/blueprints" session="Project-MJOLNIR":
     ./resources/scripts/import-satisfactory-blueprints.sh "{{source_dir}}" "{{session}}"
+
+[doc('Download Satisfactory save file from server pod (defaults to latest save)')]
+download-satisfactory-save save_name="" dest_dir="./.private/satisfactory/saves":
+    ./resources/scripts/download-satisfactory-save.sh "{{save_name}}" "{{dest_dir}}"
+

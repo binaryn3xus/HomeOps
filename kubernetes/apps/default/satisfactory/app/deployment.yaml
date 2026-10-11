@@ -81,6 +81,51 @@ spec:
             - name: config
               mountPath: /config
 
+        - name: save-web
+          image: docker.io/library/python:3.12-alpine
+          command:
+            - python3
+            - /app/server.py
+          env:
+            - name: SAVES_DIR
+              value: /config/saved/server
+            - name: PORT
+              value: "8080"
+          ports:
+            - name: http-saves
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              memory: 128Mi
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - name: config
+              mountPath: /config
+              readOnly: true
+            - name: save-server-script
+              mountPath: /app
+              readOnly: true
+
       volumes:
         - name: config
           persistentVolumeClaim:
@@ -93,4 +138,8 @@ spec:
                 path: cert_chain.pem
               - key: tls.key
                 path: private_key.pem
+        - name: save-server-script
+          configMap:
+            name: satisfactory-save-server-script
+
 
