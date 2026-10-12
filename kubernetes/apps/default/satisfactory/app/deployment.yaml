@@ -82,7 +82,7 @@ spec:
               mountPath: /config
 
         - name: save-web
-          image: docker.io/library/python:3.12-alpine
+          image: docker.io/library/python:3.14-alpine
           command:
             - python3
             - /app/server.py
