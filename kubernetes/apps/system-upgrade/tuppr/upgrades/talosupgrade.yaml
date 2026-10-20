@@ -40,6 +40,7 @@ spec:
             kubectl patch kustomization -n paperless paperless-postgres -p '{"spec":{"suspend":true}}' --type=merge
             kubectl patch kustomization -n media tracearr -p '{"spec":{"suspend":true}}' --type=merge
             kubectl patch kustomization -n ai litellm -p '{"spec":{"suspend":true}}' --type=merge
+            sleep 5
 
             # Hibernate CNPG Clusters (scale to 0)
             kubectl annotate cluster -n database home-ops cnpg.io/hibernation=on --overwrite
@@ -48,10 +49,10 @@ spec:
             kubectl annotate cluster -n ai litellm-db cnpg.io/hibernation=on --overwrite
 
             # Wait for clusters to finish hibernating
-            kubectl wait --for=condition=cnpg.io/hibernation --timeout=120s cluster/home-ops -n database
-            kubectl wait --for=condition=cnpg.io/hibernation --timeout=120s cluster/paperless-postgres -n paperless
-            kubectl wait --for=condition=cnpg.io/hibernation --timeout=120s cluster/tracearr-db -n media
-            kubectl wait --for=condition=cnpg.io/hibernation --timeout=120s cluster/litellm-db -n ai
+            kubectl wait --for=condition=cnpg.io/hibernation --timeout=600s cluster/home-ops -n database
+            kubectl wait --for=condition=cnpg.io/hibernation --timeout=600s cluster/paperless-postgres -n paperless
+            kubectl wait --for=condition=cnpg.io/hibernation --timeout=600s cluster/tracearr-db -n media
+            kubectl wait --for=condition=cnpg.io/hibernation --timeout=600s cluster/litellm-db -n ai
     post:
       - name: resume-postgres
         image: alpine/k8s:1.37.1
