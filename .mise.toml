@@ -9,7 +9,7 @@ node = "26.12.0"
 
 # Kubernetes & Infrastructure
 cilium-cli = "0.20.1"
-cloudflared = "2026.10.1"
+cloudflared = "2026.10.2"
 flux2 = "2.9.6"
 helm = "4.3.1"
 helmfile = "1.8.2"
