@@ -14,6 +14,7 @@ data:
     autosave_interval 60
     connection_messages false
     listener 1883
+    password_file /mosquitto/auth/password_file
     per_listener_settings false
     persistence true
     persistence_location /config

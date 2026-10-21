@@ -18,6 +18,31 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+      initContainers:
+        - name: init-passwd
+          image: public.ecr.aws/docker/library/eclipse-mosquitto:2.0.22
+          command:
+            - /bin/sh
+            - -c
+            - |
+              if [ -n "$MOSQUITTO_USERNAME" ] && [ -n "$MOSQUITTO_PASSWORD" ]; then
+                mosquitto_passwd -b -c /mosquitto/auth/password_file "$MOSQUITTO_USERNAME" "$MOSQUITTO_PASSWORD"
+              else
+                touch /mosquitto/auth/password_file
+              fi
+              chmod 0600 /mosquitto/auth/password_file
+          envFrom:
+            - secretRef:
+                name: mosquitto-secret
+          volumeMounts:
+            - name: auth-dir
+              mountPath: /mosquitto/auth
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop:
+                - ALL
       containers:
         - name: app
           image: public.ecr.aws/docker/library/eclipse-mosquitto:2.0.22
@@ -46,6 +71,9 @@ spec:
               subPath: mosquitto.conf
             - name: config
               mountPath: /config
+            - name: auth-dir
+              mountPath: /mosquitto/auth
+              readOnly: true
       volumes:
         - name: config-file
           configMap:
@@ -53,3 +81,5 @@ spec:
         - name: config
           persistentVolumeClaim:
             claimName: mosquitto-cache
+        - name: auth-dir
+          emptyDir: {}
