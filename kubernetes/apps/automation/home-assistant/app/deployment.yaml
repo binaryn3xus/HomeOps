@@ -24,6 +24,8 @@ spec:
           env:
             - name: TZ
               value: "America/New_York"
+            - name: PYTHONPATH
+              value: "/config/deps/lib/python3.14/site-packages"
           ports:
             - name: http
               containerPort: 8123
@@ -68,6 +70,8 @@ spec:
           env:
             - name: TZ
               value: "America/New_York"
+            - name: PYTHONPATH
+              value: "/config/deps/lib/python3.14/site-packages"
           args:
             - --auth
             - none
