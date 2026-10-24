@@ -1,0 +1,63 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/batch/cronjob_v1.json
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: satisfactory-synology-backup
+spec:
+  schedule: "0 */6 * * *"
+  timeZone: "America/New_York"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      ttlSecondsAfterFinished: 3600
+      template:
+        spec:
+          restartPolicy: OnFailure
+          nodeSelector:
+            sku: gaming
+          tolerations:
+            - key: sku
+              operator: Equal
+              value: gaming
+              effect: NoSchedule
+          containers:
+            - name: sync
+              image: docker.io/instrumentisto/rsync-ssh:alpine
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  set -eu
+                  echo "Creating target directory on Synology if it doesn't exist..."
+                  mkdir -p /media/Gaming/Satisfactory
+                  echo "Syncing Satisfactory saves to Synology share..."
+                  rsync -rltvz --ignore-errors --no-owner --no-group --no-perms \
+                    --exclude="blueprints" \
+                    /satisfactory/saved/server/ \
+                    /media/Gaming/Satisfactory/
+                  if [ -f /satisfactory/saved/ServerSettings.7777.sav ]; then
+                    cp -p /satisfactory/saved/ServerSettings.7777.sav /media/Gaming/Satisfactory/ 2>/dev/null || true
+                  fi
+                  if [ -d /satisfactory/saved/blueprints ]; then
+                    mkdir -p /media/Gaming/Satisfactory/blueprints
+                    rsync -rltvz --ignore-errors --no-owner --no-group --no-perms \
+                      /satisfactory/saved/blueprints/ \
+                      /media/Gaming/Satisfactory/blueprints/
+                  fi
+                  echo "Backup copy to Synology complete!"
+              volumeMounts:
+                - name: satisfactory-data
+                  mountPath: /satisfactory
+                  readOnly: true
+                - name: synology-media
+                  mountPath: /media
+          volumes:
+            - name: satisfactory-data
+              persistentVolumeClaim:
+                claimName: satisfactory
+            - name: synology-media
+              nfs:
+                server: "10.0.30.4"
+                path: /volume1/Media
