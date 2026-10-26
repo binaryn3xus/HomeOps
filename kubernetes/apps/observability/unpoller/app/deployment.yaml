@@ -15,7 +15,7 @@ spec:
         runAsGroup: 1000
       containers:
         - name: app
-          image: ghcr.io/unpoller/unpoller:v5.7.0@sha256:5be0efc124aa58c37b3d66b0e5edf00478670f278b9206e5566c102b64c9c868
+          image: ghcr.io/unpoller/unpoller:v5.8.3@sha256:6a474f5202d40864affe6be9882492061331d77d474593bb1cd4a8c737dc834f
           env:
             - name: TZ
               value: "America/New_York"
