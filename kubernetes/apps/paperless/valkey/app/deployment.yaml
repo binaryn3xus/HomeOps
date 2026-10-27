@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: ghcr.io/valkey-io/valkey:9.1.2
+          image: ghcr.io/valkey-io/valkey:9.1.3
           ports:
             - name: redis
               containerPort: 6379
