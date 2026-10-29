@@ -8,7 +8,7 @@ KUBE_EDITOR = "nano"
 node = "26.13.0"
 
 # Kubernetes & Infrastructure
-cilium-cli = "0.20.1"
+cilium-cli = "0.20.2"
 cloudflared = "2026.10.5"
 flux2 = "2.10.0"
 helm = "4.3.1"
