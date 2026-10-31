@@ -86,7 +86,7 @@ spec:
       enabled: true
     loadBalancer:
       algorithm: maglev
-      mode: hybrid
+      mode: snat
     localRedirectPolicy: true
     operator:
       dashboards:
