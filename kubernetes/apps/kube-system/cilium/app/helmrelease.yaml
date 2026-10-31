@@ -87,6 +87,7 @@ spec:
       algorithm: maglev
       mode: dsr
     localRedirectPolicy: true
+    MTU: 9000
     operator:
       dashboards:
         enabled: true
