@@ -23,6 +23,7 @@ spec:
       bbr: true
     bpf:
       datapathMode: netkit
+      lbModeAnnotation: true
       masquerade: true
       preallocateMaps: true
       # tproxy: true
@@ -85,7 +86,7 @@ spec:
       enabled: true
     loadBalancer:
       algorithm: maglev
-      mode: dsr
+      mode: hybrid
     localRedirectPolicy: true
     operator:
       dashboards:
