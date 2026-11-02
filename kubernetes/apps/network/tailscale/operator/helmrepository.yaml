@@ -6,4 +6,4 @@ metadata:
   name: tailscale
 spec:
   interval: 24h
-  url: https://pkgs.tailscale.com/helmcharts
+  url: https://pkgs.tailscale.com/helmcharts/
