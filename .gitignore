@@ -12,3 +12,4 @@ Thumbs.db
 kubeconfig
 talosconfig
 .wrangler/
+resources/help-docs/site/

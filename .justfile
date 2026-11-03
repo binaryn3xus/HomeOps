@@ -121,3 +121,12 @@ import-satisfactory-blueprints source_dir="./.private/satisfactory/blueprints" s
 download-satisfactory-save save_name="" dest_dir="./.private/satisfactory/saves":
     ./resources/scripts/download-satisfactory-save.sh "{{save_name}}" "{{dest_dir}}"
 
+# --- Help Docs ---
+[doc('Serve help docs locally with live reload at http://localhost:8000')]
+help-serve:
+    docker run --rm -it -u $(id -u):$(id -g) -p 8000:8000 -v ./resources/help-docs:/docs squidfunk/mkdocs-material serve -a 0.0.0.0:8000
+
+[doc('Build help docs locally with strict checking')]
+help-build:
+    docker run --rm -u $(id -u):$(id -g) -v ./resources/help-docs:/docs squidfunk/mkdocs-material build --strict
+
