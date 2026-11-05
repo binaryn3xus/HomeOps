@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   #######
   # Docker Utilities
@@ -58,7 +56,7 @@ services:
       - "5001:8443"
 
   uptime-kuma:
-    image: ghcr.io/louislam/uptime-kuma:1.23.17
+    image: louislam/uptime-kuma:1.23.17
     container_name: uptime-kuma
     restart: always
     volumes:
