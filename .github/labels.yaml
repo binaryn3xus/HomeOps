@@ -8,3 +8,7 @@
   color: "ff9800"
 - name: type/major
   color: "f6412d"
+
+# Areas
+- name: area/parents-server
+  color: "A855F7"

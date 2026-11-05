@@ -298,5 +298,19 @@
         'type/digest',
       ],
     },
+    {
+      description: 'Parents server container updates',
+      matchFileNames: [
+        'resources/parents-server/**',
+      ],
+      additionalBranchPrefix: 'parents-',
+      commitMessagePrefix: 'feat(parents-server):',
+      labels: [
+        'area/parents-server',
+      ],
+      minimumReleaseAge: '3 days',
+      automerge: false,
+    },
+
   ],
 }

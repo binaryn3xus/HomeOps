@@ -24,7 +24,7 @@ services:
 
   homeassistant:
     container_name: home-assistant
-    image: homeassistant/home-assistant:2026.11.0
+    image: ghcr.io/home-assistant/home-assistant:2026.11.0
     restart: unless-stopped
     network_mode: host
     volumes:
@@ -43,7 +43,7 @@ services:
   #######
 
   code-server:
-    image: lscr.io/linuxserver/code-server:4.145.0
+    image: ghcr.io/linuxserver/code-server:4.145.0
     container_name: code-server
     restart: unless-stopped
     environment:
@@ -58,7 +58,7 @@ services:
       - "5001:8443"
 
   uptime-kuma:
-    image: louislam/uptime-kuma:1.23.17
+    image: ghcr.io/louislam/uptime-kuma:1.23.17
     container_name: uptime-kuma
     restart: always
     volumes:
