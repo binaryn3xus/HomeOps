@@ -1,0 +1,80 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Deploy Parents Server
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'resources/parents-server/**'
+      - '.github/workflows/deploy-parents-server.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-parents-server
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy Parents Docker Stack
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Log in to Azure
+        uses: azure/login@a641126d1b8aa4d1fa005f4f92df94a3a4c4c906 # v3.1.0
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Fetch Deploy Secrets from Azure Key Vault
+        run: |
+          TS_ID=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Github-Actions-Tailscale-OAuth-Client-Id" --query 'value' -o tsv)
+          TS_SECRET=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Github-Actions-Tailscale-OAuth-Client-Secret" --query 'value' -o tsv)
+          SSH_KEY=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Parents-Server-SSH-Private-Key" --query 'value' -o tsv)
+          SSH_HOST=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Parents-Server-SSH-Host" --query 'value' -o tsv)
+          SSH_USER=$(az keyvault secret show --vault-name "K8sHomeOpsKeyVault" --name "Parents-Server-SSH-User" --query 'value' -o tsv)
+
+          echo "::add-mask::$TS_ID"
+          echo "::add-mask::$TS_SECRET"
+          echo "::add-mask::$SSH_HOST"
+          echo "::add-mask::$SSH_USER"
+          while IFS= read -r line; do
+            if [[ -n "$line" ]]; then
+              echo "::add-mask::$line"
+            fi
+          done <<< "$SSH_KEY"
+
+          echo "TAILSCALE_OAUTH_CLIENT_ID=$TS_ID" >> $GITHUB_ENV
+          echo "TAILSCALE_OAUTH_CLIENT_SECRET=$TS_SECRET" >> $GITHUB_ENV
+          echo "SSH_HOST=$SSH_HOST" >> $GITHUB_ENV
+          echo "SSH_USER=$SSH_USER" >> $GITHUB_ENV
+
+          echo "SSH_PRIVATE_KEY<<EOF" >> $GITHUB_ENV
+          echo "$SSH_KEY" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@d1b6cd204f8dceda5b3eaad7f1f767be390056cd # v4.2.0
+        with:
+          oauth-client-id: ${{ env.TAILSCALE_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ env.TAILSCALE_OAUTH_CLIENT_SECRET }}
+          tags: tag:github-actions
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          cat << 'EOF' > ~/.ssh/id_ed25519
+          ${{ env.SSH_PRIVATE_KEY }}
+          EOF
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ env.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Copy Compose to Remote Host & Deploy
+        run: |
+          scp -i ~/.ssh/id_ed25519 resources/parents-server/docker-compose.yml ${{ env.SSH_USER }}@${{ env.SSH_HOST }}:/home/jimmy/Docker/docker-compose.yml
+          ssh -i ~/.ssh/id_ed25519 ${{ env.SSH_USER }}@${{ env.SSH_HOST }} "cd /home/jimmy/Docker && docker compose pull && docker compose up -d --remove-orphans"

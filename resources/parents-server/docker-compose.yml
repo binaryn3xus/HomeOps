@@ -1,0 +1,70 @@
+version: "3.9"
+
+services:
+  #######
+  # Docker Utilities
+  #######
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:2.45.3
+    hostname: portainer
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${USERDIR}/Docker/portainer/data:/data
+    environment:
+      - TZ=${TZ}
+    ports:
+      - "9443:9443"
+      - "9000:9000"
+
+  #######
+  # Home Automation
+  #######
+
+  homeassistant:
+    container_name: home-assistant
+    image: homeassistant/home-assistant:2026.11.0
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${USERDIR}/Docker/home-assistant/config:/config
+    #devices:
+    #  - /dev/ttyACM0:/dev/ttyACM0
+    environment:
+      - TZ=${TZ}
+    ports:
+      - "8123:8123"
+      - "8300:8300"
+
+  #######
+  # Tools
+  #######
+
+  code-server:
+    image: lscr.io/linuxserver/code-server:4.145.0
+    container_name: code-server
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=$TZ
+      - SUDO_PASSWORD=${SUDO_PASSWORD}
+    volumes:
+      - ${USERDIR}/Docker/vscode/config:/config
+      - ${USERDIR}/Docker/:/Docker
+    ports:
+      - "5001:8443"
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:1.23.17
+    container_name: uptime-kuma
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # Allows Kuma to monitor container health
+      - ${USERDIR}/Docker/uptime-kuma/data:/app/data
+    ports:
+      - "3001:3001"
+    environment:
+      - TZ=${TZ}
