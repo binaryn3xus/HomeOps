@@ -20,13 +20,13 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: app
-          image: ghcr.io/onedr0p/qbittorrent:5.0.4
+          image: ghcr.io/home-operations/qbittorrent-libtorrentv1:5.3.0@sha256:74a9dd7824d960e1c3355ab07ba23c9946aa18236eebac0c51fe9f5cac35ff8f
           env:
             - name: TZ
               value: "America/New_York"
             - name: QBT_WEBUI_PORT
               value: "8080"
-            - name: QBT_TORRENT_PORT
+            - name: QBT_TORRENTING_PORT
               value: "50413"
           ports:
             - name: http
