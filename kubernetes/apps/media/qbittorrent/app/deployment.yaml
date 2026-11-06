@@ -65,6 +65,9 @@ spec:
               mountPath: /config
             - name: media
               mountPath: /media
+            - name: media
+              mountPath: /downloads
+              subPath: downloads
             - name: tmp
               mountPath: /tmp
             - name: shared-memory
