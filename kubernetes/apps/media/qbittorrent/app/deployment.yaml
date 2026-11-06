@@ -20,7 +20,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: app
-          image: ghcr.io/home-operations/qbittorrent-libtorrentv1:5.2.4@sha256:6c303adb93d995ba33dcdce45ee89181a370b6ad745b4148e7f73bde43e5d482
+          image: ghcr.io/home-operations/qbittorrent-libtorrentv1:5.3.0@sha256:74a9dd7824d960e1c3355ab07ba23c9946aa18236eebac0c51fe9f5cac35ff8f
           env:
             - name: TZ
               value: "America/New_York"
