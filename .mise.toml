@@ -31,7 +31,7 @@ yq = "4.54.2"
 # Assistant & Cloud Tools
 antigravity-cli = "1.5.2"
 codex = "0.153.4"
-copilot-cli = "1.0.106"
+copilot-cli = "1.0.107"
 "github:anomalyco/opencode" = "2.2.5"
 wrangler = "4.158.0"
 gh = "2.103.3"
