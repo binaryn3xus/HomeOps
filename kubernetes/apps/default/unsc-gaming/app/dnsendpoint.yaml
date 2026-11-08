@@ -14,6 +14,13 @@ spec:
       providerSpecific:
         - name: cloudflare/proxied
           value: "false"
+    - dnsName: "satisfactory-modded.unscfleet.com"
+      recordType: A
+      targets:
+        - "100.64.36.88"
+      providerSpecific:
+        - name: cloudflare/proxied
+          value: "false"
     - dnsName: "palworld.unscfleet.com"
       recordType: A
       targets:

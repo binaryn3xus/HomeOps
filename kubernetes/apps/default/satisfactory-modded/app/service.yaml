@@ -1,0 +1,50 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/service_v1.json
+apiVersion: v1
+kind: Service
+metadata:
+  name: satisfactory-modded
+  annotations:
+    lbipam.cilium.io/ips: "10.0.30.41"
+    external-dns.kubernetes.io/hostname: "satisfactory-modded.unscfleet.com"
+    external-dns.alpha.kubernetes.io/hostname: "satisfactory-modded.unscfleet.com"
+spec:
+  type: LoadBalancer
+  ports:
+    - name: game-udp
+      port: 7778
+      targetPort: 7778
+      protocol: UDP
+    - name: game-tcp
+      port: 7778
+      targetPort: 7778
+      protocol: TCP
+    - name: messaging-tcp
+      port: 8889
+      targetPort: 8889
+      protocol: TCP
+    - name: sftp
+      port: 2222
+      targetPort: 22
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: satisfactory-modded
+    app.kubernetes.io/instance: satisfactory-modded
+    app.kubernetes.io/controller: satisfactory-modded
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/service_v1.json
+apiVersion: v1
+kind: Service
+metadata:
+  name: satisfactory-modded-saves
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: satisfactory-modded
+    app.kubernetes.io/instance: satisfactory-modded
+    app.kubernetes.io/controller: satisfactory-modded

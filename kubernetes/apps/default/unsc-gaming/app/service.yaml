@@ -25,6 +25,19 @@ spec:
       port: 8888
       targetPort: 8888
       protocol: TCP
+    # Satisfactory Modded
+    - name: satisfactory-modded-udp
+      port: 7778
+      targetPort: 7778
+      protocol: UDP
+    - name: satisfactory-modded-tcp
+      port: 7778
+      targetPort: 7778
+      protocol: TCP
+    - name: satisfactory-modded-api
+      port: 8889
+      targetPort: 8889
+      protocol: TCP
     # Palworld
     - name: palworld-udp
       port: 8211

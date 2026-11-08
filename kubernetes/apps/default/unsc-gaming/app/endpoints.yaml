@@ -18,6 +18,19 @@ subsets:
       - name: satisfactory-api
         port: 8888
         protocol: TCP
+  # Satisfactory Modded (LoadBalancer VIP)
+  - addresses:
+      - ip: 10.0.30.41
+    ports:
+      - name: satisfactory-modded-udp
+        port: 7778
+        protocol: UDP
+      - name: satisfactory-modded-tcp
+        port: 7778
+        protocol: TCP
+      - name: satisfactory-modded-api
+        port: 8889
+        protocol: TCP
   # Palworld (LoadBalancer VIP)
   - addresses:
       - ip: 10.0.30.40

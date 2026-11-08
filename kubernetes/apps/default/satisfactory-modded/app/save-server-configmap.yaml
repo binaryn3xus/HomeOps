@@ -1,0 +1,366 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/configmap_v1.json
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: satisfactory-modded-save-server-script
+data:
+  server.py: |
+    import http.server
+    import os
+    import shutil
+    import time
+    import urllib.parse
+    from http import HTTPStatus
+
+    SAVES_DIR = os.environ.get("SAVES_DIR", "/config/saved/server")
+    PORT = int(os.environ.get("PORT", "8080"))
+
+    def format_size(size_bytes):
+        for unit in ['B', 'KB', 'MB', 'GB']:
+            if size_bytes < 1024:
+                return f"{size_bytes:.1f} {unit}"
+            size_bytes /= 1024
+        return f"{size_bytes:.1f} TB"
+
+    def get_save_files():
+        if not os.path.isdir(SAVES_DIR):
+            return []
+        files = []
+        try:
+            for entry in os.scandir(SAVES_DIR):
+                if entry.is_file() and entry.name.endswith(".sav") and not entry.name.startswith("ServerSettings"):
+                    try:
+                        stat = entry.stat()
+                        files.append({
+                            "name": entry.name,
+                            "path": entry.path,
+                            "mtime": stat.st_mtime,
+                            "size": stat.st_size,
+                            "formatted_size": format_size(stat.st_size),
+                            "formatted_time": time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime(stat.st_mtime))
+                        })
+                    except OSError:
+                        continue
+        except OSError:
+            return []
+        files.sort(key=lambda x: x["mtime"], reverse=True)
+        return files
+
+    class SaveServerHandler(http.server.BaseHTTPRequestHandler):
+        protocol_version = "HTTP/1.1"
+
+        def send_cors_headers(self):
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.send_header("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS")
+            self.send_header("Access-Control-Allow-Headers", "*")
+            self.send_header("Access-Control-Expose-Headers", "Content-Length, Content-Type, Content-Disposition")
+
+        def do_OPTIONS(self):
+            self.send_response(HTTPStatus.NO_CONTENT)
+            self.send_cors_headers()
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+
+        def do_HEAD(self):
+            self.handle_request(send_body=False)
+
+        def do_GET(self):
+            self.handle_request(send_body=True)
+
+        def handle_request(self, send_body=True):
+            parsed = urllib.parse.urlparse(self.path)
+            path = parsed.path
+
+            if path in ("/healthz", "/health"):
+                body = b"OK\n"
+                self.send_response(HTTPStatus.OK)
+                self.send_cors_headers()
+                self.send_header("Content-Type", "text/plain")
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                if send_body:
+                    self.wfile.write(body)
+                return
+
+            saves = get_save_files()
+
+            if path in ("/latest.sav", "/latest"):
+                if not saves:
+                    self.send_error(HTTPStatus.NOT_FOUND, "No save files found on server")
+                    return
+                target_file = saves[0]["path"]
+                filename = saves[0]["name"]
+                self.serve_file(target_file, filename, send_body)
+                return
+
+            req_filename = path.lstrip("/")
+            if req_filename and not req_filename.endswith(".sav"):
+                req_filename += ".sav"
+
+            matched = next((s for s in saves if s["name"] == req_filename), None)
+            if matched:
+                self.serve_file(matched["path"], matched["name"], send_body)
+                return
+
+            if path in ("/", "/index.html"):
+                self.serve_dashboard(saves, send_body)
+                return
+
+            self.send_error(HTTPStatus.NOT_FOUND, f"File not found: {path}")
+
+        def serve_file(self, filepath, filename, send_body):
+            try:
+                stat = os.stat(filepath)
+                size = stat.st_size
+                last_modified = self.date_time_string(stat.st_mtime)
+
+                self.send_response(HTTPStatus.OK)
+                self.send_cors_headers()
+                self.send_header("Content-Type", "application/octet-stream")
+                self.send_header("Content-Length", str(size))
+                self.send_header("Content-Disposition", f'attachment; filename="{filename}"')
+                self.send_header("Last-Modified", last_modified)
+                self.end_headers()
+
+                if send_body:
+                    with open(filepath, "rb") as f:
+                        shutil.copyfileobj(f, self.wfile)
+            except OSError as e:
+                self.send_error(HTTPStatus.INTERNAL_SERVER_ERROR, f"Error reading file: {e}")
+
+        def serve_dashboard(self, saves, send_body):
+            host = self.headers.get("Host", "satisfactory-modded-saves.unscfleet.com")
+            proto = self.headers.get("X-Forwarded-Proto", "https")
+            base_url = f"{proto}://{host}"
+
+            latest_url = f"{base_url}/latest.sav"
+            scim_latest_url = f"https://satisfactory-calculator.com/interactive-map?url={urllib.parse.quote(latest_url, safe=':/?=')}"
+
+            rows = ""
+            for s in saves:
+                save_url = f"{base_url}/{urllib.parse.quote(s['name'])}"
+                scim_url = f"https://satisfactory-calculator.com/interactive-map?url={urllib.parse.quote(save_url, safe=':/?=')}"
+                rows += f"""
+                <tr>
+                    <td class="name">
+                        <span class="icon">💾</span>
+                        <a href="/{urllib.parse.quote(s['name'])}">{s['name']}</a>
+                    </td>
+                    <td class="time">{s['formatted_time']}</td>
+                    <td class="size">{s['formatted_size']}</td>
+                    <td class="actions">
+                        <a href="/{urllib.parse.quote(s['name'])}" class="btn btn-secondary">Download</a>
+                        <a href="{scim_url}" target="_blank" rel="noopener noreferrer" class="btn btn-map">SCIM Map ↗</a>
+                    </td>
+                </tr>
+                """
+
+            html = f"""<!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Satisfactory Modded Save Downloader</title>
+                <style>
+                    :root {{
+                        --bg-base: #0f141c;
+                        --bg-surface: #1a2230;
+                        --bg-hover: #222d40;
+                        --accent-primary: #fa8029;
+                        --accent-hover: #e06c19;
+                        --accent-blue: #3b82f6;
+                        --text-main: #f3f4f6;
+                        --text-muted: #9ca3af;
+                        --border: #2d3748;
+                    }}
+                    body {{
+                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                        background-color: var(--bg-base);
+                        color: var(--text-main);
+                        margin: 0;
+                        padding: 2rem;
+                        display: flex;
+                        justify-content: center;
+                    }}
+                    .container {{
+                        width: 100%;
+                        max-width: 900px;
+                    }}
+                    header {{
+                        margin-bottom: 2rem;
+                        border-bottom: 1px solid var(--border);
+                        padding-bottom: 1.5rem;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }}
+                    h1 {{
+                        margin: 0;
+                        font-size: 1.75rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                    }}
+                    .badge {{
+                        background: #374151;
+                        font-size: 0.8rem;
+                        padding: 0.2rem 0.5rem;
+                        border-radius: 4px;
+                        color: var(--text-muted);
+                    }}
+                    .latest-card {{
+                        background: linear-gradient(135deg, rgba(250, 128, 41, 0.15) 0%, rgba(26, 34, 48, 0.8) 100%);
+                        border: 1px solid var(--accent-primary);
+                        border-radius: 8px;
+                        padding: 1.5rem;
+                        margin-bottom: 2rem;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 1rem;
+                    }}
+                    .latest-info h2 {{
+                        margin: 0 0 0.25rem 0;
+                        font-size: 1.2rem;
+                        color: var(--accent-primary);
+                    }}
+                    .latest-info p {{
+                        margin: 0;
+                        color: var(--text-muted);
+                        font-size: 0.9rem;
+                    }}
+                    .btn-group {{
+                        display: flex;
+                        gap: 0.5rem;
+                        flex-wrap: wrap;
+                    }}
+                    .btn {{
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 0.35rem;
+                        padding: 0.5rem 1rem;
+                        border-radius: 6px;
+                        text-decoration: none;
+                        font-weight: 500;
+                        font-size: 0.9rem;
+                        transition: background-color 0.2s, opacity 0.2s;
+                    }}
+                    .btn-primary {{
+                        background-color: var(--accent-primary);
+                        color: #ffffff;
+                    }}
+                    .btn-primary:hover {{
+                        background-color: var(--accent-hover);
+                    }}
+                    .btn-secondary {{
+                        background-color: #374151;
+                        color: #ffffff;
+                    }}
+                    .btn-secondary:hover {{
+                        background-color: #4b5563;
+                    }}
+                    .btn-map {{
+                        background-color: rgba(59, 130, 246, 0.15);
+                        border: 1px solid rgba(59, 130, 246, 0.4);
+                        color: #60a5fa;
+                    }}
+                    .btn-map:hover {{
+                        background-color: rgba(59, 130, 246, 0.3);
+                    }}
+                    table {{
+                        width: 100%;
+                        border-collapse: collapse;
+                        background: var(--bg-surface);
+                        border-radius: 8px;
+                        overflow: hidden;
+                        border: 1px solid var(--border);
+                    }}
+                    th, td {{
+                        padding: 0.75rem 1rem;
+                        text-align: left;
+                    }}
+                    th {{
+                        background: #131a24;
+                        font-weight: 600;
+                        color: var(--text-muted);
+                        font-size: 0.85rem;
+                        border-bottom: 1px solid var(--border);
+                    }}
+                    tr:not(:last-child) td {{
+                        border-bottom: 1px solid var(--border);
+                    }}
+                    tr:hover td {{
+                        background: var(--bg-hover);
+                    }}
+                    td.name a {{
+                        color: var(--text-main);
+                        text-decoration: none;
+                        font-weight: 500;
+                    }}
+                    td.name a:hover {{
+                        color: var(--accent-primary);
+                        text-decoration: underline;
+                    }}
+                    td.time, td.size {{
+                        color: var(--text-muted);
+                        font-size: 0.85rem;
+                    }}
+                    td.actions {{
+                        text-align: right;
+                        display: flex;
+                        justify-content: flex-end;
+                        gap: 0.5rem;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <header>
+                        <h1>⚙️ Satisfactory Modded Save Downloader</h1>
+                        <span class="badge">{len(saves)} Saves Available</span>
+                    </header>
+
+                    {f'''
+                    <div class="latest-card">
+                        <div class="latest-info">
+                            <h2>Latest Save: {saves[0]['name']}</h2>
+                            <p>Last modified: {saves[0]['formatted_time']} &bull; Size: {saves[0]['formatted_size']}</p>
+                        </div>
+                        <div class="btn-group">
+                            <a href="/latest.sav" class="btn btn-primary">Download Latest</a>
+                            <a href="{scim_latest_url}" target="_blank" rel="noopener noreferrer" class="btn btn-map">Open in SCIM ↗</a>
+                        </div>
+                    </div>
+                    ''' if saves else '<p>No saves found on server.</p>'}
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>File Name</th>
+                                <th>Last Modified</th>
+                                <th>Size</th>
+                                <th style="text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {rows if rows else '<tr><td colspan="4" style="text-align:center;">No saves available</td></tr>'}
+                        </tbody>
+                    </table>
+                </div>
+            </body>
+            </html>
+            """
+            body = html.encode("utf-8")
+            self.send_response(HTTPStatus.OK)
+            self.send_cors_headers()
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            if send_body:
+                self.wfile.write(body)
+
+    if __name__ == "__main__":
+        server = http.server.ThreadingHTTPServer(("0.0.0.0", PORT), SaveServerHandler)
+        print(f"Serving Satisfactory saves from {SAVES_DIR} on port {PORT}")
+        server.serve_forever()
