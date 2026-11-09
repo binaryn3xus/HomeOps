@@ -6,14 +6,9 @@ metadata:
   name: tailscale-operator
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: tailscale-operator
-      version: 1.96.5
-      sourceRef:
-        kind: HelmRepository
-        name: tailscale
-        namespace: network
+  chartRef:
+    kind: OCIRepository
+    name: tailscale-operator
   install:
     remediation:
       retries: 3
