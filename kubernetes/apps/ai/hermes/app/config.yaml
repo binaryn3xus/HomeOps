@@ -36,6 +36,11 @@ agent:
   toolsets:
     - terminal
     - file
+    - skills
+    - memory
+    - web
+    - todo
+    - homeassistant
 
 approvals:
   # Permit routine, low-risk repository work but require confirmation for
