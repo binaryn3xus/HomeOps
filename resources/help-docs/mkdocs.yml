@@ -69,7 +69,8 @@ nav:
   - Home: index.md
   - Dedicated Game Servers:
       - Connect with Tailscale: gaming/tailscale.md
-      - Satisfactory: gaming/satisfactory.md
+      - Satisfactory (Vanilla): gaming/satisfactory.md
+      - Satisfactory (Modded): gaming/satisfactory-modded.md
       - Palworld: gaming/palworld.md
       - Minecraft: gaming/minecraft.md
   - Media & Streaming:

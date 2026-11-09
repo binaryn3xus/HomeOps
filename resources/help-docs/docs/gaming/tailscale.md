@@ -96,7 +96,7 @@ Once you receive replies, you are connected and ready to jump into any game!
 ??? question "Can I use the hostname or do I need the IP?"
     Both work!
     - **MagicDNS Hostname:** `unsc-gaming`
-    - **Fully Qualified Domain:** `satisfactory.unscfleet.com`, `palworld.unscfleet.com`, `minecraft.unscfleet.com`
+    - **Fully Qualified Domain:** `satisfactory.unscfleet.com`, `satisfactory-modded.unscfleet.com`, `palworld.unscfleet.com`, `minecraft.unscfleet.com`
     - **Direct Tailscale IP:** `100.64.36.88`
     
     If your computer has custom DNS servers that prevent domain name resolution over Tailscale, you can always enter the Direct Tailscale IP (`100.64.36.88`) directly in your game client.

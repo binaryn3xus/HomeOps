@@ -24,11 +24,17 @@ All dedicated game servers run within our private high-performance gaming enviro
 
     **Required for multiplayer gaming.** Connect your PC, Steam Deck, or mobile device to our private gaming network in under 2 minutes.
 
--   :material-factory:{ .lg .middle } **[Satisfactory Server](gaming/satisfactory.md)**
+-   :material-factory:{ .lg .middle } **[Satisfactory (Vanilla)](gaming/satisfactory.md)**
 
     ---
 
-    Join **UNSC-Foundry (Project-MJOLNIR)**. Server details, port configuration, and essential in-game network settings.
+    Join **UNSC-Foundry (Project-MJOLNIR)**. Pure 1.0 vanilla gameplay, server details, and save backups.
+
+-   :material-cogs:{ .lg .middle } **[Satisfactory (Modded)](gaming/satisfactory-modded.md)**
+
+    ---
+
+    Join **UNSC-Section-III**. Community mods via SMM, quality-of-life tweaks, and interactive map.
 
 -   :material-paw:{ .lg .middle } **[Palworld Server](gaming/palworld.md)**
 
@@ -79,7 +85,8 @@ Access our high-definition libraries for 4K movies, television series, audiobook
 | Service | Category | Connection Address / URL | Access Requirements |
 | :--- | :--- | :--- | :--- |
 | **Tailscale** | Network Gateway | `100.64.36.88` (`unsc-gaming`) | Free Tailscale account + Machine Share |
-| **Satisfactory** | Game Server | `satisfactory.unscfleet.com:7777` | Tailscale connected |
+| **Satisfactory (Vanilla)** | Game Server | `satisfactory.unscfleet.com:7777` | Tailscale connected |
+| **Satisfactory (Modded)** | Game Server | `satisfactory-modded.unscfleet.com:7778` | Tailscale connected + SMM Mods |
 | **Palworld** | Game Server | `palworld.unscfleet.com:8211` | Tailscale connected |
 | **Minecraft** | Game Server | `minecraft.unscfleet.com` | Whitelist approved + Tailscale connected |
 | **Plex** | Media | [plex.unscfleet.com](https://plex.unscfleet.com) | Free Plex account + Library invitation |

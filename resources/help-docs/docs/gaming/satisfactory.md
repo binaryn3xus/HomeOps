@@ -1,4 +1,4 @@
-# Satisfactory Dedicated Server
+# Satisfactory Dedicated Server (Vanilla)
 
 Welcome to the **UNSC-Foundry (Project-MJOLNIR)** Satisfactory 1.0 dedicated server! Build massive automated factories, construct planetary logistics networks, and pioneer the frontier with friends.
 
@@ -6,6 +6,9 @@ Welcome to the **UNSC-Foundry (Project-MJOLNIR)** Satisfactory 1.0 dedicated ser
     Public port forwarding has been removed from our network gateway for security. **Tailscale is mandatory to connect to the server.**
     
     Before attempting to join, verify that Tailscale is connected on your device and that you have accepted the `unsc-gaming` machine share. See the **[Tailscale Setup Guide](tailscale.md)** for connection instructions.
+
+!!! info "Looking for our Modded Server?"
+    We also host a dedicated modded Satisfactory instance with quality-of-life mods and custom tools! Check out the **[UNSC-Section-III Modded Guide](satisfactory-modded.md)**.
 
 ---
 
@@ -18,6 +21,7 @@ Welcome to the **UNSC-Foundry (Project-MJOLNIR)** Satisfactory 1.0 dedicated ser
 | **Ports** | `7777` (Game UDP/TCP) & `8888` (HTTPS API) | Same |
 | **Platform** | Steam & Epic Games Store (Crossplay Enabled) | Crossplay Enabled |
 | **Network Prerequisite** | Tailscale connected (`unsc-gaming`) | [Tailscale Guide](tailscale.md) |
+| **Save Downloader & Map** | [satisfactory-saves.unscfleet.com](https://satisfactory-saves.unscfleet.com) | Direct Web Portal |
 
 ---
 
@@ -36,6 +40,18 @@ Welcome to the **UNSC-Foundry (Project-MJOLNIR)** Satisfactory 1.0 dedicated ser
 7. Click **Confirm**.
 8. If prompted about an untrusted or self-signed certificate, click **Accept / Confirm** (see certificate details below).
 9. The server will display as online: **UNSC-Foundry**. Select it and click **Join Game**!
+
+---
+
+## 🗺️ Save Backups & Interactive Map
+
+We host an automated save download portal and interactive factory map for `UNSC-Foundry`:
+
+[:material-map-legend: UNSC-Foundry Save Downloader & SCIM Map](https://satisfactory-saves.unscfleet.com){ .md-button .md-button--primary target="_blank" }
+
+* **Download Latest Save:** Grab the most recent world autosave directly to your computer.
+* **Interactive Map (SCIM):** Click the **"Open Latest in SCIM"** button to view power grids, train lines, conveyor throughput, and hard drive locations in your browser on Satisfactory-Calculator.
+* **Automated Off-site Backups:** World saves and player settings are continuously backed up off-site every hour.
 
 ---
 
