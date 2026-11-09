@@ -57,6 +57,16 @@ command_allowlist:
   - "gh *"
   - "kubectl *"
   - "talosctl *"
+  - "flux *"
+  - "kustomize *"
+  - "helm *"
+  - "kubeconform *"
+  - "stern *"
+  - "jq *"
+  - "yq *"
+  - "tirith *"
+  - "uv *"
+  - "uvx *"
   - "dotnet *"
   - "npm *"
   - "node *"
@@ -65,6 +75,16 @@ command_allowlist:
   - "ls *"
   - "cat *"
   - "mkdir *"
+  - "grep *"
+  - "find *"
+  - "head *"
+  - "tail *"
+  - "diff *"
+  - "echo *"
+  - "pwd"
+  - "which *"
+  - "curl *"
+  - "tar *"
   - "rm -rf /tmp/*"
 
 consents:
@@ -76,6 +96,10 @@ consents:
       - "*.svc.cluster.local"
       - "api.github.com"
       - "github.com"
+      - "*.githubusercontent.com"
+      - "ghcr.io"
+      - "pypi.org"
+      - "files.pythonhosted.org"
 
 kanban:
   auto_decompose: true
@@ -101,6 +125,8 @@ terminal:
 
 security:
   redact_secrets: true
+  tirith_enabled: true
+  tirith_path: "/opt/data/bin/tirith"
 
 checkpoints:
   enabled: true

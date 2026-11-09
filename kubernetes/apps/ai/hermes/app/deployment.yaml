@@ -20,7 +20,7 @@ spec:
       annotations:
         # ConfigMap volumes update in place; this revision also reruns the init
         # setup so persistent helper scripts are refreshed with the mounted copy.
-        hermes.binaryn3xus.io/setup-revision: "2026-09-20-4"
+        hermes.binaryn3xus.io/setup-revision: "2026-11-08-1"
       labels:
         app.kubernetes.io/name: hermes-agent
         app.kubernetes.io/instance: hermes
@@ -150,10 +150,10 @@ spec:
           resources:
             requests:
               cpu: 500m
-              memory: 512Mi
+              memory: 1Gi
             limits:
-              cpu: 1000m
-              memory: 2Gi
+              cpu: 2000m
+              memory: 4Gi
           volumeMounts:
             - name: data
               mountPath: /opt/data
