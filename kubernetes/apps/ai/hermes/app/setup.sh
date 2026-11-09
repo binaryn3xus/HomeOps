@@ -52,28 +52,111 @@ if [ ! -x "$DOTNET_ROOT/dotnet" ]; then
         --channel STS
 fi
 
-# 3b. SRE & Development Tooling (kubectl, talosctl, gh)
+# 3b. SRE & Development Tooling (kubectl, talosctl, gh, tirith, flux, kustomize, helm, jq, yq, kubeconform, stern)
 BIN_DIR="$HERMES_DATA/bin"
 mkdir -p "$BIN_DIR"
 
-if [ ! -x "$BIN_DIR/kubectl" ]; then
-    echo "📦 Installing kubectl..."
-    curl -fsSL -o "$BIN_DIR/kubectl" "https://dl.k8s.io/release/v1.35.3/bin/linux/amd64/kubectl"
+KUBECTL_VERSION="v1.37.2"
+if [ ! -x "$BIN_DIR/kubectl" ] || [ ! -f "$BIN_DIR/.version-kubectl-$KUBECTL_VERSION" ]; then
+    echo "📦 Installing kubectl ($KUBECTL_VERSION)..."
+    curl -fsSL -o "$BIN_DIR/kubectl" "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl"
     chmod +x "$BIN_DIR/kubectl"
+    rm -f "$BIN_DIR"/.version-kubectl-*
+    touch "$BIN_DIR/.version-kubectl-$KUBECTL_VERSION"
 fi
 
-if [ ! -x "$BIN_DIR/talosctl" ]; then
-    echo "📦 Installing talosctl..."
-    curl -fsSL -o "$BIN_DIR/talosctl" "https://github.com/siderolabs/talos/releases/download/v1.14.1/talosctl-linux-amd64"
+TALOSCTL_VERSION="v1.14.5"
+if [ ! -x "$BIN_DIR/talosctl" ] || [ ! -f "$BIN_DIR/.version-talosctl-$TALOSCTL_VERSION" ]; then
+    echo "📦 Installing talosctl ($TALOSCTL_VERSION)..."
+    curl -fsSL -o "$BIN_DIR/talosctl" "https://github.com/siderolabs/talos/releases/download/${TALOSCTL_VERSION}/talosctl-linux-amd64"
     chmod +x "$BIN_DIR/talosctl"
+    rm -f "$BIN_DIR"/.version-talosctl-*
+    touch "$BIN_DIR/.version-talosctl-$TALOSCTL_VERSION"
 fi
 
-if [ ! -x "$BIN_DIR/gh" ]; then
-    echo "📦 Installing GitHub CLI (gh)..."
-    curl -fsSL "https://github.com/cli/cli/releases/download/v2.101.0/gh_2.101.0_linux_amd64.tar.gz" | tar -xz -C /tmp
-    cp /tmp/gh_2.101.0_linux_amd64/bin/gh "$BIN_DIR/gh"
+GH_VERSION="2.103.3"
+if [ ! -x "$BIN_DIR/gh" ] || [ ! -f "$BIN_DIR/.version-gh-$GH_VERSION" ]; then
+    echo "📦 Installing GitHub CLI ($GH_VERSION)..."
+    curl -fsSL "https://github.com/cli/cli/releases/download/v${GH_VERSION}/gh_${GH_VERSION}_linux_amd64.tar.gz" | tar -xz -C /tmp
+    cp "/tmp/gh_${GH_VERSION}_linux_amd64/bin/gh" "$BIN_DIR/gh"
     chmod +x "$BIN_DIR/gh"
     rm -rf /tmp/gh_*
+    rm -f "$BIN_DIR"/.version-gh-*
+    touch "$BIN_DIR/.version-gh-$GH_VERSION"
+fi
+
+TIRITH_VERSION="v0.5.0"
+if [ ! -x "$BIN_DIR/tirith" ] || [ ! -f "$BIN_DIR/.version-tirith-$TIRITH_VERSION" ]; then
+    echo "📦 Installing tirith ($TIRITH_VERSION)..."
+    curl -fsSL "https://github.com/sheeki03/tirith/releases/download/${TIRITH_VERSION}/tirith-x86_64-unknown-linux-gnu.tar.gz" | tar -xz -C "$BIN_DIR" tirith
+    chmod +x "$BIN_DIR/tirith"
+    rm -f "$BIN_DIR"/.version-tirith-*
+    touch "$BIN_DIR/.version-tirith-$TIRITH_VERSION"
+fi
+
+FLUX_VERSION="2.10.0"
+if [ ! -x "$BIN_DIR/flux" ] || [ ! -f "$BIN_DIR/.version-flux-$FLUX_VERSION" ]; then
+    echo "📦 Installing flux ($FLUX_VERSION)..."
+    curl -fsSL "https://github.com/fluxcd/flux2/releases/download/v${FLUX_VERSION}/flux_${FLUX_VERSION}_linux_amd64.tar.gz" | tar -xz -C "$BIN_DIR" flux
+    chmod +x "$BIN_DIR/flux"
+    rm -f "$BIN_DIR"/.version-flux-*
+    touch "$BIN_DIR/.version-flux-$FLUX_VERSION"
+fi
+
+KUSTOMIZE_VERSION="v5.8.3"
+if [ ! -x "$BIN_DIR/kustomize" ] || [ ! -f "$BIN_DIR/.version-kustomize-$KUSTOMIZE_VERSION" ]; then
+    echo "📦 Installing kustomize ($KUSTOMIZE_VERSION)..."
+    curl -fsSL "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2F${KUSTOMIZE_VERSION}/kustomize_${KUSTOMIZE_VERSION}_linux_amd64.tar.gz" | tar -xz -C "$BIN_DIR" kustomize
+    chmod +x "$BIN_DIR/kustomize"
+    rm -f "$BIN_DIR"/.version-kustomize-*
+    touch "$BIN_DIR/.version-kustomize-$KUSTOMIZE_VERSION"
+fi
+
+HELM_VERSION="v4.3.1"
+if [ ! -x "$BIN_DIR/helm" ] || [ ! -f "$BIN_DIR/.version-helm-$HELM_VERSION" ]; then
+    echo "📦 Installing helm ($HELM_VERSION)..."
+    curl -fsSL "https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz" | tar -xz -C /tmp
+    cp /tmp/linux-amd64/helm "$BIN_DIR/helm"
+    chmod +x "$BIN_DIR/helm"
+    rm -rf /tmp/linux-amd64
+    rm -f "$BIN_DIR"/.version-helm-*
+    touch "$BIN_DIR/.version-helm-$HELM_VERSION"
+fi
+
+JQ_VERSION="1.7.1"
+if [ ! -x "$BIN_DIR/jq" ] || [ ! -f "$BIN_DIR/.version-jq-$JQ_VERSION" ]; then
+    echo "📦 Installing jq ($JQ_VERSION)..."
+    curl -fsSL -o "$BIN_DIR/jq" "https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux-amd64"
+    chmod +x "$BIN_DIR/jq"
+    rm -f "$BIN_DIR"/.version-jq-*
+    touch "$BIN_DIR/.version-jq-$JQ_VERSION"
+fi
+
+YQ_VERSION="v4.45.1"
+if [ ! -x "$BIN_DIR/yq" ] || [ ! -f "$BIN_DIR/.version-yq-$YQ_VERSION" ]; then
+    echo "📦 Installing yq ($YQ_VERSION)..."
+    curl -fsSL -o "$BIN_DIR/yq" "https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64"
+    chmod +x "$BIN_DIR/yq"
+    rm -f "$BIN_DIR"/.version-yq-*
+    touch "$BIN_DIR/.version-yq-$YQ_VERSION"
+fi
+
+KUBECONFORM_VERSION="v0.8.0"
+if [ ! -x "$BIN_DIR/kubeconform" ] || [ ! -f "$BIN_DIR/.version-kubeconform-$KUBECONFORM_VERSION" ]; then
+    echo "📦 Installing kubeconform ($KUBECONFORM_VERSION)..."
+    curl -fsSL "https://github.com/yannh/kubeconform/releases/download/${KUBECONFORM_VERSION}/kubeconform-linux-amd64.tar.gz" | tar -xz -C "$BIN_DIR" kubeconform
+    chmod +x "$BIN_DIR/kubeconform"
+    rm -f "$BIN_DIR"/.version-kubeconform-*
+    touch "$BIN_DIR/.version-kubeconform-$KUBECONFORM_VERSION"
+fi
+
+STERN_VERSION="1.35.0"
+if [ ! -x "$BIN_DIR/stern" ] || [ ! -f "$BIN_DIR/.version-stern-$STERN_VERSION" ]; then
+    echo "📦 Installing stern ($STERN_VERSION)..."
+    curl -fsSL "https://github.com/stern/stern/releases/download/v${STERN_VERSION}/stern_${STERN_VERSION}_linux_amd64.tar.gz" | tar -xz -C "$BIN_DIR" stern
+    chmod +x "$BIN_DIR/stern"
+    rm -f "$BIN_DIR"/.version-stern-*
+    touch "$BIN_DIR/.version-stern-$STERN_VERSION"
 fi
 
 # 3c. Talos Configuration Setup
