@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: ghcr.io/tautulli/tautulli:v2.19.0@sha256:2bb66b3632151727c07084f6fbfa31806f0c6e210b513366abdd157f33b2af7a
+          image: ghcr.io/tautulli/tautulli:v2.19.1@sha256:239cd6dbc429a0eb441bdf88a7a015871e2d4d6e02b6e6039af30c0487528a8e
           env:
             - name: TZ
               value: "America/New_York"
