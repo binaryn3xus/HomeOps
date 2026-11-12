@@ -6,14 +6,21 @@ metadata:
   name: satisfactory-modded-save-server-script
 data:
   server.py: |
+    import glob
+    import html as html_lib
     import http.server
+    import json
     import os
+    import re
     import shutil
     import time
     import urllib.parse
     from http import HTTPStatus
 
     SAVES_DIR = os.environ.get("SAVES_DIR", "/config/saved/server")
+    MODS_DIR = os.environ.get("MODS_DIR", "/config/gamefiles/FactoryGame/Mods")
+    LOG_FILE = os.environ.get("LOG_FILE", "/config/gamefiles/FactoryGame/Saved/Logs/FactoryGame.log")
+    PROFILE_NAME = os.environ.get("SMM_PROFILE_NAME", "UNSC-Section-III")
     PORT = int(os.environ.get("PORT", "8080"))
 
     def format_size(size_bytes):
@@ -22,6 +29,130 @@ data:
                 return f"{size_bytes:.1f} {unit}"
             size_bytes /= 1024
         return f"{size_bytes:.1f} TB"
+
+    def get_game_version():
+        default_version = 517554
+        if not os.path.isfile(LOG_FILE):
+            return default_version
+        try:
+            with open(LOG_FILE, "r", errors="ignore") as f:
+                head = f.read(65536)
+            match = re.search(r"Build:\s*\+\+FactoryGame\+[^\s]+-CL-(\d+)", head)
+            if match:
+                return int(match.group(1))
+        except OSError:
+            pass
+        return default_version
+
+    FALLBACK_DESCRIPTIONS = {
+        "NoFuel": "Removes fuel consumption requirements for generators and vehicles",
+        "SML": "Satisfactory Mod Loader (Core dependency)",
+    }
+
+    def get_installed_mods():
+        uplugins = {}
+        if os.path.isdir(MODS_DIR):
+            patterns = [
+                os.path.join(MODS_DIR, "*", "*.uplugin"),
+                os.path.join(MODS_DIR, "GameFeatures", "*", "*.uplugin"),
+            ]
+            for pattern in patterns:
+                for path in glob.glob(pattern):
+                    mod_dir = os.path.dirname(path)
+                    mod_ref = os.path.splitext(os.path.basename(path))[0]
+                    try:
+                        with open(path, "r", encoding="utf-8", errors="ignore") as f:
+                            data = json.load(f)
+                        version = data.get("SemVersion") or data.get("VersionName") or "0.0.0"
+                        desc = (data.get("Description") or "").strip() or FALLBACK_DESCRIPTIONS.get(mod_ref, "")
+                        uplugins[mod_ref] = {
+                            "ref": mod_ref,
+                            "name": data.get("FriendlyName") or mod_ref,
+                            "version": str(version),
+                            "description": desc,
+                            "has_smm": os.path.exists(os.path.join(mod_dir, ".smm")),
+                        }
+                    except (OSError, ValueError):
+                        continue
+
+        active_lockfile = None
+        if os.path.isdir(MODS_DIR):
+            lock_paths = glob.glob(os.path.join(MODS_DIR, "*-lock.json"))
+            lock_paths.sort(
+                key=lambda p: (
+                    1 if os.path.basename(p).startswith("unsc-") else 0,
+                    os.path.getmtime(p) if os.path.exists(p) else 0,
+                ),
+                reverse=True,
+            )
+            for lp in lock_paths:
+                if os.path.basename(lp) == "default-lock.json":
+                    continue
+                try:
+                    with open(lp, "r", encoding="utf-8") as f:
+                        ldata = json.load(f)
+                    if isinstance(ldata, dict) and ldata.get("mods"):
+                        active_lockfile = ldata
+                        break
+                except (OSError, ValueError):
+                    continue
+
+        mods_by_ref = {}
+        if active_lockfile and isinstance(active_lockfile.get("mods"), dict):
+            for mod_ref, lock_entry in active_lockfile["mods"].items():
+                uinfo = uplugins.get(mod_ref, {})
+                version = uinfo.get("version") or lock_entry.get("version") or "0.0.0"
+                lock_entry["version"] = version
+                mods_by_ref[mod_ref] = {
+                    "ref": mod_ref,
+                    "name": uinfo.get("name") or mod_ref,
+                    "version": str(version),
+                    "description": uinfo.get("description") or "",
+                    "ficsit_url": f"https://ficsit.app/mod/{mod_ref}",
+                    "is_sml": mod_ref == "SML",
+                }
+
+        for mod_ref, uinfo in uplugins.items():
+            if mod_ref not in mods_by_ref and (uinfo.get("has_smm") or not mods_by_ref):
+                mods_by_ref[mod_ref] = {
+                    "ref": mod_ref,
+                    "name": uinfo["name"],
+                    "version": uinfo["version"],
+                    "description": uinfo["description"],
+                    "ficsit_url": f"https://ficsit.app/mod/{mod_ref}",
+                    "is_sml": mod_ref == "SML",
+                }
+
+        mods_list = sorted(
+            mods_by_ref.values(),
+            key=lambda m: (1 if m["is_sml"] else 0, m["name"].lower()),
+        )
+        return mods_list, active_lockfile, get_game_version()
+
+    def build_smm_profile():
+        mods_list, active_lockfile, game_version = get_installed_mods()
+        profile_mods = {}
+        for m in mods_list:
+            if m["is_sml"]:
+                continue
+            profile_mods[m["ref"]] = {
+                "version": f">={m['version']}",
+                "enabled": True,
+            }
+
+        profile_obj = {
+            "profile": {
+                "mods": profile_mods,
+                "name": PROFILE_NAME,
+                "required_targets": None,
+            },
+            "metadata": {
+                "gameVersion": game_version,
+            },
+        }
+        if active_lockfile and isinstance(active_lockfile.get("mods"), dict):
+            profile_obj["lockfile"] = active_lockfile
+        return profile_obj
 
     def get_save_files():
         if not os.path.isdir(SAVES_DIR):
@@ -83,6 +214,39 @@ data:
                     self.wfile.write(body)
                 return
 
+            if path in ("/UNSC-Section-III.smmprofile", "/mods.smmprofile", "/profile.smmprofile"):
+                profile_obj = build_smm_profile()
+                body = json.dumps(profile_obj, indent=2).encode("utf-8")
+                self.send_response(HTTPStatus.OK)
+                self.send_cors_headers()
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Content-Disposition", f'attachment; filename="{PROFILE_NAME}.smmprofile"')
+                self.send_header("Cache-Control", "no-cache")
+                self.end_headers()
+                if send_body:
+                    self.wfile.write(body)
+                return
+
+            if path == "/mods.json":
+                mods_list, _, game_version = get_installed_mods()
+                payload = {
+                    "profile_name": PROFILE_NAME,
+                    "game_version": game_version,
+                    "smmprofile_url": f"/{PROFILE_NAME}.smmprofile",
+                    "mods": mods_list,
+                }
+                body = json.dumps(payload, indent=2).encode("utf-8")
+                self.send_response(HTTPStatus.OK)
+                self.send_cors_headers()
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-cache")
+                self.end_headers()
+                if send_body:
+                    self.wfile.write(body)
+                return
+
             saves = get_save_files()
 
             if path in ("/latest.sav", "/latest"):
@@ -137,6 +301,30 @@ data:
             latest_url = f"{base_url}/latest.sav"
             scim_latest_url = f"https://satisfactory-calculator.com/interactive-map?url={urllib.parse.quote(latest_url, safe=':/?=')}"
 
+            mods_list, _, game_version = get_installed_mods()
+            mod_rows = ""
+            for m in mods_list:
+                esc_name = html_lib.escape(m["name"])
+                esc_ref = html_lib.escape(m["ref"])
+                esc_ver = html_lib.escape(m["version"])
+                esc_desc = html_lib.escape(m["description"] or "Required server mod")
+                role_badge = '<span class="version-badge sml-badge">Core Loader</span>' if m["is_sml"] else ""
+                mod_rows += f"""
+                <tr>
+                    <td class="name">
+                        <span class="icon">🧩</span>
+                        <a href="{m['ficsit_url']}" target="_blank" rel="noopener noreferrer">{esc_name}</a>
+                        <span class="mod-ref">({esc_ref})</span>
+                        {role_badge}
+                    </td>
+                    <td class="version"><span class="version-badge">v{esc_ver}</span></td>
+                    <td class="time">{esc_desc}</td>
+                    <td class="actions">
+                        <a href="{m['ficsit_url']}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Ficsit.app ↗</a>
+                    </td>
+                </tr>
+                """
+
             rows = ""
             for s in saves:
                 save_url = f"{base_url}/{urllib.parse.quote(s['name'])}"
@@ -161,7 +349,7 @@ data:
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Satisfactory Modded Save Downloader</title>
+                <title>UNSC-Section-III Save & Mod Portal</title>
                 <style>
                     :root {{
                         --bg-base: #0f141c;
@@ -194,6 +382,8 @@ data:
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
+                        flex-wrap: wrap;
+                        gap: 0.75rem;
                     }}
                     h1 {{
                         margin: 0;
@@ -202,6 +392,14 @@ data:
                         align-items: center;
                         gap: 0.5rem;
                     }}
+                    .section-title {{
+                        margin: 2rem 0 0.75rem 0;
+                        font-size: 1.15rem;
+                        color: var(--text-main);
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }}
                     .badge {{
                         background: #374151;
                         font-size: 0.8rem;
@@ -209,21 +407,58 @@ data:
                         border-radius: 4px;
                         color: var(--text-muted);
                     }}
+                    .version-badge {{
+                        background: rgba(250, 128, 41, 0.15);
+                        border: 1px solid rgba(250, 128, 41, 0.4);
+                        color: var(--accent-primary);
+                        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+                        font-size: 0.8rem;
+                        padding: 0.15rem 0.45rem;
+                        border-radius: 4px;
+                        white-space: nowrap;
+                    }}
+                    .sml-badge {{
+                        background: rgba(59, 130, 246, 0.15);
+                        border-color: rgba(59, 130, 246, 0.4);
+                        color: #60a5fa;
+                        margin-left: 0.35rem;
+                    }}
+                    .mod-ref {{
+                        color: var(--text-muted);
+                        font-size: 0.8rem;
+                        margin-left: 0.25rem;
+                    }}
                     .latest-card {{
                         background: linear-gradient(135deg, rgba(250, 128, 41, 0.15) 0%, rgba(26, 34, 48, 0.8) 100%);
                         border: 1px solid var(--accent-primary);
                         border-radius: 8px;
                         padding: 1.5rem;
-                        margin-bottom: 2rem;
+                        margin-bottom: 1.25rem;
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
                         gap: 1rem;
+                        flex-wrap: wrap;
+                    }}
+                    .mod-card {{
+                        background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(26, 34, 48, 0.85) 100%);
+                        border: 1px solid rgba(59, 130, 246, 0.5);
+                        border-radius: 8px;
+                        padding: 1.5rem;
+                        margin-bottom: 1.5rem;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 1rem;
+                        flex-wrap: wrap;
                     }}
                     .latest-info h2 {{
                         margin: 0 0 0.25rem 0;
                         font-size: 1.2rem;
                         color: var(--accent-primary);
+                    }}
+                    .mod-card .latest-info h2 {{
+                        color: #60a5fa;
                     }}
                     .latest-info p {{
                         margin: 0;
@@ -245,6 +480,7 @@ data:
                         font-weight: 500;
                         font-size: 0.9rem;
                         transition: background-color 0.2s, opacity 0.2s;
+                        white-space: nowrap;
                     }}
                     .btn-primary {{
                         background-color: var(--accent-primary);
@@ -275,6 +511,7 @@ data:
                         border-radius: 8px;
                         overflow: hidden;
                         border: 1px solid var(--border);
+                        margin-bottom: 2rem;
                     }}
                     th, td {{
                         padding: 0.75rem 1rem;
@@ -317,9 +554,24 @@ data:
             <body>
                 <div class="container">
                     <header>
-                        <h1>⚙️ Satisfactory Modded Save Downloader</h1>
-                        <span class="badge">{len(saves)} Saves Available</span>
+                        <h1>⚙️ UNSC-Section-III Save &amp; Mod Portal</h1>
+                        <div class="btn-group">
+                            <span class="badge">Build CL-{game_version}</span>
+                            <span class="badge">{len(mods_list)} Active Mods</span>
+                            <span class="badge">{len(saves)} Saves Available</span>
+                        </div>
                     </header>
+
+                    <div class="mod-card">
+                        <div class="latest-info">
+                            <h2>🧩 One-Click Server Mod Profile ({PROFILE_NAME}.smmprofile)</h2>
+                            <p>Always live-synced with the server's installed mods. Download and import into <strong>Satisfactory Mod Manager</strong> (Profiles &rarr; Import) to match exact server versions.</p>
+                        </div>
+                        <div class="btn-group">
+                            <a href="/{PROFILE_NAME}.smmprofile" class="btn btn-primary">⬇ Download SMM Profile</a>
+                            <a href="/mods.json" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Mods JSON</a>
+                        </div>
+                    </div>
 
                     {f'''
                     <div class="latest-card">
@@ -328,12 +580,34 @@ data:
                             <p>Last modified: {saves[0]['formatted_time']} &bull; Size: {saves[0]['formatted_size']}</p>
                         </div>
                         <div class="btn-group">
-                            <a href="/latest.sav" class="btn btn-primary">Download Latest</a>
+                            <a href="/latest.sav" class="btn btn-primary">Download Latest Save</a>
                             <a href="{scim_latest_url}" target="_blank" rel="noopener noreferrer" class="btn btn-map">Open in SCIM ↗</a>
                         </div>
                     </div>
                     ''' if saves else '<p>No saves found on server.</p>'}
 
+                    <h2 class="section-title">
+                        <span>🧩 Installed Server Mods (Live)</span>
+                        <span class="badge">{len(mods_list)} Mods Loaded</span>
+                    </h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mod Name</th>
+                                <th>Server Version</th>
+                                <th>Description</th>
+                                <th style="text-align: right;">Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {mod_rows if mod_rows else '<tr><td colspan="4" style="text-align:center;">No mods detected</td></tr>'}
+                        </tbody>
+                    </table>
+
+                    <h2 class="section-title">
+                        <span>💾 World Save Files</span>
+                        <span class="badge">{len(saves)} Saves</span>
+                    </h2>
                     <table>
                         <thead>
                             <tr>

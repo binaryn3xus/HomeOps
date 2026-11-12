@@ -21,34 +21,101 @@ Welcome to the **UNSC-Section-III** Satisfactory dedicated server! This instance
 | **Ports** | `7778` (Game UDP/TCP & HTTPS API) & `8889` (Reliable Messaging TCP) | Same |
 | **Platform** | Steam & Epic Games Store (Crossplay Enabled) | Crossplay Enabled |
 | **Network Prerequisite** | Tailscale connected (`unsc-gaming`) | [Tailscale Guide](tailscale.md) |
-| **Save Downloader & Map** | [satisfactory-modded-saves.unscfleet.com](https://satisfactory-modded-saves.unscfleet.com) | Direct Web Portal |
+| **Save & Mod Portal** | [satisfactory-modded-saves.unscfleet.com](https://satisfactory-modded-saves.unscfleet.com) | Live `.smmprofile`, Mod List & Saves |
+| **SMM Profile Download** | [UNSC-Section-III.smmprofile](https://satisfactory-modded-saves.unscfleet.com/UNSC-Section-III.smmprofile) | One-Click SMM Import |
 
 ---
 
 ## 🧩 Mod Setup (Satisfactory Mod Manager)
 
-Because this server runs custom mods, **your client must have the matching mods installed** before joining.
+Because this server runs custom mods, **your client must have the exact matching mods installed** before joining. Our server automatically exports a live **Satisfactory Mod Manager (SMM)** profile directly from the running server filesystem so you never have to install or update mods one-by-one.
 
 ### 1. Download Satisfactory Mod Manager (SMM)
 1. Download and install **Satisfactory Mod Manager** from the official Ficsit community site:
    [:material-download: Download Satisfactory Mod Manager (ficsit.app)](https://ficsit.app){ .md-button .md-button--primary target="_blank" }
 2. Launch SMM. It will automatically detect your Steam or Epic Games installation of Satisfactory.
 
-### 2. Install Required Server Mods
-Ensure the following mods are installed and toggled **ON** in SMM:
+### 2. Import the Live Server Profile (Recommended)
+Instead of searching for mods manually, download and import our live server profile:
 
-| Mod Name | Description | SMM Link |
-| :--- | :--- | :--- |
-| **SML** | Satisfactory Mod Loader (Core dependency) | Included automatically |
-| **Daisy Chain Power Cables** | Connect power cables directly between machines and poles | [View on Ficsit](https://ficsit.app/mod/DaisyChainPowerCables) |
-| **Faster Manual Crafting Redux** | Speeds up hold-to-craft workbench progression | [View on Ficsit](https://ficsit.app/mod/FasterManualCraftingRedux) |
-| **BoomBoxPlus** | Custom and expanded boombox audio playback | [View on Ficsit](https://ficsit.app/mod/BoomBoxPlus) |
-| **Ficsit Remote Monitoring** | Telemetry and factory stats monitoring API | [View on Ficsit](https://ficsit.app/mod/FicsitRemoteMonitoring) |
-| **PEP Mod (Persistent Enhanced Power)** | Enhanced power management and distribution tools | [View on Ficsit](https://ficsit.app/mod/PEP_Mod) |
-| **Mod Update Notifier** | Alerts when mods need updates | [View on Ficsit](https://ficsit.app/mod/ModUpdateNotifier) |
+[:material-file-download: Download UNSC-Section-III.smmprofile (Live Server Export)](https://satisfactory-modded-saves.unscfleet.com/UNSC-Section-III.smmprofile){ .md-button .md-button--primary }
 
-!!! tip "One-Click Profile Import"
-    In SMM, you can create a dedicated profile named `UNSC-Section-III` so you can switch easily between vanilla Satisfactory and modded Satisfactory with a single click!
+1. Click the button above to download **`UNSC-Section-III.smmprofile`** *(requires Tailscale connected)*.
+2. In **Satisfactory Mod Manager**, locate the **Profile** dropdown at the top-left of the window and click the **Import Profile** icon (or go to **Profiles → Import Profile**).
+3. Select the downloaded `UNSC-Section-III.smmprofile` file and name the profile **`UNSC-Section-III`**.
+4. Make sure the **`Mods: ON`** toggle is enabled in SMM. SMM will automatically download and lock the exact mod versions currently running on the server!
+
+!!! tip "Switching Between Vanilla and Modded"
+    Using a dedicated `UNSC-Section-III` profile in SMM lets you switch between modded (`UNSC-Section-III`) and vanilla (`UNSC-Foundry`) with a single click—or simply toggle `Mods: OFF` when joining the vanilla server.
+
+### 3. Live Installed Server Mods
+The table below automatically fetches the currently installed mods and versions directly from the running server:
+
+<div class="md-typeset__scrollwrap">
+  <div class="md-typeset__table">
+    <table>
+      <thead>
+        <tr>
+          <th>Mod Name</th>
+          <th>Version</th>
+          <th>Description</th>
+          <th>SMM Link</th>
+        </tr>
+      </thead>
+      <tbody id="unsc-live-mods-tbody">
+        <tr>
+          <td colspan="4"><em>Loading live mod list from server...</em></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+(function() {
+  function escapeHtml(str) {
+    return String(str || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function loadUnscServerMods() {
+    var tbody = document.getElementById("unsc-live-mods-tbody");
+    if (!tbody || tbody.dataset.loaded === "true") return;
+
+    fetch("https://satisfactory-modded-saves.unscfleet.com/mods.json", { cache: "no-store" })
+      .then(function(res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.json();
+      })
+      .then(function(data) {
+        var mods = (data && data.mods) || [];
+        if (!mods.length) throw new Error("No mods returned");
+        tbody.dataset.loaded = "true";
+        tbody.innerHTML = mods.map(function(m) {
+          var name = "<strong>" + escapeHtml(m.name || m.ref) + "</strong>";
+          var ver = "<code>v" + escapeHtml(m.version || "latest") + "</code>";
+          var desc = escapeHtml(m.description || "Required server mod");
+          var link = m.is_sml
+            ? "Included automatically"
+            : '<a href="' + escapeHtml(m.ficsit_url) + '" target="_blank" rel="noopener noreferrer">View on Ficsit</a>';
+          return "<tr><td>" + name + "</td><td>" + ver + "</td><td>" + desc + "</td><td>" + link + "</td></tr>";
+        }).join("");
+      })
+      .catch(function() {
+        tbody.innerHTML = '<tr><td colspan="4">Unable to reach live mod API. View the active mod list directly on <a href="https://satisfactory-modded-saves.unscfleet.com" target="_blank" rel="noopener noreferrer">satisfactory-modded-saves.unscfleet.com</a>.</td></tr>';
+      });
+  }
+
+  loadUnscServerMods();
+  if (typeof document$ !== "undefined" && !window.__unscModsSubscribed) {
+    window.__unscModsSubscribed = true;
+    document$.subscribe(loadUnscServerMods);
+  }
+})();
+</script>
 
 ---
 
@@ -96,9 +163,9 @@ Satisfactory transfers substantial simulation data over the network. Configure t
 ## 🛠️ Troubleshooting & FAQ
 
 ??? question "Error: 'Server Missing Mods' or 'Client Missing Mods'"
-    - This error occurs when your local client mods do not match the mods running on the server.
-    - Open **Satisfactory Mod Manager**, check the mod list above, and verify all mods are updated to their latest versions.
-    - Make sure you clicked **Launch Game** from SMM so the mods are mounted into Unreal Engine at launch.
+    - This error occurs when your local client mods or versions do not match what is currently running on the server.
+    - **Quick Fix:** Download the latest **[UNSC-Section-III.smmprofile](https://satisfactory-modded-saves.unscfleet.com/UNSC-Section-III.smmprofile)** and re-import it in **Satisfactory Mod Manager** (*Profiles → Import Profile*), or check the live version list at **[satisfactory-modded-saves.unscfleet.com](https://satisfactory-modded-saves.unscfleet.com)**.
+    - Make sure `Mods: ON` is enabled in SMM before launching the game.
 
 ??? question "Server Manager shows 'Server Offline' or connection times out"
     1. **Tailscale Connection:** Confirm that Tailscale is connected. Open PowerShell and run:
