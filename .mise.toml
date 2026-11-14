@@ -29,7 +29,7 @@ just = "1.59.0"
 yq = "4.54.3"
 
 # Assistant & Cloud Tools
-antigravity-cli = "1.5.8"
+antigravity-cli = "1.5.9"
 codex = "0.153.4"
 copilot-cli = "1.0.112"
 "github:anomalyco/opencode" = "2.3.0"
