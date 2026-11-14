@@ -15,6 +15,19 @@
     commitMessageExtra: '({{manager}})',
     additionalBranchPrefix: '{{manager}}-',
   },
+  customManagers: [
+    {
+      customType: 'regex',
+      description: 'Process annotated container image dependencies in Talos templates',
+      managerFilePatterns: [
+        '/^talos\\/.*\\.ya?ml(?:\\.j2)?$/',
+      ],
+      matchStrings: [
+        'datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n\\s*image:\\s*[^:]+:(?<currentValue>[^"\'\\s]+)',
+      ],
+      datasourceTemplate: '{{#if datasource}}{{{datasource}}}{{else}}docker{{/if}}',
+    },
+  ],
   packageRules: [
     {
       description: 'Auto-merge help-docs image updates',
