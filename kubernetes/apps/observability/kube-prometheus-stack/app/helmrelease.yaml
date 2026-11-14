@@ -20,6 +20,7 @@ spec:
     defaultRules:
       disabled:
         InfoInhibitor: true
+        Watchdog: true
     crds:
       enabled: true
       upgradeJob:
