@@ -8,24 +8,7 @@ talos_dir := justfile_dir() + '/talos'
 default:
     just -l talos
 
-[doc("Show Talos Dashboard")]
-dashboard node:
-    talosctl dashboard -n "{{ node }}"
-
-[confirm('Apply Talos config to ' + node + ' [y|N] ?')]
-[doc('Apply Talos config to a node')]
-apply-node node *args:
-    just talos render-config "{{ node }}" | talosctl -n "{{ node }}" apply-config -f /dev/stdin {{ args }}
-
-[doc('Download Talos machine image ISO')]
-download-image version node="":
-    @schematic="$(just talos schematic-id "{{ node }}")"; \
-    echo "Downloading Talos {{ version }} ISO (${schematic:0:8})..."; \
-    curl -fL --remove-on-error --retry 5 --retry-delay 5 --retry-all-errors --progress-bar \
-        -o "{{ talos_dir }}/talos-{{ version }}-${schematic:0:8}.iso" \
-        "https://factory.talos.dev/image/${schematic}/{{ version }}/metal-amd64.iso"; \
-    echo "Downloaded Talos {{ version }} ISO (${schematic:0:8}) to {{ talos_dir }}"
-
+# --- Configuration & Rendering ---
 [doc('Render Talos config for a node')]
 render-config node:
     @schematic="$(just talos schematic-id "{{ node }}")"; \
@@ -43,6 +26,35 @@ render-config node:
         -p @<(just template "{{ talos_dir }}/${role}.yaml.j2") \
         -p @<(just template "${node_file}")
 
+[confirm('Apply Talos config to ' + node + ' [y|N] ?')]
+[doc('Apply Talos config to a single node')]
+apply-node node *args:
+    just talos render-config "{{ node }}" | talosctl -n "{{ node }}" apply-config -f /dev/stdin {{ args }}
+
+[doc('Dry-run Talos config changes across all nodes')]
+dry-run-all:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    for f in "{{ talos_dir }}"/nodes/*/*.yaml.j2; do
+        [[ "$f" == *.schematic.yaml.j2 ]] && continue
+        node="$(basename "$f" .yaml.j2)"
+        echo "=== Dry-run: $node ==="
+        just talos render-config "$node" | talosctl -n "$node" apply-config -f /dev/stdin --dry-run
+    done
+
+[confirm('Apply Talos config to ALL nodes in the cluster [y|N] ?')]
+[doc('Apply Talos config across all nodes')]
+apply-all *args:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    for f in "{{ talos_dir }}"/nodes/*/*.yaml.j2; do
+        [[ "$f" == *.schematic.yaml.j2 ]] && continue
+        node="$(basename "$f" .yaml.j2)"
+        echo "=== Applying to $node ==="
+        just talos render-config "$node" | talosctl -n "$node" apply-config -f /dev/stdin {{ args }}
+    done
+
+# --- Client Credentials (talosconfig) ---
 [doc('Render Talos client config with secrets injected')]
 render-talosconfig:
     just template "{{ talos_dir }}/talosconfig.yaml.j2" > "{{ talos_dir }}/talosconfig"
@@ -85,11 +97,21 @@ backup-talosconfig:
     az keyvault secret set --vault-name "K8sHomeOpsKeyVault" --name "Talos-Config-Key" --value "$key" > /dev/null
     echo "Successfully synced Talos-Config, Talos-Config-Crt, and Talos-Config-Key in Azure Key Vault."
 
-[doc('Backup the configuration spec from a node to a file')]
-backup-config ip:
-    @talosctl -n "{{ip}}" get mc -o yaml | yq eval '.spec' - > "{{ip}}-backup.yaml"
-    @echo "Configuration spec for node '{{ip}}' has been backed up to '{{ip}}-backup.yaml'"
+# --- Diagnostics & Images ---
+[doc('Show Talos Dashboard')]
+dashboard node:
+    talosctl dashboard -n "{{ node }}"
 
+[doc('Download Talos machine image ISO')]
+download-image version node="":
+    @schematic="$(just talos schematic-id "{{ node }}")"; \
+    echo "Downloading Talos {{ version }} ISO (${schematic:0:8})..."; \
+    curl -fL --remove-on-error --retry 5 --retry-delay 5 --retry-all-errors --progress-bar \
+        -o "{{ talos_dir }}/talos-{{ version }}-${schematic:0:8}.iso" \
+        "https://factory.talos.dev/image/${schematic}/{{ version }}/metal-amd64.iso"; \
+    echo "Downloaded Talos {{ version }} ISO (${schematic:0:8}) to {{ talos_dir }}"
+
+# --- Node Power & Manual Upgrades ---
 [confirm('Upgrade Kubernetes to ' + version + ' [y|N] ?')]
 [doc('Upgrade Kubernetes version on the cluster')]
 upgrade-k8s ip version:
@@ -100,11 +122,10 @@ upgrade-k8s ip version:
 upgrade-node node *args:
     talosctl -n "{{ node }}" upgrade -i "$(just talos machine-image "{{ node }}")" -m powercycle --timeout=10m {{ args }}
 
-# --- Node Power Management ---
 [confirm('Reboot node ' + node + ' [y|N] ?')]
 [doc('Reboot a node')]
 reboot-node node:
-    talosctl -n {{ node }} reboot -m powercycle
+    talosctl -n "{{ node }}" reboot -m powercycle
 
 [confirm('Reset node ' + node + ' [y|N] ?')]
 [doc('Reset a node')]

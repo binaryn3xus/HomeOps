@@ -11,12 +11,12 @@ default:
 # Bootstrap Step 0 - Create Namespaces
 [doc('Create Kubernetes Namespaces')]
 namespaces:
-    find {{kubernetes_apps_dir}} -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | xargs -r -I{} sh -c 'kubectl create namespace "$1" --dry-run=client -o yaml; echo "---"' _ {} | kubectl apply -f -
+    find "{{ kubernetes_apps_dir }}" -mindepth 1 -maxdepth 1 -type d -printf "%f\n" | xargs -r -I{} sh -c 'kubectl create namespace "$1" --dry-run=client -o yaml; echo "---"' _ {} | kubectl apply -f -
 
 # Bootstrap Step 1 - Apply Initial Manifests
 [doc('Apply Kubernetes resources')]
 resources:
-    minijinja-cli resources.yaml.j2 | ../az-inject.sh | kubectl apply --server-side -f -
+    just template "{{ bootstrap_dir }}/resources.yaml.j2" | kubectl apply --server-side -f -
 
 # Bootstrap Step 2 - Apply Helm CRDs
 [doc('Apply Helmfile CRDs')]
