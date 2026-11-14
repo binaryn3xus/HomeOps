@@ -9,6 +9,7 @@ metadata:
     cnpg.io/skipEmptyWalArchiveCheck: "enabled"
 spec:
   instances: 1
+  enablePDB: false
   imageName: ghcr.io/cloudnative-pg/postgresql:18.6
   primaryUpdateStrategy: unsupervised
   primaryUpdateMethod: switchover
@@ -74,7 +75,3 @@ spec:
     enablePodAntiAffinity: true
     podAntiAffinityType: preferred
     topologyKey: kubernetes.io/hostname
-
-  nodeMaintenanceWindow:
-    inProgress: false
-    reusePVC: false

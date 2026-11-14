@@ -8,7 +8,7 @@ spec:
   healthChecks:
     - apiVersion: kopiur.home-operations.com/v1alpha1
       expr: |-
-        !has(status.phase) || status.phase in ['Succeeded', 'Failed', 'Orphaned']
+        !has(status.phase) || !(status.phase in ['Pending', 'Running'])
       kind: Snapshot
     - apiVersion: ceph.rook.io/v1
       expr: |-
@@ -16,6 +16,10 @@ spec:
       kind: CephCluster
       name: rook-ceph
       namespace: rook-ceph
+    - apiVersion: postgresql.cnpg.io/v1
+      expr: |-
+        status.phase == 'Cluster in healthy state'
+      kind: Cluster
   kubernetes:
     # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
     version: v1.37.2
