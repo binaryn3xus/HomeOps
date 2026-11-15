@@ -38,6 +38,19 @@ spec:
       port: 8889
       targetPort: 8889
       protocol: TCP
+    # Satisfactory Test (UNSC-Proving-Grounds)
+    - name: satisfactory-test-udp
+      port: 7779
+      targetPort: 7779
+      protocol: UDP
+    - name: satisfactory-test-tcp
+      port: 7779
+      targetPort: 7779
+      protocol: TCP
+    - name: satisfactory-test-api
+      port: 8890
+      targetPort: 8890
+      protocol: TCP
     # Palworld
     - name: palworld-udp
       port: 8211

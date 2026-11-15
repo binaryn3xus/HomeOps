@@ -1,0 +1,129 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: satisfactory-test
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: satisfactory-test
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    nodeSelector:
+      sku: gaming
+    tolerations:
+      - key: sku
+        operator: Equal
+        value: gaming
+        effect: NoSchedule
+
+    server:
+      image:
+        repository: ghcr.io/binaryn3xus/satisfactory-server
+        tag: latest
+        pullPolicy: Always
+      config:
+        serverName: "UNSC-Proving-Grounds"
+        gamePort: 7779
+        messagingPort: 8890
+        maxPlayers: 8
+        maxTickRate: 30
+        autoSaveNum: 5
+        autoSaveInterval: 300
+        autoPause: true
+        steam:
+          branch: public
+          updateOnStart: true
+          validate: false
+      resources:
+        requests:
+          cpu: "2"
+          memory: 4Gi
+        limits:
+          cpu: "4"
+          memory: 8Gi
+
+    mods:
+      enabled: true
+      strictMode: true
+      profileName: "UNSC-Proving-Grounds"
+      updatePolicy: "always"
+      items:
+        - ref: BlueprintHighlighted
+          version: latest
+        - ref: BoomBoxPlus
+          version: latest
+        - ref: DaisyChainEverything
+          version: latest
+        - ref: DirectToSplitter
+          version: latest
+        - ref: FasterManualCraftingRedux
+          version: latest
+        - ref: FicsitRemoteMonitoring
+          version: latest
+        - ref: InfiniteNudge
+          version: latest
+        - ref: InfiniteZoop
+          version: latest
+        - ref: ModUpdateNotifier
+          version: latest
+        - ref: NoFuel
+          version: latest
+        - ref: NoHoverPackDrift
+          version: latest
+
+    portal:
+      enabled: true
+      port: 8081
+      frmApiUrl: "http://127.0.0.1:8080"
+      image:
+        repository: ghcr.io/binaryn3xus/satisfactory-portal
+        tag: latest
+      route:
+        enabled: true
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
+        hostnames:
+          - satisfactory-test-saves.unscfleet.com
+
+    service:
+      game:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: "10.0.30.44"
+          external-dns.kubernetes.io/hostname: "satisfactory-test.unscfleet.com"
+          external-dns.alpha.kubernetes.io/hostname: "satisfactory-test.unscfleet.com"
+
+    tls:
+      certManager:
+        enabled: true
+        commonName: satisfactory-test.unscfleet.com
+        dnsNames:
+          - satisfactory-test.unscfleet.com
+        issuerRef:
+          name: letsencrypt-production
+          kind: ClusterIssuer
+
+    persistence:
+      enabled: true
+      storageClass: ceph-block
+      size: 25Gi
+
+    backup:
+      enabled: true
+      schedule: "0 */6 * * *"
+      timeZone: "America/New_York"
+      nfs:
+        server: "10.0.30.4"
+        path: "/volume1/Media"
+        targetSubDir: "Gaming/Satisfactory-Test"
