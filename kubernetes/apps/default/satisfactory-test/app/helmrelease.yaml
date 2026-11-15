@@ -87,6 +87,7 @@ spec:
       image:
         repository: ghcr.io/binaryn3xus/satisfactory-portal
         tag: latest
+        pullPolicy: Always
       route:
         enabled: true
         parentRefs:
