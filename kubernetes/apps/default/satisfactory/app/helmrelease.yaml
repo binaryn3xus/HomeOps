@@ -1,0 +1,104 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: satisfactory
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: satisfactory
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    nodeSelector:
+      sku: gaming
+    tolerations:
+      - key: sku
+        operator: Equal
+        value: gaming
+        effect: NoSchedule
+
+    server:
+      image:
+        repository: ghcr.io/binaryn3xus/satisfactory-server
+        tag: latest
+        pullPolicy: Always
+      config:
+        serverName: "UNSC-Foundry"
+        gamePort: 7777
+        messagingPort: 8888
+        maxPlayers: 8
+        maxTickRate: 30
+        autoSaveNum: 5
+        autoSaveInterval: 300
+        autoPause: true
+        steam:
+          branch: public
+          updateOnStart: true
+          validate: false
+      resources:
+        requests:
+          cpu: "2"
+          memory: 4Gi
+        limits:
+          cpu: "4"
+          memory: 8Gi
+
+    mods:
+      enabled: false
+
+    portal:
+      enabled: true
+      port: 8081
+      image:
+        repository: ghcr.io/binaryn3xus/satisfactory-portal
+        tag: latest
+      route:
+        enabled: true
+        parentRefs:
+          - name: envoy-external
+            namespace: network
+            sectionName: https
+        hostnames:
+          - satisfactory-saves.unscfleet.com
+
+    sftp:
+      enabled: false
+
+    service:
+      game:
+        type: LoadBalancer
+        annotations:
+          lbipam.cilium.io/ips: "10.0.30.37"
+          external-dns.kubernetes.io/hostname: "satisfactory.unscfleet.com"
+          external-dns.alpha.kubernetes.io/hostname: "satisfactory.unscfleet.com"
+
+    tls:
+      certManager:
+        enabled: true
+        commonName: satisfactory.unscfleet.com
+        dnsNames:
+          - satisfactory.unscfleet.com
+        issuerRef:
+          name: letsencrypt-production
+          kind: ClusterIssuer
+
+    persistence:
+      enabled: true
+      existingClaim: satisfactory
+
+    backup:
+      enabled: true
+      schedule: "0 */6 * * *"
+      timeZone: "America/New_York"
+      nfs:
+        server: "10.0.30.4"
+        path: "/volume1/Media"
+        targetSubDir: "Gaming/Satisfactory"
