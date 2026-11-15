@@ -39,6 +39,7 @@ spec:
         autoSaveNum: 5
         autoSaveInterval: 300
         autoPause: true
+        extraArgs: "-ini:Engine:[SystemSettings]:FG.DedicatedServer.AllowInsecureLocalAccess=1"
         steam:
           branch: public
           updateOnStart: true
