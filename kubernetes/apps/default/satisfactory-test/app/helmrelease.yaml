@@ -86,7 +86,7 @@ spec:
       frmApiUrl: "http://127.0.0.1:8080"
       image:
         repository: ghcr.io/binaryn3xus/satisfactory-portal
-        tag: latest
+        tag: 0.1.0
         pullPolicy: Always
       route:
         enabled: true
