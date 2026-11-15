@@ -57,7 +57,7 @@ services:
       - "5001:8443"
 
   uptime-kuma:
-    image: louislam/uptime-kuma:2.5.9
+    image: louislam/uptime-kuma:2.5.11
     container_name: uptime-kuma
     restart: always
     volumes:
