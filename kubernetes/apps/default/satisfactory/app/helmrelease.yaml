@@ -26,10 +26,6 @@ spec:
         effect: NoSchedule
 
     server:
-      image:
-        repository: ghcr.io/binaryn3xus/satisfactory-server
-        tag: latest
-        pullPolicy: Always
       config:
         serverName: "UNSC-Foundry"
         gamePort: 7777
@@ -58,9 +54,6 @@ spec:
     portal:
       enabled: true
       port: 8081
-      image:
-        repository: ghcr.io/binaryn3xus/satisfactory-portal
-        tag: latest
       route:
         enabled: true
         parentRefs:
