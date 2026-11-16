@@ -65,8 +65,6 @@ spec:
       teleportConfig:
         proxy_service:
           trust_x_forwarded_for: true
-          keep_alive_interval: 30s
-          keep_alive_count_max: 3
         kubernetes_service:
           enabled: false
 
