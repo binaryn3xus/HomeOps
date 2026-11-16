@@ -14,6 +14,9 @@ data:
         service: https://teleport.teleport.svc.cluster.local:443
         originRequest:
           originServerName: teleport.unscfleet.com
+          tcpKeepAlive: 15s
+          keepAliveTimeout: 90s
+          keepAliveConnections: 100
       - hostname: unscfleet.com
         originRequest:
           originServerName: unscfleet.com
