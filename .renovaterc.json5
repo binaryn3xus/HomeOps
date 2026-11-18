@@ -321,7 +321,7 @@
       labels: [
         'area/parents-server',
       ],
-      minimumReleaseAge: '3 days',
+      minimumReleaseAge: '1 days',
       automerge: false,
     },
 
