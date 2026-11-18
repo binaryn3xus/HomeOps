@@ -20,7 +20,7 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
       initContainers:
         - name: init-passwd
-          image: public.ecr.aws/docker/library/eclipse-mosquitto:2.0.22
+          image: public.ecr.aws/docker/library/eclipse-mosquitto:2.0.23
           command:
             - /bin/sh
             - -c
@@ -45,7 +45,7 @@ spec:
                 - ALL
       containers:
         - name: app
-          image: public.ecr.aws/docker/library/eclipse-mosquitto:2.0.22
+          image: public.ecr.aws/docker/library/eclipse-mosquitto:2.0.23
           env:
             - name: TZ
               value: "America/New_York"
