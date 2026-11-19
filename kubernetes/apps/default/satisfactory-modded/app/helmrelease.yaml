@@ -78,6 +78,8 @@ spec:
           version: latest
         - ref: PEP_Mod
           version: latest
+        - ref: SkyUI
+          version: latest
 
     portal:
       enabled: true
