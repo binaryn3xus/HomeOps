@@ -39,7 +39,7 @@ spec:
         steam:
           branch: public
           updateOnStart: true
-          validate: false
+          validate: true
       resources:
         requests:
           cpu: "2"
