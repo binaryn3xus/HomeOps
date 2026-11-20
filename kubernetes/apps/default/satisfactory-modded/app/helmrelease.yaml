@@ -60,8 +60,6 @@ spec:
           version: latest
         - ref: DaisyChainEverything
           version: latest
-        - ref: DirectToSplitter
-          version: latest
         - ref: FasterManualCraftingRedux
           version: latest
         - ref: FicsitRemoteMonitoring
