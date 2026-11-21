@@ -68,6 +68,8 @@ spec:
           version: latest
         - ref: InfiniteZoop
           version: latest
+        - ref: InfiniteDismantle
+          version: latest
         - ref: ModUpdateNotifier
           version: latest
         - ref: NoFuel
