@@ -95,9 +95,7 @@ spec:
           - satisfactory-modded-saves.unscfleet.com
 
     sftp:
-      enabled: true
-      port: 2222
-      existingSecret: satisfactory-modded-secrets
+      enabled: false
 
     service:
       game:
