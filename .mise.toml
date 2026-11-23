@@ -7,7 +7,7 @@ KUBE_EDITOR = "nano"
 [tools]
 # Kubernetes & Infrastructure
 cilium-cli = "0.20.3"
-cloudflared = "2026.11.1"
+cloudflared = "2026.11.2"
 flux2 = "2.10.1"
 "github:cloudnative-pg/cloudnative-pg" = "1.30.2"
 helm = "4.3.2"
