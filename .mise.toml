@@ -28,7 +28,7 @@ just = "1.59.0"
 yq = "4.54.3"
 
 # Runtime, Cloud & Assistant Tools
-antigravity-cli = "1.5.16"
+antigravity-cli = "1.5.17"
 codex = "0.153.4"
 copilot-cli = "1.0.115"
 gcloud = "585.0.0"
