@@ -30,7 +30,7 @@ yq = "4.54.3"
 # Runtime, Cloud & Assistant Tools
 antigravity-cli = "1.5.17"
 codex = "0.153.4"
-copilot-cli = "1.0.115"
+copilot-cli = "1.0.116"
 gcloud = "585.0.0"
 gh = "2.105.0"
 node = "26.13.1"
