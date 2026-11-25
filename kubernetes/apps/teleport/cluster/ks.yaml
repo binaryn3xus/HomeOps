@@ -29,8 +29,8 @@ spec:
     substitute:
       APP: *app
       KOPIUR_CAPACITY: 10Gi
-      KOPIUR_PUID: "1000"
-      KOPIUR_PGID: "568"
+      KOPIUR_PUID: "0"
+      KOPIUR_PGID: "0"
   prune: true
   sourceRef:
     kind: GitRepository

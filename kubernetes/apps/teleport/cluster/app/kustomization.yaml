@@ -11,3 +11,15 @@ labels:
       app.kubernetes.io/name: teleport
       app.kubernetes.io/instance: teleport
     includeSelectors: true
+patches:
+  # Teleport runs as root and writes files (such as audit-queue in v19+) with root ownership and 0700 perms.
+  # The root mover requires DAC capabilities to read and snapshot these files cleanly.
+  - target:
+      kind: SnapshotPolicy
+    patch: |-
+      - op: add
+        path: /spec/mover/securityContext/capabilities
+        value:
+          add:
+            - DAC_READ_SEARCH
+            - DAC_OVERRIDE
