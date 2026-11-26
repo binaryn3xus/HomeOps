@@ -17,6 +17,9 @@ spec:
     remediation:
       retries: 3
   values:
+    podAnnotations:
+      secret.reloader.stakater.com/reload: satisfactory-modded-secrets
+
     nodeSelector:
       sku: gaming
     tolerations:
@@ -85,6 +88,9 @@ spec:
       enabled: true
       port: 8081
       frmApiUrl: "http://127.0.0.1:8080"
+      adminPassword:
+        existingSecret: satisfactory-modded-secrets
+        secretKey: ADMIN_PASSWORD
       route:
         enabled: true
         parentRefs:

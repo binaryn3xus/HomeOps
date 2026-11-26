@@ -19,6 +19,9 @@ spec:
   values:
     fullnameOverride: satisfactory-vanilla
 
+    podAnnotations:
+      secret.reloader.stakater.com/reload: satisfactory-secrets
+
     nodeSelector:
       sku: gaming
     tolerations:
@@ -56,6 +59,9 @@ spec:
     portal:
       enabled: true
       port: 8081
+      adminPassword:
+        existingSecret: satisfactory-secrets
+        secretKey: ADMIN_PASSWORD
       route:
         enabled: true
         parentRefs:
