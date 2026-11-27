@@ -4,7 +4,7 @@ services:
   #######
   portainer:
     container_name: portainer
-    image: portainer/portainer-ce:2.45.3
+    image: portainer/portainer-ce:2.45.4
     hostname: portainer
     restart: always
     volumes:
