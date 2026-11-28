@@ -6,7 +6,6 @@ namespace: ai
 resources:
   - ./namespace.yaml
   - ./ollama/ks.yaml
-  - ./litellm/ks.yaml
   - ./open-webui/ks.yaml
   - ./searxng/ks.yaml
   - ./hermes/ks.yaml

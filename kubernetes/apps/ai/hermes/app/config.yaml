@@ -2,33 +2,6 @@ model:
   default: "gpt-5.6-sol"
   provider: "openai-codex"
 
-# Keep Codex as the default for dependable repository work. These aliases let
-# a Kanban task or chat session deliberately choose a cluster-local model for
-# inexpensive triage, summaries, and lightweight code review. Route through
-# LiteLLM so usage is attributed to Hermes and Ollama stays private to the
-# gateway.
-providers:
-  homeops:
-    name: "HomeOps LiteLLM"
-    base_url: "http://litellm.ai.svc.cluster.local:4000/v1"
-    key_env: "LITELLM_API_KEY"
-    # Keep the picker stable and avoid an unnecessary discovery request on
-    # every dashboard open. LiteLLM owns the full model catalog.
-    discover_models: false
-    models:
-      - "homeops/local-fast"
-      - "homeops/local-code"
-model_aliases:
-  local-fast:
-    model: "homeops/local-fast"
-    provider: "custom"
-    base_url: "http://litellm.ai.svc.cluster.local:4000/v1"
-    key_env: "LITELLM_API_KEY"
-  local-code:
-    model: "homeops/local-code"
-    provider: "custom"
-    base_url: "http://litellm.ai.svc.cluster.local:4000/v1"
-    key_env: "LITELLM_API_KEY"
 agent:
   max_turns: 60
   verbose: false
